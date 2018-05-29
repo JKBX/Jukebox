@@ -182,7 +182,8 @@ class PartyCollectionViewController: UICollectionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showParty" {
             let controller = segue.destination as! PartyPlaylistViewController
-            controller.party = self.selectedParty
+            controller.partyID = "toDo"
+            controller.isAdmin = (selectedParty.value(forKey: "Host") as! String?) == Auth.auth().currentUser?.uid
             self.selectedParty = [:]
         }
     }
