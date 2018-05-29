@@ -116,5 +116,11 @@ fastlane/test_output
 # Firebase Config
 Jukebox/GoogleService-Info.plist
 
+#Spotify Credentials
+Jukebox/Constants.swift
+
+
 # End of https://www.gitignore.io/api/xcode,swift,macos,cocoapods
+
+
 

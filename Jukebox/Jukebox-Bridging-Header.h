@@ -5,4 +5,5 @@
 
 #import <SpotifyAuthentication/SpotifyAuthentication.h>
 #import <SpotifyAudioPlayback/SpotifyAudioPlayback.h>
+#import <SpotifyMetadata/SpotifyMetaData.h>
 #import <SafariServices/SafariServices.h>

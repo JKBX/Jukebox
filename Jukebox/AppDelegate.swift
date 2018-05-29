@@ -7,16 +7,61 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var streamingDelegate: SPTAudioStreamingDelegate?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        //Setup Firebase
+        FirebaseApp.configure()
+        
+        //Setup Spotify
+        setupSpotify()
+        
         return true
+    }
+    
+    func setupSpotify() {
+        //Shorthands
+        let auth:SPTAuth! = SPTAuth.defaultInstance()
+        let stream:SPTAudioStreamingController! = SPTAudioStreamingController.sharedInstance()
+        
+        //Configure Spotify ID, scope and keys + redirect, swap, refresh URLs
+        auth.clientID = SpotifyConfig.clientID
+        auth.redirectURL = SpotifyConfig.redirectURI
+        auth.sessionUserDefaultsKey = SpotifyConfig.sessionKey
+        auth.tokenRefreshURL = SpotifyConfig.refreshURL
+        auth.tokenSwapURL = SpotifyConfig.swapURL
+        auth.requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthPlaylistModifyPublicScope, SPTAuthPlaylistModifyPrivateScope, SPTAuthUserLibraryReadScope, SPTAuthUserLibraryModifyScope, SPTAuthUserReadPrivateScope, SPTAuthUserReadTopScope, SPTAuthUserReadBirthDateScope, SPTAuthUserReadEmailScope]
+        
+        //Init and Set Streaming Delegate
+        streamingDelegate = AudioStreamingDelegate()
+        stream.delegate = streamingDelegate
+        
+        // Start the spotify player
+        do { try stream.start(withClientId: SpotifyConfig.clientID)
+        } catch { fatalError("Couldn't start Spotify SDK") }
+        
+        if let session = auth.session {
+            if session.isValid(){
+                stream.login(withAccessToken: session.accessToken)
+            } else {
+                auth.renewSession(auth.session) { (error, session) in
+                    //Check if there is an error because then there won't be a session.
+                    if let error = error { print(error); return }
+                    // Check if there is a session
+                    if let session = session {
+                        stream.login(withAccessToken: session.accessToken)
+                    }
+                }
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
