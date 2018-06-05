@@ -13,7 +13,7 @@
         <!--Party Playlist View Controller-->
         <scene sceneID="SgR-GX-Wad">
             <objects>
-                <viewController id="8nm-HZ-Lgc" customClass="PartyPlaylistViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PartyPlaylistSB" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8nm-HZ-Lgc" customClass="PartyPlaylistViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u0f-5R-3vf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,7 +24,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="trackCell" rowHeight="64" id="CLP-J2-OTr" customClass="TrackCell" customModule="Jukebox" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="trackCell" rowHeight="64" id="CLP-J2-OTr" customClass="TrackCell" customModule="Jukebox" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CLP-J2-OTr" id="h3k-U7-1iO">
