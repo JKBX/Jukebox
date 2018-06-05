@@ -45,6 +45,21 @@ class PartyPlaylistViewController: UIViewController, UITableViewDelegate, UITabl
         label.text = party.value(forKey: "Name") as! String
         // Do any additional setup after loading the view.
     }
+    
+    //MARK: Methods
+
+    @IBAction func likeTrack(_sender: UIButton){
+        ref.child("/Paries/\(self.partyID)/Queue/Track/Votes").observeSingleEvent(of: .value, with: { (snapshot) in
+            //TODO: get userID!
+            if snapshot.hasChild("userID"){
+//                self.ref.removeValue("userID")
+                print("unliked track")
+            }else{
+//                self.ref.child("/Paries/\(self.partyID)/Queue/Track/Votes").setValue("userID")
+                print("liked track")
+            }
+        })
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
