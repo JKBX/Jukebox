@@ -8,8 +8,15 @@
 
 import UIKit
 
+protocol TrackCellDelegate{
+    func likedTrack(trackID: String)
+//    func showTrackOptions(trackID: String)
+}
+
 class TrackCell: UITableViewCell {
 
+    var delegate: TrackCellDelegate?
+    var trackID: String = ""
     @IBOutlet weak var coverImage: UIImageView!
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var songArtistLabel: UILabel!
@@ -24,5 +31,9 @@ class TrackCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
+    }
+    
+    @IBAction func tappedLikeButton(_ sender: UIButton) {
+        delegate?.likedTrack(trackID: trackID)
     }
 }

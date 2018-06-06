@@ -27,5 +27,4 @@ class ButtonDesignable: UIButton {
             self.layer.borderColor = borderColor.cgColor
         }
     }
-    
 }
