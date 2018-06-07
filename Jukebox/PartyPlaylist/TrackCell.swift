@@ -2,9 +2,8 @@
 //  TrackCell.swift
 //  Jukebox
 //
-//  Created by Maximilian Babel on 29.05.18.
+//  Created by Team Jukebox/Gruppe 7
 //  Copyright © 2018 Jukebox. All rights reserved.
-//
 
 import UIKit
 
@@ -18,14 +17,13 @@ class TrackCell: UITableViewCell {
     var delegate: TrackCellDelegate?
     var trackID: String = ""
     @IBOutlet weak var coverImage: UIImageView!
-    @IBOutlet weak var songTitleLabel: UILabel!
-    @IBOutlet weak var songArtistLabel: UILabel!
-    @IBOutlet weak var voteCounterLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
+//    Labels tag order -> [Title,Artist,Counter] = [0,1,2]
+    @IBOutlet var titleArtistCounterLabels: [UILabel]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

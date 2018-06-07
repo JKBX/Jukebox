@@ -2,70 +2,88 @@
 //  PartyPlaylistViewController.swift
 //  Jukebox
 //
-//  Created by Philipp on 22.05.18.
-//  Copyright © 2018 Philipp. All rights reserved.
-//
+//  Created by Team Jukebox/Gruppe 7
+//  Copyright © 2018 Jukebox. All rights reserved.
 
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class PartyPlaylistViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PartyPlaylistViewController: UIViewController{
     
-    //MARK: Vars
-    
+    @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
     var isAdmin: Bool = false
     var partyID: String = ""
+    var trackID: String = ""
     var queue: [NSDictionary] = []
     let user = Auth.auth().currentUser
+    
+
     
     //MARK: LifeCycle
     var party:NSDictionary = [:]
     
-    @IBOutlet weak var label: UILabel!
-    
     override func viewDidLoad() {
-        let queueObserver = ref.child("/Paries/\(self.partyID)/Queue").observe(DataEventType.value, with: { (snapshot) in
+        super.viewDidLoad()
+        
+        let queueObserver = ref.child("/parties/\(self.partyID)/queue").observe(DataEventType.value, with: { (snapshot) in
             self.queue = snapshot.value as! [NSDictionary]
         })
-        super.viewDidLoad()
-        print(party)
-        label.text = party.value(forKey: "Name") as! String
-        // Do any additional setup after loading the view.
+        tableView.dataSource = self
+
     }
     
     //MARK: TableView Methods
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return queue.count
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return queue.count
+//    }
+/*
+ Creating a tableView. Returns a cell with songTitleLabel and songArtistLabel
+     
+ */
+ 
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell", for: indexPath) as! TrackCell
+////        Title < Artist < Counter
+//        cell.titleArtistCounterLabels = cell.titleArtistCounterLabels.sorted{ $0.tag < $1.tag }
+//        cell.titleArtistCounterLabels[0].text = queue[indexPath.item].value(forKey: "songTitle") as? String
+//        cell.titleArtistCounterLabels[1].text = queue[indexPath.item].value(forKey: "artist") as? String
+//        //        TODO: vote tracks
+//
+//        cell.delegate = self as? TrackCellDelegate
+//        cell.likeButton.setImage(#imageLiteral(resourceName: "round_star_border_black_18dp-1"), for: UIControlState.normal)
+//        return cell
+//    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell", for: indexPath) as! TrackCell
-        cell.songTitleLabel.text = queue[indexPath.item].value(forKey: "Name") as? String
-        cell.songArtistLabel.text = queue[indexPath.item].value(forKey: "Artist") as? String
-        cell.delegate = self as? TrackCellDelegate
-        cell.likeButton.setImage(#imageLiteral(resourceName: "round_star_border_black_18dp-1"), for: UIControlState.normal)
-        return cell
-    }
+    
+/*  Up- and downvote track.
+     
+     */
     
     @IBAction func likeTrack(_sender: UIButton){
         if let user = user{
             let uid = user.uid
-        
-            ref.child("/Paries/\(self.partyID)/Queue/Track/Votes").observeSingleEvent(of: .value, with: { (snapshot) in
+            let treeVote = ref.child("/parties/\(self.partyID)/queue/\(self.trackID)/votes")
+            
+            treeVote.observeSingleEvent(of: .value, with: { (snapshot) in
                 if snapshot.hasChild(uid){
-                    self.ref.child(uid).removeValue()
-//                    likeButton.setImage(#imageLiteral(resourceName: "round_star_border_black_18dp-1"), for: UIControlState.normal)
+                    treeVote.child(uid).setValue(false)
+//                   likeButton.setImage(#imageLiteral(resourceName: "round_star_border_black_18dp-1"), for: UIControlState.normal)
                     print("unliked track")
+                    self.tableView.reloadData()
                 }else{
-                    self.ref.setValue(uid)
+                    treeVote.child(uid).setValue(true)
 //                  cell.likeButton.setImage(#imageLiteral(resourceName: "round_star_black_18dp-1"), for: UIControlState.normal)
                     print("liked track")
+                    self.tableView.reloadData()
                 }
             })
+        }else{
+            print("error no user at firebase")
         }
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -73,13 +91,36 @@ class PartyPlaylistViewController: UIViewController, UITableViewDelegate, UITabl
     }
 }
 
-extension ViewController: TrackCellDelegate{
-    func likedTrack(trackID: String) {
+//extension ViewController: TrackCellDelegate{
+//    func likedTrack(trackID: String) {
+//
+//    }
+//
+//}
+
+
+extension PartyPlaylistViewController: UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return queue.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            //          cell as TrackCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell", for: indexPath) as! TrackCell
+            //       cellLabels[] tag order -> [Title,Artist,Counter] -> [0,1,2]
+                var cellLabels = cell.titleArtistCounterLabels.sorted{ $0.tag < $1.tag }
+                cellLabels[0].text = queue[indexPath.item].value(forKey: "songTitle") as? String
+                cellLabels[1].text = queue[indexPath.item].value(forKey: "artist") as? String
+                cellLabels[2].text = queue[indexPath.item].value(forKey: "voteCount") as? String
+                cell.likeButton.setImage(#imageLiteral(resourceName: "round_star_border_black_18dp-1"), for: UIControlState.normal)
         
+        
+                cell.delegate = self as? TrackCellDelegate
+        
+                return cell
     }
 }
-
-
 
 
 
