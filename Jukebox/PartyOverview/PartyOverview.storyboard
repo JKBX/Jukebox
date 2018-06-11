@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MJV-Gs-deF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MJV-Gs-deF">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -120,88 +120,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YcH-sk-gla">
-                                <rect key="frame" x="169" y="453" width="37" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Done"/>
+                            <textField opaque="NO" contentMode="center" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Party-ID" adjustsFontSizeToFit="NO" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="wNf-tk-xda" userLabel="DigitOne">
+                                <rect key="frame" x="40" y="215" width="295" height="30"/>
+                                <color key="backgroundColor" name="SolidGrey200"/>
+                                <color key="textColor" name="SolidGrey800"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES" textContentType="postal-code"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" text="Join the Party with your ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-fA-qf8">
+                                <rect key="frame" x="40" y="185" width="295" height="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YcH-sk-gla">
+                                <rect key="frame" x="126" y="260" width="122" height="55"/>
+                                <color key="backgroundColor" name="SolidGrey800"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="Continue"/>
                                 <connections>
                                     <action selector="done:" destination="Qqn-oM-MYH" eventType="touchUpInside" id="wMT-6Y-jAd"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="V6R-Ip-Le1">
-                                <rect key="frame" x="245" y="237" width="45" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" textContentType="postal-code"/>
-                                <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                </variation>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="uaw-FI-B4F">
-                                <rect key="frame" x="298" y="237" width="45" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" textContentType="postal-code"/>
-                                <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                </variation>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="ynx-KE-HoB">
-                                <rect key="frame" x="140" y="237" width="45" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" textContentType="postal-code"/>
-                                <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                </variation>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="wNf-tk-xda" userLabel="DigitOne">
-                                <rect key="frame" x="35" y="237" width="45" height="41"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" textContentType="postal-code"/>
-                                <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                </variation>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="Orj-NN-Ri1">
-                                <rect key="frame" x="193" y="237" width="45" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" textContentType="postal-code"/>
-                                <variation key="widthClass=compact">
-                                    <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                </variation>
-                            </textField>
-                            <textField opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="hU1-ZN-8I3">
-                                <rect key="frame" x="88" y="237" width="45" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Join" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5g-hX-p2u">
-                                <rect key="frame" x="171" y="413" width="32" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey800"/>
+                        <constraints>
+                            <constraint firstItem="YcH-sk-gla" firstAttribute="top" secondItem="wNf-tk-xda" secondAttribute="bottom" constant="15" id="5tt-je-HjN"/>
+                            <constraint firstItem="jzO-fA-qf8" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="165" id="Aiz-M9-5uU"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="195" id="Gas-ya-ehe"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="YcH-sk-gla" secondAttribute="trailing" constant="127" id="IhT-e8-9Aj"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="bottom" secondItem="YcH-sk-gla" secondAttribute="bottom" constant="352" id="e7H-VA-Njb"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="mha-zR-dmz"/>
+                            <constraint firstItem="jzO-fA-qf8" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="pW2-FZ-vTT"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="wNf-tk-xda" secondAttribute="trailing" constant="40" id="siP-bU-1g8"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="jzO-fA-qf8" secondAttribute="trailing" constant="40" id="tbO-gU-nnq"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="jzO-fA-qf8" secondAttribute="bottom" constant="8" id="tgI-EV-xwi"/>
+                            <constraint firstItem="YcH-sk-gla" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="126" id="zIU-KK-EBG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bCm-nt-qgI"/>
                     </view>
                     <connections>
-                        <outlet property="digitFive" destination="V6R-Ip-Le1" id="dHd-ie-M8E"/>
-                        <outlet property="digitFour" destination="Orj-NN-Ri1" id="snf-v8-ovj"/>
-                        <outlet property="digitOne" destination="V6R-Ip-Le1" id="Edj-Ll-0W4"/>
-                        <outlet property="digitSix" destination="uaw-FI-B4F" id="xRE-Zm-3zz"/>
-                        <outlet property="digitThree" destination="ynx-KE-HoB" id="Uag-mP-9w7"/>
-                        <outlet property="digitTwo" destination="hU1-ZN-8I3" id="Gb9-1k-6AV"/>
+                        <outlet property="IDTextField" destination="wNf-tk-xda" id="jgt-BX-fT4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30U-H6-Ht9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -262,6 +222,12 @@
         <image name="UserIcon" width="24" height="24"/>
         <namedColor name="SolidBlue500">
             <color red="0.19599999487400055" green="0.38400000333786011" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SolidGrey200">
+            <color red="0.70200002193450928" green="0.72899997234344482" blue="0.71799999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SolidGrey800">
+            <color red="0.13300000131130219" green="0.15299999713897705" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SolidGrey800">
             <color red="0.13300000131130219" green="0.15299999713897705" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
