@@ -1,26 +1,25 @@
 //
-//  MainViewController.swift
-//  test
+//  FirebaseProfileViewController.swift
+//  Jukebox
 //
-//  Created by Philipp on 27.04.18.
-//  Copyright © 2018 Philipp. All rights reserved.
+//  Created by Philipp on 08.06.18.
+//  Copyright © 2018 Jukebox. All rights reserved.
 //
 
 import UIKit
-import FirebaseAuth
 
-class MainViewController: UINavigationController {
+class FirebaseProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(SPTAuth.defaultInstance().session)
         
-        if SPTAuth.defaultInstance().session == nil || Auth.auth().currentUser == nil{
-            DispatchQueue.main.async { self.performSegue(withIdentifier: "showLogin", sender: self) }
-        }
+        print("Firebase Profile Did Load")
         // Do any additional setup after loading the view.
     }
-    
+
+    @IBAction func edit(_ sender: Any) {
+        //self.performSegue(withIdentifier: "edit", sender: self)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

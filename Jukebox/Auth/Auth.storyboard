@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,11 +16,11 @@
             <objects>
                 <viewController storyboardIdentifier="SpotifyAuthViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EUD-9n-cxV" customClass="SpotifyAuthViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3kL-st-XLF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="cqO-1i-NFE">
-                                <rect key="frame" x="91.5" y="109.5" width="192" height="192"/>
+                                <rect key="frame" x="91.666666666666686" y="153" width="192" height="192"/>
                                 <color key="backgroundColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="192" id="6Vk-ow-kva"/>
@@ -31,8 +31,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="96"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Jukebox! In order to user this App, pelase" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amk-ND-MZB">
-                                <rect key="frame" x="16" y="309.5" width="343" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Jukebox! In order to use this App, pelase" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amk-ND-MZB">
+                                <rect key="frame" x="16" y="353" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8SH-ot-Nz0"/>
                                 </constraints>
@@ -41,7 +41,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="fill" lineBreakMode="headTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0x-ES-TiR">
-                                <rect key="frame" x="44.5" y="367.5" width="286" height="64"/>
+                                <rect key="frame" x="44.666666666666657" y="411" width="286" height="64"/>
                                 <color key="backgroundColor" red="0.1137254902" green="0.72549019609999998" blue="0.3294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="286" id="HeD-oQ-3aX"/>
@@ -87,11 +87,11 @@
             <objects>
                 <viewController id="h9i-VY-bG8" customClass="LoginViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nir-Z6-s5r">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1qg-hq-xwI">
-                                <rect key="frame" x="57.5" y="362" width="260" height="30"/>
+                                <rect key="frame" x="57.666666666666657" y="449" width="260" height="30"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="tintColor" name="SolidBlue400"/>
                                 <constraints>
@@ -108,7 +108,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="guz-zL-RDD">
-                                <rect key="frame" x="57.5" y="400" width="260" height="30"/>
+                                <rect key="frame" x="57.666666666666657" y="487" width="260" height="30"/>
                                 <color key="backgroundColor" name="SolidBlue500"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="hvf-hb-qsx"/>
@@ -126,7 +126,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good to see you again! Please enter your pasword to sign in." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kG2-GK-FOw">
-                                <rect key="frame" x="16" y="266" width="343" height="50"/>
+                                <rect key="frame" x="16" y="353" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="cx8-Gy-QcP"/>
                                 </constraints>
@@ -135,7 +135,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="ptS-LS-YTz">
-                                <rect key="frame" x="91.5" y="66" width="192" height="192"/>
+                                <rect key="frame" x="91.666666666666686" y="153" width="192" height="192"/>
                                 <color key="backgroundColor" red="0.1333333333" green="0.1529411765" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="192" id="5Ng-Ca-rjS"/>
@@ -147,7 +147,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-Mail" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HkC-Nh-nvo">
-                                <rect key="frame" x="57.5" y="324" width="260" height="30"/>
+                                <rect key="frame" x="57.666666666666657" y="411" width="260" height="30"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="tintColor" name="SolidBlue400"/>
                                 <constraints>
@@ -204,11 +204,11 @@
             <objects>
                 <viewController id="ELE-G8-3cA" customClass="RegisterViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qGb-5x-OMw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-Mail" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gQI-IG-ADb">
-                                <rect key="frame" x="57.5" y="300" width="260" height="30"/>
+                                <rect key="frame" x="57.666666666666657" y="387" width="260" height="30"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="tintColor" name="SolidBlue400"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -221,7 +221,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fJm-S5-JNG">
-                                <rect key="frame" x="57.5" y="338" width="260" height="30"/>
+                                <rect key="frame" x="57.666666666666657" y="425" width="260" height="30"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="tintColor" name="SolidBlue400"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -234,7 +234,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zn8-VU-5Ak">
-                                <rect key="frame" x="57.5" y="262" width="260" height="30"/>
+                                <rect key="frame" x="57.666666666666657" y="349" width="260" height="30"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="tintColor" name="SolidBlue400"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -247,7 +247,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mve-LA-kvj">
-                                <rect key="frame" x="57.5" y="376" width="260" height="34"/>
+                                <rect key="frame" x="57.666666666666657" y="463" width="260" height="34"/>
                                 <color key="backgroundColor" red="0.1960784314" green="0.38431372549999998" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="UON-uc-STY"/>
@@ -263,13 +263,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Jukebox! Please complete your registration." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sv9-Fa-T8D">
-                                <rect key="frame" x="57.5" y="21" width="260.5" height="41"/>
+                                <rect key="frame" x="57.333333333333343" y="108.33333333333336" width="260.66666666666663" height="40.666666666666671"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProfilePictureDefault" translatesAutoresizingMaskIntoConstraints="NO" id="rbs-Rh-G7B">
-                                <rect key="frame" x="107.5" y="82" width="160" height="160"/>
+                                <rect key="frame" x="107.66666666666669" y="169" width="160" height="160"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="am2-Bc-XFs"/>
                                     <constraint firstAttribute="height" constant="160" id="rhu-NI-KkO"/>
@@ -323,7 +323,7 @@
                 <navigationController storyboardIdentifier="AuthView" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" id="tzP-qW-R8R" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="kNv-hz-Iks">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.1960784314" green="0.38431372549999998" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" name="SolidGrey900"/>
@@ -362,6 +362,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PFd-Mn-STS"/>
+        <segue reference="Gcy-UN-0B4"/>
     </inferredMetricsTieBreakers>
 </document>

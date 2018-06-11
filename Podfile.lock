@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.2)
   - Firebase/Auth (5.0.1):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.0)
@@ -35,6 +36,7 @@ PODS:
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - GTMSessionFetcher/Core (1.1.15)
+  - Kingfisher (4.8.0)
   - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -43,13 +45,16 @@ PODS:
   - nanopb/encode (0.3.8)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - Kingfisher (~> 4.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -59,10 +64,12 @@ SPEC REPOS:
     - FirebaseStorage
     - GoogleToolboxForMac
     - GTMSessionFetcher
+    - Kingfisher
     - leveldb-library
     - nanopb
 
 SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Firebase: d6861c2059d8c32d1e6dd8932e22ada346d90a3a
   FirebaseAnalytics: 19812b49fa5f283dd6b23edf8a14b5d477029ab8
   FirebaseAuth: acbeef02fe7c3a26624e309849f3fe30c84115af
@@ -72,9 +79,10 @@ SPEC CHECKSUMS:
   FirebaseStorage: 7ca4bb7b58a25fa647b04f524033fc7cb7eb272b
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
+  Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: 993aeedc1f94b0b78b6686347939201dc0c68a65
+PODFILE CHECKSUM: 6a761815527c13adcdecb3705665be91a8d8b510
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.0

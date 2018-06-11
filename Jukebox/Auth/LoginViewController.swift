@@ -12,6 +12,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UINavigationCo
     
     var user:SPTUser?
     
+    //TODO forgot password
     
     //Constraint for Moving keyboard
     @IBOutlet weak var keyboardHeightLayoutConstraint: NSLayoutConstraint!

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		178431C720CAB0FF0097046E /* CenteredSquareProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431C620CAB0FF0097046E /* CenteredSquareProcessor.swift */; };
+		178431C920CACB940097046E /* FirebaseProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431C820CACB940097046E /* FirebaseProfileViewController.swift */; };
+		178431CB20CAD5C90097046E /* FirebaseLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431CA20CAD5C90097046E /* FirebaseLoginViewController.swift */; };
+		178431CD20CADDE30097046E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431CC20CADDE30097046E /* UserProfileViewController.swift */; };
+		178E2B6720CD456800CE2A5A /* FirebaseAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */; };
 		17AE0E6520BDC0BC000EF085 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6420BDC0BC000EF085 /* Constants.swift */; };
 		17AE0E6720BDC119000EF085 /* AudioStreamingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6620BDC119000EF085 /* AudioStreamingDelegate.swift */; };
 		17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6820BDC146000EF085 /* NotificationConstants.swift */; };
@@ -33,7 +38,6 @@
 		790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */; };
 		790CCC8520BDE0080081621B /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CCC8420BDE0080081621B /* TrackCell.swift */; };
 		E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C4D34620BDB3C700B74C31 /* AppDelegate.swift */; };
-		E0C4D34920BDB3C800B74C31 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C4D34820BDB3C800B74C31 /* ViewController.swift */; };
 		E0C4D35120BDB3C800B74C31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0C4D34F20BDB3C800B74C31 /* LaunchScreen.storyboard */; };
 		E0C4D35C20BDB98E00B74C31 /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C4D35A20BDB98E00B74C31 /* SpotifyAuthentication.framework */; };
 		E0C4D35D20BDB98E00B74C31 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C4D35B20BDB98E00B74C31 /* SpotifyAudioPlayback.framework */; };
@@ -42,6 +46,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		178431C620CAB0FF0097046E /* CenteredSquareProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredSquareProcessor.swift; sourceTree = "<group>"; };
+		178431C820CACB940097046E /* FirebaseProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProfileViewController.swift; sourceTree = "<group>"; };
+		178431CA20CAD5C90097046E /* FirebaseLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLoginViewController.swift; sourceTree = "<group>"; };
+		178431CC20CADDE30097046E /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthViewController.swift; sourceTree = "<group>"; };
 		17AE0E6420BDC0BC000EF085 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		17AE0E6620BDC119000EF085 /* AudioStreamingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStreamingDelegate.swift; sourceTree = "<group>"; };
 		17AE0E6820BDC146000EF085 /* NotificationConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationConstants.swift; sourceTree = "<group>"; };
@@ -70,7 +79,6 @@
 		80517207188883059530FC1A /* Pods-Jukebox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jukebox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox.debug.xcconfig"; sourceTree = "<group>"; };
 		E0C4D34320BDB3C700B74C31 /* Jukebox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jukebox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C4D34620BDB3C700B74C31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E0C4D34820BDB3C800B74C31 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E0C4D35020BDB3C800B74C31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E0C4D35220BDB3C800B74C31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E0C4D35A20BDB98E00B74C31 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
@@ -127,6 +135,11 @@
 				17AE0E9C20BDC689000EF085 /* UserProfile.storyboard */,
 				17AE0E9D20BDC689000EF085 /* LTRSegue.swift */,
 				17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */,
+				178431C620CAB0FF0097046E /* CenteredSquareProcessor.swift */,
+				178431C820CACB940097046E /* FirebaseProfileViewController.swift */,
+				178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */,
+				178431CA20CAD5C90097046E /* FirebaseLoginViewController.swift */,
+				178431CC20CADDE30097046E /* UserProfileViewController.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -193,11 +206,10 @@
 			children = (
 				7904FD1820C6905700F101ED /* Designables */,
 				790CCC7A20BDDC870081621B /* PartyPlaylist */,
-				17AE0E7F20BDC3AA000EF085 /* Auth */,
 				17AE0E8C20BDC657000EF085 /* PartyOverview */,
+				17AE0E7F20BDC3AA000EF085 /* Auth */,
 				17AE0E9B20BDC689000EF085 /* UserProfile */,
 				E0C4D34620BDB3C700B74C31 /* AppDelegate.swift */,
-				E0C4D34820BDB3C800B74C31 /* ViewController.swift */,
 				17AE0E7B20BDC23A000EF085 /* Main.storyboard */,
 				17AE0E7720BDC1D8000EF085 /* MainViewController.swift */,
 				E0C4D34F20BDB3C800B74C31 /* LaunchScreen.storyboard */,
@@ -312,15 +324,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -339,12 +355,16 @@
 				17AE0E8720BDC3AA000EF085 /* RegisterViewController.swift in Sources */,
 				17AE0E8420BDC3AA000EF085 /* SpotifyAuthViewController.swift in Sources */,
 				17AE0E9A20BDC657000EF085 /* SectionHeader.swift in Sources */,
-				E0C4D34920BDB3C800B74C31 /* ViewController.swift in Sources */,
+				178431CB20CAD5C90097046E /* FirebaseLoginViewController.swift in Sources */,
+				178431C920CACB940097046E /* FirebaseProfileViewController.swift in Sources */,
 				7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */,
+				178E2B6720CD456800CE2A5A /* FirebaseAuthViewController.swift in Sources */,
 				17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
+				178431CD20CADDE30097046E /* UserProfileViewController.swift in Sources */,
 				17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */,
+				178431C720CAB0FF0097046E /* CenteredSquareProcessor.swift in Sources */,
 				17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */,
 				E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */,
 				17AE0E6720BDC119000EF085 /* AudioStreamingDelegate.swift in Sources */,
@@ -507,11 +527,8 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.deap.Jukebox;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.deap.jkbx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jukebox/Jukebox-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -533,11 +550,8 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.deap.Jukebox;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.deap.jkbx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jukebox/Jukebox-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
