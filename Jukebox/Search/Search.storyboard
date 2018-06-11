@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ult-Dx-B1i">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search View Controller-->
+        <scene sceneID="Rft-7f-4SI">
+            <objects>
+                <viewController id="ult-Dx-B1i" customClass="SearchViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fyo-Yv-aOc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="A7y-jd-BvM">
+                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WEB-dK-tos">
+                                <rect key="frame" x="0.0" y="76" width="375" height="591"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WEB-dK-tos" firstAttribute="bottom" secondItem="s4V-bJ-GYc" secondAttribute="bottom" id="19W-Xe-MfP"/>
+                            <constraint firstItem="WEB-dK-tos" firstAttribute="trailing" secondItem="s4V-bJ-GYc" secondAttribute="trailing" id="1uL-gc-QF9"/>
+                            <constraint firstItem="WEB-dK-tos" firstAttribute="top" secondItem="A7y-jd-BvM" secondAttribute="bottom" id="5dc-wf-iag"/>
+                            <constraint firstItem="WEB-dK-tos" firstAttribute="leading" secondItem="s4V-bJ-GYc" secondAttribute="leading" id="A0x-Ei-XB1"/>
+                            <constraint firstItem="A7y-jd-BvM" firstAttribute="trailing" secondItem="s4V-bJ-GYc" secondAttribute="trailing" id="LLM-Mh-3MD"/>
+                            <constraint firstItem="A7y-jd-BvM" firstAttribute="top" secondItem="s4V-bJ-GYc" secondAttribute="top" id="gSK-zF-i5C"/>
+                            <constraint firstItem="A7y-jd-BvM" firstAttribute="leading" secondItem="s4V-bJ-GYc" secondAttribute="leading" id="ngp-j3-O5N"/>
+                            <constraint firstItem="WEB-dK-tos" firstAttribute="top" secondItem="A7y-jd-BvM" secondAttribute="bottom" id="oGc-4M-CIR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="s4V-bJ-GYc"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bc8-av-hkd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1756" y="-1063.7181409295354"/>
+        </scene>
+    </scenes>
+</document>

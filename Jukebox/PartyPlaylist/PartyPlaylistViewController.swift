@@ -91,7 +91,7 @@ class PartyPlaylistViewController: UIViewController {
     
     @objc func search(){
         print("Search")
-        let trackId = "6b6tRqejukUAsb2h7SvYrG"
+        /*let trackId = "6b6tRqejukUAsb2h7SvYrG"
         let newTrack: NSDictionary = [
             "albumTitle": "Party With Guns",
             "artist" : "Southpaw Swagger",
@@ -101,7 +101,9 @@ class PartyPlaylistViewController: UIViewController {
             "84Duvpn3IXYenfJRgjSsy6ddbmC3" : "true"
         ]
         ]
-        self.ref.child("/parties/\(self.partyID)/queue/\(trackId as! String)").setValue(newTrack)
+        self.ref.child("/parties/\(self.partyID)/queue/\(trackId as! String)").setValue(newTrack)*/
+        
+        self.performSegue(withIdentifier: "showSearch", sender: self)
     }
 
   override func didReceiveMemoryWarning() {
