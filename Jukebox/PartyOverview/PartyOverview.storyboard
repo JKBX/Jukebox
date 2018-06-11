@@ -120,7 +120,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="center" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Party-ID" adjustsFontSizeToFit="NO" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="wNf-tk-xda" userLabel="DigitOne">
+                            <textField opaque="NO" contentMode="center" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Party-ID" adjustsFontSizeToFit="NO" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="wNf-tk-xda" userLabel="IDTextField">
                                 <rect key="frame" x="40" y="278" width="295" height="30"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="tintColor" name="SolidBlue400"/>
@@ -139,7 +139,7 @@
                                 <rect key="frame" x="92" y="66" width="192" height="192"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YcH-sk-gla">
-                                <rect key="frame" x="40" y="316" width="295" height="43"/>
+                                <rect key="frame" x="40" y="323" width="295" height="36"/>
                                 <color key="backgroundColor" name="SolidBlue500"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Continue">
@@ -152,11 +152,9 @@
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey800"/>
                         <constraints>
-                            <constraint firstItem="bCm-nt-qgI" firstAttribute="bottom" secondItem="YcH-sk-gla" secondAttribute="bottom" constant="308" id="5lT-kj-yTI"/>
                             <constraint firstItem="Q2J-mD-z9y" firstAttribute="centerX" secondItem="jzO-fA-qf8" secondAttribute="centerX" id="9At-lq-mo2"/>
                             <constraint firstItem="YcH-sk-gla" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="Aiu-gz-acY"/>
                             <constraint firstItem="jzO-fA-qf8" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="Bw5-8Z-MgK"/>
-                            <constraint firstItem="YcH-sk-gla" firstAttribute="top" secondItem="wNf-tk-xda" secondAttribute="bottom" constant="8" id="IDN-yd-FgC"/>
                             <constraint firstItem="jzO-fA-qf8" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="227" id="JPc-Tr-Sm5"/>
                             <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="wNf-tk-xda" secondAttribute="trailing" constant="40" id="Kel-ER-D8u"/>
                             <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="YcH-sk-gla" secondAttribute="trailing" constant="40" id="MfJ-j7-gvJ"/>
@@ -165,6 +163,7 @@
                             <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="jzO-fA-qf8" secondAttribute="trailing" constant="40" id="TM7-xf-iKS"/>
                             <constraint firstItem="Q2J-mD-z9y" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="46" id="Xdt-ku-jTM"/>
                             <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="jzO-fA-qf8" secondAttribute="bottom" constant="10" id="jOX-Bi-xCK"/>
+                            <constraint firstItem="YcH-sk-gla" firstAttribute="top" secondItem="wNf-tk-xda" secondAttribute="bottom" constant="15" id="sXl-Rf-Ueg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bCm-nt-qgI"/>
                     </view>
@@ -184,13 +183,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATF-Ha-FBP">
-                                <rect key="frame" x="166" y="396" width="51" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOm-rv-pPX">
                                 <rect key="frame" x="169" y="425" width="37" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -199,6 +191,27 @@
                                     <action selector="done:" destination="s8y-br-0Yb" eventType="touchUpInside" id="XGj-dT-jf0"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="FHe-b9-eCe">
+                                <rect key="frame" x="92" y="66" width="192" height="192"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a Party Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHL-SC-89E">
+                                <rect key="frame" x="40" y="266" width="295" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="SolidGrey700"/>
+                                <color key="tintColor" name="SolidBlue400"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATF-Ha-FBP">
+                                <rect key="frame" x="40" y="304" width="295" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="SolidBlue500"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey800"/>
                         <viewLayoutGuide key="safeArea" id="Zuz-8w-p4i"/>

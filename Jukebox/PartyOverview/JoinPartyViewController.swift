@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 
 
 class JoinPartyViewController: UIViewController, UITextFieldDelegate {
@@ -33,8 +35,27 @@ class JoinPartyViewController: UIViewController, UITextFieldDelegate {
         }
 
     @IBAction func done(_ sender: Any) {
+     let enteredID = IDTextField.text!
+     let userId:String = (Auth.auth().currentUser?.uid)!
+     let ref = Database.database().reference()
+     
+     ref.child("/parties").observeSingleEvent(of: .value, with: { (snapshot) in
+      //print(snapshot)
+     for child in snapshot.children{
+       let party = Party(from:child as! DataSnapshot)
+       print(party.id)
+       //print((party.childSnapshot(forPath: "ID").value) as! Int)
+       if party.id == enteredID{
+        let partyKey = (child as! DataSnapshot).key
+        ref.child("users/\(userId)/parties/\(partyKey)").setValue("guest")
         self.dismiss(animated: true, completion: nil)
-    }
+        print("Found party at \((child as! DataSnapshot).key)")
+       }
+      }
+     })
+        //self.dismiss(animated: true, completion: nil)
+ }
+ 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

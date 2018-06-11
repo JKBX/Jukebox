@@ -32,6 +32,7 @@
 		7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904FD1920C6907400F101ED /* RoundButton.swift */; };
 		790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */; };
 		790CCC8520BDE0080081621B /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CCC8420BDE0080081621B /* TrackCell.swift */; };
+		8481D79020CEC0A9002D0AD1 /* PartyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8481D78F20CEC0A9002D0AD1 /* PartyModel.swift */; };
 		E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C4D34620BDB3C700B74C31 /* AppDelegate.swift */; };
 		E0C4D34920BDB3C800B74C31 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C4D34820BDB3C800B74C31 /* ViewController.swift */; };
 		E0C4D35120BDB3C800B74C31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0C4D34F20BDB3C800B74C31 /* LaunchScreen.storyboard */; };
@@ -68,6 +69,7 @@
 		790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PartyPlaylist.storyboard; sourceTree = "<group>"; };
 		790CCC8420BDE0080081621B /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		80517207188883059530FC1A /* Pods-Jukebox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jukebox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox.debug.xcconfig"; sourceTree = "<group>"; };
+		8481D78F20CEC0A9002D0AD1 /* PartyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyModel.swift; sourceTree = "<group>"; };
 		E0C4D34320BDB3C700B74C31 /* Jukebox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jukebox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C4D34620BDB3C700B74C31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0C4D34820BDB3C800B74C31 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				17AE0E9120BDC657000EF085 /* CreatePartyViewController.swift */,
 				17AE0E9220BDC657000EF085 /* PartyOverview.storyboard */,
 				17AE0E9320BDC657000EF085 /* SectionHeader.swift */,
+				8481D78F20CEC0A9002D0AD1 /* PartyModel.swift */,
 			);
 			path = PartyOverview;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
+				8481D79020CEC0A9002D0AD1 /* PartyModel.swift in Sources */,
 				17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */,
 				17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */,
 				E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */,
