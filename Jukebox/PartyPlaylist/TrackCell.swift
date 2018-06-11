@@ -42,7 +42,8 @@ class TrackCell: UITableViewCell {
     }
     
     @objc func toggleLike(){
-        
+        print("like")
+        print(partyRef.debugDescription)
         let userId = Auth.auth().currentUser?.uid as! String
         let voteRef = self.partyRef?.child("/queue/\(track?.trackId as! String)/votes/\(userId as String)")
         if (track?.liked)!{

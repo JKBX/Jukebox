@@ -90,7 +90,7 @@
                 <viewControllerPlaceholder storyboardName="Search" id="MqW-54-KMb" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="790-Qw-U9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1756" y="-1063.7181409295354"/>
+            <point key="canvasLocation" x="1478" y="-1073"/>
         </scene>
     </scenes>
     <resources>
