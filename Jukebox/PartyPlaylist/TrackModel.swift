@@ -7,9 +7,12 @@
 //
 import FirebaseDatabase
 import FirebaseAuth
+
+
 class Track{
-    var id: String!
-    var name: String!
+    
+    var trackId: String!
+    var songName: String!
     var artist: String!
     var album: String!
     var coverUrl: URL!
@@ -19,8 +22,8 @@ class Track{
     init(from snapshot: DataSnapshot){
         let userId = Auth.auth().currentUser?.uid as! String
         
-        self.id = snapshot.key
-        self.name = snapshot.childSnapshot(forPath: "songTitle").value as! String
+        self.trackId = snapshot.key
+        self.songName = snapshot.childSnapshot(forPath: "songTitle").value as! String
         self.artist = snapshot.childSnapshot(forPath: "artist").value as! String
         self.album = snapshot.childSnapshot(forPath: "albumTitle").value as! String
         self.coverUrl = URL(string: snapshot.childSnapshot(forPath: "coverURL").value as! String)!

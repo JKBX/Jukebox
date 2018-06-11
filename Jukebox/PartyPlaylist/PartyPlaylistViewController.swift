@@ -37,13 +37,13 @@ class PartyPlaylistViewController: UIViewController {
         let queueMoveObserver = ref.child("/parties/\(self.partyID)/queue").observe(DataEventType.childChanged, with: { (snapshot) in
             //Todo test if only called on vote
             let changedTrack = Track(from: snapshot)
-            let index = self.queue.index(where: { (track) -> Bool in track.id == changedTrack.id }) as! Int
+            let index = self.queue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
             self.queue[index] = changedTrack
             self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
             
             
             let sortedQueue = self.queue.sorted() { $0.voteCount > $1.voteCount }
-            let newIndex = sortedQueue.index(where: { (track) -> Bool in track.id == changedTrack.id }) as! Int
+            let newIndex = sortedQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
 
             if newIndex != index {
                 print("Moving from \(String(index)) to \(String(newIndex))")
@@ -57,7 +57,7 @@ class PartyPlaylistViewController: UIViewController {
             let addedTrack = Track(from: snapshot)
             self.queue.append(addedTrack)
             self.queue = self.queue.sorted() { $0.voteCount > $1.voteCount }
-            let index = self.queue.index(where: { (track) -> Bool in track.id == addedTrack.id }) as! Int
+            let index = self.queue.index(where: { (track) -> Bool in track.trackId == addedTrack.trackId }) as! Int
             
             self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.automatic)
         })
@@ -65,7 +65,7 @@ class PartyPlaylistViewController: UIViewController {
         let queueRemovedObserver = ref.child("/parties/\(self.partyID)/queue").observe(.childRemoved, with: { (snapshot) in
             //Todo test if only called on vote
             let removedTrack = Track(from: snapshot)
-            let index = self.queue.index(where: { (track) -> Bool in track.id == removedTrack.id }) as! Int
+            let index = self.queue.index(where: { (track) -> Bool in track.trackId == removedTrack.trackId }) as! Int
             self.queue.remove(at: index)
             self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
         })
@@ -136,10 +136,10 @@ extension PartyPlaylistViewController: UITableViewDelegate{
             return UISwipeActionsConfiguration(actions: [])
         }
         let modifyAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            let alert = UIAlertController(title: "Are you sure you want to remove \(track.name as! String)?", message: "This track had \(String(track.voteCount)) votes.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Are you sure you want to remove \(track.songName as! String)?", message: "This track had \(String(track.voteCount)) votes.", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-                self.ref.child("/parties/\(self.partyID)/queue/\(track.id as String)").removeValue()
+                self.ref.child("/parties/\(self.partyID)/queue/\(track.trackId as String)").removeValue()
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
@@ -161,10 +161,10 @@ extension PartyPlaylistViewController: UITableViewDelegate{
             success(true)
             if track.liked{
                 //Unlike
-                self.ref.child("/parties/\(self.partyID)/queue/\(track.id as String)/votes").child(self.userID!).removeValue()
+                self.ref.child("/parties/\(self.partyID)/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
             } else {
                 //Like
-                self.ref.child("/parties/\(self.partyID)/queue/\(track.id as String)/votes").child(self.userID!).setValue(true)
+                self.ref.child("/parties/\(self.partyID)/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
             }
         })
         voteAction.image = UIImage(named: track.liked ? "favorite" : "favoriteOutline")

@@ -31,7 +31,7 @@ class TrackCell: UITableViewCell {
     
     func setup(from track:Track) {
         self.track = track
-        self.textLabel?.text = track.name
+        self.textLabel?.text = track.songName
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"
         self.imageView?.kf.setImage(with: track.coverUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, URL) in
             self.setNeedsLayout()
@@ -48,7 +48,7 @@ class TrackCell: UITableViewCell {
     @objc func toggleLike(){
         
         let userId = Auth.auth().currentUser?.uid as! String
-        let voteRef = self.partyRef?.child("/queue/\(track?.id as! String)/votes/\(userId as String)")
+        let voteRef = self.partyRef?.child("/queue/\(track?.trackId as! String)/votes/\(userId as String)")
         if (track?.liked)!{
             //Unlike
             voteRef?.removeValue()
