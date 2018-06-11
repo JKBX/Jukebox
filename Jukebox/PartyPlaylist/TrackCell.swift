@@ -22,11 +22,7 @@ class TrackCell: UITableViewCell {
     //var trackID: String = ""
     var track:Track?
     var partyRef: DatabaseReference?
-    @IBOutlet weak var coverImage: UIImageView!
-    @IBOutlet weak var songTitleLabel: UILabel!
-    @IBOutlet weak var songArtistLabel: UILabel!
-    @IBOutlet weak var voteCounterLabel: UILabel!
-    @IBOutlet weak var likeButton: UIButton!
+
     @IBOutlet weak var voteCountLabel: UILabel!
     
     func setup(from track:Track) {
