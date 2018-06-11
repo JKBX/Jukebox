@@ -1,23 +1,18 @@
 //
-//  PartyPlaylistViewController.swift
+//  SearchViewController.swift
 //  Jukebox
 //
-//  Created by Philipp on 22.05.18.
-//  Copyright © 2018 Philipp. All rights reserved.
+//  Created by Philipp on 11.06.18.
+//  Copyright © 2018 Jukebox. All rights reserved.
 //
 
 import UIKit
 
-class PartyPlaylistViewController: UIViewController {
-    
-    var party:NSDictionary = [:]
-    
-    @IBOutlet weak var label: UILabel!
+class SearchViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print(party)
-        label.text = party.value(forKey: "Name") as! String
         // Do any additional setup after loading the view.
     }
 

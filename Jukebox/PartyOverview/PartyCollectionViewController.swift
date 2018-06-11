@@ -16,8 +16,12 @@ class PartyCollectionViewController: UICollectionViewController {
 
     var ref: DatabaseReference!
     var hostParties:[NSDictionary] = []
+    var hostPartyIds:[String] = []
     var guestParties:[NSDictionary] = []
-    var selectedParty:NSDictionary = [:]
+    var guestPartyIds:[String] = []
+    //var selectedParty:NSDictionary = [:]
+    var selectedParty:String = ""
+    var selectedPartyInfo:NSDictionary = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +66,10 @@ class PartyCollectionViewController: UICollectionViewController {
                     switch value as! String{
                     case "host":
                         self.hostParties.append((snapshot.value as? NSDictionary)!)
+                        self.hostPartyIds.append(key as! String)
                     default:
                         self.guestParties.append((snapshot.value as? NSDictionary)!)
+                        self.guestPartyIds.append(key as! String)
                     }
                     self.collectionView?.reloadData()
                 }) {(error) in print(error.localizedDescription)}
@@ -105,12 +111,12 @@ class PartyCollectionViewController: UICollectionViewController {
         }
     }
     
-    func getParty(for indexPath: IndexPath) -> NSDictionary{
+    func getParty(for indexPath: IndexPath) -> (party: NSDictionary, id: String){
         switch indexPath.section {
         case 0:
-            return self.hostParties[indexPath.item]
+            return (party: self.hostParties[indexPath.item], id: self.hostPartyIds[indexPath.item])
         default:
-            return self.guestParties[indexPath.item]
+            return (party: self.guestParties[indexPath.item], id: self.guestPartyIds[indexPath.item])
         }
     }
 
@@ -118,7 +124,7 @@ class PartyCollectionViewController: UICollectionViewController {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as! PartyCollectionViewCell
-        let party = getParty(for: indexPath)
+        let (party, _) = getParty(for: indexPath)
         let imagePath = party.object(forKey: "imagePath") as! String
         if imagePath.contains("default") {
             print("From assets")
@@ -175,15 +181,17 @@ class PartyCollectionViewController: UICollectionViewController {
         return true
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedParty = getParty(for: indexPath)
+        (self.selectedPartyInfo, self.selectedParty) = getParty(for: indexPath)
         self.performSegue(withIdentifier: "showParty", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showParty" {
             let controller = segue.destination as! PartyPlaylistViewController
-            controller.party = self.selectedParty
-            self.selectedParty = [:]
+            controller.partyID = self.selectedParty
+            controller.isAdmin = (self.selectedPartyInfo.value(forKey: "Host") as! String) == Auth.auth().currentUser?.uid
+            print(self.selectedParty)
+            self.selectedParty = ""
         }
     }
 

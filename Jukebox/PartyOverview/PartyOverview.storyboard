@@ -14,7 +14,7 @@
         <!--Jukebox-->
         <scene sceneID="S3N-Ol-dmk">
             <objects>
-                <collectionViewController id="MJV-Gs-deF" customClass="PartyCollectionViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="PartyOverviewSB" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MJV-Gs-deF" customClass="PartyCollectionViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="vIA-zW-QdB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -105,12 +105,12 @@
                     <connections>
                         <segue destination="s8y-br-0Yb" kind="presentation" identifier="createParty" id="nnb-rO-yg5"/>
                         <segue destination="Qqn-oM-MYH" kind="presentation" identifier="joinParty" id="ml7-Ab-3CW"/>
-                        <segue destination="8nm-HZ-Lgc" kind="show" identifier="showParty" id="EKR-hu-ADj"/>
+                        <segue destination="BLf-gD-Hnv" kind="show" identifier="showParty" id="EKR-hu-ADj"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aex-xX-hYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1012" y="-1066.4167916041979"/>
+            <point key="canvasLocation" x="-72.799999999999997" y="-1066.4167916041979"/>
         </scene>
         <!--Join Party View Controller-->
         <scene sceneID="ef7-l0-NTB">
@@ -142,34 +142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30U-H6-Ht9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-228" y="-730"/>
-        </scene>
-        <!--Party Playlist View Controller-->
-        <scene sceneID="SgR-GX-Wad">
-            <objects>
-                <viewController id="8nm-HZ-Lgc" customClass="PartyPlaylistViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="u0f-5R-3vf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Party" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dO-JB-KLd">
-                                <rect key="frame" x="16" y="178" width="343" height="270"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Qql-wO-Y5A"/>
-                    </view>
-                    <connections>
-                        <outlet property="label" destination="3dO-JB-KLd" id="xa9-2r-jaw"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nmG-Sj-flt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="853.60000000000002" y="-1072.7136431784108"/>
+            <point key="canvasLocation" x="711" y="-654"/>
         </scene>
         <!--Create Party View Controller-->
         <scene sceneID="3qu-6z-vis">
@@ -201,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rmq-J5-hfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-228" y="-1397"/>
+            <point key="canvasLocation" x="711.20000000000005" y="-1397.4512743628186"/>
         </scene>
         <!--UserProfile-->
         <scene sceneID="RNI-Gd-ya1">
@@ -210,6 +183,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dPh-kM-Ir8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1012" y="-288"/>
+        </scene>
+        <!--PartyPlaylist-->
+        <scene sceneID="brX-Hv-8QF">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PartyPlaylist" id="BLf-gD-Hnv" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SAK-53-4Vk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1790" y="-1067"/>
         </scene>
     </scenes>
     <resources>
