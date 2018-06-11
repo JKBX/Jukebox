@@ -8,12 +8,30 @@
 
 import UIKit
 
-class JoinPartyViewController: UIViewController {
+class JoinPartyViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet var digitOne: UITextField!
+    @IBOutlet var digitTwo: UITextField!
+    @IBOutlet var digitThree: UITextField!
+    @IBOutlet var digitFour: UITextField!
+    @IBOutlet var digitFive: UITextField!
+    @IBOutlet var digitSix: UITextField!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        digitOne.delegate = self
 
         // Do any additional setup after loading the view.
+    }
+    func digitOne(digitOne: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        let maxLength = 1
+        let currentString: NSString = digitOne.text! as NSString
+        let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+        return newString.length <= maxLength
     }
 
     @IBAction func done(_ sender: Any) {
@@ -23,6 +41,7 @@ class JoinPartyViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
 
     /*
