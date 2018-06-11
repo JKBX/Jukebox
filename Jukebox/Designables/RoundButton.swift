@@ -2,7 +2,7 @@
 //  RoundButton.swift
 //  Jukebox
 //
-//  Created by Maximilian Babel on 05.06.18.
+//  Created by Team Jukebox/Gruppe 7
 //  Copyright © 2018 Jukebox. All rights reserved.
 //
 
@@ -27,5 +27,4 @@ class ButtonDesignable: UIButton {
             self.layer.borderColor = borderColor.cgColor
         }
     }
-    
 }
