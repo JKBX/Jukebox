@@ -121,24 +121,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="center" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Party-ID" adjustsFontSizeToFit="NO" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="wNf-tk-xda" userLabel="DigitOne">
-                                <rect key="frame" x="40" y="215" width="295" height="30"/>
-                                <color key="backgroundColor" name="SolidGrey200"/>
-                                <color key="textColor" name="SolidGrey800"/>
+                                <rect key="frame" x="40" y="278" width="295" height="30"/>
+                                <color key="backgroundColor" name="SolidGrey700"/>
+                                <color key="tintColor" name="SolidBlue400"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES" textContentType="postal-code"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" text="Join the Party with your ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-fA-qf8">
-                                <rect key="frame" x="40" y="185" width="295" height="22"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" text="Join the Party with your ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-fA-qf8">
+                                <rect key="frame" x="40" y="247" width="295" height="21"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="Q2J-mD-z9y">
+                                <rect key="frame" x="92" y="66" width="192" height="192"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YcH-sk-gla">
-                                <rect key="frame" x="126" y="260" width="122" height="55"/>
-                                <color key="backgroundColor" name="SolidGrey800"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <state key="normal" title="Continue"/>
+                                <rect key="frame" x="40" y="316" width="295" height="43"/>
+                                <color key="backgroundColor" name="SolidBlue500"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="done:" destination="Qqn-oM-MYH" eventType="touchUpInside" id="wMT-6Y-jAd"/>
                                 </connections>
@@ -146,17 +152,19 @@
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey800"/>
                         <constraints>
-                            <constraint firstItem="YcH-sk-gla" firstAttribute="top" secondItem="wNf-tk-xda" secondAttribute="bottom" constant="15" id="5tt-je-HjN"/>
-                            <constraint firstItem="jzO-fA-qf8" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="165" id="Aiz-M9-5uU"/>
-                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="195" id="Gas-ya-ehe"/>
-                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="YcH-sk-gla" secondAttribute="trailing" constant="127" id="IhT-e8-9Aj"/>
-                            <constraint firstItem="bCm-nt-qgI" firstAttribute="bottom" secondItem="YcH-sk-gla" secondAttribute="bottom" constant="352" id="e7H-VA-Njb"/>
-                            <constraint firstItem="wNf-tk-xda" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="mha-zR-dmz"/>
-                            <constraint firstItem="jzO-fA-qf8" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="pW2-FZ-vTT"/>
-                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="wNf-tk-xda" secondAttribute="trailing" constant="40" id="siP-bU-1g8"/>
-                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="jzO-fA-qf8" secondAttribute="trailing" constant="40" id="tbO-gU-nnq"/>
-                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="jzO-fA-qf8" secondAttribute="bottom" constant="8" id="tgI-EV-xwi"/>
-                            <constraint firstItem="YcH-sk-gla" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="126" id="zIU-KK-EBG"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="bottom" secondItem="YcH-sk-gla" secondAttribute="bottom" constant="308" id="5lT-kj-yTI"/>
+                            <constraint firstItem="Q2J-mD-z9y" firstAttribute="centerX" secondItem="jzO-fA-qf8" secondAttribute="centerX" id="9At-lq-mo2"/>
+                            <constraint firstItem="YcH-sk-gla" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="Aiu-gz-acY"/>
+                            <constraint firstItem="jzO-fA-qf8" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="Bw5-8Z-MgK"/>
+                            <constraint firstItem="YcH-sk-gla" firstAttribute="top" secondItem="wNf-tk-xda" secondAttribute="bottom" constant="8" id="IDN-yd-FgC"/>
+                            <constraint firstItem="jzO-fA-qf8" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="227" id="JPc-Tr-Sm5"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="wNf-tk-xda" secondAttribute="trailing" constant="40" id="Kel-ER-D8u"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="YcH-sk-gla" secondAttribute="trailing" constant="40" id="MfJ-j7-gvJ"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="Q2J-mD-z9y" secondAttribute="bottom" constant="20" id="Nr3-sN-sI4"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="TLb-5w-Pef"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="jzO-fA-qf8" secondAttribute="trailing" constant="40" id="TM7-xf-iKS"/>
+                            <constraint firstItem="Q2J-mD-z9y" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="46" id="Xdt-ku-jTM"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="jzO-fA-qf8" secondAttribute="bottom" constant="10" id="jOX-Bi-xCK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bCm-nt-qgI"/>
                     </view>
@@ -219,15 +227,19 @@
     </scenes>
     <resources>
         <image name="AddIcon" width="60" height="60"/>
+        <image name="Jukebox" width="192" height="192"/>
         <image name="UserIcon" width="24" height="24"/>
+        <namedColor name="SolidBlue400">
+            <color red="0.3059999942779541" green="0.48199999332427979" blue="0.67500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="SolidBlue500">
             <color red="0.19599999487400055" green="0.38400000333786011" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="SolidGrey200">
-            <color red="0.70200002193450928" green="0.72899997234344482" blue="0.71799999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="SolidBlue500">
+            <color red="0.19599999487400055" green="0.38400000333786011" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="SolidGrey800">
-            <color red="0.13300000131130219" green="0.15299999713897705" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="SolidGrey700">
+            <color red="0.21600000560283661" green="0.23899999260902405" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SolidGrey800">
             <color red="0.13300000131130219" green="0.15299999713897705" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
