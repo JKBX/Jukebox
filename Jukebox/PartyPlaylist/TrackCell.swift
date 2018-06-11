@@ -30,6 +30,7 @@ class TrackCell: UITableViewCell {
     @IBOutlet weak var voteCountLabel: UILabel!
     
     func setup(from track:Track) {
+        
         self.track = track
         self.textLabel?.text = track.songName
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"

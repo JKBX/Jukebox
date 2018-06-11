@@ -129,6 +129,13 @@ extension PartyPlaylistViewController: UITableViewDelegate{
         return 64.0;
     }
     
+    /*
+     right to left to remove the track. swipe
+     
+     
+     */
+    
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
         
         let track = self.queue[indexPath.item]
@@ -151,7 +158,10 @@ extension PartyPlaylistViewController: UITableViewDelegate{
         return UISwipeActionsConfiguration(actions: [modifyAction])
     }
     
-    
+   /*
+     left to right vote. swipe
+     
+     */
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let track = self.queue[indexPath.item]
@@ -175,6 +185,9 @@ extension PartyPlaylistViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     //TODO center
+        
+        
+        
     let label = UILabel()
     label.text = "The Show must go on! Keep adding Tracks you digg."
     label.font.withSize(8)
