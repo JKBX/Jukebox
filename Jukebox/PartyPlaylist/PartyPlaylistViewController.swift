@@ -30,48 +30,63 @@ class PartyPlaylistViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(search))
         navigationItem.rightBarButtonItem = button
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.ref = ref.child("/parties/\(self.partyID)")
+        setupObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        freeObservers()
+    }
+    
+    //MARK: Observer-Methods
+    
+    func setupObservers() {
+        ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(changedTrack: Track(from: snapshot))})
+        ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(changedTrack: Track(from: snapshot))})
+        ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(changedTrack: Track(from: snapshot))})
+    }
+    
+    func onChildChanged(changedTrack: Track) {
+        //Todo test if only called on vote
+        let index = self.queue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
+        self.queue[index] = changedTrack
+        self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
         
-        let queueMoveObserver = ref.child("/parties/\(self.partyID)/queue").observe(DataEventType.childChanged, with: { (snapshot) in
-            //Todo test if only called on vote
-            let changedTrack = Track(from: snapshot)
-            let index = self.queue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
-            self.queue[index] = changedTrack
-            self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
-            
-            
-            let sortedQueue = self.queue.sorted() { $0.voteCount > $1.voteCount }
-            let newIndex = sortedQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
-
-            if newIndex != index {
-                print("Moving from \(String(index)) to \(String(newIndex))")
-                self.tableView.moveRow(at: IndexPath(item: newIndex, section: 0), to: IndexPath(item: index, section: 0))
-                self.queue = sortedQueue
-            }
-        })
-
-        let queueAddObserver = ref.child("/parties/\(self.partyID)/queue").observe(.childAdded, with: { (snapshot) in
-            //Todo test if only called on vote
-            let addedTrack = Track(from: snapshot)
-            self.queue.append(addedTrack)
-            self.queue = self.queue.sorted() { $0.voteCount > $1.voteCount }
-            let index = self.queue.index(where: { (track) -> Bool in track.trackId == addedTrack.trackId }) as! Int
-            
-            self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.automatic)
-        })
         
-        let queueRemovedObserver = ref.child("/parties/\(self.partyID)/queue").observe(.childRemoved, with: { (snapshot) in
-            //Todo test if only called on vote
-            let removedTrack = Track(from: snapshot)
-            let index = self.queue.index(where: { (track) -> Bool in track.trackId == removedTrack.trackId }) as! Int
-            self.queue.remove(at: index)
-            self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
-        })
-        //print(party)
-        //label.text = party.value(forKey: "Name") as! String
-        // Do any additional setup after loading the view.
+        let sortedQueue = self.queue.sorted() { $0.voteCount > $1.voteCount }
+        let newIndex = sortedQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
+        
+        if newIndex != index {
+            print("Moving from \(String(index)) to \(String(newIndex))")
+            self.tableView.moveRow(at: IndexPath(item: newIndex, section: 0), to: IndexPath(item: index, section: 0))
+            self.queue = sortedQueue
+        }
+    }
+    
+    func onChildAdded(changedTrack: Track) {
+        //Todo test if only called on vote
+        self.queue.append(changedTrack)
+        self.queue = self.queue.sorted() { $0.voteCount > $1.voteCount }
+        let index = self.queue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
+        
+        self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.automatic)
+    }
+    
+    func onChildRemoved(changedTrack: Track) {
+        //Todo test if only called on vote
+        let index = self.queue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
+        self.queue.remove(at: index)
+        self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
+    }
+    
+    func freeObservers(){
+        ref.removeAllObservers()
+        self.ref = Database.database().reference()
     }
     
     @objc func search(){
@@ -94,6 +109,7 @@ class PartyPlaylistViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
+
 /*
  Data Source
  
@@ -112,18 +128,15 @@ extension PartyPlaylistViewController: UITableViewDataSource{
         cell.partyRef = self.ref.child("/parties/\(self.partyID)")
         return cell
     }
-    
 }
-
 
 /*
  ViewDelegate
  
  */
 
-
-
 extension PartyPlaylistViewController: UITableViewDelegate{
+    
     //Set Custom Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         return 64.0;
@@ -151,7 +164,6 @@ extension PartyPlaylistViewController: UITableViewDelegate{
         return UISwipeActionsConfiguration(actions: [modifyAction])
     }
     
-    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let track = self.queue[indexPath.item]
@@ -172,22 +184,12 @@ extension PartyPlaylistViewController: UITableViewDelegate{
         return UISwipeActionsConfiguration(actions: [voteAction])
     }
     
-    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    //TODO center
-    let label = UILabel()
-    label.text = "The Show must go on! Keep adding Tracks you digg."
-    label.font.withSize(8)
-    label.textColor = .white
-    return label
+        //TODO center
+        let label = UILabel()
+        label.text = "The Show must go on! Keep adding Tracks."
+        label.font.withSize(8)
+        label.textColor = .white
+        return label
     }
 }
-
-
-
-
-
-
-
-
-
