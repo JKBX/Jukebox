@@ -186,6 +186,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E048D23120CEF4BA006AE916 /* UIPlayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UIPlayer;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		E0C4D33A20BDB3C700B74C31 = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +215,7 @@
 		E0C4D34520BDB3C700B74C31 /* Jukebox */ = {
 			isa = PBXGroup;
 			children = (
+				E048D23120CEF4BA006AE916 /* UIPlayer */,
 				17DC0B8120CEDC0A001C8DF1 /* Search */,
 				7904FD1820C6905700F101ED /* Designables */,
 				790CCC7A20BDDC870081621B /* PartyPlaylist */,
