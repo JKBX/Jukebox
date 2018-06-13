@@ -33,6 +33,7 @@ class TrackCell: UITableViewCell {
             self.setNeedsLayout()
         })
         
+        
         voteCountLabel.text = String(track.voteCount)
         
         let accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))

@@ -16,10 +16,26 @@ class PartyPlaylistViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
+    var miniPlayer: MiniPlayerViewController?
+    var currentSong: Track?
+    
     var isAdmin: Bool = false
     var partyID: String = ""
     var queue: [Track] = []
     let userID = Auth.auth().currentUser?.uid
+    
+    //    MARK: Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? MiniPlayerViewController {
+            miniPlayer = destination
+        }
+    }
+    
+    
+    
+    
+    
     
     //MARK: LifeCycle
     var party:NSDictionary = [:]
@@ -37,7 +53,6 @@ class PartyPlaylistViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.queue = []
         self.tableView.reloadData()
-        
         self.ref = ref.child("/parties/\(self.partyID)")
         setupObservers()
     }
@@ -74,6 +89,10 @@ class PartyPlaylistViewController: UIViewController {
             self.tableView.moveRow(at: IndexPath(item: index, section: 0), to: IndexPath(item: newIndex, section: 0))
             self.queue = sortedQueue
         }
+        //        setting for mini Player
+        
+        currentSong = changedTrack
+        miniPlayer?.setting(song: currentSong)
     }
     
     func onChildRemoved(changedTrack: Track) {
@@ -117,6 +136,10 @@ extension PartyPlaylistViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let track = queue[indexPath.item]
         let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! TrackCell
+       
+
+        
+        
         cell.setup(from: track)
         cell.partyRef = self.ref
         return cell

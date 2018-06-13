@@ -12,13 +12,13 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
         
         print("Did Login")
         
-        //spotify:track:6c6DEpGAvs1rzJkCp1ej8T
-         SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:2AKimSj4YSh5hdrPchltSI", startingWith: 0, startingWithPosition: 0, callback: { (error) in
-         if error != nil{
-         print("Playing")
-         /*print(SPTAudioStreamingController.sharedInstance().metadata.currentTrack?.name)*/
-         }
-         })
+//        //spotify:track:6c6DEpGAvs1rzJkCp1ej8T
+//         SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:2AKimSj4YSh5hdrPchltSI", startingWith: 0, startingWithPosition: 0, callback: { (error) in
+//         if error != nil{
+//         print("Playing")
+//         /*print(SPTAudioStreamingController.sharedInstance().metadata.currentTrack?.name)*/
+//         }
+//         })
          
     }
     

@@ -30,8 +30,11 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" image="baseline_play_circle_outline_white_36pt"/>
+                                            <connections>
+                                                <action selector="Play:" destination="owb-UJ-10A" eventType="touchUpInside" id="VC6-54-HYb"/>
+                                            </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x2S-Cs-NdM" userLabel="Thumb">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x2S-Cs-NdM" userLabel="ThumbPicture">
                                             <rect key="frame" x="20" y="2.5" width="60" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="haV-IO-VK3"/>
