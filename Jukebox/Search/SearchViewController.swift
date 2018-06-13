@@ -27,8 +27,9 @@ class SearchViewController: UIViewController {
     var partyID: String = ""
     
     var isSearching = false
-    var foundTracks: [Track] = []
+    var foundTracks: [TrackModel] = []
     var textSearchedFor: String = ""
+    var pagingObject: PagingObject<Track>? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ class SearchViewController: UIViewController {
         
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,11 +48,12 @@ class SearchViewController: UIViewController {
     }
     
     func getTrackFromSpartanCall(track: String){
-//        _ = Spartan.getTrack(id: track, market: .us, success: { (track) in
-//        // Do something with the track
-//        }, failure: { (error) in
-//        print(error)
-//        })
+        Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
+        _ = Spartan.search(query: "Five for Fighting", type: .track, success: { (pagingObject: PagingObject<Track>) in
+            self.pagingObject = pagingObject
+        }, failure: { (error) in
+            print(error)
+        })
     }
 }
 

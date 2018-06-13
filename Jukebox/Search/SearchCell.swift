@@ -11,7 +11,7 @@ import FirebaseDatabase
 
 class SearchCell: UITableViewCell {
     
-    var track:Track?
+    var track:TrackModel?
     var partyRef: DatabaseReference?
     
     override func awakeFromNib() {
@@ -19,7 +19,7 @@ class SearchCell: UITableViewCell {
         // Initialization code
     }
     
-    func setup(from track:Track) {
+    func setup(from track:TrackModel) {
         self.track = track
         self.textLabel?.text = track.songName
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"

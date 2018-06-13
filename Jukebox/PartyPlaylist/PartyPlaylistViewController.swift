@@ -18,7 +18,7 @@ class PartyPlaylistViewController: UIViewController {
     var ref: DatabaseReference! = Database.database().reference()
     var isAdmin: Bool = false
     var partyID: String = ""
-    var queue: [Track] = []
+    var queue: [TrackModel] = []
     let userID = Auth.auth().currentUser?.uid
     
     //MARK: LifeCycle
@@ -46,12 +46,12 @@ class PartyPlaylistViewController: UIViewController {
     //MARK: Observer-Methods
     
     func setupObservers() {
-        ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(changedTrack: Track(from: snapshot))})
-        ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(changedTrack: Track(from: snapshot))})
-        ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(changedTrack: Track(from: snapshot))})
+        ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(changedTrack: TrackModel(from: snapshot))})
+        ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(changedTrack: TrackModel(from: snapshot))})
+        ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(changedTrack: TrackModel(from: snapshot))})
     }
     
-    func onChildChanged(changedTrack: Track) {
+    func onChildChanged(changedTrack: TrackModel) {
         //Todo test if only called on vote
         let index = self.queue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
         self.queue[index] = changedTrack
@@ -68,7 +68,7 @@ class PartyPlaylistViewController: UIViewController {
         }
     }
     
-    func onChildAdded(changedTrack: Track) {
+    func onChildAdded(changedTrack: TrackModel) {
         //Todo test if only called on vote
         self.queue.append(changedTrack)
         self.queue = self.queue.sorted() { $0.voteCount > $1.voteCount }
@@ -77,7 +77,7 @@ class PartyPlaylistViewController: UIViewController {
         self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.automatic)
     }
     
-    func onChildRemoved(changedTrack: Track) {
+    func onChildRemoved(changedTrack: TrackModel) {
         //Todo test if only called on vote
         let index = self.queue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
         self.queue.remove(at: index)
