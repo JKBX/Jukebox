@@ -13,7 +13,6 @@ import FirebaseAuth
 
 protocol TrackCellDelegate{
     func likedTrack(trackID: String)
-//    func showTrackOptions(trackID: String)
 }
 
 class TrackCell: UITableViewCell {
