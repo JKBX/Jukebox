@@ -23,6 +23,46 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="RoQ-QX-Dsh">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Isf-iH-kq1" userLabel="Play / Pause Button">
+                                            <rect key="frame" x="319" y="14" width="36" height="36"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <state key="normal" image="baseline_play_circle_outline_white_36pt"/>
+                                        </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x2S-Cs-NdM" userLabel="Thumb">
+                                            <rect key="frame" x="20" y="2.5" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="haV-IO-VK3"/>
+                                                <constraint firstAttribute="height" constant="60" id="nre-4U-lFd"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peA-rN-JNe" userLabel="Song Title">
+                                            <rect key="frame" x="100" y="8" width="211" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QS6-9H-Rff" userLabel="Artist">
+                                            <rect key="frame" x="100" y="35" width="211" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="peA-rN-JNe" firstAttribute="leading" secondItem="x2S-Cs-NdM" secondAttribute="trailing" constant="20" id="4H5-fp-Q9f"/>
+                                        <constraint firstAttribute="bottom" secondItem="QS6-9H-Rff" secondAttribute="bottom" constant="11" id="5qz-IX-RYo"/>
+                                        <constraint firstItem="QS6-9H-Rff" firstAttribute="top" secondItem="peA-rN-JNe" secondAttribute="bottom" constant="6" id="7gt-7b-9eg"/>
+                                        <constraint firstAttribute="trailing" secondItem="Isf-iH-kq1" secondAttribute="trailing" constant="20" id="M1G-In-gFV"/>
+                                        <constraint firstItem="x2S-Cs-NdM" firstAttribute="leading" secondItem="RoQ-QX-Dsh" secondAttribute="leading" constant="20" id="M9I-ho-Qvr"/>
+                                        <constraint firstItem="x2S-Cs-NdM" firstAttribute="leading" secondItem="RoQ-QX-Dsh" secondAttribute="leading" constant="20" id="O96-ia-5MT"/>
+                                        <constraint firstItem="x2S-Cs-NdM" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="nA6-qW-J33"/>
+                                        <constraint firstItem="Isf-iH-kq1" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="o0V-md-cgQ"/>
+                                        <constraint firstItem="QS6-9H-Rff" firstAttribute="leading" secondItem="x2S-Cs-NdM" secondAttribute="trailing" constant="20" id="uOR-qP-fQE"/>
+                                    </constraints>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="sqd-f9-8MT"/>
@@ -38,10 +78,24 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hre-MW-Cra"/>
                     </view>
+                    <connections>
+                        <outlet property="artist" destination="QS6-9H-Rff" id="hlD-UW-3wh"/>
+                        <outlet property="playButton" destination="Isf-iH-kq1" id="IhT-wk-Rxo"/>
+                        <outlet property="songTitle" destination="peA-rN-JNe" id="stk-PG-gKq"/>
+                        <outlet property="thumbImage" destination="x2S-Cs-NdM" id="dfM-RN-fMk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="plw-sa-Wq6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="8on-G7-2qB">
+                    <connections>
+                        <action selector="tapGesturee:" destination="owb-UJ-10A" id="aWs-hi-ama"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-501.60000000000002" y="-234.33283358320841"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="baseline_play_circle_outline_white_36pt" width="36" height="36"/>
+    </resources>
 </document>
