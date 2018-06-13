@@ -23,8 +23,14 @@ class MiniPlayerViewController: UIViewController, SongSubscriber{
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var playButton: UIButton!
+    var isPlaying: Bool = false
+    
+    
+    //    MARK: Auslagern Methoden Spotify
     
     @IBAction func Play(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.playSong, object: nil)
+
         SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(currentSong!.trackId!)", startingWith: 0, startingWithPosition: 0, callback: { (error) in
             if error != nil{
                 print("Playing")
@@ -61,8 +67,6 @@ extension MiniPlayerViewController{
         }
         currentSong = song
     }
-        //    MARK: Helper for loading album picture
-    
 
 }
 

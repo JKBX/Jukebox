@@ -97,6 +97,47 @@
             </objects>
             <point key="canvasLocation" x="-501.60000000000002" y="-234.33283358320841"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="ZeT-Zx-sMS">
+            <objects>
+                <viewController id="MtR-Yi-zLX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iDB-07-V4h">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N0X-Bc-ndJ" userLabel="Back Image View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxL-0H-1yK" userLabel="Dimmer View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xc9-EX-uy3">
+                                <rect key="frame" x="0.0" y="15" width="375" height="652"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cxL-0H-1yK" firstAttribute="trailing" secondItem="NNt-z3-F2W" secondAttribute="trailing" id="1A7-C5-lag"/>
+                            <constraint firstItem="xc9-EX-uy3" firstAttribute="leading" secondItem="NNt-z3-F2W" secondAttribute="leading" id="2HP-gr-wgQ"/>
+                            <constraint firstItem="cxL-0H-1yK" firstAttribute="leading" secondItem="NNt-z3-F2W" secondAttribute="leading" id="3Zk-tS-UCc"/>
+                            <constraint firstItem="N0X-Bc-ndJ" firstAttribute="leading" secondItem="NNt-z3-F2W" secondAttribute="leading" id="4CR-YE-tIi"/>
+                            <constraint firstItem="cxL-0H-1yK" firstAttribute="bottom" secondItem="NNt-z3-F2W" secondAttribute="bottom" id="6uE-4j-Aam"/>
+                            <constraint firstItem="cxL-0H-1yK" firstAttribute="top" secondItem="iDB-07-V4h" secondAttribute="top" id="GRj-Ap-2kN"/>
+                            <constraint firstItem="N0X-Bc-ndJ" firstAttribute="trailing" secondItem="NNt-z3-F2W" secondAttribute="trailing" id="QYQ-CT-GIy"/>
+                            <constraint firstItem="xc9-EX-uy3" firstAttribute="top" secondItem="iDB-07-V4h" secondAttribute="top" constant="15" id="Vof-P3-VC6"/>
+                            <constraint firstItem="xc9-EX-uy3" firstAttribute="trailing" secondItem="NNt-z3-F2W" secondAttribute="trailing" id="fRA-Mf-ipJ"/>
+                            <constraint firstItem="N0X-Bc-ndJ" firstAttribute="bottom" secondItem="NNt-z3-F2W" secondAttribute="bottom" id="jRZ-F6-Hag"/>
+                            <constraint firstItem="xc9-EX-uy3" firstAttribute="bottom" secondItem="NNt-z3-F2W" secondAttribute="bottom" id="oXc-fh-2jN"/>
+                            <constraint firstItem="N0X-Bc-ndJ" firstAttribute="top" secondItem="iDB-07-V4h" secondAttribute="top" id="sUH-ue-4tp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NNt-z3-F2W"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OKU-kn-XEO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="320.80000000000001" y="-232.53373313343329"/>
+        </scene>
     </scenes>
     <resources>
         <image name="baseline_play_circle_outline_white_36pt" width="36" height="36"/>

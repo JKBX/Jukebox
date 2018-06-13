@@ -95,6 +95,7 @@ class PartyPlaylistViewController: UIViewController {
         miniPlayer?.setting(song: currentSong)
     }
     
+    
     func onChildRemoved(changedTrack: Track) {
         let index = getIndex(of: changedTrack)
         self.queue.remove(at: index)
