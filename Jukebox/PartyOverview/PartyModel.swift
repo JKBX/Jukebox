@@ -19,8 +19,9 @@ class Party {
     //var imageURL : NSURL
     
     init(from snapshot : DataSnapshot) {
-        //self.date = snapshot.childSnapshot(forPath: "Date").value as! NSDate
+        //self.date = (snapshot.childSnapshot(forPath: "Date").value as! NSDate) as Date
         let value = snapshot.value as? NSDictionary
+        
         
         self.name = value?["Name"] as? String ?? ""
         self.host = value?["Host"] as? String ?? ""

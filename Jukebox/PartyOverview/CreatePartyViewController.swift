@@ -7,15 +7,40 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
+import Firebase
 
-class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate{
+    
+    @IBAction func done(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBOutlet var addName: UITextField!
+    @IBOutlet var addDate: UITextField!
+    
+    private var datePicker: UIDatePicker?
+    
+    
+    
+    @IBOutlet var addPlaylist: UITextField!
+    @IBOutlet var addImage: UIButton!
+    @IBOutlet var loadPicture: UIImageView!
+    @IBOutlet var create: UILabel!
+    
     
     var playlists: [SPTPartialPlaylist] = []
     var pickerDataSource = ["White", "Red", "Green", "Blue"]
     let picker:UIPickerView = UIPickerView()
 
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
+        
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        
+        addDate.inputView = datePicker
         
         //let picker = UIPickerView()
         self.picker.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +71,10 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         }
         SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)
     }
-
+    
+    @objc func dismissPicker(){
+    view.endEditing(true)
+    }
     func getNextPage(playlists: SPTListPage) -> Void {
         // Load Playlist Data
         let accessToken = SPTAuth.defaultInstance().session.accessToken
@@ -78,9 +106,7 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         return self.playlists[row].name
     }
     
-    @IBAction func done(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

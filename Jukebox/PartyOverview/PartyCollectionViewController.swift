@@ -54,7 +54,7 @@ class PartyCollectionViewController: UICollectionViewController {
         ref.child("users/\(userID!)/parties").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let parties = snapshot.value as? NSDictionary
-            //print(value)
+            print("\(snapshot.value)")
             parties?.forEach({ (arg: (key: Any, value: Any)) in
                 let (key, value) = arg
                 self.ref.child("parties/\(key)").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -63,6 +63,7 @@ class PartyCollectionViewController: UICollectionViewController {
                     case "host":
                         self.hostParties.append((snapshot.value as? NSDictionary)!)
                     default:
+                        //print("\(snapshot.value)")
                         self.guestParties.append((snapshot.value as? NSDictionary)!)
                     }
                     self.collectionView?.reloadData()

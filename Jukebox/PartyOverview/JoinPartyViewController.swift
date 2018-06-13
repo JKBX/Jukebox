@@ -15,7 +15,6 @@ class JoinPartyViewController: UIViewController, UITextFieldDelegate {
 
  
     @IBOutlet var IDTextField: UITextField!
-    
     @IBOutlet weak var userMobileNoTextFiled: UITextField!
     
         
