@@ -9,119 +9,181 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class PartyPlaylistViewController: UIViewController{
-    
+class PartyPlaylistViewController: UIViewController {
+
+    //MARK: Vars
+
     @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
     var isAdmin: Bool = false
     var partyID: String = ""
-    var trackID: String = ""
-    var queue: [NSDictionary] = []
-    let user = Auth.auth().currentUser
-    
+    var queue: [Track] = []
+    let userID = Auth.auth().currentUser?.uid
 
-    
+
+
     //MARK: LifeCycle
     var party:NSDictionary = [:]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let queueObserver = ref.child("/parties/\(self.partyID)/queue").observe(DataEventType.value, with: { (snapshot) in
-            self.queue = snapshot.value as! [NSDictionary]
-        })
-        tableView.dataSource = self
 
+        tableView.dataSource = self
+        tableView.delegate = self
+
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(search))
+        navigationItem.rightBarButtonItem = button
     }
-    
-    //MARK: TableView Methods
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return queue.count
-//    }
-/*
- Creating a tableView. Returns a cell with songTitleLabel and songArtistLabel
-     
- */
- 
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell", for: indexPath) as! TrackCell
-////        Title < Artist < Counter
-//        cell.titleArtistCounterLabels = cell.titleArtistCounterLabels.sorted{ $0.tag < $1.tag }
-//        cell.titleArtistCounterLabels[0].text = queue[indexPath.item].value(forKey: "songTitle") as? String
-//        cell.titleArtistCounterLabels[1].text = queue[indexPath.item].value(forKey: "artist") as? String
-//        //        TODO: vote tracks
-//
-//        cell.delegate = self as? TrackCellDelegate
-//        cell.likeButton.setImage(#imageLiteral(resourceName: "round_star_border_black_18dp-1"), for: UIControlState.normal)
-//        return cell
-//    }
-    
-    
-/*  Up- and downvote track.
-     
-     */
-    
-    @IBAction func likeTrack(_sender: UIButton){
-        if let user = user{
-            let uid = user.uid
-            let treeVote = ref.child("/parties/\(self.partyID)/queue/\(self.trackID)/votes")
-            
-            treeVote.observeSingleEvent(of: .value, with: { (snapshot) in
-                if snapshot.hasChild(uid){
-                    treeVote.child(uid).setValue(false)
-//                   likeButton.setImage(#imageLiteral(resourceName: "round_star_border_black_18dp-1"), for: UIControlState.normal)
-                    print("unliked track")
-                    self.tableView.reloadData()
-                }else{
-                    treeVote.child(uid).setValue(true)
-//                  cell.likeButton.setImage(#imageLiteral(resourceName: "round_star_black_18dp-1"), for: UIControlState.normal)
-                    print("liked track")
-                    self.tableView.reloadData()
-                }
-            })
-        }else{
-            print("error no user at firebase")
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.queue = []
+        self.tableView.reloadData()
+
+        self.ref = ref.child("/parties/\(self.partyID)")
+        setupObservers()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        freeObservers()
+    }
+
+    //MARK: Observer-Methods
+
+    func setupObservers() {
+        ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(changedTrack: Track(from: snapshot))})
+        ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(changedTrack: Track(from: snapshot))})
+        ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(changedTrack: Track(from: snapshot))})
+    }
+
+    func onChildAdded(changedTrack: Track) {
+        self.queue.append(changedTrack)
+        self.queue = self.queue.sorted() { $0.voteCount > $1.voteCount }
+        let index = getIndex(of: changedTrack)
+        self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+    }
+
+    func onChildChanged(changedTrack: Track) {
+        //Update Votes
+        let index = getIndex(of: changedTrack)
+        self.queue[index] = changedTrack
+        self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+
+        //Reorder Cell
+        let sortedQueue = self.queue.sorted() { $0.voteCount > $1.voteCount }
+        let newIndex = sortedQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId })!
+        if newIndex != index {
+            self.tableView.moveRow(at: IndexPath(item: index, section: 0), to: IndexPath(item: newIndex, section: 0))
+            self.queue = sortedQueue
         }
     }
-    
-    
-    override func didReceiveMemoryWarning() {
+
+    func onChildRemoved(changedTrack: Track) {
+        let index = getIndex(of: changedTrack)
+        self.queue.remove(at: index)
+        self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: .left)
+    }
+
+    //Helper function finding a changed Track in the existing queue
+    func getIndex(of findTrack: Track) -> Int {
+        return self.queue.index(where: { (track) -> Bool in track.trackId == findTrack.trackId })!
+    }
+
+
+    @objc func search(){
+        self.performSegue(withIdentifier: "showSearch", sender: self)
+    }
+
+    func freeObservers(){
+        ref.removeAllObservers()
+        self.ref = Database.database().reference()
+    }
+
+  override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 }
 
-//extension ViewController: TrackCellDelegate{
-//    func likedTrack(trackID: String) {
-//
-//    }
-//
-//}
+/*
+ Data Source
 
+ */
 
 extension PartyPlaylistViewController: UITableViewDataSource{
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return queue.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            //          cell as TrackCell
-                let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell", for: indexPath) as! TrackCell
-            //       cellLabels[] tag order -> [Title,Artist,Counter] -> [0,1,2]
-                var cellLabels = cell.titleArtistCounterLabels.sorted{ $0.tag < $1.tag }
-                cellLabels[0].text = queue[indexPath.item].value(forKey: "songTitle") as? String
-                cellLabels[1].text = queue[indexPath.item].value(forKey: "artist") as? String
-                cellLabels[2].text = queue[indexPath.item].value(forKey: "voteCount") as? String
-                cell.likeButton.setImage(#imageLiteral(resourceName: "round_star_border_black_18dp-1"), for: UIControlState.normal)
-        
-        
-                cell.delegate = self as? TrackCellDelegate
-        
-                return cell
+        let track = queue[indexPath.item]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! TrackCell
+        cell.setup(from: track)
+        cell.partyRef = self.ref
+        return cell
     }
 }
 
+/*
+ ViewDelegate
 
+ */
 
+extension PartyPlaylistViewController: UITableViewDelegate{
 
+    //Set Custom Height
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        return 64.0;
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
+
+        let track = self.queue[indexPath.item]
+        if !isAdmin{
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        let modifyAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            let alert = UIAlertController(title: "Are you sure you want to remove \(track.songName!)?", message: "This track had \(String(track.voteCount)) votes.", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                self.ref.child("/queue/\(track.trackId as String)").removeValue()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+            self.present(alert, animated: true)
+            success(true)
+        })
+        modifyAction.title = "Remove"
+        modifyAction.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [modifyAction])
+    }
+
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let track = self.queue[indexPath.item]
+
+        let voteAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+
+            if track.liked{
+                //Unlike
+                self.ref.child("/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
+            } else {
+                //Like
+                self.ref.child("/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
+            }
+            success(true)
+        })
+        voteAction.image = UIImage(named: track.liked ? "favorite" : "favoriteOutline")
+        voteAction.backgroundColor = UIColor(named: "SolidBlue400")
+        return UISwipeActionsConfiguration(actions: [voteAction])
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.text = "The Show must go on! Keep adding Tracks."
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }
+}
