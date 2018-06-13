@@ -112,8 +112,27 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xc9-EX-uy3">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xc9-EX-uy3">
                                 <rect key="frame" x="0.0" y="15" width="375" height="652"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lKJ-3p-DKF" userLabel="CoverImage">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="652"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tf1-56-gBS" userLabel="CoverArt">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="lKJ-3p-DKF" firstAttribute="top" secondItem="xc9-EX-uy3" secondAttribute="top" constant="57" id="2Qv-sK-G68"/>
+                                    <constraint firstAttribute="trailing" secondItem="lKJ-3p-DKF" secondAttribute="trailing" id="GLT-22-Waj"/>
+                                    <constraint firstAttribute="bottom" secondItem="lKJ-3p-DKF" secondAttribute="bottom" constant="237" id="WQ3-4u-yHt"/>
+                                    <constraint firstItem="lKJ-3p-DKF" firstAttribute="leading" secondItem="xc9-EX-uy3" secondAttribute="leading" id="ahT-aC-1aC"/>
+                                    <constraint firstItem="lKJ-3p-DKF" firstAttribute="centerX" secondItem="xc9-EX-uy3" secondAttribute="centerX" id="pcA-Xr-ltm"/>
+                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
