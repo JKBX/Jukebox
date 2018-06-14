@@ -43,9 +43,11 @@ class MiniPlayerViewController: UIViewController, SongSubscriber{
     }
     
     @IBAction func Play(_ sender: Any) {
+        
         let play = NSNotification.Name.Spotify.playSong
         let pause = NSNotification.Name.Spotify.pauseSong
         NotificationCenter.default.post(name: isPlaying ? pause : play, object: nil)
+        
     }
 }
 
