@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TrackPlayControlViewController: UIViewController {
 
     
+    @IBOutlet weak var songTitle: UILabel!
+    @IBOutlet weak var artist: UILabel!
+    @IBOutlet weak var songDuration: UILabel!
     
+
    
     
     
@@ -19,10 +24,30 @@ class TrackPlayControlViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
-    
+   
 
 }
+
+extension TrackPlayControlViewController: SPTAudioStreamingPlaybackDelegate{
+    
+
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
+        var durationTime: String{
+            let formatter = DateFormatter()
+            formatter.dateFormat = "mm:ss"
+            let date = Date(timeIntervalSince1970: metadata.currentTrack!.duration)
+            return formatter.string(from: date)
+        }
+        
+        songTitle.text = metadata.currentTrack?.name
+        artist.text = metadata.currentTrack?.artistName
+        songDuration.text = durationTime
+    }
+    
+    }
+    
+    
+
+

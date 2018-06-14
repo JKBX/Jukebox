@@ -196,7 +196,7 @@
         <!--PlayControlViewController-->
         <scene sceneID="p61-g5-dAN">
             <objects>
-                <viewController storyboardIdentifier="PlayControl" id="wYR-Es-Ly3" userLabel="PlayControlViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlayControl" id="wYR-Es-Ly3" userLabel="PlayControlViewController" customClass="TrackPlayControlViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PTK-EK-XV9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -265,6 +265,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1qJ-AI-1KV"/>
                     </view>
+                    <connections>
+                        <outlet property="artist" destination="f27-AV-lpj" id="Kq0-4f-cSE"/>
+                        <outlet property="songDuration" destination="w0w-iq-qBm" id="MlJ-oi-seC"/>
+                        <outlet property="songTitle" destination="Gj2-86-hyv" id="WGc-Id-CxD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd4-OP-AkD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
