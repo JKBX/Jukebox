@@ -25,6 +25,11 @@ class MiniPlayerViewController: UIViewController, SongSubscriber{
     @IBOutlet weak var playButton: UIButton!
     var isPlaying: Bool = false
     
+    
+//    MARK https://stackoverflow.com/questions/18793469/animate-a-point-of-a-bezier-curve --> var path: UIBezierPath
+//    chevron transition
+    
+    
     var currentSong: Track?
     weak var delegate: MiniPlayerDelegate?
     
