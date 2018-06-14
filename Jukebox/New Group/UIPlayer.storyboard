@@ -140,10 +140,18 @@
                                             <constraint firstAttribute="trailing" secondItem="OlU-KQ-JRZ" secondAttribute="trailing" constant="30" id="m77-wc-a4N"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggK-F8-J3d" userLabel="skirt hot and stretchy">
+                                        <rect key="frame" x="0.0" y="479" width="414" height="237"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Uq1-55-Z8q" secondAttribute="bottom" constant="237" id="8HG-t8-i4z"/>
+                                    <constraint firstAttribute="bottom" secondItem="ggK-F8-J3d" secondAttribute="bottom" id="VTH-Uc-bGD"/>
+                                    <constraint firstItem="ggK-F8-J3d" firstAttribute="leading" secondItem="RWH-NQ-MDi" secondAttribute="leading" id="Vij-nf-e6z"/>
                                     <constraint firstAttribute="trailing" secondItem="Uq1-55-Z8q" secondAttribute="trailing" id="Wkh-1b-aCx"/>
+                                    <constraint firstAttribute="trailing" secondItem="ggK-F8-J3d" secondAttribute="trailing" id="a1U-Dq-XKg"/>
+                                    <constraint firstItem="ggK-F8-J3d" firstAttribute="top" secondItem="Uq1-55-Z8q" secondAttribute="bottom" id="f0f-bE-pvf"/>
                                     <constraint firstItem="Uq1-55-Z8q" firstAttribute="leading" secondItem="RWH-NQ-MDi" secondAttribute="leading" id="hmn-VQ-fh7"/>
                                     <constraint firstItem="Uq1-55-Z8q" firstAttribute="centerX" secondItem="RWH-NQ-MDi" secondAttribute="centerX" id="iZw-ly-NrO"/>
                                     <constraint firstItem="Uq1-55-Z8q" firstAttribute="top" secondItem="RWH-NQ-MDi" secondAttribute="top" constant="57" id="vft-62-1Ri"/>
