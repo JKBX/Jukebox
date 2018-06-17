@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class TrackPlayControlViewController: UIViewController {
 
@@ -47,7 +46,8 @@ extension TrackPlayControlViewController: SPTAudioStreamingPlaybackDelegate{
     }
     
     }
-    
+
+
     
 
 

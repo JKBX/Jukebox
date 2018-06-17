@@ -22,8 +22,12 @@ class MiniPlayerViewController: UIViewController, SongSubscriber{
     @IBOutlet weak var thumbImage: UIImageView!
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var artist: UILabel!
-    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var playPause: UIButton!
+
     var isPlaying: Bool = false
+   
+    
+    
     
     
 //    MARK https://stackoverflow.com/questions/18793469/animate-a-point-of-a-bezier-curve --> var path: UIBezierPath
@@ -69,6 +73,7 @@ extension MiniPlayerViewController{
 
 extension MiniPlayerViewController{
     @IBAction func tapGesturee(_ sender: Any) {
+        print("func call tapGesturee")
         guard let song = currentSong else{
             return
         }
@@ -81,6 +86,8 @@ extension MiniPlayerViewController:SPTAudioStreamingPlaybackDelegate{
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
         songTitle.text = metadata.currentTrack?.name
         artist.text = metadata.currentTrack?.artistName
+        
+
         thumbImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
     }
     
@@ -93,6 +100,11 @@ extension MiniPlayerViewController:SPTAudioStreamingPlaybackDelegate{
          //print("Player Did change playback status")
         //TODO toggle play button design
         self.isPlaying = isPlaying
+        if(isPlaying){
+            playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+        }else{
+            playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+        }
         print(self.isPlaying ? "Playing" : "Paused")
     }
     

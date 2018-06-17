@@ -33,7 +33,7 @@
                                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" image="baseline_play_circle_outline_white_36pt"/>
                                             <connections>
-                                                <action selector="Play:" destination="owb-UJ-10A" eventType="touchUpInside" id="VC6-54-HYb"/>
+                                                <action selector="Play:" destination="owb-UJ-10A" eventType="touchUpInside" id="frT-gY-1xf"/>
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x2S-Cs-NdM" userLabel="ThumbPicture">
@@ -73,6 +73,9 @@
                                     <constraint firstAttribute="height" constant="64" id="sqd-f9-8MT"/>
                                 </constraints>
                                 <blurEffect style="light"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="8on-G7-2qB" appends="YES" id="qJS-hm-b0u"/>
+                                </connections>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -85,7 +88,7 @@
                     </view>
                     <connections>
                         <outlet property="artist" destination="QS6-9H-Rff" id="hlD-UW-3wh"/>
-                        <outlet property="playButton" destination="Isf-iH-kq1" id="IhT-wk-Rxo"/>
+                        <outlet property="playPause" destination="Isf-iH-kq1" id="7M3-e2-RLt"/>
                         <outlet property="songTitle" destination="peA-rN-JNe" id="stk-PG-gKq"/>
                         <outlet property="thumbImage" destination="x2S-Cs-NdM" id="dfM-RN-fMk"/>
                     </connections>
@@ -102,7 +105,7 @@
         <!--Expanded Track View Controller-->
         <scene sceneID="ZeT-Zx-sMS">
             <objects>
-                <viewController storyboardIdentifier="ExpandedTrackCardViewController" id="MtR-Yi-zLX" customClass="ExpandedTrackViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExpandedTrackViewController" id="MtR-Yi-zLX" customClass="ExpandedTrackViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iDB-07-V4h">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -181,17 +184,21 @@
                     </view>
                     <connections>
                         <outlet property="backingPicView" destination="N0X-Bc-ndJ" id="TR9-3M-bFv"/>
+                        <outlet property="backingPicViewBottomConstraint" destination="oDD-T4-Ecl" id="NvW-sd-JTs"/>
+                        <outlet property="backingPicViewLeadingConstraint" destination="TAC-dE-Wzp" id="hTv-lB-GwO"/>
+                        <outlet property="backingPicViewTopConstraint" destination="LS9-3n-Pg2" id="8nJ-he-aeP"/>
+                        <outlet property="backingPicViewTrailingConstraint" destination="I0f-WG-hAG" id="pUZ-hB-YTv"/>
                         <outlet property="chevron" destination="xF9-bR-Dru" id="G7t-0z-d1Q"/>
-                        <outlet property="coverArtImage" destination="OlU-KQ-JRZ" id="2aA-ti-sbS"/>
-                        <outlet property="coverImageContainer" destination="Uq1-55-Z8q" id="Kih-fB-fHM"/>
+                        <outlet property="coverContainer" destination="Uq1-55-Z8q" id="eoM-Eh-Ueg"/>
+                        <outlet property="coverImage" destination="OlU-KQ-JRZ" id="vwm-St-IGn"/>
                         <outlet property="dimmerView" destination="cxL-0H-1yK" id="IJQ-6l-i1O"/>
                         <outlet property="scrollView" destination="RWH-NQ-MDi" id="quk-GF-Lup"/>
-                        <outlet property="strechy" destination="ggK-F8-J3d" id="G8b-m8-H3f"/>
+                        <outlet property="stretchArea" destination="ggK-F8-J3d" id="oTy-UY-inl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OKU-kn-XEO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="320.28985507246381" y="-233.1521739130435"/>
+            <point key="canvasLocation" x="377" y="-235"/>
         </scene>
         <!--PlayControlViewController-->
         <scene sceneID="p61-g5-dAN">
@@ -273,7 +280,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yd4-OP-AkD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1267" y="-233"/>
+            <point key="canvasLocation" x="1186" y="-235"/>
         </scene>
     </scenes>
     <resources>

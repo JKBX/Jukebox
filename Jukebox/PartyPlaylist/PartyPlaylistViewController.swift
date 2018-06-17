@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class PartyPlaylistViewController: UIViewController {
+class PartyPlaylistViewController: UIViewController, SongSubscriber{
     
     //MARK: Vars
     
@@ -24,18 +24,15 @@ class PartyPlaylistViewController: UIViewController {
     var queue: [Track] = []
     let userID = Auth.auth().currentUser?.uid
     
-    //    MARK: Navigation
-    
+    /*   15.06.2018 - Chris
+     
+    */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MiniPlayerViewController {
             miniPlayer = destination
+            miniPlayer?.delegate = self
         }
     }
-    
-    
-    
-    
-    
     
     //MARK: LifeCycle
     var party:NSDictionary = [:]
@@ -122,6 +119,48 @@ class PartyPlaylistViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
+/*
+ 15.06.2018 - Chris
+ To expand the UIPlayer/MaxiSongCardViewController
+ 
+ */
+
+extension PartyPlaylistViewController: MiniPlayerDelegate{
+    func expandSong(song: Track) {
+       
+        guard let expandedTrackCard = UIStoryboard(name: "UIPlayer", bundle: nil).instantiateViewController(withIdentifier: "ExpandedTrackViewController")
+            as? ExpandedTrackViewController else {
+                assertionFailure("No view controller ID ExpandedTrackViewController in this storyboard found")
+                return
+        }
+        print("func call expandSong")
+        expandedTrackCard.backingPic = view.makeScreenshot()
+        expandedTrackCard.currentSong = song
+        
+        present(expandedTrackCard, animated: false)
+        
+        
+    }
+}
+/*
+                ^^              ^^
+                ||              ||
+            Helper just for extension "extension TrackPlayControlViewController: MiniPlayerDelegate"
+ */
+extension UIView  {
+    
+    func makeScreenshot() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+        drawHierarchy(in: bounds, afterScreenUpdates: true)
+        let screen = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        print("func call makeScreenshot")
+        return screen
+        
+    }
+}
+
+
 
 /*
  Data Source
