@@ -18,6 +18,7 @@ class Track{
     var coverUrl: URL!
     var voteCount: UInt!
     var liked: Bool
+    var duration: Double
     
     init(from snapshot: DataSnapshot){
         let userId = Auth.auth().currentUser?.uid as! String
@@ -29,5 +30,6 @@ class Track{
         self.coverUrl = URL(string: snapshot.childSnapshot(forPath: "coverURL").value as! String)!
         self.liked = snapshot.childSnapshot(forPath: "votes/\(userId)").exists()
         self.voteCount = snapshot.childSnapshot(forPath: "votes").childrenCount
+        self.duration = 0
     }
 }

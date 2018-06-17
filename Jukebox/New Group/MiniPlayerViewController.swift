@@ -14,7 +14,7 @@ protocol MiniPlayerDelegate: class {
 }
 
 
-class MiniPlayerViewController: UIViewController, SongSubscriber{
+class MiniPlayerViewController: UIViewController, TrackSubscriber{
 
     // MARK: Properties
     
@@ -24,6 +24,8 @@ class MiniPlayerViewController: UIViewController, SongSubscriber{
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var playPause: UIButton!
 
+   
+    
     var isPlaying: Bool = false
    
     
@@ -45,6 +47,8 @@ class MiniPlayerViewController: UIViewController, SongSubscriber{
         SPTAudioStreamingController.sharedInstance().playbackDelegate = self
         // Do any additional setup after loading the view.
     }
+    
+    
     
     @IBAction func Play(_ sender: Any) {
         
@@ -68,7 +72,6 @@ extension MiniPlayerViewController{
         }
         currentSong = song
     }
-
 }
 
 extension MiniPlayerViewController{
@@ -79,7 +82,13 @@ extension MiniPlayerViewController{
         }
         delegate?.expandSong(song: song)
     }
+    func getIsPlaying() -> Bool{
+        return isPlaying
+        
+    }
+    
 }
+
 
 extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     
@@ -93,19 +102,15 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     }
 }
 
-
-
-
-
 extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
     
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
-        songTitle.text = metadata.currentTrack?.name
-        artist.text = metadata.currentTrack?.artistName
-        
-
-        thumbImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
-    }
+//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
+//        songTitle.text = metadata.currentTrack?.name
+//        artist.text = metadata.currentTrack?.artistName
+//
+//
+//        thumbImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
+//    }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
         //TODO set ui position of track

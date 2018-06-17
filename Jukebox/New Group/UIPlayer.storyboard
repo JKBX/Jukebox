@@ -57,6 +57,7 @@
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" name="SolidGrey400"/>
+                                    <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstItem="peA-rN-JNe" firstAttribute="leading" secondItem="x2S-Cs-NdM" secondAttribute="trailing" constant="20" id="4H5-fp-Q9f"/>
                                         <constraint firstAttribute="bottom" secondItem="QS6-9H-Rff" secondAttribute="bottom" constant="11" id="5qz-IX-RYo"/>
@@ -68,6 +69,9 @@
                                         <constraint firstItem="Isf-iH-kq1" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="o0V-md-cgQ"/>
                                         <constraint firstItem="QS6-9H-Rff" firstAttribute="leading" secondItem="x2S-Cs-NdM" secondAttribute="trailing" constant="20" id="uOR-qP-fQE"/>
                                     </constraints>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="3CL-AG-vsx" appends="YES" id="2iY-11-uvl"/>
+                                    </connections>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="sqd-f9-8MT"/>
@@ -100,6 +104,11 @@
                         <action selector="tapGesturee:" destination="owb-UJ-10A" id="aWs-hi-ama"/>
                     </connections>
                 </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="3CL-AG-vsx">
+                    <connections>
+                        <action selector="handlePan:" destination="owb-UJ-10A" id="XHF-wn-KbU"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-501.60000000000002" y="-234.33283358320841"/>
         </scene>
@@ -155,20 +164,25 @@
                                             <constraint firstItem="xF9-bR-Dru" firstAttribute="top" secondItem="Uq1-55-Z8q" secondAttribute="top" constant="4" id="kWc-Q8-YfX"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggK-F8-J3d" userLabel="skirt hot and stretchy">
-                                        <rect key="frame" x="0.0" y="479" width="414" height="237"/>
-                                    </view>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhT-1M-TZY">
+                                        <rect key="frame" x="0.0" y="479" width="414" height="400"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="400" id="hBb-J5-GYw"/>
+                                        </constraints>
+                                        <connections>
+                                            <segue destination="wYR-Es-Ly3" kind="embed" id="rVr-jl-38a"/>
+                                        </connections>
+                                    </containerView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Uq1-55-Z8q" secondAttribute="bottom" constant="237" id="8HG-t8-i4z"/>
-                                    <constraint firstAttribute="bottom" secondItem="ggK-F8-J3d" secondAttribute="bottom" id="VTH-Uc-bGD"/>
-                                    <constraint firstItem="ggK-F8-J3d" firstAttribute="leading" secondItem="RWH-NQ-MDi" secondAttribute="leading" id="Vij-nf-e6z"/>
+                                    <constraint firstItem="xhT-1M-TZY" firstAttribute="top" secondItem="Uq1-55-Z8q" secondAttribute="bottom" id="KeX-Ri-qzL"/>
                                     <constraint firstAttribute="trailing" secondItem="Uq1-55-Z8q" secondAttribute="trailing" id="Wkh-1b-aCx"/>
-                                    <constraint firstAttribute="trailing" secondItem="ggK-F8-J3d" secondAttribute="trailing" id="a1U-Dq-XKg"/>
-                                    <constraint firstItem="ggK-F8-J3d" firstAttribute="top" secondItem="Uq1-55-Z8q" secondAttribute="bottom" id="f0f-bE-pvf"/>
                                     <constraint firstItem="Uq1-55-Z8q" firstAttribute="leading" secondItem="RWH-NQ-MDi" secondAttribute="leading" id="hmn-VQ-fh7"/>
                                     <constraint firstItem="Uq1-55-Z8q" firstAttribute="centerX" secondItem="RWH-NQ-MDi" secondAttribute="centerX" id="iZw-ly-NrO"/>
+                                    <constraint firstItem="xhT-1M-TZY" firstAttribute="leading" secondItem="RWH-NQ-MDi" secondAttribute="leading" id="mVR-ws-Kda"/>
                                     <constraint firstItem="Uq1-55-Z8q" firstAttribute="top" secondItem="RWH-NQ-MDi" secondAttribute="top" constant="57" id="vft-62-1Ri"/>
+                                    <constraint firstAttribute="trailing" secondItem="xhT-1M-TZY" secondAttribute="trailing" id="wlo-WE-Fb1"/>
+                                    <constraint firstAttribute="bottom" secondItem="xhT-1M-TZY" secondAttribute="bottom" id="z3S-EM-tM2"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -205,7 +219,6 @@
                         <outlet property="coverImageTop" destination="eoi-s1-djB" id="e5N-x7-hsR"/>
                         <outlet property="dimmerView" destination="cxL-0H-1yK" id="IJQ-6l-i1O"/>
                         <outlet property="scrollView" destination="RWH-NQ-MDi" id="quk-GF-Lup"/>
-                        <outlet property="stretchArea" destination="ggK-F8-J3d" id="oTy-UY-inl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OKU-kn-XEO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -217,11 +230,11 @@
             <objects>
                 <viewController storyboardIdentifier="PlayControl" id="wYR-Es-Ly3" userLabel="PlayControlViewController" customClass="TrackPlayControlViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PTK-EK-XV9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="y7n-qT-zEm" userLabel="Stack View Track Data">
-                                <rect key="frame" x="20" y="36" width="374" height="81"/>
+                                <rect key="frame" x="20" y="16" width="374" height="81"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gj2-86-hyv">
                                         <rect key="frame" x="146" y="0.0" width="82.333333333333314" height="20.333333333333332"/>
@@ -230,7 +243,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f27-AV-lpj">
-                                        <rect key="frame" x="166.33333333333334" y="30.333333333333329" width="41.666666666666657" height="20.333333333333329"/>
+                                        <rect key="frame" x="166.33333333333334" y="30.333333333333336" width="41.666666666666657" height="20.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -244,7 +257,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="O7T-zt-KVW" userLabel="Stack View Player Controls">
-                                <rect key="frame" x="141" y="157" width="132" height="28"/>
+                                <rect key="frame" x="141" y="137" width="132" height="28"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnA-bL-OHx" userLabel="Previous">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
@@ -253,6 +266,9 @@
                                             <constraint firstAttribute="height" constant="28" id="atm-Y4-cqK"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="outline_skip_previous_black_36pt"/>
+                                        <connections>
+                                            <action selector="previousButton:" destination="wYR-Es-Ly3" eventType="touchUpInside" id="9Xy-o5-FKa"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDv-UU-5OX" userLabel="PlayPause">
                                         <rect key="frame" x="52" y="0.0" width="28" height="28"/>
@@ -260,7 +276,12 @@
                                             <constraint firstAttribute="width" constant="28" id="UOz-ym-HY3"/>
                                             <constraint firstAttribute="height" constant="28" id="VaR-72-ply"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="outline_play_circle_filled_white_black_36pt"/>
+                                        <state key="normal" title="Button" image="outline_play_circle_filled_white_black_36pt">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="playButton:" destination="wYR-Es-Ly3" eventType="touchUpInside" id="q0y-iV-msm"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9w3-D0-jyX" userLabel="Next">
                                         <rect key="frame" x="104" y="0.0" width="28" height="28"/>
@@ -269,6 +290,9 @@
                                             <constraint firstAttribute="height" constant="28" id="fK4-UV-qox"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="outline_skip_next_black_36pt"/>
+                                        <connections>
+                                            <action selector="nextButton:" destination="wYR-Es-Ly3" eventType="touchUpInside" id="i1b-om-at1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

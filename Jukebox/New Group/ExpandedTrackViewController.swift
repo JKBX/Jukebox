@@ -15,10 +15,10 @@ protocol ExpandedTrackSourceProtocol: class {
 }
 
 
-class ExpandedTrackViewController: UIViewController, SongSubscriber {
+class ExpandedTrackViewController: UIViewController, TrackSubscriber {
 
     
-    let durationPrimary = 4.0
+    let durationPrimary = 0.5
 //    gibt an wie weit das fenster gecropped wird
     let backingPicViewEdgeInset: CGFloat = 10.0
     
@@ -67,7 +67,6 @@ class ExpandedTrackViewController: UIViewController, SongSubscriber {
         super.viewDidLoad()
         backingPicView.image = backingPic
         scrollView.contentInsetAdjustmentBehavior = .never
-        
         coverContainer.layer.cornerRadius = cardCornerRadius
         coverContainer.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
@@ -88,8 +87,11 @@ class ExpandedTrackViewController: UIViewController, SongSubscriber {
 
     }
     
-    
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? TrackSubscriber {
+            destination.currentSong = currentSong
+        }
+    }
 }
 
 extension ExpandedTrackViewController{
@@ -201,7 +203,11 @@ extension ExpandedTrackViewController{
     }
     
     @IBAction func getOutAction(_ sender: Any) {
-        self.dismiss(animated: false)
+        animateBackingPicViewOUT()
+        animateCoverImageOUT()
+        animateImageLayerOUT(completion: {_ in
+            self.dismiss(animated: false)
+        })
     }
 }
 /*
@@ -243,35 +249,6 @@ extension ExpandedTrackViewController{
                         self.view.layoutIfNeeded()
         })
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     
 }

@@ -8,6 +8,6 @@
 
 import Foundation
 
- protocol SongSubscriber: class {
+ protocol TrackSubscriber: class {
     var currentSong: Track? {get set}
  }

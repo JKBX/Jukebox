@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class PartyPlaylistViewController: UIViewController, SongSubscriber{
+class PartyPlaylistViewController: UIViewController, TrackSubscriber{
     
     //MARK: Vars
     
