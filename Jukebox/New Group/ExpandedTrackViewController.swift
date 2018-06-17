@@ -76,12 +76,16 @@ class ExpandedTrackViewController: UIViewController, SongSubscriber {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setImageLayerStartPoint()
+        coverImage.image = sourceView.coverImageView.image
+        setCoverImageStartPoint()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animateBackingPicViewIN()
         animateImageLayerIN()
+        animateCoverImageIN()
+
     }
     
     
@@ -115,6 +119,7 @@ extension ExpandedTrackViewController{
         coverContainerTop.constant = startInput
         view.layoutIfNeeded()
     }
+//    animation to its final point
     
     func animateImageLayerIN(){
         
@@ -123,12 +128,13 @@ extension ExpandedTrackViewController{
         }
         
         UIView.animate(withDuration: durationPrimary, delay: 0, options: [.curveEaseIn], animations: {
-            self.coverContainerTop.constant = 0
+            self.coverContainerTop.constant = 10
             self.chevron.alpha = 1
             self.coverContainer.layer.cornerRadius = self.cardCornerRadius
             self.view.layoutIfNeeded()
         })
     }
+// animation to its origin point
     
     func animateImageLayerOUT(completion: @escaping((Bool) -> Void)){
         let endInset = imageLayerForOutPosition
@@ -141,6 +147,7 @@ extension ExpandedTrackViewController{
         }, completion:{finished in
             completion(finished)
         })
+        
         UIView.animate(withDuration: durationPrimary,
                        delay: 0,
                        options: [.curveEaseOut],
@@ -151,7 +158,6 @@ extension ExpandedTrackViewController{
                 self.view.layoutIfNeeded()
         })
     }
-    
     
     /*
      Chris - 17.06.2018
@@ -197,4 +203,75 @@ extension ExpandedTrackViewController{
     @IBAction func getOutAction(_ sender: Any) {
         self.dismiss(animated: false)
     }
+}
+/*
+ 17.06.2018 - Chris
+ 
+ animate the cover image IN and OUT
+ */
+extension ExpandedTrackViewController{
+
+    func setCoverImageStartPoint(){
+        let imageFrame = sourceView.coverImageView.frame
+        coverImageHeight.constant = imageFrame.height
+        coverImageLeading.constant = imageFrame.minX
+        coverImageTop.constant = imageFrame.minY
+        coverImageBottom.constant = imageFrame.minY
+    }
+    
+    func animateCoverImageIN(){
+        let coverImageEdgeContraint: CGFloat = 30
+        let endHeight = coverContainer.bounds.width - coverImageEdgeContraint * 2
+        UIView.animate(withDuration: durationPrimary,
+                       delay: 0,
+                       options: [.curveEaseIn],
+                       animations: {
+                        self.coverImageHeight.constant = endHeight
+                        self.coverImageLeading.constant = coverImageEdgeContraint
+                        self.coverImageTop.constant = coverImageEdgeContraint
+                        self.coverImageBottom.constant = coverImageEdgeContraint
+                        self.view.layoutIfNeeded()
+        })
+    }
+    
+    func animateCoverImageOUT(){
+        UIView.animate(withDuration: durationPrimary,
+                       delay: 0,
+                       options: [.curveEaseOut],
+                       animations:{
+                        self.setCoverImageStartPoint()
+                        self.view.layoutIfNeeded()
+        })
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
