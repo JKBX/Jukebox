@@ -83,7 +83,7 @@ extension ExpandedTrackViewController{
         
         dimmerView.alpha = dimmerAlpha
         
-        backingPicView.layer.cornerRadius = cornerRadius
+        backingPicView.layer.cornerRadius = cornerRadi
         
         
     }
