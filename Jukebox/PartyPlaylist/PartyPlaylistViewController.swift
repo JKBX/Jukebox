@@ -137,6 +137,7 @@ extension PartyPlaylistViewController: MiniPlayerDelegate{
         expandedTrackCard.backingPic = view.makeScreenshot()
         expandedTrackCard.currentSong = song
         
+        expandedTrackCard.sourceView = miniPlayer
         present(expandedTrackCard, animated: false)
         
         

@@ -81,7 +81,23 @@ extension MiniPlayerViewController{
     }
 }
 
-extension MiniPlayerViewController:SPTAudioStreamingPlaybackDelegate{
+extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
+    
+    var frameInWindow: CGRect {
+        let windowRect = view.convert(view.frame, to: nil)
+        return windowRect
+    }
+    
+    var coverImageView: UIImageView {
+        return thumbImage
+    }
+}
+
+
+
+
+
+extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
         songTitle.text = metadata.currentTrack?.name
