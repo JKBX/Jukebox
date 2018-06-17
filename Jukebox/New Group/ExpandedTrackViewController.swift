@@ -12,7 +12,9 @@ class ExpandedTrackViewController: UIViewController, SongSubscriber {
 
     
     let durationPrimary = 4.0
-    let backingPicViewEdgeInset: CGFloat = 15.0
+//    gibt an wie weit das fenster gecropped wird
+    let backingPicViewEdgeInset: CGFloat = 10.0
+    
     let cardCornerRadius: CGFloat = 10
     var currentSong: Track?
     
@@ -70,27 +72,38 @@ class ExpandedTrackViewController: UIViewController, SongSubscriber {
 }
 extension ExpandedTrackViewController{
     
-    private func setBackingPicView(presenting: Bool){
+    func setBackingPicView(presenting: Bool){
         let edgeInset: CGFloat = presenting ? backingPicViewEdgeInset : 0
-        let dimmerAlpha: CGFloat = presenting ? 0.3 : 0
+        let dimmerAlpha: CGFloat = presenting ? 0.5 : 0
         let cornerRadius: CGFloat = presenting ? cardCornerRadius : 0
         
-        backingPicViewLeadingConstraint.constant = edgeInset
-        backingPicViewTrailingConstraint.constant = edgeInset
+        backingPicViewLeadingConstraint.constant = backingPicViewEdgeInset
+        backingPicViewTrailingConstraint.constant = -(backingPicViewEdgeInset)
         let aspectRatio = backingPicView.frame.height / backingPicView.frame.width
-        backingPicViewTopConstraint.constant = edgeInset * aspectRatio
-        backingPicViewBottomConstraint.constant = edgeInset * aspectRatio
+        backingPicViewTopConstraint.constant = 10
+        backingPicViewBottomConstraint.constant = -(edgeInset * aspectRatio)
         
         dimmerView.alpha = dimmerAlpha
+//        self.backingPicView.contentMode = .scaleToFill
+        self.backingPicView.layer.masksToBounds = true
+        self.backingPicView.layer.cornerRadius =  cornerRadius
         
-        backingPicView.layer.cornerRadius = cornerRadius
+
+        
+
+        
         
         
     }
     func animateBackingPicView(presenting: Bool){
         UIView.animate(withDuration: durationPrimary){
+
             self.setBackingPicView(presenting: presenting)
             self.view.layoutIfNeeded()
+            
+           
+
+//            for the animation
         }
     }
     func animateBackingPicViewIN(){
