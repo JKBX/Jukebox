@@ -43,7 +43,7 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
 
 }
 extension TrackPlayControlViewController{
-    // important: songTitle is nil
+    // important: songTitle is nil before
     func setFields(){
         guard songTitle != nil else{
             return
