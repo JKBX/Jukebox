@@ -10,7 +10,11 @@ import UIKit
 
 class TrackPlayControlViewController: UIViewController, TrackSubscriber {
     
-    var currentSong: Track?
+    var currentSong: Track?{
+        didSet{
+        setFields()
+        }
+    }
     
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var artist: UILabel!
@@ -18,7 +22,7 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setFields()
     
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +41,17 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
         
     }
 
+}
+extension TrackPlayControlViewController{
+    // important: songTitle is nil
+    func setFields(){
+        guard songTitle != nil else{
+            return
+        }
+
+        songTitle.text = currentSong?.songName
+        artist.text = currentSong?.artist
+    }
 }
 
 extension TrackPlayControlViewController: SPTAudioStreamingPlaybackDelegate{

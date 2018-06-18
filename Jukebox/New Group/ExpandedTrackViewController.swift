@@ -90,6 +90,8 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? TrackSubscriber {
             destination.currentSong = currentSong
+            print("func call prepare in ExpandedTrackCard + \(currentSong?.songName)")
+
         }
     }
 }

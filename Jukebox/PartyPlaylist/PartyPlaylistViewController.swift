@@ -133,14 +133,13 @@ extension PartyPlaylistViewController: MiniPlayerDelegate{
                 assertionFailure("No view controller ID ExpandedTrackViewController in this storyboard found")
                 return
         }
-        print("func call expandSong")
+        print("func call expandSong + \(currentSong!.songName)")
         expandedTrackCard.backingPic = view.makeScreenshot()
         expandedTrackCard.currentSong = song
-        
         expandedTrackCard.sourceView = miniPlayer
         present(expandedTrackCard, animated: false)
         
-        
+    
     }
 }
 /*

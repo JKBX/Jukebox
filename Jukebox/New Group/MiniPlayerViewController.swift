@@ -24,14 +24,8 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var playPause: UIButton!
 
-   
-    
     var isPlaying: Bool = false
-   
-    
-    
-    
-    
+
 //    MARK https://stackoverflow.com/questions/18793469/animate-a-point-of-a-bezier-curve --> var path: UIBezierPath
 //    chevron transition
     
