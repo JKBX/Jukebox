@@ -178,7 +178,6 @@
         <!--Create Party View Controller-->
         <scene sceneID="3qu-6z-vis">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rmq-J5-hfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="s8y-br-0Yb" customClass="CreatePartyViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YjA-Jp-Vl2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -238,6 +237,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" name="SolidBlue400"/>
                                 </state>
+                                <connections>
+                                    <action selector="addImagePressed:" destination="s8y-br-0Yb" eventType="touchUpInside" id="tDR-WX-uOM"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Nc-0c-Xvv">
                                 <rect key="frame" x="135" y="329" width="200" height="106"/>
@@ -263,6 +265,7 @@
                         <outlet property="loadPicture" destination="6Nc-0c-Xvv" id="hac-Nt-5Ne"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rmq-J5-hfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="711.20000000000005" y="-1397.4512743628186"/>
         </scene>
@@ -290,14 +293,8 @@
         <namedColor name="SolidBlue400">
             <color red="0.3059999942779541" green="0.48199999332427979" blue="0.67500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="SolidBlue400">
-            <color red="0.3059999942779541" green="0.48199999332427979" blue="0.67500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="SolidBlue500">
             <color red="0.19599999487400055" green="0.38400000333786011" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="SolidGrey700">
-            <color red="0.21600000560283661" green="0.23899999260902405" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SolidGrey700">
             <color red="0.21600000560283661" green="0.23899999260902405" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

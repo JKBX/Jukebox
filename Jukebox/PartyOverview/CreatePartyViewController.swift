@@ -11,9 +11,9 @@ import FirebaseDatabase
 import FirebaseAuth
 import Firebase
 
-class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate{
+class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
-    @IBAction func done(_ sender: Any) {
+    @IBAction func create(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -22,13 +22,12 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     
     private var datePicker: UIDatePicker?
     
-    
-    
     @IBOutlet var addPlaylist: UITextField!
     @IBOutlet var addImage: UIButton!
     @IBOutlet var loadPicture: UIImageView!
     @IBOutlet var create: UILabel!
     
+    let imagePicker = UIImagePickerController()
     
     var playlists: [SPTPartialPlaylist] = []
     var pickerDataSource = ["White", "Red", "Green", "Blue"]
@@ -39,11 +38,12 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
+        /*datePicker?.addTarget(self, action: #selector(ViewController.dateChanged(datePicker:)), for: .valueChanged)*/
         
         addDate.inputView = datePicker
         
         //let picker = UIPickerView()
-        self.picker.translatesAutoresizingMaskIntoConstraints = false
+        /*self.picker.translatesAutoresizingMaskIntoConstraints = false
         self.picker.dataSource = self
         self.picker.delegate = self
         view.addSubview(self.picker)
@@ -69,12 +69,22 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
                 self.picker.reloadAllComponents()
             }
         }
-        SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)
+        SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)*/
     }
     
-    @objc func dismissPicker(){
-    view.endEditing(true)
+    @IBAction func addImagePressed(_ sender: Any) {
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
+        self.present(imagePicker, animated: true, completion: nil)
     }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        {
+            loadPicture.image = image
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
     func getNextPage(playlists: SPTListPage) -> Void {
         // Load Playlist Data
         let accessToken = SPTAuth.defaultInstance().session.accessToken
