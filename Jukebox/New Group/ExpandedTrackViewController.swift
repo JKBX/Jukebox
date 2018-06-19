@@ -16,7 +16,7 @@ protocol ExpandedTrackSourceProtocol: class {
 }
 
 
-class ExpandedTrackViewController: UIViewController, TrackSubscriber, UIGestureRecognizerDelegate {
+class ExpandedTrackViewController: UIViewController, TrackSubscriber {
 
     
     let durationPrimary = 0.5
@@ -83,9 +83,11 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber, UIGestureR
         setCoverImageStartPoint()
         animationLayer.backgroundColor = backingPicView.backgroundColor.unsafelyUnwrapped
         setModulStartPosition()
+        
         let volumeBar = VolumeBar.shared
         volumeBar.style = .likeInstagram
         volumeBar.start()
+        volumeBar.style.backgroundColor = UIColor(white:1, alpha:0.5)
     }
     
     override func viewDidAppear(_ animated: Bool) {
