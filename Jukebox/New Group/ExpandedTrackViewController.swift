@@ -15,7 +15,7 @@ protocol ExpandedTrackSourceProtocol: class {
 }
 
 
-class ExpandedTrackViewController: UIViewController, TrackSubscriber {
+class ExpandedTrackViewController: UIViewController, TrackSubscriber, UIGestureRecognizerDelegate {
 
     
     let durationPrimary = 0.5
@@ -66,8 +66,10 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        backingPicView.image = backingPic
+        swipeDownGesture()
+        scrollView.isScrollEnabled = false
         scrollView.contentInsetAdjustmentBehavior = .never
+        backingPicView.image = backingPic
         coverContainer.layer.cornerRadius = cardCornerRadius
         coverContainer.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
@@ -88,6 +90,7 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
         animateImageLayerIN()
         animateCoverImageIN()
         animateLowerModulIN()
+
 
     }
     
@@ -113,6 +116,31 @@ extension ExpandedTrackViewController{
         })
         
     }
+    /*
+     func wipe down function for expanded view
+     
+     */
+    func swipeDownGesture(){
+        let swipeDown = UISwipeGestureRecognizer(target: self, action : #selector(swipeGesture))
+        swipeDown.direction = .down
+        self.scrollView.addGestureRecognizer(swipeDown)
+        self.scrollView.isUserInteractionEnabled = true
+        print("func call swipeDownGesture first call")
+    }
+
+    @objc
+    func swipeGesture(){
+
+        print("func call swipeDownGesture")
+
+        animateBackingPicViewOUT()
+        animateCoverImageOUT()
+        animateLowerModulOUT()
+        animateImageLayerOUT(completion: {_ in
+            self.dismiss(animated: false)
+        })
+    }
+    
 /*
      17.06.2018 - Chris
      Methods for the transition

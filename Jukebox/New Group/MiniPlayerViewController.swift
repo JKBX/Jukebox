@@ -23,7 +23,8 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var playPause: UIButton!
-
+  
+    
     var isPlaying: Bool = false
 
 //    MARK https://stackoverflow.com/questions/18793469/animate-a-point-of-a-bezier-curve --> var path: UIBezierPath
@@ -40,9 +41,11 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         //TODO start party if no track playing
         SPTAudioStreamingController.sharedInstance().playbackDelegate = self
         // Do any additional setup after loading the view.
+        swipeUpGesture()
+        
+        
+       
     }
-    
-    
     
     @IBAction func Play(_ sender: Any) {
         
@@ -52,6 +55,8 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         
     }
 }
+
+
 
 extension MiniPlayerViewController{
     
@@ -69,6 +74,7 @@ extension MiniPlayerViewController{
 }
 
 extension MiniPlayerViewController{
+    
     @IBAction func tapGesturee(_ sender: Any) {
         print("func call tapGesturee")
         guard let song = currentSong else{
@@ -76,12 +82,36 @@ extension MiniPlayerViewController{
         }
         delegate?.expandSong(song: song)
     }
-    func getIsPlaying() -> Bool{
-        return isPlaying
-        
+    func swipeUpGesture(){
+        let swipeUp = UISwipeGestureRecognizer(target: self, action : #selector(swipeGesture))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
+        self.view.isUserInteractionEnabled = true
     }
     
+    @objc
+    func swipeGesture(){
+        guard let song = currentSong else{
+                        return
+                    }
+                        delegate?.expandSong(song: song)
+    }
+    
+    func getIsPlaying() -> Bool{
+        return isPlaying
+    }
+    
+    
+
+//    func swipeGesture (sender: UISwipeGestureRecognizer) {
+//
+//
+// }
 }
+
+
+
+
 
 
 extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
