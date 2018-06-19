@@ -138,8 +138,6 @@ extension PartyPlaylistViewController: MiniPlayerDelegate{
         expandedTrackCard.currentSong = song
         expandedTrackCard.sourceView = miniPlayer
         present(expandedTrackCard, animated: false)
-        
-    
     }
 }
 /*

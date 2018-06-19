@@ -78,7 +78,7 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
         setImageLayerStartPoint()
         coverImage.image = sourceView.coverImageView.image
         setCoverImageStartPoint()
-        animationLayer.backgroundColor = .white
+        animationLayer.backgroundColor = backingPicView.backgroundColor.unsafelyUnwrapped
         setModulStartPosition()
     }
     
@@ -119,10 +119,10 @@ extension ExpandedTrackViewController{
      
      */
     private var startColor: UIColor{
-        return UIColor.white.withAlphaComponent(0.3)
+        return UIColor.gray.withAlphaComponent(0.1)
     }
     private var endColor: UIColor {
-        return .white
+        return backingPicView.backgroundColor.unsafelyUnwrapped
     }
     
     private var imageLayerForOutPosition: CGFloat {
@@ -144,7 +144,8 @@ extension ExpandedTrackViewController{
     func animateImageLayerIN(){
         
         UIView.animate(withDuration: durationPrimary / 4){
-            self.coverContainer.backgroundColor = self.endColor
+            self.coverContainer.backgroundColor = self.backingPicView.backgroundColor.unsafelyUnwrapped
+            
         }
         
         UIView.animate(withDuration: durationPrimary, delay: 0, options: [.curveEaseIn], animations: {

@@ -95,6 +95,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="plw-sa-Wq6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="up" id="36v-po-S4U"/>
                 <tapGestureRecognizer id="8on-G7-2qB">
                     <connections>
                         <action selector="tapGesturee:" destination="owb-UJ-10A" id="aWs-hi-ama"/>
