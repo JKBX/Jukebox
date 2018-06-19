@@ -29,6 +29,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
+                        <outlet property="navigationBar" destination="rsy-Zm-af1" id="mCN-aR-u6s"/>
                         <segue destination="izI-jM-Abi" kind="show" identifier="showLogin" id="hLR-IA-uTB"/>
                         <segue destination="oUp-ie-GxI" kind="relationship" relationship="rootViewController" id="bTk-88-Zih"/>
                     </connections>

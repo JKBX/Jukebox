@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import VolumeBar
 
 // Chris - 17.06.2018
 protocol ExpandedTrackSourceProtocol: class {
@@ -19,7 +18,7 @@ protocol ExpandedTrackSourceProtocol: class {
 class ExpandedTrackViewController: UIViewController, TrackSubscriber {
 
     
-    let durationPrimary = 0.5
+    let durationPrimary = 0.4
 //    gibt an wie weit das fenster gecropped wird
     let backingPicViewEdgeInset: CGFloat = 15
     
@@ -84,10 +83,7 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
         animationLayer.backgroundColor = backingPicView.backgroundColor.unsafelyUnwrapped
         setModulStartPosition()
         
-        let volumeBar = VolumeBar.shared
-        volumeBar.style = .likeInstagram
-        volumeBar.start()
-        volumeBar.style.backgroundColor = UIColor(white:1, alpha:0.5)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
