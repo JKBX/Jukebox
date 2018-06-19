@@ -42,6 +42,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - VolumeBar (3.0.3)
 
 DEPENDENCIES:
   - Firebase/Auth
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - Kingfisher (~> 4.0)
+  - VolumeBar (~> 3.0.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -64,6 +66,7 @@ SPEC REPOS:
     - Kingfisher
     - leveldb-library
     - nanopb
+    - VolumeBar
 
 SPEC CHECKSUMS:
   Firebase: d6861c2059d8c32d1e6dd8932e22ada346d90a3a
@@ -78,7 +81,8 @@ SPEC CHECKSUMS:
   Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  VolumeBar: 72aedbc71a30f5c64479b9574a86f39e254fb216
 
-PODFILE CHECKSUM: aad7e926bfb5fbfcc5b2ea564dbc51ddfcc64025
+PODFILE CHECKSUM: d334cecbe14ddfdba00be0a9ad37f95c52e8ac40
 
 COCOAPODS: 1.5.3

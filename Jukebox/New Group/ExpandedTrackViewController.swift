@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import VolumeBar
 
 // Chris - 17.06.2018
 protocol ExpandedTrackSourceProtocol: class {
@@ -82,6 +83,9 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber, UIGestureR
         setCoverImageStartPoint()
         animationLayer.backgroundColor = backingPicView.backgroundColor.unsafelyUnwrapped
         setModulStartPosition()
+        let volumeBar = VolumeBar.shared
+        volumeBar.style = .likeInstagram
+        volumeBar.start()
     }
     
     override func viewDidAppear(_ animated: Bool) {

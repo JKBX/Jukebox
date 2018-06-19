@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 
+
 protocol MiniPlayerDelegate: class {
     func expandSong(song: Track)
 }
@@ -34,6 +35,8 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
     var currentSong: Track?
     weak var delegate: MiniPlayerDelegate?
     
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +45,6 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         SPTAudioStreamingController.sharedInstance().playbackDelegate = self
         // Do any additional setup after loading the view.
         swipeUpGesture()
-        
         
        
     }
@@ -55,8 +57,6 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         
     }
 }
-
-
 
 extension MiniPlayerViewController{
     

@@ -17,6 +17,7 @@ class MainViewController: UINavigationController {
         if SPTAuth.defaultInstance().session == nil || Auth.auth().currentUser == nil{
             DispatchQueue.main.async { self.performSegue(withIdentifier: "showLogin", sender: self) }
         }
+        
         // Do any additional setup after loading the view.
     }
     
