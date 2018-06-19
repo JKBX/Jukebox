@@ -20,7 +20,7 @@ class SpotifyAuthViewController: UIViewController {
     var authSession:SFAuthenticationSession?
     
     //Loading View
-    var blurredBackgroundView = UIVisualEffectView()
+    var blurredBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +34,18 @@ class SpotifyAuthViewController: UIViewController {
         }
     }
     
-    func setupLoadingView() -> Void {
-        let spinner = UIActivityIndicatorView()
+    func setupLoadingView() {
+        blurredBackgroundView.frame = view.bounds
+        /*let spinner = UIActivityIndicatorView()
         blurredBackgroundView.contentView.addSubview(spinner)
         spinner.hidesWhenStopped = true
         blurredBackgroundView.frame = view.frame
-        spinner.center = blurredBackgroundView.center
+        spinner.center = blurredBackgroundView.center*/
     }
     
     func loading(active: Bool) -> Void {
         let spinner:UIActivityIndicatorView = self.blurredBackgroundView.contentView.subviews[0] as! UIActivityIndicatorView
-        if active{
+        if active {
             spinner.startAnimating()
             view.addSubview(blurredBackgroundView)
             UIView.animate(withDuration: 0.5) {
@@ -80,7 +81,8 @@ class SpotifyAuthViewController: UIViewController {
                 
                 //Check if there is an error because then there won't be a session.
                 if let error = error { print(error); return }
-                self.loading(active: true)
+                //self.loading(active: true)
+                
                 //Login with received session
                 self.receivedSession(session: session)
             }
@@ -94,30 +96,51 @@ class SpotifyAuthViewController: UIViewController {
     //Logging into the Spotify Streaming Controller
     func receivedSession(session: SPTSession?) -> Void {
         // Check if there is a session
-        self.loading(active: true)
+        //self.loading(active: true)
+        
+        
+        //Loading Overlay
+        let alert = UIAlertController(title: nil, message: "Signing in...", preferredStyle: .alert)
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        
+        
+        view.addSubview(blurredBackgroundView)
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+        
         if let session = session {
-            let uid = session.canonicalUsername
-            print(uid)
-            //Alamofire.get
-            
-            /*Alamofire.request("http://localhost:4343/jwt",
-                              parameters: ["uid": uid!]).responseString { (JWT) in
-                                print(JWT)
-            }*/
-            
-            /*Alamofire.request("localhost:4343/jwt?uid=\(uid!)").responseJSON { response in
-                print("Request: \(String(describing: response.request))")   // original url request
-                print("Response: \(String(describing: response.response))") // http url response
-                print("Result: \(response.result)")                         // response serialization result
+            let headers: HTTPHeaders = [ "Authorization": "Bearer \(session.accessToken!)" ]
+            Alamofire.request(URL(string: "https://jkbx-swapify.herokuapp.com/authenticate")!, method: .get, headers: headers).responseString { (response) in
+                if let error = response.error { print(error); return }
+                let JWToken = response.value!
                 
-                if let json = response.result.value {
-                    print("JSON: \(json)") // serialized json response
-                }
-                
-                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                    print("Data: \(utf8Text)") // original server data as UTF8 string
-                }
-            }*/
+                Auth.auth().signIn(withCustomToken: JWToken, completion: { (user, error) in
+                     if error != nil {
+                        print(error)
+                        return
+                     }
+                     
+                     print(user?.user.uid)
+                     print(user?.user.displayName)
+                     print(user?.user.email)
+                     print(user?.user.photoURL)
+                    
+                    //self.loading(active: false)
+                    self.dismiss(animated: true, completion: nil)
+                    self.blurredBackgroundView.removeFromSuperview()
+                    
+                    //self.performSegue(withIdentifier: "flip", sender: self)
+                    
+                    if Auth.auth().currentUser != nil {
+                        //self.dismiss(animated: true, completion: nil)
+                        return
+                    }
+                })
+            }
             
             SPTAudioStreamingController.sharedInstance().login(withAccessToken: session.accessToken)
         }
@@ -128,43 +151,7 @@ class SpotifyAuthViewController: UIViewController {
         //Detach Login Observer
         NotificationCenter.default.removeObserver(self)
         print("logged in")
-        SPTUser.requestCurrentUser(withAccessToken:(SPTAuth.defaultInstance().session.accessToken), callback: { (error, data) in
-            guard let user = data as? SPTUser else { print("Couldn't cast as SPTUser"); return }
-            self.user = user
-            print(user)
-            print(user.largestImage.imageURL.absoluteString)
-            
-            let token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJwaGlsaXBwYWx0bWFubiIsImlhdCI6MTUyODY0MzI2OCwiZXhwIjoxNTI4NjQ2ODY4LCJhdWQiOiJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9nb29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWE4azNnQGp1a2Vib3gtaW9zLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwic3ViIjoiZmlyZWJhc2UtYWRtaW5zZGstYThrM2dAanVrZWJveC1pb3MuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20ifQ.BcJ7n84KqvpGALPRn5KlLHhFJsnqwyRwsLJCnqbtHjscAtSGuNbAUuxcKiCyRi6Ge1cOQMcrwc49LX4LB7epi_68KsIJrSBuULYEYv389Gs5Ot5htjA5lifsl5U8cG7pFzYFS51kKN_y2tWAD8Z8WTAgv2Z43KaehaEP-tlkAOec7fPe_OFqsr-zPxGdKys3FydqG5cxrsAN-WxvnbbWlQsXUeUGKIk_Z6zyiYZqgTwBo06tHdwBxBTYTmCRde6JgVvyYu0d1jSVqjGh4WBhXymmLkHvs1rBqAw0cIJ0MnjoydFs-cK4Ynr4-yAwT-aDts_UDoCep84dZ9l3FJVVFA"
-            Auth.auth().signIn(withCustomToken: token, completion: { (user, error) in
-                if error != nil {
-                    print(error)
-                    return
-                }
-                
-                print(user?.user.uid)
-                print(user?.user.displayName)
-                print(user?.user.email)
-                print(user?.user.photoURL)
-                print(user?.additionalUserInfo)
-            })
-            
-            /*if Auth.auth().currentUser != nil {
-                self.dismiss(animated: true, completion: nil)
-                return
-            }
-            
-            Auth.auth().fetchProviders(forEmail: user.emailAddress) { providers, error in
-                
-                self.loading(active: false)
-                
-                //Check for Errors
-                if let error = error { print(error); return }
-                
-                //Determine wheater account has already been, or needs to be created
-                let nextView = (providers != nil) ? ("loginAccount") : ("createAccount")
-                self.performSegue(withIdentifier: nextView, sender: self)
-            }*/
-        })
+        
     }
     
     //Write User Data to Next View Controller

@@ -18,16 +18,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        //Make sure spotify is disconnected on launch
-        SPTAuth.defaultInstance().session = nil
-        UserDefaults.standard.removeObject(forKey: SpotifyConfig.sessionKey)
-
-        
         //Setup Firebase
         FirebaseApp.configure()
         
         //Setup Spotify
         setupSpotify()
+        
+        //Make sure spotify is disconnected on launch
+        SPTAuth.defaultInstance().session = nil
+        UserDefaults.standard.removeObject(forKey: SpotifyConfig.sessionKey)
+        var switchOnce = true
+        Auth.auth().addIDTokenDidChangeListener { (_, _) in
+            if switchOnce{
+                do {try Auth.auth().signOut()}
+                catch let signOutError as NSError {  print ("Error signing out: %@", signOutError) }
+                switchOnce = false
+            }
+            
+        }
         
         return true
     }

@@ -5,7 +5,7 @@
 //  Created by Philipp on 09.05.18.
 //  Copyright © 2018 Philipp. All rights reserved.
 //
-
+/*
 import UIKit
 import FirebaseAuth
 import Kingfisher
@@ -108,7 +108,7 @@ class ProfileViewController: UIViewController {
         
         
         
-        /*let transitionOptions: UIViewAnimationOptions = [.transitionFlipFromRight, .showHideTransitionViews]
+        let transitionOptions: UIViewAnimationOptions = [.transitionFlipFromRight, .showHideTransitionViews]
         
         UIView.transition(with: ViewOne, duration: 0.8, options: transitionOptions, animations: {
             self.ViewOne.isHidden = true
@@ -116,7 +116,7 @@ class ProfileViewController: UIViewController {
         
         UIView.transition(with: ViewTwo, duration: 0.8, options: transitionOptions, animations: {
             self.ViewTwo.isHidden = false
-        })*/
+        })
     }
     
     @IBAction func logout(_ sender: Any) {
@@ -161,3 +161,4 @@ class ProfileViewController: UIViewController {
     */
 
 }
+*/

@@ -12,6 +12,8 @@
 		178431CB20CAD5C90097046E /* FirebaseLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431CA20CAD5C90097046E /* FirebaseLoginViewController.swift */; };
 		178431CD20CADDE30097046E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431CC20CADDE30097046E /* UserProfileViewController.swift */; };
 		178E2B6720CD456800CE2A5A /* FirebaseAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */; };
+		179C11CD20D9BAB200EF9726 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11CC20D9BAB200EF9726 /* AuthViewController.swift */; };
+		179C11CF20D9CBAF00EF9726 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */; };
 		17AE0E6520BDC0BC000EF085 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6420BDC0BC000EF085 /* Constants.swift */; };
 		17AE0E6720BDC119000EF085 /* AudioStreamingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6620BDC119000EF085 /* AudioStreamingDelegate.swift */; };
 		17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6820BDC146000EF085 /* NotificationConstants.swift */; };
@@ -31,7 +33,7 @@
 		17AE0E9A20BDC657000EF085 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9320BDC657000EF085 /* SectionHeader.swift */; };
 		17AE0E9F20BDC689000EF085 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0E9C20BDC689000EF085 /* UserProfile.storyboard */; };
 		17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9D20BDC689000EF085 /* LTRSegue.swift */; };
-		17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */; };
+		17AE0EA120BDC689000EF085 /* ProfileViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9E20BDC689000EF085 /* ProfileViewController2.swift */; };
 		17AE0EA320BDDBCD000EF085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0EA220BDDBCD000EF085 /* Assets.xcassets */; };
 		17DC0B8320CEDC37001C8DF1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DC0B8220CEDC37001C8DF1 /* Search.storyboard */; };
 		17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */; };
@@ -54,6 +56,8 @@
 		178431CA20CAD5C90097046E /* FirebaseLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLoginViewController.swift; sourceTree = "<group>"; };
 		178431CC20CADDE30097046E /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthViewController.swift; sourceTree = "<group>"; };
+		179C11CC20D9BAB200EF9726 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		17AE0E6420BDC0BC000EF085 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		17AE0E6620BDC119000EF085 /* AudioStreamingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStreamingDelegate.swift; sourceTree = "<group>"; };
 		17AE0E6820BDC146000EF085 /* NotificationConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationConstants.swift; sourceTree = "<group>"; };
@@ -73,7 +77,7 @@
 		17AE0E9320BDC657000EF085 /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		17AE0E9C20BDC689000EF085 /* UserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserProfile.storyboard; sourceTree = "<group>"; };
 		17AE0E9D20BDC689000EF085 /* LTRSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTRSegue.swift; sourceTree = "<group>"; };
-		17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		17AE0E9E20BDC689000EF085 /* ProfileViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController2.swift; sourceTree = "<group>"; };
 		17AE0EA220BDDBCD000EF085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17DC0B8220CEDC37001C8DF1 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 				17AE0E8120BDC3AA000EF085 /* Auth.storyboard */,
 				17AE0E8220BDC3AA000EF085 /* LoginViewController.swift */,
 				17AE0E8320BDC3AA000EF085 /* RegisterViewController.swift */,
+				179C11CC20D9BAB200EF9726 /* AuthViewController.swift */,
+				179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -140,7 +146,7 @@
 			children = (
 				17AE0E9C20BDC689000EF085 /* UserProfile.storyboard */,
 				17AE0E9D20BDC689000EF085 /* LTRSegue.swift */,
-				17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */,
+				17AE0E9E20BDC689000EF085 /* ProfileViewController2.swift */,
 				178431C620CAB0FF0097046E /* CenteredSquareProcessor.swift */,
 				178431C820CACB940097046E /* FirebaseProfileViewController.swift */,
 				178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */,
@@ -376,12 +382,14 @@
 				178431CB20CAD5C90097046E /* FirebaseLoginViewController.swift in Sources */,
 				178431C920CACB940097046E /* FirebaseProfileViewController.swift in Sources */,
 				7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */,
+				179C11CF20D9CBAF00EF9726 /* ProfileViewController.swift in Sources */,
 				178E2B6720CD456800CE2A5A /* FirebaseAuthViewController.swift in Sources */,
 				17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */,
+				179C11CD20D9BAB200EF9726 /* AuthViewController.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
 				178431CD20CADDE30097046E /* UserProfileViewController.swift in Sources */,
-				17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */,
+				17AE0EA120BDC689000EF085 /* ProfileViewController2.swift in Sources */,
 				178431C720CAB0FF0097046E /* CenteredSquareProcessor.swift in Sources */,
 				17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */,
 				E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */,
@@ -547,7 +555,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.deap.jkbx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jukebox/Jukebox-Bridging-Header.h";
@@ -570,7 +581,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.deap.jkbx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jukebox/Jukebox-Bridging-Header.h";
