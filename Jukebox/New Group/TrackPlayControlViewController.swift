@@ -48,7 +48,6 @@ extension TrackPlayControlViewController{
         guard songTitle != nil else{
             return
         }
-
         songTitle.text = currentSong?.songName
         artist.text = currentSong?.artist
     }

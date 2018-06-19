@@ -180,3 +180,4 @@ extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
     }
     
 }
+

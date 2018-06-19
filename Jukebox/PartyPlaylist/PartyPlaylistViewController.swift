@@ -134,7 +134,7 @@ extension PartyPlaylistViewController: MiniPlayerDelegate{
                 return
         }
         print("func call expandSong + \(currentSong!.songName)")
-        expandedTrackCard.backingPic = view.makeScreenshot()
+        expandedTrackCard.backingPic = view.makeFullScreenshot()
         expandedTrackCard.currentSong = song
         expandedTrackCard.sourceView = miniPlayer
         present(expandedTrackCard, animated: false)
@@ -148,15 +148,33 @@ extension PartyPlaylistViewController: MiniPlayerDelegate{
             Helper just for extension "extension TrackPlayControlViewController: MiniPlayerDelegate"
  */
 extension UIView  {
-    
-    func makeScreenshot() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
-        drawHierarchy(in: bounds, afterScreenUpdates: true)
+    /*
+     Func screenshot without navigation bar
+     */
+//    func makeScreenshot() -> UIImage? {
+//        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+//        drawHierarchy(in: bounds, afterScreenUpdates: true)
+//        let screen = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        print("func call makeScreenshot")
+//        return screen
+//
+//    }
+    /*
+     func screenshot with navigation bar / toolbar
+     
+     */
+    func makeFullScreenshot() -> UIImage? {
+        let layer = UIApplication.shared.keyWindow!.layer
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
+//        drawHierarchy(in: bounds, afterScreenUpdates: true)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
         let screen = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         print("func call makeScreenshot")
         return screen
-        
+
     }
 }
 

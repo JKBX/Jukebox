@@ -20,7 +20,7 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
     
     let durationPrimary = 0.5
 //    gibt an wie weit das fenster gecropped wird
-    let backingPicViewEdgeInset: CGFloat = 10.0
+    let backingPicViewEdgeInset: CGFloat = 15
     
     //    MARK: TODO: top corner fixen ?! ggf Stefan fragen
     let cardCornerRadius: CGFloat = 10
@@ -28,7 +28,7 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
     weak var sourceView: ExpandedTrackSourceProtocol!
     
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var stretchArea: UIView!
+    @IBOutlet weak var animationLayer: UIView!
     
 //    vars for image
     @IBOutlet weak var coverContainer: UIView!
@@ -46,6 +46,7 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
     @IBOutlet weak var backingPicViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var backingPicViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var backingPicViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var lowerModulTopConstraint: NSLayoutConstraint!
     
 //    Cover Image constraints
     @IBOutlet weak var coverImageLeading: NSLayoutConstraint!
@@ -77,6 +78,8 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
         setImageLayerStartPoint()
         coverImage.image = sourceView.coverImageView.image
         setCoverImageStartPoint()
+        animationLayer.backgroundColor = .white
+        setModulStartPosition()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,6 +87,7 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
         animateBackingPicViewIN()
         animateImageLayerIN()
         animateCoverImageIN()
+        animateLowerModulIN()
 
     }
     
@@ -97,6 +101,18 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
 }
 
 extension ExpandedTrackViewController{
+    
+    
+    
+    @IBAction func getOutAction(_ sender: Any) {
+        animateBackingPicViewOUT()
+        animateCoverImageOUT()
+        animateLowerModulOUT()
+        animateImageLayerOUT(completion: {_ in
+            self.dismiss(animated: false)
+        })
+        
+    }
 /*
      17.06.2018 - Chris
      Methods for the transition
@@ -132,7 +148,7 @@ extension ExpandedTrackViewController{
         }
         
         UIView.animate(withDuration: durationPrimary, delay: 0, options: [.curveEaseIn], animations: {
-            self.coverContainerTop.constant = 10
+            self.coverContainerTop.constant = 40
             self.chevron.alpha = 1
             self.coverContainer.layer.cornerRadius = self.cardCornerRadius
             self.view.layoutIfNeeded()
@@ -173,8 +189,8 @@ extension ExpandedTrackViewController{
         let dimmerAlpha: CGFloat = presenting ? 0.5 : 0
         let cornerRadius: CGFloat = presenting ? cardCornerRadius : 0
         
-        backingPicViewLeadingConstraint.constant = backingPicViewEdgeInset
-        backingPicViewTrailingConstraint.constant = -(backingPicViewEdgeInset)
+        backingPicViewLeadingConstraint.constant = edgeInset
+        backingPicViewTrailingConstraint.constant = -(edgeInset)
         let aspectRatio = backingPicView.frame.height / backingPicView.frame.width
         backingPicViewTopConstraint.constant = (edgeInset * aspectRatio)
         backingPicViewBottomConstraint.constant = -(edgeInset * aspectRatio)
@@ -204,13 +220,7 @@ extension ExpandedTrackViewController{
         animateBackingPicView(presenting: false)
     }
     
-    @IBAction func getOutAction(_ sender: Any) {
-        animateBackingPicViewOUT()
-        animateCoverImageOUT()
-        animateImageLayerOUT(completion: {_ in
-            self.dismiss(animated: false)
-        })
-    }
+
 }
 /*
  17.06.2018 - Chris
@@ -227,7 +237,7 @@ extension ExpandedTrackViewController{
         coverImageBottom.constant = imageFrame.minY
     }
     
-    func animateCoverImageIN(){
+        func animateCoverImageIN(){
         let coverImageEdgeContraint: CGFloat = 30
         let endHeight = coverContainer.bounds.width - coverImageEdgeContraint * 2
         UIView.animate(withDuration: durationPrimary,
@@ -254,3 +264,48 @@ extension ExpandedTrackViewController{
  
     
 }
+
+extension ExpandedTrackViewController{
+    private var lowerModulPosition: CGFloat{
+        let bounds = view.bounds
+        let inset = bounds.height - bounds.width
+        return inset
+        print("func call lowerModulPosition + \(inset)")
+    }
+    
+    
+    func setModulStartPosition(){
+        lowerModulTopConstraint.constant = lowerModulPosition
+    }
+    
+    func animateLowerModul(isPresenting: Bool){
+        let topInset = isPresenting ? 0 : lowerModulPosition
+        UIView.animate(withDuration: durationPrimary,
+                       delay: 0.1,
+                       options: [.curveEaseIn],
+                       animations: {
+                self.lowerModulTopConstraint.constant = topInset
+                self.view.layoutIfNeeded()
+                        print("func call animateLowerModul")
+
+        })
+    }
+    
+    func animateLowerModulIN(){
+        animateLowerModul(isPresenting: true)
+    }
+    
+    func animateLowerModulOUT(){
+        animateLowerModul(isPresenting: false)
+    }
+    
+}
+
+
+
+
+
+
+
+
+
