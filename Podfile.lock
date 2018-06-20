@@ -37,6 +37,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.15)
   - Kingfisher (4.8.0)
   - leveldb-library (1.20)
+  - MarqueeLabel/Swift (3.1.6)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
@@ -50,6 +51,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - Kingfisher (~> 4.0)
+  - MarqueeLabel/Swift
   - VolumeBar (~> 3.0.3)
 
 SPEC REPOS:
@@ -65,6 +67,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - Kingfisher
     - leveldb-library
+    - MarqueeLabel
     - nanopb
     - VolumeBar
 
@@ -80,9 +83,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   VolumeBar: 72aedbc71a30f5c64479b9574a86f39e254fb216
 
-PODFILE CHECKSUM: d334cecbe14ddfdba00be0a9ad37f95c52e8ac40
+PODFILE CHECKSUM: 599edcebca4838d419fde712428670e813c8a6dc
 
 COCOAPODS: 1.5.3

@@ -35,6 +35,7 @@
 		7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904FD1920C6907400F101ED /* RoundButton.swift */; };
 		790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */; };
 		790CCC8520BDE0080081621B /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CCC8420BDE0080081621B /* TrackCell.swift */; };
+		E02E252E20DA557D0014FD5E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E02E252D20DA557D0014FD5E /* QuartzCore.framework */; };
 		E03118DB20CFE89800B9E570 /* UIPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E03118DA20CFE89800B9E570 /* UIPlayer.storyboard */; };
 		E03118DF20CFEC0B00B9E570 /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03118DE20CFEC0B00B9E570 /* MiniPlayerViewController.swift */; };
 		E06F85D520D126570073E29D /* TrackSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06F85D420D126570073E29D /* TrackSubscriber.swift */; };
@@ -79,6 +80,7 @@
 		790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PartyPlaylist.storyboard; sourceTree = "<group>"; };
 		790CCC8420BDE0080081621B /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		80517207188883059530FC1A /* Pods-Jukebox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jukebox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox.debug.xcconfig"; sourceTree = "<group>"; };
+		E02E252D20DA557D0014FD5E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E03118DA20CFE89800B9E570 /* UIPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UIPlayer.storyboard; sourceTree = "<group>"; };
 		E03118DE20CFEC0B00B9E570 /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
 		E06F85D420D126570073E29D /* TrackSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSubscriber.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E02E252E20DA557D0014FD5E /* QuartzCore.framework in Frameworks */,
 				17AE0E8B20BDC52E000EF085 /* SpotifyMetadata.framework in Frameworks */,
 				E0C4D35F20BDB9CC00B74C31 /* AVFoundation.framework in Frameworks */,
 				429711964046E703E19BCAF1 /* Pods_Jukebox.framework in Frameworks */,
@@ -179,6 +182,7 @@
 		7AD41CA77BB432B2EABA7ED1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E02E252D20DA557D0014FD5E /* QuartzCore.framework */,
 				E0C4D35E20BDB9CC00B74C31 /* AVFoundation.framework */,
 				17AE0E8A20BDC52E000EF085 /* SpotifyMetadata.framework */,
 				E0C4D35B20BDB98E00B74C31 /* SpotifyAudioPlayback.framework */,
@@ -358,6 +362,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/VolumeBar/VolumeBar.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -367,6 +372,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VolumeBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -560,6 +566,19 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"$(SRCROOT)/Pods/**",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -587,6 +606,19 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"$(SRCROOT)/Pods/**",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
 				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import QuartzCore
 // Chris - 17.06.2018
 protocol ExpandedTrackSourceProtocol: class {
     var frameInWindow: CGRect { get }
@@ -62,7 +62,6 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
         modalPresentationCapturesStatusBarAppearance = true
         modalPresentationStyle = .overFullScreen
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

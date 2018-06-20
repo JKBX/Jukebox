@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-
+import MarqueeLabel
 
 protocol MiniPlayerDelegate: class {
     func expandSong(song: Track)
@@ -21,8 +21,8 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
     
     
     @IBOutlet weak var thumbImage: UIImageView!
-    @IBOutlet weak var songTitle: UILabel!
-    @IBOutlet weak var artist: UILabel!
+    @IBOutlet weak var songTitle: MarqueeLabel!
+    @IBOutlet weak var artist: MarqueeLabel!
     @IBOutlet weak var playPause: UIButton!
   
     
@@ -45,7 +45,8 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         SPTAudioStreamingController.sharedInstance().playbackDelegate = self
         // Do any additional setup after loading the view.
         swipeUpGesture()
-        
+        marqueeLabelMiniPlayer(MarqueeLabel: artist)
+        marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
        
     }
     
@@ -59,12 +60,25 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
 }
 
 extension MiniPlayerViewController{
+    /*
+     20.06.2018 - Chris
+     
+     Marquee settings
+     */
+    func marqueeLabelMiniPlayer(MarqueeLabel label: MarqueeLabel){
+        label.type = .continuous
+        label.speed = .duration(10)
+        label.trailingBuffer = 50
+        label.fadeLength = 5.0
+
+    }
     
     func setting(song: Track?){
         if let song = song {
             songTitle.text = song.songName
             artist.text = song.artist
             thumbImage.kf.setImage(with: song.coverUrl)
+            
         }else {
             songTitle.text = nil
             thumbImage.image = nil

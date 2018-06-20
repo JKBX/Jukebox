@@ -47,14 +47,14 @@
                                                 <constraint firstAttribute="height" constant="60" id="nre-4U-lFd"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peA-rN-JNe" userLabel="Song Title">
-                                            <rect key="frame" x="90" y="8" width="41.666666666666657" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peA-rN-JNe" userLabel="Song Title" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                            <rect key="frame" x="90" y="8" width="244" height="21"/>
                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QS6-9H-Rff" userLabel="Artist">
-                                            <rect key="frame" x="90" y="35" width="37.333333333333343" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QS6-9H-Rff" userLabel="Artist" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                            <rect key="frame" x="90" y="35" width="244" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -70,6 +70,7 @@
                                     <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstItem="peA-rN-JNe" firstAttribute="leading" secondItem="x2S-Cs-NdM" secondAttribute="trailing" constant="20" id="1Ps-RV-gjU"/>
+                                        <constraint firstItem="Isf-iH-kq1" firstAttribute="leading" secondItem="peA-rN-JNe" secondAttribute="trailing" constant="20" id="4Xz-Xf-Ta2"/>
                                         <constraint firstAttribute="bottom" secondItem="QS6-9H-Rff" secondAttribute="bottom" constant="11" id="5qz-IX-RYo"/>
                                         <constraint firstItem="QS6-9H-Rff" firstAttribute="top" secondItem="peA-rN-JNe" secondAttribute="bottom" constant="6" id="7gt-7b-9eg"/>
                                         <constraint firstAttribute="bottom" secondItem="Kzg-PF-vu3" secondAttribute="bottom" id="Doc-hu-itI"/>
@@ -77,6 +78,7 @@
                                         <constraint firstAttribute="trailing" secondItem="Isf-iH-kq1" secondAttribute="trailing" constant="10" id="M1G-In-gFV"/>
                                         <constraint firstItem="x2S-Cs-NdM" firstAttribute="leading" secondItem="RoQ-QX-Dsh" secondAttribute="leading" constant="10" id="M9I-ho-Qvr"/>
                                         <constraint firstAttribute="leading" secondItem="Kzg-PF-vu3" secondAttribute="leading" id="NdJ-ch-a5J"/>
+                                        <constraint firstItem="Isf-iH-kq1" firstAttribute="leading" secondItem="QS6-9H-Rff" secondAttribute="trailing" constant="20" id="Y1m-oA-aKM"/>
                                         <constraint firstItem="x2S-Cs-NdM" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="nA6-qW-J33"/>
                                         <constraint firstItem="Isf-iH-kq1" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="o0V-md-cgQ"/>
                                         <constraint firstItem="QS6-9H-Rff" firstAttribute="leading" secondItem="x2S-Cs-NdM" secondAttribute="trailing" constant="20" id="tFv-TO-20L"/>
@@ -247,13 +249,13 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="y7n-qT-zEm" userLabel="Stack View Track Data">
                                 <rect key="frame" x="20" y="16" width="374" height="81"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gj2-86-hyv">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gj2-86-hyv" customClass="MarqueeLabel" customModule="MarqueeLabel">
                                         <rect key="frame" x="146" y="0.0" width="82.333333333333314" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f27-AV-lpj">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f27-AV-lpj" customClass="MarqueeLabel" customModule="MarqueeLabel">
                                         <rect key="frame" x="166.33333333333334" y="30.333333333333336" width="41.666666666666657" height="20.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>

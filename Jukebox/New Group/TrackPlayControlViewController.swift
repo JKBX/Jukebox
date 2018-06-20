@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class TrackPlayControlViewController: UIViewController, TrackSubscriber {
     
@@ -16,13 +17,15 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
         }
     }
     
-    @IBOutlet weak var songTitle: UILabel!
-    @IBOutlet weak var artist: UILabel!
+    @IBOutlet weak var songTitle: MarqueeLabel!
+    @IBOutlet weak var artist: MarqueeLabel!
     @IBOutlet weak var songDuration: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setFields()
+        marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
+        marqueeLabelTrackPlayer(MarqueeLabel: artist)
     
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +54,19 @@ extension TrackPlayControlViewController{
         songTitle.text = currentSong?.songName
         artist.text = currentSong?.artist
     }
+}
+/*
+ 20.06.2018 - Chris
+ 
+ Marquee settings
+ */
+func marqueeLabelTrackPlayer(MarqueeLabel label: MarqueeLabel){
+    label.type = .continuous
+    label.speed = .duration(10)
+    label.trailingBuffer = 50
+    label.fadeLength = 5.0
+    label.isUserInteractionEnabled = false
+    
 }
 
 extension TrackPlayControlViewController: SPTAudioStreamingPlaybackDelegate{
