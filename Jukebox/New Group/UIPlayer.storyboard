@@ -247,49 +247,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="y7n-qT-zEm" userLabel="Stack View Track Data">
-                                <rect key="frame" x="20" y="16" width="374" height="81"/>
+                                <rect key="frame" x="20" y="10" width="374" height="98"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gj2-86-hyv" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                        <rect key="frame" x="146" y="0.0" width="82.333333333333314" height="20.333333333333332"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gj2-86-hyv" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                        <rect key="frame" x="15" y="0.0" width="344" height="33.666666666666664"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f27-AV-lpj" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                        <rect key="frame" x="166.33333333333334" y="30.333333333333336" width="41.666666666666657" height="20.333333333333336"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f27-AV-lpj" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                        <rect key="frame" x="25" y="43.666666666666664" width="324" height="23.999999999999993"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration 0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0w-iq-qBm">
-                                        <rect key="frame" x="134.33333333333334" y="60.666666666666679" width="105.66666666666666" height="20.333333333333336"/>
+                                        <rect key="frame" x="134.33333333333334" y="77.666666666666671" width="105.66666666666666" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="Gj2-86-hyv" firstAttribute="leading" secondItem="y7n-qT-zEm" secondAttribute="leading" constant="15" id="0hO-cn-260"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gj2-86-hyv" secondAttribute="trailing" constant="15" id="PEG-kD-lsK"/>
+                                    <constraint firstItem="f27-AV-lpj" firstAttribute="leading" secondItem="y7n-qT-zEm" secondAttribute="leading" constant="25" id="Uke-Ea-uB2"/>
+                                    <constraint firstAttribute="trailing" secondItem="f27-AV-lpj" secondAttribute="trailing" constant="25" id="ueP-dS-XeF"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="O7T-zt-KVW" userLabel="Stack View Player Controls">
-                                <rect key="frame" x="141" y="137" width="132" height="28"/>
+                                <rect key="frame" x="111" y="138" width="192" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnA-bL-OHx" userLabel="Previous">
-                                        <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="28" id="A8h-eK-Mag"/>
-                                            <constraint firstAttribute="height" constant="28" id="atm-Y4-cqK"/>
-                                        </constraints>
-                                        <state key="normal" title="Button" image="outline_skip_previous_black_36pt"/>
+                                        <rect key="frame" x="0.0" y="1" width="48" height="48"/>
+                                        <state key="normal" image="outline_skip_previous_black_48pt"/>
                                         <connections>
                                             <action selector="previousButton:" destination="wYR-Es-Ly3" eventType="touchUpInside" id="9Xy-o5-FKa"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDv-UU-5OX" userLabel="PlayPause">
-                                        <rect key="frame" x="52" y="0.0" width="28" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="28" id="UOz-ym-HY3"/>
-                                            <constraint firstAttribute="height" constant="28" id="VaR-72-ply"/>
-                                        </constraints>
-                                        <state key="normal" title="Button" image="outline_play_circle_filled_white_black_36pt">
+                                        <rect key="frame" x="72" y="1" width="48" height="48"/>
+                                        <state key="normal" image="outline_play_circle_filled_white_black_48pt">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -297,26 +295,26 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9w3-D0-jyX" userLabel="Next">
-                                        <rect key="frame" x="104" y="0.0" width="28" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="28" id="PZW-7K-s7F"/>
-                                            <constraint firstAttribute="height" constant="28" id="fK4-UV-qox"/>
-                                        </constraints>
-                                        <state key="normal" title="Button" image="outline_skip_next_black_36pt"/>
+                                        <rect key="frame" x="144" y="1" width="48" height="48"/>
+                                        <state key="normal" image="outline_skip_next_black_48pt"/>
                                         <connections>
                                             <action selector="nextButton:" destination="wYR-Es-Ly3" eventType="touchUpInside" id="i1b-om-at1"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="v2d-NU-k7t"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey500"/>
+                        <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="y7n-qT-zEm" firstAttribute="top" secondItem="PTK-EK-XV9" secondAttribute="topMargin" constant="16" id="H4f-ge-V22"/>
+                            <constraint firstItem="y7n-qT-zEm" firstAttribute="top" secondItem="PTK-EK-XV9" secondAttribute="topMargin" constant="10" id="H4f-ge-V22"/>
                             <constraint firstItem="y7n-qT-zEm" firstAttribute="leading" secondItem="PTK-EK-XV9" secondAttribute="leadingMargin" id="NKK-ZR-apW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="y7n-qT-zEm" secondAttribute="trailing" id="NY1-GD-Hfi"/>
-                            <constraint firstItem="O7T-zt-KVW" firstAttribute="top" secondItem="y7n-qT-zEm" secondAttribute="bottom" constant="40" id="VUK-QL-ZRi"/>
-                            <constraint firstItem="1qJ-AI-1KV" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="O7T-zt-KVW" secondAttribute="bottom" constant="20" id="bhS-aC-OEr"/>
+                            <constraint firstItem="O7T-zt-KVW" firstAttribute="top" secondItem="y7n-qT-zEm" secondAttribute="bottom" constant="30" id="VUK-QL-ZRi"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="O7T-zt-KVW" secondAttribute="bottom" constant="20" id="bhS-aC-OEr"/>
                             <constraint firstItem="O7T-zt-KVW" firstAttribute="centerX" secondItem="PTK-EK-XV9" secondAttribute="centerX" id="qAF-kc-Zl2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1qJ-AI-1KV"/>
@@ -335,9 +333,9 @@
     <resources>
         <image name="baseline_play_circle_outline_white_36pt" width="36" height="36"/>
         <image name="chevron" width="36" height="12"/>
-        <image name="outline_play_circle_filled_white_black_36pt" width="36" height="36"/>
-        <image name="outline_skip_next_black_36pt" width="36" height="36"/>
-        <image name="outline_skip_previous_black_36pt" width="36" height="36"/>
+        <image name="outline_play_circle_filled_white_black_48pt" width="48" height="48"/>
+        <image name="outline_skip_next_black_48pt" width="48" height="48"/>
+        <image name="outline_skip_previous_black_48pt" width="48" height="48"/>
         <namedColor name="SolidGrey400">
             <color red="0.49799999594688416" green="0.5220000147819519" blue="0.50999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
