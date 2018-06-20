@@ -571,7 +571,6 @@
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
-					"$(SRCROOT)/Pods/**",
 				);
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
@@ -612,7 +611,6 @@
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
-					"$(SRCROOT)/Pods/**",
 				);
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
