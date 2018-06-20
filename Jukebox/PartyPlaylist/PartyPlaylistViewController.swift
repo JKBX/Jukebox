@@ -34,6 +34,13 @@ class PartyPlaylistViewController: UIViewController {
         navigationItem.rightBarButtonItem = button
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSearch" {
+            let controller = segue.destination as! SearchViewController
+            controller.partyID = self.partyID
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.ref = ref.child("/parties/\(self.partyID)")
         setupObservers()

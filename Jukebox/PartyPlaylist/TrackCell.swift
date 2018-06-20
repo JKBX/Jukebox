@@ -38,6 +38,7 @@ class TrackCell: UITableViewCell {
         accessoryButton.setImage(UIImage(named: track.liked ? "favorite" : "favoriteOutline"), for: .normal)
         accessoryButton.addTarget(self, action: #selector(toggleLike), for: .touchUpInside)
         self.accessoryView = accessoryButton
+        print(track.songName)
     }
     
     @objc func toggleLike(){

@@ -7,9 +7,10 @@
 //
 import FirebaseDatabase
 import FirebaseAuth
+import Spartan
 
 
-class TrackModel{
+class TrackModel {
     
     var trackId: String!
     var songName: String!
@@ -29,5 +30,19 @@ class TrackModel{
         self.coverUrl = URL(string: snapshot.childSnapshot(forPath: "coverURL").value as! String)!
         self.liked = snapshot.childSnapshot(forPath: "votes/\(userId)").exists()
         self.voteCount = snapshot.childSnapshot(forPath: "votes").childrenCount
+    }
+    
+    init(from track: Track) {
+        self.trackId = track.id as! String
+        self.songName = track.name as! String
+        self.artist = ""
+        for artist in track.artists{
+            self.artist.append("\(artist.name!), ")
+        }
+        self.artist.removeLast(2)
+        self.album = track.album.name as! String
+        self.coverUrl = URL(string: (track.album.images.last?.url)!)
+        self.liked = false
+        self.voteCount = nil
     }
 }

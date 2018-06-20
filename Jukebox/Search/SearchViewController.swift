@@ -11,10 +11,15 @@ import FirebaseDatabase
 import Firebase
 import Spartan
 
+struct sPTFTrackModel {
+    var name: String
+    var artists: String
+    var id: String
+    var imageUrl: String
+}
+
 class SearchViewController: UIViewController {
     
-//    SPTAuth.defaultInstance.session.accessToken
-
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -29,7 +34,6 @@ class SearchViewController: UIViewController {
     var isSearching = false
     var foundTracks: [TrackModel] = []
     var textSearchedFor: String = ""
-    var pagingObject: PagingObject<Track>? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,29 +43,29 @@ class SearchViewController: UIViewController {
         
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    func getTrackFromSpartanCall(track: String){
+    func searchTrackWithSpartanCall(track: String){
         Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
-        _ = Spartan.search(query: "Five for Fighting", type: .track, success: { (pagingObject: PagingObject<Track>) in
-            self.pagingObject = pagingObject
+        foundTracks = []
+//        self.searchRequ
+//        TODO: Abort request on continue editing
+        _ = Spartan.search(query: track, type: .track, success: { (pagingObject: PagingObject<Track>) in
+            for track in pagingObject.items{
+                self.foundTracks.append(TrackModel.init(from: track))
+            }
+            self.tableView.reloadData()
         }, failure: { (error) in
             print(error)
         })
     }
+    
+//    @IBAction func 
 }
-
-//extension SearchViewController: UITableViewDelegate{
-//    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) -> CGFloat{
-//        return 64.0
-//    }
-//}
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     
@@ -70,9 +74,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let track = foundTracks[indexPath.item]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! TrackCell
-        cell.setup(from: track)
+        let searchTableTrack = foundTracks[indexPath.item]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! SearchCell
+        cell.setup(from: searchTableTrack)
         cell.partyRef = self.ref.child("/parties/\(self.partyID)")
         return cell
     }
@@ -80,10 +84,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension SearchViewController: UISearchBarDelegate {
     
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        <#code#>
-//    }
-
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
@@ -91,7 +91,7 @@ extension SearchViewController: UISearchBarDelegate {
             tableView.reloadData()
         } else {
             isSearching = true
-            getTrackFromSpartanCall(track: searchBar.text!)
+            searchTrackWithSpartanCall(track: searchBar.text!)
             tableView.reloadData()
         }
     }
