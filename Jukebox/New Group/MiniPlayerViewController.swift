@@ -9,6 +9,8 @@
 import UIKit
 import Kingfisher
 import MarqueeLabel
+import Firebase
+
 
 protocol MiniPlayerDelegate: class {
     func expandSong(song: TrackModel)
@@ -25,6 +27,10 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
     @IBOutlet weak var artist: MarqueeLabel!
     @IBOutlet weak var playPause: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
+    let ref = Database.database().reference()
+    let uid = Auth.auth().currentUser?.uid
+    var partyID : String = ""
+    var isAdmin: Bool = false
     
     
     var isPlaying: Bool = false
@@ -48,7 +54,7 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         swipeUpGesture()
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
-               
+               userTriggeredButton()
     }
     
     @IBAction func Play(_ sender: Any) {
@@ -57,6 +63,11 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         let pause = NSNotification.Name.Spotify.pauseSong
         NotificationCenter.default.post(name: isPlaying ? pause : play, object: nil)
         
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ExpandedTrackViewController {
+            destination.isAdmin = isAdmin
+        }
     }
 }
 
@@ -118,15 +129,7 @@ extension MiniPlayerViewController{
     
     
 
-//    func swipeGesture (sender: UISwipeGestureRecognizer) {
-//
-//
-// }
 }
-
-
-
-
 
 
 extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
@@ -139,7 +142,25 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     var coverImageView: UIImageView {
         return thumbImage
     }
+/*
+     method to trigger admin or user
+     */
+    func userTriggeredButton(){
+        var snap: String = ""
+        
+        ref.child("parties/\(partyID)/Host").observeSingleEvent(of: .value, with: { (snapshot) in
+            snap = snapshot.value as! String
+        })
+        playPause.isHidden = true
+        isAdmin = false
+        if(uid == snap){
+            playPause.isHidden = false
+            isAdmin = true
+        }
+    }
 }
+
+
 
 extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
     

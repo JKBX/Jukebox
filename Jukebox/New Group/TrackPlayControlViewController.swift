@@ -8,6 +8,7 @@
 
 import UIKit
 import MarqueeLabel
+import Firebase
 
 class TrackPlayControlViewController: UIViewController, TrackSubscriber {
     
@@ -20,6 +21,13 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
     @IBOutlet weak var songTitle: MarqueeLabel!
     @IBOutlet weak var artist: MarqueeLabel!
     @IBOutlet weak var songDuration: UILabel!
+    @IBOutlet weak var previousButton: UIButton!
+    @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    
+    var isAdmin: Bool = false
+    let ref = Database.database().reference()
+    let uid = Auth.auth().currentUser?.uid
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +37,9 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
     
     }
     override func viewWillAppear(_ animated: Bool) {
-     
+        playPauseButton.isHidden = !isAdmin
+        previousButton.isHidden = !isAdmin
+        nextButton.isHidden = !isAdmin
     }
     
     @IBAction func playButton(_ sender: Any) {
@@ -85,9 +95,9 @@ extension TrackPlayControlViewController: SPTAudioStreamingPlaybackDelegate{
         songDuration.text = durationTime
     }
     
-    }
 
 
+}
     
 
 

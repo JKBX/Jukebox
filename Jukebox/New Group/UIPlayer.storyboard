@@ -332,6 +332,9 @@
                     </view>
                     <connections>
                         <outlet property="artist" destination="f27-AV-lpj" id="Kq0-4f-cSE"/>
+                        <outlet property="nextButton" destination="9w3-D0-jyX" id="eaM-6g-j3k"/>
+                        <outlet property="playPauseButton" destination="nDv-UU-5OX" id="hmY-Da-ptR"/>
+                        <outlet property="previousButton" destination="WnA-bL-OHx" id="3di-iw-2rt"/>
                         <outlet property="songDuration" destination="w0w-iq-qBm" id="MlJ-oi-seC"/>
                         <outlet property="songTitle" destination="Gj2-86-hyv" id="WGc-Id-CxD"/>
                     </connections>

@@ -29,8 +29,10 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MiniPlayerViewController {
+            
             miniPlayer = destination
             miniPlayer?.delegate = self
+            miniPlayer?.partyID = partyID
         }
     }
     
@@ -45,6 +47,11 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
         
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(search))
         navigationItem.rightBarButtonItem = button
+        
+        
+    
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
