@@ -12,7 +12,7 @@ import FirebaseAuth
 
 class PartyPlaylistViewController: UIViewController {
     
-    //MARK: Vars
+//MARK: Vars
     
     @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
@@ -21,7 +21,7 @@ class PartyPlaylistViewController: UIViewController {
     var queue: [TrackModel] = []
     let userID = Auth.auth().currentUser?.uid
     
-    //MARK: LifeCycle
+//MARK: LifeCycle
     var party:NSDictionary = [:]
     
     override func viewDidLoad() {
@@ -50,7 +50,7 @@ class PartyPlaylistViewController: UIViewController {
         freeObservers()
     }
     
-    //MARK: Observer-Methods
+//MARK: Observer-Methods
     
     func setupObservers() {
         ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(changedTrack: TrackModel(from: snapshot))})
@@ -115,14 +115,10 @@ class PartyPlaylistViewController: UIViewController {
 
   override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
-/*
- Data Source
- 
- */
+//MARK: Data Source
 
 extension PartyPlaylistViewController: UITableViewDataSource{
     
@@ -139,14 +135,10 @@ extension PartyPlaylistViewController: UITableViewDataSource{
     }
 }
 
-/*
- ViewDelegate
- 
- */
+//MARK: View Delegate
 
 extension PartyPlaylistViewController: UITableViewDelegate{
     
-    //Set Custom Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         return 64.0;
     }

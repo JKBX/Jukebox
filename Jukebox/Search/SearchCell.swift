@@ -67,7 +67,7 @@ class SearchCell: UITableViewCell {
         self.track = track
         self.textLabel?.text = track.songName
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"
-        self.heightAnchor.constraint(equalToConstant: 21).isActive = true
+        self.heightAnchor.constraint(equalToConstant: 100).isActive = true
         self.imageView?.kf.setImage(with: track.coverUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, URL) in
             self.setNeedsLayout()
         })
@@ -88,8 +88,7 @@ class SearchCell: UITableViewCell {
                 "\(userID!)" : "true"
             ]
         ]
-        self.partyRef?.child("/queue/\(track?.trackId!)").setValue(newTrack)
-//        self.partyRef?.child("/\(track?.trackId)").setValue(newTrack)
+        self.partyRef?.child("/queue/\(self.track?.trackId!)").setValue(newTrack)
     }
     
 //    @objc func checkForTrackInExistingPlaylist(trackId: String) {
