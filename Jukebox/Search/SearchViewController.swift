@@ -44,7 +44,11 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        searchBar.becomeFirstResponder()
+        searchBar.showsCancelButton = true
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -87,15 +91,21 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
-            view.endEditing(true)
+            
             tableView.reloadData()
+            searchBar.becomeFirstResponder()
+            
         } else {
             isSearching = true
             searchTrackWithSpartanCall(track: searchBar.text!)
             tableView.reloadData()
+            
         }
     }
-    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+
+    }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         if isSearching {
             isSearching = false

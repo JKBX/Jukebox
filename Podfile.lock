@@ -61,7 +61,7 @@ DEPENDENCIES:
   - Spartan
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireObjectMapper
     - AlamoRecord
@@ -101,4 +101,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: fca30e1b6ec1a62276de7f762420c7868cddc2a2
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
