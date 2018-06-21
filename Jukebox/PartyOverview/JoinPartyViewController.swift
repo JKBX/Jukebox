@@ -52,7 +52,7 @@ class JoinPartyViewController: UIViewController, UITextFieldDelegate {
        }
       }
      })
-        //self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
  }
  
     override func didReceiveMemoryWarning() {

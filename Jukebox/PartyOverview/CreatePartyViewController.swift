@@ -14,7 +14,7 @@ import Firebase
 class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     @IBAction func create(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        
     }
     
     @IBOutlet var addName: UITextField!
@@ -25,7 +25,11 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var addPlaylist: UITextField!
     @IBOutlet var addImage: UIButton!
     @IBOutlet var loadPicture: UIImageView!
-    @IBOutlet var create: UILabel!
+
+    @IBOutlet var create: UIButton!
+    @IBAction func createClicked(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
     
     let imagePicker = UIImagePickerController()
     
@@ -36,22 +40,34 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        //addPicture
+        loadPicture.layer.borderWidth = 1
+        loadPicture.layer.masksToBounds = false
+        loadPicture.layer.cornerRadius = loadPicture.frame.height/2
+        loadPicture.clipsToBounds = true
+        
+        //addDate
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
-        /*datePicker?.addTarget(self, action: #selector(ViewController.dateChanged(datePicker:)), for: .valueChanged)*/
+        addDate.inputView = datePicker 
+       
         
-        addDate.inputView = datePicker
+        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(CreatePartyViewController.dismissPicker))
+        addDate.inputAccessoryView = toolBar
+        
+    
         
         //let picker = UIPickerView()
-        /*self.picker.translatesAutoresizingMaskIntoConstraints = false
-        self.picker.dataSource = self
-        self.picker.delegate = self
-        view.addSubview(self.picker)
-        
+        //picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.dataSource = self
+        picker.delegate = self
+        //view.addSubview(self.picker) //TODO
+        addPlaylist.inputView = picker
+    /*
         picker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         picker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         picker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        // Do any additional setup after loading the view.
+   */     // Do any additional setup after loading the view.
         
         // Load Playlist Data For Fallback
         //TODO clean recursion 
@@ -69,14 +85,26 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
                 self.picker.reloadAllComponents()
             }
         }
-        SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)*/
+        SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)
     }
     
+    
+    func datePickerValueChanged(sender:UIDatePicker){
+    }
+    
+    @objc func dismissPicker() {
+        view.endEditing(true)
+        //Get date & write to input field
+        
+    }
+    
+    //addImage
     @IBAction func addImagePressed(_ sender: Any) {
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
         self.present(imagePicker, animated: true, completion: nil)
     }
+    //imagePicker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         {
@@ -115,6 +143,9 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         print(self.playlists[row].name)
         return self.playlists[row].name
     }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        addPlaylist.text = playlists[row].name
+    }
     
 
     override func didReceiveMemoryWarning() {
@@ -122,6 +153,7 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         // Dispose of any resources that can be recreated.
     }
     
+
 
     /*
     // MARK: - Navigation
@@ -133,4 +165,27 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     */
 
+}
+
+//datePicker
+extension UIToolbar {
+    
+    func ToolbarPiker(mySelect : Selector) -> UIToolbar {
+        
+        let toolBar = UIToolbar()
+        
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: nil)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([ spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        return toolBar
+    }
+    
 }
