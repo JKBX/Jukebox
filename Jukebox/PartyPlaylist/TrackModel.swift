@@ -30,6 +30,6 @@ class TrackModel{
         self.coverUrl = URL(string: snapshot.childSnapshot(forPath: "coverURL").value as! String)!
         self.liked = snapshot.childSnapshot(forPath: "votes/\(userId)").exists()
         self.voteCount = snapshot.childSnapshot(forPath: "votes").childrenCount
-//        self.duration ----> missing
+        
     }
 }
