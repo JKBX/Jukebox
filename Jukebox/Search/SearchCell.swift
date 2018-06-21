@@ -36,7 +36,7 @@ class SearchCell: UITableViewCell {
 //        button.translatesAutoresizingMaskIntoConstraints = false
 //        return button
 //    }()
-    
+//
 //    override init(style: UITableViewCellStyle, reuseIdentifier: String?){
 //        super.init(style: style, reuseIdentifier: reuseIdentifier)
 //        self.addSubview(searchTrackImageView)
@@ -44,7 +44,7 @@ class SearchCell: UITableViewCell {
 //        self.addSubview(searchTrackArtist)
 //        self.addSubview(moreButton)
 //    }
-    
+//
 //    override func layoutSubviews() {
 //
 //        searchTrackImageView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
@@ -61,57 +61,49 @@ class SearchCell: UITableViewCell {
     
     var track:TrackModel?
     var partyRef: DatabaseReference?
-    
-    @IBOutlet weak var voteCountLabel: UILabel!
+    var accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))
     
     func setup(from track:TrackModel) {
         self.track = track
         self.textLabel?.text = track.songName
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"
+        self.heightAnchor.constraint(equalToConstant: 21).isActive = true
         self.imageView?.kf.setImage(with: track.coverUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, URL) in
             self.setNeedsLayout()
         })
-        
-        let accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))
-        accessoryButton.setImage(UIImage(named: track.liked ? "favorite" : "favoriteOutline"), for: .normal)
-        accessoryButton.addTarget(self, action: #selector(addToFirebase), for: .touchUpInside)
+
+        accessoryButton.setImage(UIImage(named: track.liked ? "addIconAcc" : "checkedButtonAcc"), for: .normal)
+        accessoryButton.addTarget(self, action: #selector(prepareAndAddToFirebase), for: .touchUpInside)
         self.accessoryView = accessoryButton
-        print(track.songName)
     }
     
-    @objc func addToFirebase(){
+    @objc func prepareAndAddToFirebase(){
         let userID = Auth.auth().currentUser?.uid
         let newTrack: NSDictionary = [
             "albumTitle": self.track?.album!,
-            "artist" : "\(self.track?.artist!)",
-            "coverURL" : "\(self.track?.coverUrl!)",
-            "songTitle" : "\(self.track?.songName!)",
+            "artist" : self.track?.artist!,
+            "coverURL" : self.track?.coverUrl!.absoluteString,
+            "songTitle" : self.track?.songName!,
             "votes" : [
                 "\(userID!)" : "true"
             ]
         ]
         self.partyRef?.child("/queue/\(track?.trackId!)").setValue(newTrack)
-        
-        
-        
-//        let userId = Auth.auth().currentUser?.uid as! String
-//        let voteRef = self.partyRef?.child("/queue/\(track?.trackId as! String)/votes/\(userId as String)")
-//        if (track?.liked)!{
-//            //Unlike
-//            voteRef?.removeValue()
-//        } else {
-//            //Like
-//            voteRef?.setValue(true)
-//        }
-//        delegate?.likedTrack(trackID: trackID)
+//        self.partyRef?.child("/\(track?.trackId)").setValue(newTrack)
     }
+    
+//    @objc func checkForTrackInExistingPlaylist(trackId: String) {
+//        self.partyRef?.child("/queue").observeSingleEvent(of: .value, with: { (snapshot) in
+//            if snapshot.hasChild(trackId){
+//
+//            }else{
+//                print("false room doesn't exist")
+//            }
+//        })
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.imageView?.image = UIImage(named: "coverImagePlaceholder")
     }
-    
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
 }

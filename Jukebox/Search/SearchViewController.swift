@@ -29,9 +29,8 @@ class SearchViewController: UIViewController {
     var ref: DatabaseReference! = Database.database().reference()
     let userID = Auth.auth().currentUser?.uid
     var isAdmin: Bool = false
-    var partyID: String = ""
-    
     var isSearching = false
+    var partyID: String = ""
     var foundTracks: [TrackModel] = []
     var textSearchedFor: String = ""
     
@@ -44,11 +43,12 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         searchBar.becomeFirstResponder()
         searchBar.showsCancelButton = true
-        
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -56,7 +56,6 @@ class SearchViewController: UIViewController {
     func searchTrackWithSpartanCall(track: String){
         Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
         foundTracks = []
-//        self.searchRequ
 //        TODO: Abort request on continue editing
         _ = Spartan.search(query: track, type: .track, success: { (pagingObject: PagingObject<Track>) in
             for track in pagingObject.items{
@@ -67,8 +66,6 @@ class SearchViewController: UIViewController {
             print(error)
         })
     }
-    
-//    @IBAction func 
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
@@ -91,21 +88,19 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
-            
             tableView.reloadData()
             searchBar.becomeFirstResponder()
-            
         } else {
             isSearching = true
             searchTrackWithSpartanCall(track: searchBar.text!)
             tableView.reloadData()
-            
         }
     }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
-
     }
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         if isSearching {
             isSearching = false
