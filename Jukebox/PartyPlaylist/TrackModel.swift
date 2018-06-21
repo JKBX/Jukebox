@@ -9,7 +9,7 @@ import FirebaseDatabase
 import FirebaseAuth
 
 
-class Track{
+class TrackModel{
     
     var trackId: String!
     var songName: String!

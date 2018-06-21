@@ -17,11 +17,11 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
     @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
     var miniPlayer: MiniPlayerViewController?
-    var currentSong: Track?
+    var currentSong: TrackModel?
     
     var isAdmin: Bool = false
     var partyID: String = ""
-    var queue: [Track] = []
+    var queue: [TrackModel] = []
     let userID = Auth.auth().currentUser?.uid
     
     /*   15.06.2018 - Chris
@@ -61,19 +61,19 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
     //MARK: Observer-Methods
     
     func setupObservers() {
-        ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(changedTrack: Track(from: snapshot))})
-        ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(changedTrack: Track(from: snapshot))})
-        ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(changedTrack: Track(from: snapshot))})
+        ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(changedTrack: TrackModel(from: snapshot))})
+        ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(changedTrack: TrackModel(from: snapshot))})
+        ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(changedTrack: TrackModel(from: snapshot))})
     }
     
-    func onChildAdded(changedTrack: Track) {
+    func onChildAdded(changedTrack: TrackModel) {
         self.queue.append(changedTrack)
         self.queue = self.queue.sorted() { $0.voteCount > $1.voteCount }
         let index = getIndex(of: changedTrack)
         self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
     }
     
-    func onChildChanged(changedTrack: Track) {
+    func onChildChanged(changedTrack: TrackModel) {
         //Update Votes
         let index = getIndex(of: changedTrack)
         self.queue[index] = changedTrack
@@ -93,14 +93,14 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
     }
     
     
-    func onChildRemoved(changedTrack: Track) {
+    func onChildRemoved(changedTrack: TrackModel) {
         let index = getIndex(of: changedTrack)
         self.queue.remove(at: index)
         self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: .left)
     }
     
     //Helper function finding a changed Track in the existing queue
-    func getIndex(of findTrack: Track) -> Int {
+    func getIndex(of findTrack: TrackModel) -> Int {
         return self.queue.index(where: { (track) -> Bool in track.trackId == findTrack.trackId })!
     }
     
@@ -126,7 +126,7 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
  */
 
 extension PartyPlaylistViewController: MiniPlayerDelegate{
-    func expandSong(song: Track) {
+    func expandSong(song: TrackModel) {
        
         guard let expandedTrackCard = UIStoryboard(name: "UIPlayer", bundle: nil).instantiateViewController(withIdentifier: "ExpandedTrackViewController")
             as? ExpandedTrackViewController else {
@@ -250,7 +250,7 @@ extension PartyPlaylistViewController: UITableViewDelegate{
             success(true)
         })
         voteAction.image = UIImage(named: track.liked ? "favorite" : "favoriteOutline")
-        voteAction.backgroundColor = UIColor(named: "SolidBlue400")
+        voteAction.backgroundColor = UIColor(named: "Green")
         return UISwipeActionsConfiguration(actions: [voteAction])
     }
     

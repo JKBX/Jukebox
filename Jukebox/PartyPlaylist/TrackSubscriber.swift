@@ -9,5 +9,5 @@
 import Foundation
 
  protocol TrackSubscriber: class {
-    var currentSong: Track? {get set}
+    var currentSong: TrackModel? {get set}
  }

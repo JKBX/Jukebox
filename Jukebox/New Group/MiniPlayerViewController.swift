@@ -11,7 +11,7 @@ import Kingfisher
 import MarqueeLabel
 
 protocol MiniPlayerDelegate: class {
-    func expandSong(song: Track)
+    func expandSong(song: TrackModel)
 }
 
 
@@ -24,7 +24,8 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
     @IBOutlet weak var songTitle: MarqueeLabel!
     @IBOutlet weak var artist: MarqueeLabel!
     @IBOutlet weak var playPause: UIButton!
-  
+    @IBOutlet weak var progressView: UIProgressView!
+    
     
     var isPlaying: Bool = false
 
@@ -32,7 +33,7 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
 //    chevron transition
     
     
-    var currentSong: Track?
+    var currentSong: TrackModel?
     weak var delegate: MiniPlayerDelegate?
     
 
@@ -47,7 +48,7 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         swipeUpGesture()
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
-       
+               
     }
     
     @IBAction func Play(_ sender: Any) {
@@ -73,7 +74,7 @@ extension MiniPlayerViewController{
 
     }
     
-    func setting(song: Track?){
+    func setting(song: TrackModel?){
         if let song = song {
             songTitle.text = song.songName
             artist.text = song.artist

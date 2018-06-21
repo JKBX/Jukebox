@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import QuartzCore
+
+
 // Chris - 17.06.2018
 protocol ExpandedTrackSourceProtocol: class {
     var frameInWindow: CGRect { get }
@@ -24,7 +25,7 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
     
     //    MARK: TODO: top corner fixen ?! ggf Stefan fragen
     let cardCornerRadius: CGFloat = 10
-    var currentSong: Track?
+    var currentSong: TrackModel?
     weak var sourceView: ExpandedTrackSourceProtocol!
     
     @IBOutlet weak var scrollView: UIScrollView!

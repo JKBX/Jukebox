@@ -11,7 +11,7 @@ import MarqueeLabel
 
 class TrackPlayControlViewController: UIViewController, TrackSubscriber {
     
-    var currentSong: Track?{
+    var currentSong: TrackModel?{
         didSet{
         setFields()
         }
