@@ -289,14 +289,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="O7T-zt-KVW" userLabel="Stack View Player Controls">
                                 <rect key="frame" x="111" y="138" width="192" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnA-bL-OHx" userLabel="Previous">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnA-bL-OHx" userLabel="Previous">
                                         <rect key="frame" x="0.0" y="1" width="48" height="48"/>
                                         <state key="normal" image="outline_skip_previous_black_48pt"/>
                                         <connections>
                                             <action selector="previousButton:" destination="wYR-Es-Ly3" eventType="touchUpInside" id="9Xy-o5-FKa"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDv-UU-5OX" userLabel="PlayPause">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDv-UU-5OX" userLabel="PlayPause">
                                         <rect key="frame" x="72" y="1" width="48" height="48"/>
                                         <state key="normal" image="outline_play_circle_filled_white_black_48pt">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -305,7 +305,7 @@
                                             <action selector="playButton:" destination="wYR-Es-Ly3" eventType="touchUpInside" id="q0y-iV-msm"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9w3-D0-jyX" userLabel="Next">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9w3-D0-jyX" userLabel="Next">
                                         <rect key="frame" x="144" y="1" width="48" height="48"/>
                                         <state key="normal" image="outline_skip_next_black_48pt"/>
                                         <connections>

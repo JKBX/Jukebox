@@ -17,6 +17,8 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
         setFields()
         }
     }
+    var isAdmin: Bool!
+    var isPlaying: Bool!
     
     @IBOutlet weak var songTitle: MarqueeLabel!
     @IBOutlet weak var artist: MarqueeLabel!
@@ -25,7 +27,7 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     
-    var isAdmin: Bool = false
+
     let ref = Database.database().reference()
     let uid = Auth.auth().currentUser?.uid
 
@@ -34,16 +36,24 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
         setFields()
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
+        SPTAudioStreamingController.sharedInstance().playbackDelegate = self
+        print("func call viewDidLoad TRACKPLAYCONTROLLER +" ,isPlaying)
+        
     
     }
     override func viewWillAppear(_ animated: Bool) {
-        playPauseButton.isHidden = !isAdmin
+        playPauseButton.isHidden = false
         previousButton.isHidden = !isAdmin
         nextButton.isHidden = !isAdmin
+        isPlaying = SPTAudioStreamingController.sharedInstance().playbackState.isPlaying
     }
     
     @IBAction func playButton(_ sender: Any) {
-     
+        
+        let play = NSNotification.Name.Spotify.playSong
+        let pause = NSNotification.Name.Spotify.pauseSong
+        NotificationCenter.default.post(name: isPlaying ? pause : play, object: nil)
+        
     }
     
     @IBAction func previousButton(_ sender: Any) {
@@ -58,44 +68,54 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
 extension TrackPlayControlViewController{
     // important: songTitle is nil before
     func setFields(){
-        guard songTitle != nil else{
-            return
-        }
-        songTitle.text = currentSong?.songName
-        artist.text = currentSong?.artist
+       
+        songTitle.text = SPTAudioStreamingController.sharedInstance().metadata.currentTrack?.name
+        artist.text = SPTAudioStreamingController.sharedInstance().metadata.currentTrack?.artistName
+    }
+    /*
+     20.06.2018 - Chris
+     
+     Marquee settings
+     */
+    func marqueeLabelTrackPlayer(MarqueeLabel label: MarqueeLabel){
+        label.type = .continuous
+        label.speed = .duration(10)
+        label.trailingBuffer = 50
+        label.fadeLength = 5.0
+        label.isUserInteractionEnabled = false
+        
     }
 }
-/*
- 20.06.2018 - Chris
- 
- Marquee settings
- */
-func marqueeLabelTrackPlayer(MarqueeLabel label: MarqueeLabel){
-    label.type = .continuous
-    label.speed = .duration(10)
-    label.trailingBuffer = 50
-    label.fadeLength = 5.0
-    label.isUserInteractionEnabled = false
-    
-}
+
+
 
 extension TrackPlayControlViewController: SPTAudioStreamingPlaybackDelegate{
     
-
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
+        
+        songTitle.text = metadata.currentTrack?.name
+        artist.text = metadata.currentTrack?.artistName
+    }
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
         var durationTime: String{
             let formatter = DateFormatter()
             formatter.dateFormat = "mm:ss"
-            let date = Date(timeIntervalSince1970: metadata.currentTrack!.duration)
+            let date = Date(timeIntervalSince1970: position)
             return formatter.string(from: date)
         }
-        print("func call audioStreaming in TrackPlayController")
-        songTitle.text = metadata.currentTrack?.name
-        artist.text = metadata.currentTrack?.artistName
         songDuration.text = durationTime
+
     }
     
-
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
+        self.isPlaying = isPlaying
+        
+        print(self.isPlaying ? "Playing" : "Paused")
+    }
+    
+    
+    
 
 }
     

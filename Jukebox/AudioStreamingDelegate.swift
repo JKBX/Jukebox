@@ -25,6 +25,7 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
                 print("Playing")
             }
         })
+        
     }
     
     @objc func pause() {

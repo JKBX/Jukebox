@@ -26,7 +26,8 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
     //    MARK: TODO: top corner fixen ?! ggf Stefan fragen
     let cardCornerRadius: CGFloat = 10
     var currentSong: TrackModel?
-    var isAdmin: Bool = false
+    var isAdmin: Bool!
+    var isPlaying: Bool!
     weak var sourceView: ExpandedTrackSourceProtocol!
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -100,14 +101,9 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? TrackSubscriber {
             destination.currentSong = currentSong
-            
-            print("func call prepare in ExpandedTrackCard + \(currentSong?.songName)")
-
         }
         if let destination = segue.destination as? TrackPlayControlViewController {
-
             destination.isAdmin = isAdmin
-            
         }
     }
 }
@@ -308,7 +304,6 @@ extension ExpandedTrackViewController{
         let bounds = view.bounds
         let inset = bounds.height - bounds.width
         return inset
-        print("func call lowerModulPosition + \(inset)")
     }
     
     
@@ -339,6 +334,12 @@ extension ExpandedTrackViewController{
     
 }
 
+extension ExpandedTrackViewController: SPTAudioStreamingPlaybackDelegate{
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
+        coverImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
+    }
+}
 
 
 

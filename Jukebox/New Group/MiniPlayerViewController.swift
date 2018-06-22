@@ -30,20 +30,17 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
     let ref = Database.database().reference()
     let uid = Auth.auth().currentUser?.uid
     var partyID : String = ""
-    var isAdmin: Bool = false
     
-    
-    var isPlaying: Bool = false
 
 //    MARK https://stackoverflow.com/questions/18793469/animate-a-point-of-a-bezier-curve --> var path: UIBezierPath
 //    chevron transition
     
     
     var currentSong: TrackModel?
+    var isAdmin: Bool!
+    var isPlaying: Bool! = false
+    
     weak var delegate: MiniPlayerDelegate?
-    
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +51,12 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         swipeUpGesture()
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
-               userTriggeredButton()
+        userTriggeredButton(isAdmin: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        playPause.adjustsImageWhenHighlighted = false
+        
     }
     
     @IBAction func Play(_ sender: Any) {
@@ -64,11 +66,7 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
         NotificationCenter.default.post(name: isPlaying ? pause : play, object: nil)
         
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? ExpandedTrackViewController {
-            destination.isAdmin = isAdmin
-        }
-    }
+ 
 }
 
 extension MiniPlayerViewController{
@@ -122,18 +120,13 @@ extension MiniPlayerViewController{
                     }
                         delegate?.expandSong(song: song)
     }
-    
-    func getIsPlaying() -> Bool{
-        return isPlaying
-    }
-    
-    
 
 }
 
 
 extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     
+ 
     var frameInWindow: CGRect {
         let windowRect = view.convert(view.frame, to: nil)
         return windowRect
@@ -145,40 +138,34 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
 /*
      method to trigger admin or user
      */
-    func userTriggeredButton(){
-        var snap: String = ""
-        
-        ref.child("parties/\(partyID)/Host").observeSingleEvent(of: .value, with: { (snapshot) in
-            snap = snapshot.value as! String
-        })
-        playPause.isHidden = false
-        isAdmin = false
-
-        //       for broadcasting       ->      playPause.setImage(UIImage(named: "baseline_rss_feed_white_36pt"), for: .normal)
-        
-
-        if(uid == snap){
-            playPause.isHidden = false
-            isAdmin = true
-        }
+    func userTriggeredButton(isAdmin: Bool){
+        playPause.isHidden = !isAdmin
     }
+ 
 }
 
 
 
 extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
     
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
-//        songTitle.text = metadata.currentTrack?.name
-//        artist.text = metadata.currentTrack?.artistName
-//
-//
-//        thumbImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
-//    }
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
+
+        songTitle.text = metadata.currentTrack?.name
+        artist.text = metadata.currentTrack?.artistName
+        thumbImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
+    }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
-        //TODO set ui position of track
-        //print("Player Did change Position")
+        var time1 = position
+        
+        var durationTime: String{
+            let formatter = DateFormatter()
+            formatter.dateFormat = "mm:ss"
+            let date = Date(timeIntervalSince1970: time1)
+            return formatter.string(from: date)
+        }
+//       --> progress bar
+//        durationTime.text = durationTime
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
@@ -190,9 +177,9 @@ extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
                 self.playPause.alpha = 0.3
             }, completion: {(finished) in
                 if(isPlaying){
-                    self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-                }else{
                     self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+                }else{
+                    self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
                 }
                     UIView.animate(withDuration: 0.5, animations:{
                         self.playPause.alpha = 1.0

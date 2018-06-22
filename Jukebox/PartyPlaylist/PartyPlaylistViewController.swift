@@ -12,14 +12,15 @@ import FirebaseAuth
 
 class PartyPlaylistViewController: UIViewController, TrackSubscriber{
     
+    
+    
     //MARK: Vars
     
     @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
     var miniPlayer: MiniPlayerViewController?
     var currentSong: TrackModel?
-    
-    var isAdmin: Bool = false
+    var isAdmin: Bool!
     var partyID: String = ""
     var queue: [TrackModel] = []
     let userID = Auth.auth().currentUser?.uid
@@ -33,6 +34,10 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
             miniPlayer = destination
             miniPlayer?.delegate = self
             miniPlayer?.partyID = partyID
+            miniPlayer?.isAdmin = isAdmin
+
+            print("func call prepare MINIPLAYER")
+    
         }
     }
     
@@ -48,10 +53,7 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(search))
         navigationItem.rightBarButtonItem = button
         
-        
-    
-        
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -143,6 +145,8 @@ extension PartyPlaylistViewController: MiniPlayerDelegate{
         print("func call expandSong + \(currentSong!.songName)")
         expandedTrackCard.backingPic = view.makeFullScreenshot()
         expandedTrackCard.currentSong = song
+        expandedTrackCard.isAdmin = isAdmin
+        print("func call expandSong EXPANDEDTRACK")
         expandedTrackCard.sourceView = miniPlayer
         present(expandedTrackCard, animated: false)
     }
