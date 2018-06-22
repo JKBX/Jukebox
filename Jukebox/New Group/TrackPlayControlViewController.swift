@@ -67,10 +67,13 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
 }
 extension TrackPlayControlViewController{
     // important: songTitle is nil before
-    func setFields(){
-       
-        songTitle.text = SPTAudioStreamingController.sharedInstance().metadata.currentTrack?.name
-        artist.text = SPTAudioStreamingController.sharedInstance().metadata.currentTrack?.artistName
+        func setFields(){
+            guard songTitle != nil else{
+                return
+            }
+            songTitle.text = currentSong?.songName
+            artist.text = currentSong?.artist
+        }
     }
     /*
      20.06.2018 - Chris
@@ -85,7 +88,7 @@ extension TrackPlayControlViewController{
         label.isUserInteractionEnabled = false
         
     }
-}
+
 
 
 

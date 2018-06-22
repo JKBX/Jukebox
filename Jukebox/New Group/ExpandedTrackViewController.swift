@@ -27,7 +27,6 @@ class ExpandedTrackViewController: UIViewController, TrackSubscriber {
     let cardCornerRadius: CGFloat = 10
     var currentSong: TrackModel?
     var isAdmin: Bool!
-    var isPlaying: Bool!
     weak var sourceView: ExpandedTrackSourceProtocol!
     
     @IBOutlet weak var scrollView: UIScrollView!
