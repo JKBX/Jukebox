@@ -79,6 +79,7 @@ class SearchCell: UITableViewCell {
     
     @objc func prepareAndAddToFirebase(){
         let userID = Auth.auth().currentUser?.uid
+        var trackId = self.track?.trackId!
         let newTrack: NSDictionary = [
             "albumTitle": self.track?.album!,
             "artist" : self.track?.artist!,
@@ -88,7 +89,7 @@ class SearchCell: UITableViewCell {
                 "\(userID!)" : "true"
             ]
         ]
-        self.partyRef?.child("/queue/\(self.track?.trackId!)").setValue(newTrack)
+        self.partyRef?.child("/queue/\(trackId)").setValue(newTrack)
     }
     
 //    @objc func checkForTrackInExistingPlaylist(trackId: String) {

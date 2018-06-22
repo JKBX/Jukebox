@@ -71,7 +71,13 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if(section == 0){
+//            return self.ref.child("/parties/\(self.partyID)/queue").observe(of: DataEventType.value, with: { (snapshot) in
+//                snapshot.childrenCount
+//            })
+//        } else{
             return foundTracks.count
+//        }
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,6 +86,17 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         cell.setup(from: searchTableTrack)
         cell.partyRef = self.ref.child("/parties/\(self.partyID)")
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Header"
+        label.backgroundColor = UIColor.lightGray
+        return label
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
 }
 
