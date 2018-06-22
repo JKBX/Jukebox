@@ -151,8 +151,12 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
         ref.child("parties/\(partyID)/Host").observeSingleEvent(of: .value, with: { (snapshot) in
             snap = snapshot.value as! String
         })
-        playPause.isHidden = true
+        playPause.isHidden = false
         isAdmin = false
+
+        //       for broadcasting       ->      playPause.setImage(UIImage(named: "baseline_rss_feed_white_36pt"), for: .normal)
+        
+
         if(uid == snap){
             playPause.isHidden = false
             isAdmin = true
@@ -181,11 +185,20 @@ extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
          //print("Player Did change playback status")
         //TODO toggle play button design
         self.isPlaying = isPlaying
-        if(isPlaying){
-            playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-        }else{
-            playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-        }
+        
+            UIView.animate(withDuration: 0.3, animations: {
+                self.playPause.alpha = 0.3
+            }, completion: {(finished) in
+                if(isPlaying){
+                    self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+                }else{
+                    self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+                }
+                    UIView.animate(withDuration: 0.5, animations:{
+                        self.playPause.alpha = 1.0
+                    },completion:nil)
+            })
+        
         print(self.isPlaying ? "Playing" : "Paused")
     }
     
