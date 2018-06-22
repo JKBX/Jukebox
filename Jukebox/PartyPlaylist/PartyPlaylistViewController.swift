@@ -98,6 +98,7 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
         //        setting for mini Player
         
         currentSong = changedTrack
+        
         miniPlayer?.setting(song: currentSong)
     }
     

@@ -28,6 +28,7 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
         
     }
     
+    
     @objc func pause() {
         print("Pause")
         SPTAudioStreamingController.sharedInstance().setIsPlaying(false) { (error) in
