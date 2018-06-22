@@ -20,8 +20,6 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var addName: UITextField!
     @IBOutlet var addDate: UITextField!
     
-    private var datePicker: UIDatePicker?
-    
     @IBOutlet var addPlaylist: UITextField!
     @IBOutlet var addImage: UIButton!
     @IBOutlet var loadPicture: UIImageView!
@@ -40,22 +38,18 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        //datePicker
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = UIDatePickerMode.date
+        datePicker.addTarget(self, action: #selector(CreatePartyViewController.datePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
+        
+        addDate.inputView = datePicker
+        
         //addPicture
         loadPicture.layer.borderWidth = 1
         loadPicture.layer.masksToBounds = false
         loadPicture.layer.cornerRadius = loadPicture.frame.height/2
         loadPicture.clipsToBounds = true
-        
-        //addDate
-        datePicker = UIDatePicker()
-        datePicker?.datePickerMode = .date
-        addDate.inputView = datePicker 
-       
-        
-        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(CreatePartyViewController.dismissPicker))
-        addDate.inputAccessoryView = toolBar
-        
-    
         
         //let picker = UIPickerView()
         //picker.translatesAutoresizingMaskIntoConstraints = false
@@ -87,15 +81,16 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         }
         SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)
     }
-    
-    
-    func datePickerValueChanged(sender:UIDatePicker){
-    }
-    
-    @objc func dismissPicker() {
-        view.endEditing(true)
-        //Get date & write to input field
+    //datePicker
+    @objc func datePickerValueChanged(sender: UIDatePicker){
+        let formatter = DateFormatter()
+        formatter.dateStyle = DateFormatter.Style.medium
+        formatter.timeStyle = DateFormatter.Style.none
+        addDate.text = formatter.string(from: sender.date)
         
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     //addImage
@@ -104,6 +99,7 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
         self.present(imagePicker, animated: true, completion: nil)
     }
+    
     //imagePicker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
@@ -137,6 +133,7 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return self.playlists.count
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -165,27 +162,4 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     */
 
-}
-
-//datePicker
-extension UIToolbar {
-    
-    func ToolbarPiker(mySelect : Selector) -> UIToolbar {
-        
-        let toolBar = UIToolbar()
-        
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.black
-        toolBar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: nil)
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        
-        toolBar.setItems([ spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        
-        return toolBar
-    }
-    
 }
