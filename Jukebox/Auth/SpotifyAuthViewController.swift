@@ -20,21 +20,21 @@ class SpotifyAuthViewController: UIViewController {
     var authSession:SFAuthenticationSession?
     
     //Loading View
-    var blurredBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    //var blurredBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupLoadingView()
+        //self.setupLoadingView()
     
         //Check if User is already Authed
         if SPTAuth.defaultInstance().session != nil && SPTAuth.defaultInstance().session.isValid(){
-            self.loading(active: true)
+            //self.loading(active: true)
             NotificationCenter.default.addObserver(self, selector: #selector(successfulLogin), name: NSNotification.Name.Spotify.loggedIn, object: nil)
             self.receivedSession(session: SPTAuth.defaultInstance().session)
         }
     }
     
-    func setupLoadingView() {
+    /*func setupLoadingView() {
         blurredBackgroundView.frame = view.bounds
         /*let spinner = UIActivityIndicatorView()
         blurredBackgroundView.contentView.addSubview(spinner)
@@ -60,7 +60,7 @@ class SpotifyAuthViewController: UIViewController {
             })
             
         }
-    }
+    }*/
     
     //Action on-tap Spotify Button, Opens SFAuthSession to Connect
     @IBAction func authenticateSpotify(_ sender: Any) {
@@ -100,7 +100,9 @@ class SpotifyAuthViewController: UIViewController {
         
         
         //Loading Overlay
-        let alert = UIAlertController(title: nil, message: "Signing in...", preferredStyle: .alert)
+        NotificationCenter.default.post(name: NSNotification.Name.Auth.loading, object:(true, "Signing in..."))
+        
+        /*let alert = UIAlertController(title: nil, message: "Signing in...", preferredStyle: .alert)
         
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
@@ -110,7 +112,7 @@ class SpotifyAuthViewController: UIViewController {
         
         view.addSubview(blurredBackgroundView)
         alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)*/
         
         if let session = session {
             let headers: HTTPHeaders = [ "Authorization": "Bearer \(session.accessToken!)" ]
@@ -130,8 +132,9 @@ class SpotifyAuthViewController: UIViewController {
                      print(user?.user.photoURL)
                     
                     //self.loading(active: false)
-                    self.dismiss(animated: true, completion: nil)
-                    self.blurredBackgroundView.removeFromSuperview()
+                    NotificationCenter.default.post(name: NSNotification.Name.Auth.loading, object: (false, ""))
+                    //self.dismiss(animated: true, completion: nil)
+                    //self.blurredBackgroundView.removeFromSuperview()
                     
                     //self.performSegue(withIdentifier: "flip", sender: self)
                     

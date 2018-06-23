@@ -14,6 +14,8 @@
 		178E2B6720CD456800CE2A5A /* FirebaseAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */; };
 		179C11CD20D9BAB200EF9726 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11CC20D9BAB200EF9726 /* AuthViewController.swift */; };
 		179C11CF20D9CBAF00EF9726 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */; };
+		179C11D120DBE08300EF9726 /* InfoCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11D020DBE08300EF9726 /* InfoCardViewController.swift */; };
+		179C11D320DBE09000EF9726 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11D220DBE09000EF9726 /* EditCardViewController.swift */; };
 		17AE0E6520BDC0BC000EF085 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6420BDC0BC000EF085 /* Constants.swift */; };
 		17AE0E6720BDC119000EF085 /* AudioStreamingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6620BDC119000EF085 /* AudioStreamingDelegate.swift */; };
 		17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6820BDC146000EF085 /* NotificationConstants.swift */; };
@@ -58,6 +60,8 @@
 		178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthViewController.swift; sourceTree = "<group>"; };
 		179C11CC20D9BAB200EF9726 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		179C11D020DBE08300EF9726 /* InfoCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardViewController.swift; sourceTree = "<group>"; };
+		179C11D220DBE09000EF9726 /* EditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
 		17AE0E6420BDC0BC000EF085 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		17AE0E6620BDC119000EF085 /* AudioStreamingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioStreamingDelegate.swift; sourceTree = "<group>"; };
 		17AE0E6820BDC146000EF085 /* NotificationConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationConstants.swift; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 				17AE0E8320BDC3AA000EF085 /* RegisterViewController.swift */,
 				179C11CC20D9BAB200EF9726 /* AuthViewController.swift */,
 				179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */,
+				179C11D020DBE08300EF9726 /* InfoCardViewController.swift */,
+				179C11D220DBE09000EF9726 /* EditCardViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -382,8 +388,10 @@
 				178431CB20CAD5C90097046E /* FirebaseLoginViewController.swift in Sources */,
 				178431C920CACB940097046E /* FirebaseProfileViewController.swift in Sources */,
 				7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */,
+				179C11D320DBE09000EF9726 /* EditCardViewController.swift in Sources */,
 				179C11CF20D9CBAF00EF9726 /* ProfileViewController.swift in Sources */,
 				178E2B6720CD456800CE2A5A /* FirebaseAuthViewController.swift in Sources */,
+				179C11D120DBE08300EF9726 /* InfoCardViewController.swift in Sources */,
 				17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */,
 				179C11CD20D9BAB200EF9726 /* AuthViewController.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,

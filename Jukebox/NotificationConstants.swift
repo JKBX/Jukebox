@@ -10,4 +10,8 @@ extension Notification.Name {
     struct Spotify {
         static let loggedIn = Notification.Name("loggedIn")
     }
+    
+    struct Auth {
+        static let loading = Notification.Name("loading")
+    }
 }
