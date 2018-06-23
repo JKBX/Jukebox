@@ -98,7 +98,13 @@ class PartyPlaylistViewController: UIViewController, TrackSubscriber{
         //        setting for mini Player
         
         currentSong = changedTrack
-        
+//        var currentSongID: String = currentSong?.trackId as! String
+//        
+//        SPTAudioStreamingController.sharedInstance().queueSpotifyURI("spotify:track:\(currentSongID)", callback: { (error) in
+//            if error != nil{
+//                print("Queue URI")
+//            }
+//        })
         miniPlayer?.setting(song: currentSong)
     }
     
@@ -150,6 +156,7 @@ extension PartyPlaylistViewController: MiniPlayerDelegate{
         print("func call expandSong EXPANDEDTRACK")
         expandedTrackCard.sourceView = miniPlayer
         present(expandedTrackCard, animated: false)
+
     }
 }
 /*

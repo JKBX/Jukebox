@@ -11,6 +11,7 @@ import FirebaseDatabase
 class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.loggedIn, object: nil)
+    
         
         print("Did Login")
         
@@ -27,6 +28,7 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
         })
         
     }
+    
     
     
     @objc func pause() {
