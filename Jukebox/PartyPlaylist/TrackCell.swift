@@ -13,16 +13,15 @@ import FirebaseAuth
 
 protocol TrackCellDelegate{
     func likedTrack(trackID: String)
-//    func showTrackOptions(trackID: String)
 }
 
 class TrackCell: UITableViewCell {
-
+    
     //var delegate: TrackCellDelegate?
     //var trackID: String = ""
     var track:TrackModel?
     var partyRef: DatabaseReference?
-
+    
     @IBOutlet weak var voteCountLabel: UILabel!
     
     func setup(from track:TrackModel) {
@@ -33,18 +32,17 @@ class TrackCell: UITableViewCell {
             self.setNeedsLayout()
         })
         
-        
         voteCountLabel.text = String(track.voteCount)
         
         let accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))
         accessoryButton.setImage(UIImage(named: track.liked ? "favorite" : "favoriteOutline"), for: .normal)
         accessoryButton.addTarget(self, action: #selector(toggleLike), for: .touchUpInside)
         self.accessoryView = accessoryButton
+        print(track.songName)
     }
     
     @objc func toggleLike(){
-        print("like")
-        print(partyRef.debugDescription)
+        
         let userId = Auth.auth().currentUser?.uid as! String
         let voteRef = self.partyRef?.child("/queue/\(track?.trackId as! String)/votes/\(userId as String)")
         if (track?.liked)!{
@@ -63,3 +61,4 @@ class TrackCell: UITableViewCell {
         // Initialization code
     }
 }
+

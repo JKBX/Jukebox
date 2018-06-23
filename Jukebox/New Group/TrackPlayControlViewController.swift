@@ -45,7 +45,10 @@ class TrackPlayControlViewController: UIViewController, TrackSubscriber {
         playPauseButton.isHidden = false
         previousButton.isHidden = !isAdmin
         nextButton.isHidden = !isAdmin
+        
         isPlaying = SPTAudioStreamingController.sharedInstance().playbackState.isPlaying
+        
+        
     }
     
     @IBAction func playButton(_ sender: Any) {

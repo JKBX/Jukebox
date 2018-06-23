@@ -1,4 +1,10 @@
 PODS:
+  - Alamofire (4.7.2)
+  - AlamofireObjectMapper (5.0.0):
+    - Alamofire (~> 4.1)
+    - ObjectMapper (~> 3.0)
+  - AlamoRecord (1.1.1):
+    - AlamofireObjectMapper (~> 5.0)
   - Firebase/Auth (5.2.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.1)
@@ -43,6 +49,9 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - ObjectMapper (3.3.0)
+  - Spartan (1.1.1):
+    - AlamoRecord (~> 1.1.1)
   - VolumeBar (3.0.3)
 
 DEPENDENCIES:
@@ -52,10 +61,14 @@ DEPENDENCIES:
   - Firebase/Storage
   - Kingfisher (~> 4.0)
   - MarqueeLabel/Swift
+  - Spartan
   - VolumeBar (~> 3.0.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireObjectMapper
+    - AlamoRecord
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -69,9 +82,14 @@ SPEC REPOS:
     - leveldb-library
     - MarqueeLabel
     - nanopb
+    - ObjectMapper
+    - Spartan
     - VolumeBar
 
 SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
+  AlamoRecord: 78653b9a5da21ab5bb723167e0f552994df85d30
   Firebase: 25ed0412036d7d008568d1fb4d2e9d81ea8a0a2c
   FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
   FirebaseAuth: 463b8ce33bd5d05f706dcd4615499e3212b4132b
@@ -85,8 +103,10 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
+  Spartan: 0e2518f937e590b0dff19350db133110d676ddf0
   VolumeBar: 72aedbc71a30f5c64479b9574a86f39e254fb216
 
-PODFILE CHECKSUM: 599edcebca4838d419fde712428670e813c8a6dc
+PODFILE CHECKSUM: a8e224412340da6567c7d86a6b1e599f86bfbce4
 
 COCOAPODS: 1.5.3
