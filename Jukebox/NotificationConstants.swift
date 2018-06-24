@@ -12,8 +12,8 @@ extension Notification.Name {
         static let toggle = Notification.Name("toggle")
         static let nextSong = Notification.Name("SptNext")
         static let prevSong = Notification.Name("SptRestart")
-        static let startBroadcast = Notification.Name("SptBroadcast")
-        static let stopBroadcast = Notification.Name("SptBroadcast")
+        static let startBroadcast = Notification.Name("SptStartBroadcast")
+        static let stopBroadcast = Notification.Name("SptStopBroadcast")
 
     }
     
