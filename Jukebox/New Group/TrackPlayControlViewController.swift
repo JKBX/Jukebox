@@ -33,15 +33,10 @@ class TrackPlayControlViewController: UIViewController {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
-        
-        //TODO rollenverteilung
-        //isPlaying = SPTAudioStreamingController.sharedInstance().playbackState.isPlaying
     }
     
     @IBAction func playButton(_ sender: Any) {
-        let play = NSNotification.Name.Spotify.playSong
-        let pause = NSNotification.Name.Spotify.pauseSong
-        NotificationCenter.default.post(name: isPlaying ? pause : play, object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
     }
     
     @IBAction func previousButton(_ sender: Any) {
@@ -91,8 +86,6 @@ extension TrackPlayControlViewController: SPTAudioStreamingPlaybackDelegate{
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
-        self.isPlaying = isPlaying
-        
         print(self.isPlaying ? "Playing" : "Paused")
     }
     

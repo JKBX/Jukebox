@@ -15,21 +15,30 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
         
         print("Did Login")
     
+        NotificationCenter.default.addObserver(self, selector: #selector(toggle), name: NSNotification.Name.Spotify.toggle, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(play), name: NSNotification.Name.Spotify.playSong, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(pause), name: NSNotification.Name.Spotify.pauseSong, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(play), name: NSNotification.Name.Spotify.playSong, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(pause), name: NSNotification.Name.Spotify.pauseSong, object: nil)
     }
     
-    @objc func play() {
+    @objc func toggle() {
+        if (currentTrack?.isPlaying)! {
+            pause()
+        } else {
+            play()
+        }
+    }
+    
+    func play() {
         //TODO lookup in currentlyPlaying before
         //TODO write currentlyPlaying to firebase
         let ref = Database.database().reference().child("/parties/\(currentParty!)")
         
         
+        
         if currentTrack == nil{
+            if currentQueue.count == 0 {return}
             var trackId:String = currentQueue[0].trackId!
-            
-            //SPTAudioStreamingController.sharedInstance().queueSpotifyURI(<#T##spotifyUri: String!##String!#>, callback: <#T##SPTErrorableOperationCallback!##SPTErrorableOperationCallback!##(Error?) -> Void#>)
             
             //TODO update queue
             SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId)", startingWith: 0, startingWithPosition: 0, callback: { (error) in
@@ -39,23 +48,23 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
                     let playing = snapshot.value as! NSDictionary
                     playing.setValue(snapshot.key, forKey: "id")
                     playing.setValue(true, forKey: "isPlaying")
-                    playing.setValue((position: SPTAudioStreamingController.sharedInstance().playbackState.position, time: NSDate.timeIntervalSinceReferenceDate), forKey: "playbackStatus")
-                    
-                    print(playing)
-                    print()
-                    //print(Date(timeIntervalSince1970: TimeInterval))
-                    //NSDate.timeIntervalSince(NSDate.ini)
-                    
-                    ref.child("currentlyPlaying").setValue(playing)
+                    playing.setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
+                   ref.child("currentlyPlaying").setValue(playing)
                 }
                 
             })
         }else {
             let trackId = currentTrack?.trackId
             print(trackId)
-            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: 100, callback: { (error) in
+            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: (currentTrack?.playbackStatus?.position)!, callback: { (error) in
                 if error != nil { print(error); return }
                 print("playing")
+                
+                ref.child("currentlyPlaying/isPlaying").setValue(true)
+                print(SPTAudioStreamingController.sharedInstance().playbackState.position)
+                print(NSDate.timeIntervalSinceReferenceDate)
+                ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
+                
                 
                /* ref.child("/queue/\(trackId)").observeSingleEvent(of: .value) { (snapshot) in
                     let playing = snapshot.value as! NSDictionary
@@ -89,13 +98,18 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
     
     
     
-    @objc func pause() {
+    func pause() {
         print("Pause")
+        let ref = Database.database().reference().child("/parties/\(currentParty!)")
+        
         SPTAudioStreamingController.sharedInstance().setIsPlaying(false) { (error) in
             if error != nil {
                 print(error)
             }
             print("Paused Spotify")
+            
+            ref.child("currentlyPlaying/isPlaying").setValue(false)
+            ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
         }
     }
     

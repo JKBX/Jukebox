@@ -22,12 +22,6 @@ class MiniPlayerViewController: UIViewController{
     @IBOutlet weak var artist: MarqueeLabel!
     @IBOutlet weak var playPause: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
-    let ref = Database.database().reference()
-    let uid = Auth.auth().currentUser?.uid
-    
-    
-    //TODO save in currentTrack Firebase
-    var isPlaying: Bool! = false
     
     var delegate: PlayerDelegate?
     
@@ -49,11 +43,7 @@ class MiniPlayerViewController: UIViewController{
     }
     
     @IBAction func Play(_ sender: Any) {
-        
-        let play = NSNotification.Name.Spotify.playSong
-        let pause = NSNotification.Name.Spotify.pauseSong
-        NotificationCenter.default.post(name: isPlaying ? pause : play, object: nil)
-        
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
     }
  
 }
@@ -155,22 +145,19 @@ extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
          //print("Player Did change playback status")
         //TODO toggle play button design
-        self.isPlaying = isPlaying
         
             UIView.animate(withDuration: 0.3, animations: {
                 self.playPause.alpha = 0.3
             }, completion: {(finished) in
-                if(isPlaying){
+                if(currentTrack?.isPlaying)!{
                     self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
                 }else{
                     self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
                 }
-                    UIView.animate(withDuration: 0.5, animations:{
-                        self.playPause.alpha = 1.0
-                    },completion:nil)
+                UIView.animate(withDuration: 0.2, animations:{
+                    self.playPause.alpha = 1.0
+                },completion:nil)
             })
-        
-        print(self.isPlaying ? "Playing" : "Paused")
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {

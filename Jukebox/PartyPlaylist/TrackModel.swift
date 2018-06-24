@@ -20,6 +20,9 @@ class TrackModel{
     var voteCount: UInt!
     var liked: Bool
     var duration: UInt!
+    var isPlaying: Bool!
+    var playbackStatus: (position: TimeInterval, time: TimeInterval)?
+    
     
     init(from snapshot: DataSnapshot){
         let userId = Auth.auth().currentUser?.uid as! String
@@ -31,8 +34,11 @@ class TrackModel{
         self.coverUrl = URL(string: snapshot.childSnapshot(forPath: "coverURL").value as! String)!
         self.liked = snapshot.childSnapshot(forPath: "votes/\(userId)").exists()
         self.voteCount = snapshot.childSnapshot(forPath: "votes").childrenCount
-        
-        
+        self.isPlaying = snapshot.hasChild("isPlaying") ? snapshot.childSnapshot(forPath: "isPlaying").value as! Bool : false
+        self.playbackStatus = snapshot.hasChild("playbackStatus") ?
+            ((position: snapshot.childSnapshot(forPath: "playbackStatus/position").value, time: snapshot.childSnapshot(forPath: "playbackStatus/time").value) as! (position: TimeInterval, time: TimeInterval)) : nil
+            
+            //snapshot.childSnapshot(forPath: "isPlaying").value as! Bool : false
     }
     init(from track: Track) {
         self.trackId = track.id as! String
