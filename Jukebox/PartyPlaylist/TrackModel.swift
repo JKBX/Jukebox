@@ -43,7 +43,7 @@ class TrackModel{
         }
         self.artist.removeLast(2)
         self.album = track.album.name as! String
-        self.coverUrl = URL(string: (track.album.images.last?.url)!)
+        self.coverUrl = URL(string: (track.album.images.first?.url)!)
         self.liked = false
         self.voteCount = nil
     }

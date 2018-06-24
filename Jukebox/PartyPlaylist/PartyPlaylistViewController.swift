@@ -33,7 +33,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //currentQueue = []
+        currentQueue = []
         //TODO fix back/forth bug
         self.tableView.reloadData()
         self.ref = Database.database().reference().child("/parties/\(currentParty!)")
@@ -56,9 +56,9 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     override func viewWillDisappear(_ animated: Bool) {
         //TODO test if viewDidDisappear is right
         //Reset Global Vars
-        currentParty = nil
-        currentTrack = nil
-        currentQueue = []
+        //currentParty = nil
+        //currentTrack = nil
+        //currentQueue = []
         freeObservers()
     }
     
