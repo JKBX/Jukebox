@@ -46,4 +46,13 @@ class TrackModel{
         self.liked = false
         self.voteCount = nil
     }
+    
+    func inIn(_ queue: [TrackModel]) -> TrackModel? {
+        for track in queue{
+            if self.trackId == track.trackId {
+                return track
+            }
+        }
+        return nil
+    }
 }

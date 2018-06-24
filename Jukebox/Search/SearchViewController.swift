@@ -32,6 +32,7 @@ class SearchViewController: UIViewController {
     var isSearching = false
     var partyID: String = ""
     var foundTracks: [TrackModel] = []
+    var queue: [TrackModel] = []
     var textSearchedFor: String = ""
     
     override func viewDidLoad() {
@@ -59,7 +60,15 @@ class SearchViewController: UIViewController {
         //        TODO: Abort request on continue editing
         _ = Spartan.search(query: track, type: .track, success: { (pagingObject: PagingObject<Track>) in
             for track in pagingObject.items{
-                self.foundTracks.append(TrackModel.init(from: track))
+                let searchResult = TrackModel.init(from: track)
+                if guard let existingTrack = searchResult.isIn(currentQueue)
+                existingTracks.append(existingTrack)
+                //Append related track to upper section
+        
+                    else {
+                    foundTracks.append(searchResult)
+                }
+                //self.foundTracks.append(TrackModel.init(from: track))
             }
             self.tableView.reloadData()
         }, failure: { (error) in
@@ -71,17 +80,15 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //        if(section == 0){
-        //            return self.ref.child("/parties/\(self.partyID)/queue").observe(of: DataEventType.value, with: { (snapshot) in
-        //                snapshot.childrenCount
-        //            })
-        //        } else{
-        return foundTracks.count
-        //        }
+        if(section == 0){
+            return queue.count
+        } else{
+            return foundTracks.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let searchTableTrack = foundTracks[indexPath.item]
+        let searchTableTrack = indexPath.section == 0 ? foundTracks[indexPath.item] : queue[indexPath.item]
         let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! SearchCell
         cell.setup(from: searchTableTrack)
         cell.partyRef = self.ref.child("/parties/\(self.partyID)")
