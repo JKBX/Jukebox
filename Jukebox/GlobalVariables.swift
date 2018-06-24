@@ -13,3 +13,4 @@ var currentParty: String?
 var currentTrack: TrackModel?
 var currentQueue: [TrackModel] = []
 var currentAdmin: Bool = false
+var isBroadcasting: Bool = false

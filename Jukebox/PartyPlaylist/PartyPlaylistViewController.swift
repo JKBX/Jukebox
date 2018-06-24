@@ -130,6 +130,8 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     func freeObservers(){
         ref.removeAllObservers()
         self.ref = Database.database().reference()
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
+        isBroadcasting = false
     }
 }
 

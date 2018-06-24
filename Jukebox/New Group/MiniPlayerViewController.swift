@@ -22,6 +22,8 @@ class MiniPlayerViewController: UIViewController{
     @IBOutlet weak var artist: MarqueeLabel!
     @IBOutlet weak var playPause: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var broadcastingButton: UIButton!
+    
     
     var delegate: PlayerDelegate?
     
@@ -35,6 +37,7 @@ class MiniPlayerViewController: UIViewController{
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
         userTriggeredButton(isAdmin: currentAdmin)
+        broadcastingImageSetter(isBroadcasting)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,20 +49,30 @@ class MiniPlayerViewController: UIViewController{
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
     }
  
+    @IBAction func broadcast(_ sender: Any) {
+        if(!isBroadcasting){
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.startBroadcast, object: nil)
+            broadcastingButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+            isBroadcasting = !isBroadcasting
+        }else{
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
+        }
+    
+    }
+    
+    func broadcastingImageSetter(_ isBroadcasting: Bool){
+        isBroadcasting ? broadcastingButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal) : broadcastingButton.setImage(UIImage(named: "baseline_rss_feed_white_36pt"), for: .normal)
+    }
+    
 }
 
 extension MiniPlayerViewController{
-    /*
-     20.06.2018 - Chris
-     
-     Marquee settings
-     */
+
     func marqueeLabelMiniPlayer(MarqueeLabel label: MarqueeLabel){
         label.type = .continuous
         label.speed = .duration(10)
         label.trailingBuffer = 50
         label.fadeLength = 5.0
-
     }
     
     func setting(){
@@ -79,7 +92,7 @@ extension MiniPlayerViewController{
 extension MiniPlayerViewController{
     
     @IBAction func tapGesturee(_ sender: Any) {
-        if currentTrack != nil{
+        if ((currentTrack != nil) && (currentAdmin || isBroadcasting)) {
             delegate?.expandSong()
         }
     }
@@ -91,7 +104,7 @@ extension MiniPlayerViewController{
     }
     
     @objc func swipeGesture(){
-        if currentTrack != nil{
+        if ((currentTrack != nil) && (currentAdmin || isBroadcasting)) {
             delegate?.expandSong()
         }
     }
@@ -109,12 +122,12 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     var coverImageView: UIImageView {
         return thumbImage
     }
-/*
-     method to trigger admin or user
-     */
+//    trigger Admin or User
     func userTriggeredButton(isAdmin: Bool){
-        playPause.isHidden = !isAdmin
         
+        playPause.isHidden = !isAdmin
+        broadcastingButton.isHidden = isAdmin
+        broadcastingButton.isEnabled = !isAdmin
     }
  
 }
@@ -145,7 +158,7 @@ extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
          //print("Player Did change playback status")
-        
+        if (currentAdmin){
             UIView.animate(withDuration: 0.3, animations: {
                 self.playPause.alpha = 0.3
             }, completion: {(finished) in
@@ -157,7 +170,7 @@ extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
                 UIView.animate(withDuration: 0.2, animations:{
                     self.playPause.alpha = 1.0
                 },completion:nil)
-            })
+            })}
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
@@ -165,8 +178,10 @@ extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
-        //print("Player Did stop playing track")
+
     }
+    
+    
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeVolume volume: SPTVolume) {
          print("Player Did change volume")

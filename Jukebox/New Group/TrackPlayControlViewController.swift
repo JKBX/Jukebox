@@ -18,7 +18,8 @@ class TrackPlayControlViewController: UIViewController {
     @IBOutlet weak var previousButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)

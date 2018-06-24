@@ -40,15 +40,17 @@
                                                 <action selector="Play:" destination="owb-UJ-10A" eventType="touchUpInside" id="frT-gY-1xf"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9I-mX-uUf" userLabel="Broadcasting">
-                                            <rect key="frame" x="444" y="7" width="50" height="50"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ko0-fS-i5y" userLabel="Broadcasting Button">
+                                            <rect key="frame" x="354" y="7" width="50" height="50"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="50" id="3jV-eA-tps"/>
-                                                <constraint firstAttribute="width" constant="50" id="LLD-tS-QgP" userLabel="width = 50"/>
+                                                <constraint firstAttribute="height" constant="50" id="fDz-2h-zkB"/>
+                                                <constraint firstAttribute="width" constant="50" id="tMp-kv-0US" userLabel="width = 50"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <state key="normal" image="baseline_rss_feed_white_36pt"/>
+                                            <connections>
+                                                <action selector="broadcast:" destination="owb-UJ-10A" eventType="touchUpInside" id="U0O-bp-1qA"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x2S-Cs-NdM" userLabel="ThumbPicture">
                                             <rect key="frame" x="10" y="2.6666666666666288" width="60" height="60"/>
@@ -88,17 +90,20 @@
                                     <constraints>
                                         <constraint firstItem="peA-rN-JNe" firstAttribute="leading" secondItem="x2S-Cs-NdM" secondAttribute="trailing" constant="20" id="1Ps-RV-gjU"/>
                                         <constraint firstItem="Isf-iH-kq1" firstAttribute="leading" secondItem="peA-rN-JNe" secondAttribute="trailing" constant="20" id="4Xz-Xf-Ta2"/>
+                                        <constraint firstItem="ko0-fS-i5y" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="57B-77-NTf"/>
                                         <constraint firstAttribute="bottom" secondItem="QS6-9H-Rff" secondAttribute="bottom" constant="11" id="5qz-IX-RYo"/>
                                         <constraint firstItem="P1U-tR-Y1L" firstAttribute="leading" secondItem="QS6-9H-Rff" secondAttribute="trailing" constant="20" id="63q-bU-I9m"/>
                                         <constraint firstItem="QS6-9H-Rff" firstAttribute="top" secondItem="peA-rN-JNe" secondAttribute="bottom" constant="6" id="7gt-7b-9eg"/>
                                         <constraint firstAttribute="bottom" secondItem="Kzg-PF-vu3" secondAttribute="bottom" id="Doc-hu-itI"/>
-                                        <constraint firstItem="T9I-mX-uUf" firstAttribute="leading" secondItem="Kzg-PF-vu3" secondAttribute="trailing" constant="10" id="FGw-CG-6b8"/>
-                                        <constraint firstItem="T9I-mX-uUf" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="JuF-xb-cIh"/>
+                                        <constraint firstItem="ko0-fS-i5y" firstAttribute="leading" secondItem="QS6-9H-Rff" secondAttribute="trailing" constant="100" id="IjS-wM-b48"/>
+                                        <constraint firstAttribute="trailing" secondItem="ko0-fS-i5y" secondAttribute="trailing" constant="10" id="K11-yh-q7j"/>
                                         <constraint firstItem="Isf-iH-kq1" firstAttribute="leading" secondItem="Kzg-PF-vu3" secondAttribute="trailing" constant="10" id="L4J-G1-CRt"/>
+                                        <constraint firstItem="ko0-fS-i5y" firstAttribute="leading" secondItem="Kzg-PF-vu3" secondAttribute="trailing" constant="10" id="L5m-aw-fog"/>
                                         <constraint firstAttribute="trailing" secondItem="Isf-iH-kq1" secondAttribute="trailing" constant="10" id="M1G-In-gFV"/>
                                         <constraint firstItem="x2S-Cs-NdM" firstAttribute="leading" secondItem="RoQ-QX-Dsh" secondAttribute="leading" constant="10" id="M9I-ho-Qvr"/>
                                         <constraint firstItem="P1U-tR-Y1L" firstAttribute="top" secondItem="peA-rN-JNe" secondAttribute="bottom" constant="15" id="N3d-Pd-O7I"/>
                                         <constraint firstAttribute="leading" secondItem="Kzg-PF-vu3" secondAttribute="leading" id="NdJ-ch-a5J"/>
+                                        <constraint firstItem="ko0-fS-i5y" firstAttribute="leading" secondItem="peA-rN-JNe" secondAttribute="trailing" constant="20" id="TOP-xq-P8c"/>
                                         <constraint firstItem="Isf-iH-kq1" firstAttribute="leading" secondItem="QS6-9H-Rff" secondAttribute="trailing" constant="100" id="Y1m-oA-aKM"/>
                                         <constraint firstItem="x2S-Cs-NdM" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="nA6-qW-J33"/>
                                         <constraint firstItem="Isf-iH-kq1" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="o0V-md-cgQ"/>
@@ -123,6 +128,7 @@
                     </view>
                     <connections>
                         <outlet property="artist" destination="QS6-9H-Rff" id="hlD-UW-3wh"/>
+                        <outlet property="broadcastingButton" destination="ko0-fS-i5y" id="Xig-SS-iV9"/>
                         <outlet property="playPause" destination="Isf-iH-kq1" id="7M3-e2-RLt"/>
                         <outlet property="progressView" destination="P1U-tR-Y1L" id="uAR-yG-pDG"/>
                         <outlet property="songTitle" destination="peA-rN-JNe" id="stk-PG-gKq"/>
@@ -359,7 +365,6 @@
     <resources>
         <image name="baseline_play_circle_outline_white_36pt" width="36" height="36"/>
         <image name="baseline_repeat_white_36pt" width="36" height="36"/>
-        <image name="baseline_rss_feed_white_36pt" width="36" height="36"/>
         <image name="chevron" width="36" height="12"/>
         <image name="outline_play_circle_filled_white_black_48pt" width="48" height="48"/>
         <image name="outline_skip_next_black_36pt" width="36" height="36"/>
