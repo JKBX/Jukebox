@@ -124,8 +124,8 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
     func audioStreamingDidLogout(_ audioStreaming: SPTAudioStreamingController!) {
         print("Did Logout")
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.Spotify.playSong, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.Spotify.pauseSong, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.Spotify.toggle, object: nil)
+        
         
     }
     

@@ -46,9 +46,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
             
             miniPlayer = destination
             miniPlayer?.delegate = self
-            
-            print("func call prepare MINIPLAYER")
-            
+
         }
     }
     

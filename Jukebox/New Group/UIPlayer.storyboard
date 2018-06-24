@@ -40,6 +40,16 @@
                                                 <action selector="Play:" destination="owb-UJ-10A" eventType="touchUpInside" id="frT-gY-1xf"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9I-mX-uUf" userLabel="Broadcasting">
+                                            <rect key="frame" x="444" y="7" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="3jV-eA-tps"/>
+                                                <constraint firstAttribute="width" constant="50" id="LLD-tS-QgP" userLabel="width = 50"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <state key="normal" image="baseline_rss_feed_white_36pt"/>
+                                        </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x2S-Cs-NdM" userLabel="ThumbPicture">
                                             <rect key="frame" x="10" y="2.6666666666666288" width="60" height="60"/>
                                             <constraints>
@@ -82,6 +92,8 @@
                                         <constraint firstItem="P1U-tR-Y1L" firstAttribute="leading" secondItem="QS6-9H-Rff" secondAttribute="trailing" constant="20" id="63q-bU-I9m"/>
                                         <constraint firstItem="QS6-9H-Rff" firstAttribute="top" secondItem="peA-rN-JNe" secondAttribute="bottom" constant="6" id="7gt-7b-9eg"/>
                                         <constraint firstAttribute="bottom" secondItem="Kzg-PF-vu3" secondAttribute="bottom" id="Doc-hu-itI"/>
+                                        <constraint firstItem="T9I-mX-uUf" firstAttribute="leading" secondItem="Kzg-PF-vu3" secondAttribute="trailing" constant="10" id="FGw-CG-6b8"/>
+                                        <constraint firstItem="T9I-mX-uUf" firstAttribute="centerY" secondItem="RoQ-QX-Dsh" secondAttribute="centerY" id="JuF-xb-cIh"/>
                                         <constraint firstItem="Isf-iH-kq1" firstAttribute="leading" secondItem="Kzg-PF-vu3" secondAttribute="trailing" constant="10" id="L4J-G1-CRt"/>
                                         <constraint firstAttribute="trailing" secondItem="Isf-iH-kq1" secondAttribute="trailing" constant="10" id="M1G-In-gFV"/>
                                         <constraint firstItem="x2S-Cs-NdM" firstAttribute="leading" secondItem="RoQ-QX-Dsh" secondAttribute="leading" constant="10" id="M9I-ho-Qvr"/>
@@ -287,17 +299,17 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="O7T-zt-KVW" userLabel="Stack View Player Controls">
-                                <rect key="frame" x="111" y="138" width="192" height="50"/>
+                                <rect key="frame" x="123" y="138" width="168" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnA-bL-OHx" userLabel="Previous">
-                                        <rect key="frame" x="0.0" y="1" width="48" height="48"/>
-                                        <state key="normal" image="outline_skip_previous_black_48pt"/>
+                                        <rect key="frame" x="0.0" y="7" width="36" height="36"/>
+                                        <state key="normal" image="baseline_repeat_white_36pt"/>
                                         <connections>
                                             <action selector="previousButton:" destination="wYR-Es-Ly3" eventType="touchUpInside" id="9Xy-o5-FKa"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDv-UU-5OX" userLabel="PlayPause">
-                                        <rect key="frame" x="72" y="1" width="48" height="48"/>
+                                        <rect key="frame" x="60" y="1" width="48" height="48"/>
                                         <state key="normal" image="outline_play_circle_filled_white_black_48pt">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -306,8 +318,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9w3-D0-jyX" userLabel="Next">
-                                        <rect key="frame" x="144" y="1" width="48" height="48"/>
-                                        <state key="normal" image="outline_skip_next_black_48pt"/>
+                                        <rect key="frame" x="132" y="7" width="36" height="36"/>
+                                        <state key="normal" image="outline_skip_next_black_36pt"/>
                                         <connections>
                                             <action selector="nextButton:" destination="wYR-Es-Ly3" eventType="touchUpInside" id="i1b-om-at1"/>
                                         </connections>
@@ -346,10 +358,11 @@
     </scenes>
     <resources>
         <image name="baseline_play_circle_outline_white_36pt" width="36" height="36"/>
+        <image name="baseline_repeat_white_36pt" width="36" height="36"/>
+        <image name="baseline_rss_feed_white_36pt" width="36" height="36"/>
         <image name="chevron" width="36" height="12"/>
         <image name="outline_play_circle_filled_white_black_48pt" width="48" height="48"/>
-        <image name="outline_skip_next_black_48pt" width="48" height="48"/>
-        <image name="outline_skip_previous_black_48pt" width="48" height="48"/>
+        <image name="outline_skip_next_black_36pt" width="36" height="36"/>
         <namedColor name="SolidGrey400">
             <color red="0.49799999594688416" green="0.5220000147819519" blue="0.50999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

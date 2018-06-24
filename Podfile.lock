@@ -65,7 +65,7 @@ DEPENDENCIES:
   - VolumeBar (~> 3.0.3)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireObjectMapper
     - AlamoRecord
@@ -109,4 +109,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a8e224412340da6567c7d86a6b1e599f86bfbce4
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

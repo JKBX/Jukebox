@@ -114,6 +114,7 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
      */
     func userTriggeredButton(isAdmin: Bool){
         playPause.isHidden = !isAdmin
+        
     }
  
 }
@@ -144,7 +145,6 @@ extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
          //print("Player Did change playback status")
-        //TODO toggle play button design
         
             UIView.animate(withDuration: 0.3, animations: {
                 self.playPause.alpha = 0.3
