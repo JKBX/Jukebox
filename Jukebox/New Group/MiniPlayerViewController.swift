@@ -101,7 +101,7 @@ extension MiniPlayerViewController{
     
     @IBAction func tapGesturee(_ sender: Any) {
         print("func call tapGesturee")
-        guard let song = currentSong else{
+        guard let song = currentTrack/*currentSong*/ else{
             return
         }
         delegate?.expandSong(song: song)

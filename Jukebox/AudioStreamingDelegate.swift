@@ -14,20 +14,50 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
     
         
         print("Did Login")
+    
         
         NotificationCenter.default.addObserver(self, selector: #selector(play), name: NSNotification.Name.Spotify.playSong, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pause), name: NSNotification.Name.Spotify.pauseSong, object: nil)
     }
     
     @objc func play() {
-        //TODO update queue
-        SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:2AKimSj4YSh5hdrPchltSI", startingWith: 0, startingWithPosition: 0, callback: { (error) in
-            if error != nil{
-                print("Playing")
-            }
-        })
+        //TODO lookup in currentlyPlaying before
+        //TODO write currentlyPlaying to firebase
+        if currentTrack == nil{
+            var trackId:String = currentQueue[0].trackId!
+            
+            //TODO update queue
+            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId)", startingWith: 0, startingWithPosition: 0, callback: { (error) in
+                if error != nil { print(error); return }
+                
+                let ref = Database.database().reference().child("/parties/\(currentPartyId!)")
+                ref.child("/queue/\(trackId)").observeSingleEvent(of: .value) { (snapshot) in
+                    let playing = snapshot.value as! NSDictionary
+                    playing.setValue(snapshot.key, forKey: "id")
+                    ref.child("currentlyPlaying").setValue(playing)
+                }
+                
+            })
+        }else {
+            let trackId = currentTrack?.trackId
+            print(trackId)
+            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: 100, callback: { (error) in
+                if error != nil { print(error); return }
+                print("playing")
+                /*let ref = Database.database().reference().child("/parties/\(currentPartyId!)")
+                ref.child("/queue/\(trackId)").observeSingleEvent(of: .value) { (snapshot) in
+                    let playing = snapshot.value as! NSDictionary
+                    playing.setValue(snapshot.key, forKey: "id")
+                    ref.child("currentlyPlaying").setValue(playing)
+                }*/
+            })
+            
+
+        }
+        
         
     }
+    
     
     
     

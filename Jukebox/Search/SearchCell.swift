@@ -90,7 +90,7 @@ class SearchCell: UITableViewCell {
                 "\(userID!)" : "true"
             ]
         ]
-        self.partyRef?.child("/queue/\(trackId)").setValue(newTrack)
+        self.partyRef?.child("/queue/\(trackId!)").setValue(newTrack)
     }
     
     //    @objc func checkForTrackInExistingPlaylist(trackId: String) {

@@ -28,6 +28,7 @@
 		17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9D20BDC689000EF085 /* LTRSegue.swift */; };
 		17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */; };
 		17AE0EA320BDDBCD000EF085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0EA220BDDBCD000EF085 /* Assets.xcassets */; };
+		17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */; };
 		17DC0B8320CEDC37001C8DF1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DC0B8220CEDC37001C8DF1 /* Search.storyboard */; };
 		17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */; };
 		17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DDDEEA20C84D680097291F /* TrackModel.swift */; };
@@ -73,6 +74,7 @@
 		17AE0E9D20BDC689000EF085 /* LTRSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTRSegue.swift; sourceTree = "<group>"; };
 		17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		17AE0EA220BDDBCD000EF085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		17DC0B8220CEDC37001C8DF1 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		17DDDEEA20C84D680097291F /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				17AE0E6620BDC119000EF085 /* AudioStreamingDelegate.swift */,
 				17AE0E6820BDC146000EF085 /* NotificationConstants.swift */,
 				17AE0EA220BDDBCD000EF085 /* Assets.xcassets */,
+				17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */,
 			);
 			path = Jukebox;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				17AE0E8720BDC3AA000EF085 /* RegisterViewController.swift in Sources */,
 				17AE0E8420BDC3AA000EF085 /* SpotifyAuthViewController.swift in Sources */,
 				E06F85DB20D2CAEF0073E29D /* TrackPlayControlViewController.swift in Sources */,
+				17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */,
 				17AE0E9A20BDC657000EF085 /* SectionHeader.swift in Sources */,
 				E0C4D34920BDB3C800B74C31 /* ViewController.swift in Sources */,
 				7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */,
@@ -586,7 +590,12 @@
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
 				);
-				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited) ${PODS_ROOT}/Firebase/CoreOnly/Sources \"${PODS_ROOT}/Headers/Public\" \"${PODS_ROOT}/Headers/Public/Firebase\"";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -621,7 +630,12 @@
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
 				);
-				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited) ${PODS_ROOT}/Firebase/CoreOnly/Sources \"${PODS_ROOT}/Headers/Public\" \"${PODS_ROOT}/Headers/Public/Firebase\"";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
