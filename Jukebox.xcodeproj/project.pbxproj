@@ -29,6 +29,7 @@
 		17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */; };
 		17AE0EA320BDDBCD000EF085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0EA220BDDBCD000EF085 /* Assets.xcassets */; };
 		17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */; };
+		17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */; };
 		17DC0B8320CEDC37001C8DF1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DC0B8220CEDC37001C8DF1 /* Search.storyboard */; };
 		17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */; };
 		17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DDDEEA20C84D680097291F /* TrackModel.swift */; };
@@ -40,7 +41,6 @@
 		E02E252E20DA557D0014FD5E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E02E252D20DA557D0014FD5E /* QuartzCore.framework */; };
 		E03118DB20CFE89800B9E570 /* UIPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E03118DA20CFE89800B9E570 /* UIPlayer.storyboard */; };
 		E03118DF20CFEC0B00B9E570 /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03118DE20CFEC0B00B9E570 /* MiniPlayerViewController.swift */; };
-		E06F85D520D126570073E29D /* TrackSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06F85D420D126570073E29D /* TrackSubscriber.swift */; };
 		E06F85D920D29A910073E29D /* ExpandedTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06F85D820D29A910073E29D /* ExpandedTrackViewController.swift */; };
 		E06F85DB20D2CAEF0073E29D /* TrackPlayControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06F85DA20D2CAEF0073E29D /* TrackPlayControlViewController.swift */; };
 		E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C4D34620BDB3C700B74C31 /* AppDelegate.swift */; };
@@ -75,6 +75,7 @@
 		17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		17AE0EA220BDDBCD000EF085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDelegate.swift; sourceTree = "<group>"; };
 		17DC0B8220CEDC37001C8DF1 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		17DDDEEA20C84D680097291F /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
@@ -87,7 +88,6 @@
 		E02E252D20DA557D0014FD5E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E03118DA20CFE89800B9E570 /* UIPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UIPlayer.storyboard; sourceTree = "<group>"; };
 		E03118DE20CFEC0B00B9E570 /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
-		E06F85D420D126570073E29D /* TrackSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSubscriber.swift; sourceTree = "<group>"; };
 		E06F85D820D29A910073E29D /* ExpandedTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedTrackViewController.swift; sourceTree = "<group>"; };
 		E06F85DA20D2CAEF0073E29D /* TrackPlayControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPlayControlViewController.swift; sourceTree = "<group>"; };
 		E0C4D34320BDB3C700B74C31 /* Jukebox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jukebox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,7 +179,6 @@
 				17AE0E8F20BDC657000EF085 /* PartyPlaylistViewController.swift */,
 				790CCC8420BDE0080081621B /* TrackCell.swift */,
 				17DDDEEA20C84D680097291F /* TrackModel.swift */,
-				E06F85D420D126570073E29D /* TrackSubscriber.swift */,
 			);
 			path = PartyPlaylist;
 			sourceTree = "<group>";
@@ -213,6 +212,7 @@
 				E03118DE20CFEC0B00B9E570 /* MiniPlayerViewController.swift */,
 				E06F85D820D29A910073E29D /* ExpandedTrackViewController.swift */,
 				E06F85DA20D2CAEF0073E29D /* TrackPlayControlViewController.swift */,
+				17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */,
 			);
 			name = UIPlayer;
 			path = "New Group";
@@ -416,6 +416,7 @@
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
 				17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */,
+				17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */,
 				17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */,
 				E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */,
 				E06F85D920D29A910073E29D /* ExpandedTrackViewController.swift in Sources */,
@@ -431,7 +432,6 @@
 				17AE0E9420BDC657000EF085 /* JoinPartyViewController.swift in Sources */,
 				17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */,
 				17AE0E6520BDC0BC000EF085 /* Constants.swift in Sources */,
-				E06F85D520D126570073E29D /* TrackSubscriber.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

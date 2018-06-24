@@ -23,17 +23,29 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
     @objc func play() {
         //TODO lookup in currentlyPlaying before
         //TODO write currentlyPlaying to firebase
+        let ref = Database.database().reference().child("/parties/\(currentParty!)")
+        
+        
         if currentTrack == nil{
             var trackId:String = currentQueue[0].trackId!
+            
+            //SPTAudioStreamingController.sharedInstance().queueSpotifyURI(<#T##spotifyUri: String!##String!#>, callback: <#T##SPTErrorableOperationCallback!##SPTErrorableOperationCallback!##(Error?) -> Void#>)
             
             //TODO update queue
             SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId)", startingWith: 0, startingWithPosition: 0, callback: { (error) in
                 if error != nil { print(error); return }
                 
-                let ref = Database.database().reference().child("/parties/\(currentPartyId!)")
                 ref.child("/queue/\(trackId)").observeSingleEvent(of: .value) { (snapshot) in
                     let playing = snapshot.value as! NSDictionary
                     playing.setValue(snapshot.key, forKey: "id")
+                    playing.setValue(true, forKey: "isPlaying")
+                    playing.setValue((position: SPTAudioStreamingController.sharedInstance().playbackState.position, time: NSDate.timeIntervalSinceReferenceDate), forKey: "playbackStatus")
+                    
+                    print(playing)
+                    print()
+                    //print(Date(timeIntervalSince1970: TimeInterval))
+                    //NSDate.timeIntervalSince(NSDate.ini)
+                    
                     ref.child("currentlyPlaying").setValue(playing)
                 }
                 
@@ -44,6 +56,22 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
             SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: 100, callback: { (error) in
                 if error != nil { print(error); return }
                 print("playing")
+                
+               /* ref.child("/queue/\(trackId)").observeSingleEvent(of: .value) { (snapshot) in
+                    let playing = snapshot.value as! NSDictionary
+                    playing.setValue(snapshot.key, forKey: "id")
+                    playing.setValue(true, forKey: "isPlaying")
+                    playing.setValue((position: SPTAudioStreamingController.sharedInstance().playbackState.position, time: NSDate.timeIntervalSinceReferenceDate), forKey: "playbackStatus")
+                    
+                    print(playing)
+                    print()
+                    //print(Date(timeIntervalSince1970: TimeInterval))
+                    //NSDate.timeIntervalSince(NSDate.ini)
+                    
+                    //ref.child("currentlyPlaying").setValue(playing)
+                }*/
+                print(SPTAudioStreamingController.sharedInstance().playbackState.position)
+                print(NSDate.timeIntervalSinceReferenceDate)
                 /*let ref = Database.database().reference().child("/parties/\(currentPartyId!)")
                 ref.child("/queue/\(trackId)").observeSingleEvent(of: .value) { (snapshot) in
                     let playing = snapshot.value as! NSDictionary

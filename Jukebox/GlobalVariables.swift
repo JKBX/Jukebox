@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseDatabase
 
-var currentParty: DatabaseReference! = Database.database().reference()
+var currentParty: String?
 var currentTrack: TrackModel?
 var currentQueue: [TrackModel] = []
-var currentPartyId: String?
+var currentAdmin: Bool = false
