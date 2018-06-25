@@ -31,7 +31,7 @@ class MiniPlayerViewController: UIViewController{
         super.viewDidLoad()
         setting()
         //TODO start party if no track playing
-        SPTAudioStreamingController.sharedInstance().playbackDelegate = self
+        //SPTAudioStreamingController.sharedInstance().playbackDelegate = self
         // Do any additional setup after loading the view.
         swipeUpGesture()
         marqueeLabelMiniPlayer(MarqueeLabel: artist)

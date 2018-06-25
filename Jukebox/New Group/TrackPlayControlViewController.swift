@@ -24,7 +24,7 @@ class TrackPlayControlViewController: UIViewController {
         super.viewDidLoad()
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
-        SPTAudioStreamingController.sharedInstance().playbackDelegate = self
+        //SPTAudioStreamingController.sharedInstance().playbackDelegate = self
         setFields()
     }
     
