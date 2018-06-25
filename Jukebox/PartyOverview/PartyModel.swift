@@ -11,7 +11,7 @@ import FirebaseDatabase
 
 
 class Party {
-    var date : Date
+    //var date : Date
     var host : String
     var id : String
     var name : String
@@ -21,7 +21,7 @@ class Party {
     init(from snapshot : DataSnapshot) {
         let value = snapshot.value as? NSDictionary
         
-        self.date = (value?["Date"] as? Date)!
+        //self.date = (value?["Date"] as? Date)!
         self.name = value?["Name"] as? String ?? ""
         self.host = value?["Host"] as? String ?? ""
         self.id = value?["ID"] as? String ?? ""

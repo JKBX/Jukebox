@@ -258,7 +258,6 @@ _placeholderLabel.textColor</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="createClicked:" destination="s8y-br-0Yb" eventType="touchUpInside" id="g4x-4L-nHP"/>
                                     <action selector="createPressed:" destination="s8y-br-0Yb" eventType="touchUpInside" id="4u6-Cv-2NQ"/>
                                 </connections>
                             </button>

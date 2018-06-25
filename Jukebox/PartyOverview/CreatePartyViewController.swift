@@ -21,9 +21,6 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     @IBOutlet var loadPicture: UIImageView!
 
     @IBOutlet var create: UIButton!
-    @IBAction func createClicked(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
     
     let imagePicker = UIImagePickerController()
     
@@ -94,7 +91,7 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     //addImage
     @IBAction func addImagePressed(_ sender: Any) {
         imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         self.present(imagePicker, animated: true, completion: nil)
     }
     
@@ -144,7 +141,7 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     
     //PartyId
-    func generatePartyId() -> String {
+    func generatePartyId(completion: @escaping (_ id: String)->Void) {
         let min: UInt32 = 000000
         let max: UInt32 = 999999
         var newId : String = ""
@@ -153,70 +150,53 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
            
             for party in snapshot.children{
                 if let party : DataSnapshot = party as? DataSnapshot {
-                    ids.append(party.childSnapshot(forPath: "ID").value as! String)
+                    ids.append((party.childSnapshot(forPath: "ID").value as? String)!)
                 }
             }
-            repeat {
-                newId = "\((min + arc4random_uniform(max - min + 1)))"
-            } while(ids.index(of: newId) != nil)
-            print(newId)
+            repeat { newId = "\((min + arc4random_uniform(max - min + 1)))" }
+            while(ids.index(of: newId) != nil)
+            completion(newId)
         }
-        return newId
     }
-
     
     //PartyPicStorage
-    func uploadPartyPicture(userId: String) -> Void {
+    func uploadPartyPicture(for partyId: String, completion: @escaping (_ path: String)->Void) -> Void {
         // Get a reference to the storage service using the default Firebase App
         let storage = Storage.storage()
         let picture:Data = (UIImagePNGRepresentation(loadPicture.image!) as Data?)!
         
         // Create a storage reference from our storage service
-        let profileRef = storage.reference().child("partyImages/<PartyId>/").child(userId).child("party.png")
+        let pictureRef = storage.reference().child("/partyImages/\(partyId)/").child("party.png")
         
-        let uploadTask = profileRef.putData(picture, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else {
-                // Uh-oh, an error occurred!
-                return
-            }
-            // Metadata contains file metadata such as size, content-type, and download URL.
-            profileRef.downloadURL(completion: { (url:URL?, error:Error?) in
-                print(url)
-                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                changeRequest?.photoURL = url
-                changeRequest?.commitChanges { (error) in
-                    let user = Auth.auth().currentUser
-                    if let user = user {
-                        print(user.photoURL)
-                    }
-                }
-            })
+        let uploadTask = pictureRef.putData(picture, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else { return }
+            completion(metadata.path!)
         }
     }
 
     
     @IBAction func createPressed(_ sender: UIButton) {
+        let ref = Database.database().reference()
         let enteredName = addName.text!
         let enteredDate = addDate.text!
         let enteredPlaylist = addPlaylist.text!
         let hostId:String = (Auth.auth().currentUser?.uid)!
-        let partyId = generatePartyId()
-        print(enteredName)
-        print(enteredDate)
-        print(enteredPlaylist)
-        print(partyId)
-        let ref: DatabaseReference!
-        ref = Database.database().reference().child("parties")
-        let newParty: NSDictionary = [
-            "Date": enteredDate,
-            "Host": hostId,
-            "ID" : partyId,
-            "Name" : enteredName,
-            //"imagePath" : addImage,
-            //"imageURL" :
-         ]
-        ref.child("parties").childByAutoId().setValue(newParty)
-    }
+        generatePartyId { (partyId) in
+            self.uploadPartyPicture(for: partyId, completion: { (imagePath) in
+                let newParty: NSDictionary = [
+                    "Date": enteredDate,
+                    "Host": hostId,
+                    "ID" : partyId,
+                    "Name" : enteredName,
+                    "imagePath" : imagePath,
+                ]
+                ref.child("/parties").childByAutoId().setValue(newParty, withCompletionBlock: { (_, _) in
+                    self.dismiss(animated: true, completion: nil)
+                })
+            })
+            
+        }
+        }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
