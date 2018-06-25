@@ -58,21 +58,24 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         //currentTrack = nil
         //currentQueue = []
         freeObservers()
+        //        MARK:
+        //        broadcasting wird unterbrochen sobald man die playlistview verlässt
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
     }
     
-    
-   
-    
-  
-    
+//    wird benötigt? Methode wenn das Objekt freigegeben wird..
+    deinit {
+        
+    }
+
     //MARK: Observer-Methods
     
     func setupObservers() {
         ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(TrackModel(from: snapshot))})
         ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
         ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(TrackModel(from: snapshot))})
-
         ref.child("/currentlyPlaying").observe(.value, with: { (snapshot) in self.onCurrentTrackChanged(snapshot)})
+        
     }
     
     
@@ -130,8 +133,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     func freeObservers(){
         ref.removeAllObservers()
         self.ref = Database.database().reference()
-        NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
-        isBroadcasting = false
     }
 }
 
