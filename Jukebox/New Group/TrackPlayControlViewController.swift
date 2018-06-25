@@ -24,10 +24,7 @@ class TrackPlayControlViewController: UIViewController {
         super.viewDidLoad()
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
-<<<<<<< HEAD
-=======
-        //SPTAudioStreamingController.sharedInstance().playbackDelegate = self
->>>>>>> refs/remotes/origin/UIPlayer
+
         setFields()
         if((currentTrack?.isPlaying)!){
             playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)

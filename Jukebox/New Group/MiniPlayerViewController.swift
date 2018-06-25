@@ -30,12 +30,7 @@ class MiniPlayerViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setting()
-<<<<<<< HEAD
-=======
-        //TODO start party if no track playing
-        //SPTAudioStreamingController.sharedInstance().playbackDelegate = self
-        // Do any additional setup after loading the view.
->>>>>>> refs/remotes/origin/UIPlayer
+
         swipeUpGesture()
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
@@ -87,7 +82,7 @@ extension MiniPlayerViewController{
             
         }else {
             //TODO Handle no song in playing yet
-            songTitle.text = "Weclome!                          Weclome!"
+            songTitle.text = "Weclome!"
             artist.text = "Awaiting a song to be in the playlist! Please add a song!"
             thumbImage.image = UIImage(named: "SpotifyLogoWhite")
 
