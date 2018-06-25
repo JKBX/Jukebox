@@ -103,8 +103,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="s8y-br-0Yb" kind="presentation" identifier="createParty" id="nnb-rO-yg5"/>
-                        <segue destination="Qqn-oM-MYH" kind="presentation" identifier="joinParty" id="ml7-Ab-3CW"/>
+                        <segue destination="cX4-nZ-U0L" kind="presentation" identifier="createParty" id="nnb-rO-yg5"/>
+                        <segue destination="IdI-Cd-HUb" kind="presentation" identifier="joinParty" id="ml7-Ab-3CW"/>
                         <segue destination="BLf-gD-Hnv" kind="show" identifier="showParty" id="EKR-hu-ADj"/>
                     </connections>
                 </collectionViewController>
@@ -112,7 +112,7 @@
             </objects>
             <point key="canvasLocation" x="-72.799999999999997" y="-1066.4167916041979"/>
         </scene>
-        <!--Join Party View Controller-->
+        <!--Join-->
         <scene sceneID="ef7-l0-NTB">
             <objects>
                 <viewController id="Qqn-oM-MYH" customClass="JoinPartyViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
@@ -121,7 +121,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="center" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Party-ID" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="wNf-tk-xda" userLabel="IDTextField">
-                                <rect key="frame" x="40" y="278" width="295" height="30"/>
+                                <rect key="frame" x="40" y="322" width="295" height="30"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="tintColor" name="SolidBlue400"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -134,18 +134,15 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" text="Join the Party with your ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-fA-qf8">
-                                <rect key="frame" x="40" y="247" width="295" height="21"/>
+                                <rect key="frame" x="40" y="291" width="295" height="21"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="Q2J-mD-z9y">
-                                <rect key="frame" x="92" y="66" width="192" height="192"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YcH-sk-gla">
-                                <rect key="frame" x="40" y="323" width="295" height="36"/>
-                                <color key="backgroundColor" name="SolidGrey400"/>
+                                <rect key="frame" x="40" y="367" width="295" height="36"/>
+                                <color key="backgroundColor" name="SolidBlue500"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Continue">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -154,33 +151,44 @@
                                     <action selector="done:" destination="Qqn-oM-MYH" eventType="touchUpInside" id="wMT-6Y-jAd"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="Q2J-mD-z9y">
+                                <rect key="frame" x="112" y="133" width="150" height="150"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey800"/>
                         <constraints>
-                            <constraint firstItem="Q2J-mD-z9y" firstAttribute="centerX" secondItem="jzO-fA-qf8" secondAttribute="centerX" id="9At-lq-mo2"/>
                             <constraint firstItem="YcH-sk-gla" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="Aiu-gz-acY"/>
                             <constraint firstItem="jzO-fA-qf8" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="Bw5-8Z-MgK"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="jzO-fA-qf8" secondAttribute="bottom" constant="10" id="Cot-JI-cGf"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="centerX" secondItem="Q2J-mD-z9y" secondAttribute="centerX" id="Gap-ZU-BXM"/>
                             <constraint firstItem="jzO-fA-qf8" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="227" id="JPc-Tr-Sm5"/>
-                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="wNf-tk-xda" secondAttribute="trailing" constant="40" id="Kel-ER-D8u"/>
                             <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="YcH-sk-gla" secondAttribute="trailing" constant="40" id="MfJ-j7-gvJ"/>
-                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="Q2J-mD-z9y" secondAttribute="bottom" constant="20" id="Nr3-sN-sI4"/>
-                            <constraint firstItem="wNf-tk-xda" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="TLb-5w-Pef"/>
                             <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="jzO-fA-qf8" secondAttribute="trailing" constant="40" id="TM7-xf-iKS"/>
-                            <constraint firstItem="Q2J-mD-z9y" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="46" id="Xdt-ku-jTM"/>
-                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="jzO-fA-qf8" secondAttribute="bottom" constant="10" id="jOX-Bi-xCK"/>
-                            <constraint firstItem="YcH-sk-gla" firstAttribute="top" secondItem="wNf-tk-xda" secondAttribute="bottom" constant="15" id="sXl-Rf-Ueg"/>
+                            <constraint firstItem="jzO-fA-qf8" firstAttribute="top" secondItem="Q2J-mD-z9y" secondAttribute="bottom" constant="8" symbolic="YES" id="fLr-Uc-5h0"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="wNf-tk-xda" secondAttribute="trailing" constant="40" id="fWJ-QZ-a2e"/>
+                            <constraint firstItem="Q2J-mD-z9y" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="69" id="rxO-ve-dMg"/>
+                            <constraint firstItem="YcH-sk-gla" firstAttribute="top" secondItem="wNf-tk-xda" secondAttribute="bottom" constant="15" id="xVQ-GD-CLH"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="zOF-vc-Vs3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bCm-nt-qgI"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Join" id="ehr-Dv-6Wa">
+                        <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="cBr-HM-ulp">
+                            <color key="tintColor" name="SolidBlue500"/>
+                            <connections>
+                                <segue destination="MJV-Gs-deF" kind="show" id="WTx-QU-Htn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="IDTextField" destination="wNf-tk-xda" id="jgt-BX-fT4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30U-H6-Ht9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709.60000000000002" y="-654.42278860569718"/>
+            <point key="canvasLocation" x="1648.8" y="-654.42278860569718"/>
         </scene>
-        <!--Create Party View Controller-->
+        <!--Create-->
         <scene sceneID="3qu-6z-vis">
             <objects>
                 <viewController id="s8y-br-0Yb" customClass="CreatePartyViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
@@ -188,19 +196,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="FHe-b9-eCe">
-                                <rect key="frame" x="92" y="20" width="192" height="158"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="158" id="15R-W4-P9i"/>
-                                </constraints>
-                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a Party Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHL-SC-89E">
-                                <rect key="frame" x="40" y="215" width="295" height="30"/>
+                                <rect key="frame" x="40" y="258" width="295" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" textContentType="name"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
                                         <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -208,14 +210,14 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="fill" text="Create your own Party!" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7QS-Kg-WCW">
-                                <rect key="frame" x="99" y="186" width="179" height="21"/>
+                                <rect key="frame" x="99" y="229" width="179" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Date of Party" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eUR-B9-dy9">
-                                <rect key="frame" x="40" y="253" width="295" height="30"/>
+                                <rect key="frame" x="40" y="296" width="295" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -233,7 +235,7 @@ _placeholderLabel.textColor</string>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Fallback Playlist" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6IW-gf-0c1">
-                                <rect key="frame" x="40" y="291" width="295" height="30"/>
+                                <rect key="frame" x="40" y="334" width="295" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -246,13 +248,13 @@ _placeholderLabel.textColor</string>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Nc-0c-Xvv">
-                                <rect key="frame" x="185" y="334" width="106" height="106"/>
+                                <rect key="frame" x="178" y="372" width="106" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjA-xS-TWK">
-                                <rect key="frame" x="40" y="453" width="295" height="30"/>
+                                <rect key="frame" x="40" y="488" width="295" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="SolidGrey400"/>
+                                <color key="backgroundColor" name="SolidBlue500"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Create">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -262,7 +264,7 @@ _placeholderLabel.textColor</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="8pK-KJ-7sb">
-                                <rect key="frame" x="92" y="372" width="74" height="30"/>
+                                <rect key="frame" x="92" y="410" width="74" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="SolidGrey700"/>
                                 <state key="normal" title="Add Image">
@@ -273,10 +275,23 @@ _placeholderLabel.textColor</string>
                                     <action selector="addImagePressed:" destination="s8y-br-0Yb" eventType="touchUpInside" id="tDR-WX-uOM"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="FHe-b9-eCe">
+                                <rect key="frame" x="113" y="71" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey800"/>
                         <viewLayoutGuide key="safeArea" id="Zuz-8w-p4i"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Create" id="mPL-wy-aeI">
+                        <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="nuk-OG-Z2z">
+                            <color key="tintColor" name="SolidBlue500"/>
+                            <connections>
+                                <segue destination="MJV-Gs-deF" kind="show" id="UXA-kf-F6F"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addDate" destination="eUR-B9-dy9" id="xvO-SW-cHF"/>
                         <outlet property="addImage" destination="8pK-KJ-7sb" id="N8Q-5M-P3W"/>
@@ -288,7 +303,7 @@ _placeholderLabel.textColor</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rmq-J5-hfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="711.20000000000005" y="-1397.4512743628186"/>
+            <point key="canvasLocation" x="1650.4000000000001" y="-1397.4512743628186"/>
         </scene>
         <!--UserProfile-->
         <scene sceneID="RNI-Gd-ya1">
@@ -306,6 +321,44 @@ _placeholderLabel.textColor</string>
             </objects>
             <point key="canvasLocation" x="1792.8" y="-1073.1634182908547"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="wZF-Ig-ddi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cX4-nZ-U0L" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="fm2-gW-3qS">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="SolidGrey900"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="s8y-br-0Yb" kind="relationship" relationship="rootViewController" id="A6L-By-Lvb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LoN-gS-ycr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="711.20000000000005" y="-1397.4512743628186"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kUC-cz-qfZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IdI-Cd-HUb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="uz3-RS-5Zi">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="SolidGrey900"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Qqn-oM-MYH" kind="relationship" relationship="rootViewController" id="Ym4-xZ-AZh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CLU-RJ-Xc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="709.60000000000002" y="-654.42278860569718"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AddIcon" width="60" height="60"/>
@@ -317,8 +370,8 @@ _placeholderLabel.textColor</string>
         <namedColor name="SolidBlue500">
             <color red="0.19599999487400055" green="0.38400000333786011" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="SolidGrey400">
-            <color red="0.49799999594688416" green="0.5220000147819519" blue="0.50999999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="SolidBlue500">
+            <color red="0.19599999487400055" green="0.38400000333786011" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SolidGrey700">
             <color red="0.21600000560283661" green="0.23899999260902405" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -326,5 +379,11 @@ _placeholderLabel.textColor</string>
         <namedColor name="SolidGrey800">
             <color red="0.13300000131130219" green="0.15299999713897705" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="SolidGrey900">
+            <color red="0.043000001460313797" green="0.071000002324581146" blue="0.059000000357627869" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="UXA-kf-F6F"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -38,6 +38,10 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         datePicker.addTarget(self, action: #selector(CreatePartyViewController.datePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
         
         addDate.inputView = datePicker
+        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(CreatePartyViewController.dismissPicker))
+        
+        addDate.inputAccessoryView = toolBar
+        addPlaylist.inputAccessoryView = toolBar
         
         //addPicture
         loadPicture.layer.borderWidth = 1
@@ -49,6 +53,8 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         //picker.translatesAutoresizingMaskIntoConstraints = false
         picker.dataSource = self
         picker.delegate = self
+        //picker.tintColor = UIColor.white
+        //picker.backgroundColor = UIColor.black
         //view.addSubview(self.picker) //TODO
         addPlaylist.inputView = picker
         
@@ -76,6 +82,11 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         }
         SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)
     }
+    
+    @objc func dismissPicker() {
+        view.endEditing(true)
+    }
+    
     //datePicker
     @objc func datePickerValueChanged(sender: UIDatePicker){
         let formatter = DateFormatter()
@@ -173,8 +184,8 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
             completion(metadata.path!)
         }
     }
-
     
+    //Create
     @IBAction func createPressed(_ sender: UIButton) {
         let ref = Database.database().reference()
         let enteredName = addName.text!
@@ -190,14 +201,15 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
                     "Name" : enteredName,
                     "imagePath" : imagePath,
                 ]
-                ref.child("/parties").childByAutoId().setValue(newParty, withCompletionBlock: { (_, _) in
+                ref.child("/parties/\(partyId)").setValue(newParty, withCompletionBlock: { (_, _) in
                     self.dismiss(animated: true, completion: nil)
                 })
+                ref.child("/users/\(hostId)/parties/\(partyId)").setValue("host")
             })
             
         }
         }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -213,4 +225,27 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     */
 
+}
+
+extension UIToolbar {
+    
+    func ToolbarPiker(mySelect : Selector) -> UIToolbar {
+        
+        let toolBar = UIToolbar()
+        
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.white
+        toolBar.sizeToFit()
+        toolBar.backgroundColor = UIColor.black
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: mySelect)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([ spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        return toolBar
+    }
+    
 }
