@@ -11,8 +11,6 @@ import MarqueeLabel
 import Firebase
 
 class TrackPlayControlViewController: UIViewController {
-
-    var isPlaying: Bool = false 
     
     @IBOutlet weak var songTitle: MarqueeLabel!
     @IBOutlet weak var artist: MarqueeLabel!
@@ -20,7 +18,8 @@ class TrackPlayControlViewController: UIViewController {
     @IBOutlet weak var previousButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
@@ -33,23 +32,19 @@ class TrackPlayControlViewController: UIViewController {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
-        
-        //TODO rollenverteilung
-        //isPlaying = SPTAudioStreamingController.sharedInstance().playbackState.isPlaying
     }
     
     @IBAction func playButton(_ sender: Any) {
-        let play = NSNotification.Name.Spotify.playSong
-        let pause = NSNotification.Name.Spotify.pauseSong
-        NotificationCenter.default.post(name: isPlaying ? pause : play, object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
+        
     }
     
     @IBAction func previousButton(_ sender: Any) {
-        //Track from start
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.prevSong, object: nil)
     }
     
     @IBAction func nextButton(_ sender: Any) {
-        
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
     }
 
 }
@@ -91,9 +86,19 @@ extension TrackPlayControlViewController: SPTAudioStreamingPlaybackDelegate{
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
-        self.isPlaying = isPlaying
         
-        print(self.isPlaying ? "Playing" : "Paused")
+        UIView.animate(withDuration: 0.3, animations: {
+            self.playPauseButton.alpha = 0.3
+        }, completion: {(finished) in
+            if(currentTrack?.isPlaying)!{
+                self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+            }else{
+                self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+            }
+            UIView.animate(withDuration: 0.2, animations:{
+                self.playPauseButton.alpha = 1.0
+            },completion:nil)
+        })
     }
     
     
