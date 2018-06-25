@@ -19,11 +19,10 @@ class TrackModel{
     var coverUrl: URL!
     var voteCount: UInt!
     var liked: Bool
-    var duration: UInt!
+    var duration: Int!
     var isPlaying: Bool!
     var playbackStatus: (position: TimeInterval, time: TimeInterval)?
-    
-    
+        
     init(from snapshot: DataSnapshot){
         let userId = Auth.auth().currentUser?.uid as! String
         print(snapshot.childSnapshot(forPath: "songTitle").value)
@@ -40,6 +39,7 @@ class TrackModel{
             
             //snapshot.childSnapshot(forPath: "isPlaying").value as! Bool : false
     }
+    
     init(from track: Track) {
         self.trackId = track.id as! String
         self.songName = track.name as! String
@@ -49,8 +49,18 @@ class TrackModel{
         }
         self.artist.removeLast(2)
         self.album = track.album.name as! String
-        self.coverUrl = URL(string: (track.album.images.first?.url)!)
+        self.coverUrl = URL(string: (track.album.images.last?.url)!)
         self.liked = false
         self.voteCount = nil
+        self.duration = track.durationMs
+    }
+    
+    func isIn(_ queue: [TrackModel]) -> TrackModel? {
+        for track in queue{
+            if self.trackId == track.trackId {
+                return track
+            }
+        }
+        return nil
     }
 }

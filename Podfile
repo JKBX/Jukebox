@@ -16,4 +16,5 @@ pod 'Kingfisher', '~> 4.0'
 pod 'VolumeBar', '~> 3.0.3'
 pod 'MarqueeLabel/Swift'
 pod 'Spartan'
+
 end

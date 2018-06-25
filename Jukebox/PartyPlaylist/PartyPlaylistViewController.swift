@@ -78,38 +78,34 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         
     }
     
-    
-    /*TODO fix ordering*/
     func onChildAdded(_ changedTrack: TrackModel) {
-        //Todo test if only called on vote
+        print("Track Changed: \(changedTrack.songName!)")
         currentQueue.append(changedTrack)
         currentQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
-        let index = currentQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
-        
-        self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.automatic)
+        let index = getIndex(of: changedTrack)
+        self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
     }
     
     func onChildChanged(_ changedTrack: TrackModel) {
-        
-        let index = currentQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
+        print("Track Changed: \(changedTrack.songName!)")
+        let index = getIndex(of: changedTrack)
         currentQueue[index] = changedTrack
         self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
         
-        
         let sortedQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
-        let newIndex = sortedQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
+        let newIndex = sortedQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId })!
         
         if newIndex != index {
-            print("Moving from \(String(index)) to \(String(newIndex))")
-            self.tableView.moveRow(at: IndexPath(item: newIndex, section: 0), to: IndexPath(item: index, section: 0))
+            self.tableView.moveRow(at: IndexPath(item: index, section: 0), to: IndexPath(item: newIndex, section: 0))
             currentQueue = sortedQueue
         }
     }
     
     
     func onChildRemoved(_ changedTrack: TrackModel) {
+        print("Track Removed: \(changedTrack.songName!)")
         //Todo test if only called on vote
-        let index = currentQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId }) as! Int
+        let index = getIndex(of: changedTrack)
         currentQueue.remove(at: index)
         self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
     }
@@ -117,11 +113,14 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     
     func onCurrentTrackChanged(_ snapshot: DataSnapshot) {
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
+        print("Current Track Changed")
         miniPlayer?.setting()
     }
     
     //Helper function finding a changed Track in the existing queue
     func getIndex(of findTrack: TrackModel) -> Int {
+        //TODO Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+        if currentQueue.count == 0 { return -1}
         return currentQueue.index(where: { (track) -> Bool in track.trackId == findTrack.trackId })!
     }
     
