@@ -29,11 +29,12 @@ class SearchViewController: UIViewController {
     var ref: DatabaseReference! = Database.database().reference()
     let userID = Auth.auth().currentUser?.uid
     var isAdmin: Bool = false
-    var isSearching = false
-    var partyID: String = ""
     var foundTracks: [TrackModel] = []
-    var queue: [TrackModel] = []
+    var existingTracks: [TrackModel] = []
+
     var textSearchedFor: String = ""
+    var sectionOneHeader: String = "In Queue"
+    var sectionTwoHeader: String = "Spotify Results"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,14 +62,11 @@ class SearchViewController: UIViewController {
         _ = Spartan.search(query: track, type: .track, success: { (pagingObject: PagingObject<Track>) in
             for track in pagingObject.items{
                 let searchResult = TrackModel.init(from: track)
-                if guard let existingTrack = searchResult.isIn(currentQueue)
-                existingTracks.append(existingTrack)
-                //Append related track to upper section
-        
-                    else {
-                    foundTracks.append(searchResult)
+                if(searchResult.isIn(currentQueue) != nil){
+                    self.existingTracks.append(searchResult)
+                } else {
+                    self.foundTracks.append(searchResult)
                 }
-                //self.foundTracks.append(TrackModel.init(from: track))
             }
             self.tableView.reloadData()
         }, failure: { (error) in
@@ -81,24 +79,35 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0){
-            return queue.count
+            return existingTracks.count
         } else{
             return foundTracks.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let searchTableTrack = indexPath.section == 0 ? foundTracks[indexPath.item] : queue[indexPath.item]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! SearchCell
-        cell.setup(from: searchTableTrack)
-        cell.partyRef = self.ref.child("/parties/\(self.partyID)")
-        return cell
+        if (indexPath.section == 0){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! SearchCell
+            cell.setup(from: existingTracks[indexPath.row])
+            return cell
+
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! SearchCell
+            cell.setup(from: foundTracks[indexPath.row])
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.text = "Header"
-        label.backgroundColor = UIColor.lightGray
+        if(section == 0 ){
+            label.text = sectionOneHeader
+        }else {
+            label.text = sectionTwoHeader
+        }
+        label.backgroundColor = UIColor.darkGray
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = UIColor.white
         return label
     }
     
@@ -111,23 +120,15 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text == "" {
-            isSearching = false
             tableView.reloadData()
             searchBar.becomeFirstResponder()
         } else {
-            isSearching = true
             searchTrackWithSpartanCall(track: searchBar.text!)
             tableView.reloadData()
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        if isSearching {
-            isSearching = false
-        }
+        searchBar.text = ""
     }
 }

@@ -12,12 +12,7 @@ import MarqueeLabel
 import Firebase
 
 
-protocol MiniPlayerDelegate: class {
-    func expandSong(song: TrackModel)
-}
-
-
-class MiniPlayerViewController: UIViewController, TrackSubscriber{
+class MiniPlayerViewController: UIViewController{
 
     // MARK: Properties
     
@@ -29,29 +24,23 @@ class MiniPlayerViewController: UIViewController, TrackSubscriber{
     @IBOutlet weak var progressView: UIProgressView!
     let ref = Database.database().reference()
     let uid = Auth.auth().currentUser?.uid
-    var partyID : String = ""
-    
-
-//    MARK https://stackoverflow.com/questions/18793469/animate-a-point-of-a-bezier-curve --> var path: UIBezierPath
-//    chevron transition
     
     
-    var currentSong: TrackModel?
-    var isAdmin: Bool!
+    //TODO save in currentTrack Firebase
     var isPlaying: Bool! = false
     
-    weak var delegate: MiniPlayerDelegate?
+    var delegate: PlayerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setting(song: nil)
+        setting()
         //TODO start party if no track playing
         SPTAudioStreamingController.sharedInstance().playbackDelegate = self
         // Do any additional setup after loading the view.
         swipeUpGesture()
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
-        userTriggeredButton(isAdmin: true)
+        userTriggeredButton(isAdmin: currentAdmin)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,28 +72,26 @@ extension MiniPlayerViewController{
 
     }
     
-    func setting(song: TrackModel?){
-        if let song = song {
+    func setting(){
+        if let song = currentTrack {
             songTitle.text = song.songName
             artist.text = song.artist
             thumbImage.kf.setImage(with: song.coverUrl)
             
         }else {
+            //TODO Handle no song in playing yet
             songTitle.text = nil
             thumbImage.image = nil
         }
-        currentSong = song
     }
 }
 
 extension MiniPlayerViewController{
     
     @IBAction func tapGesturee(_ sender: Any) {
-        print("func call tapGesturee")
-        guard let song = currentSong else{
-            return
+        if currentTrack != nil{
+            delegate?.expandSong()
         }
-        delegate?.expandSong(song: song)
     }
     func swipeUpGesture(){
         let swipeUp = UISwipeGestureRecognizer(target: self, action : #selector(swipeGesture))
@@ -113,14 +100,11 @@ extension MiniPlayerViewController{
         self.view.isUserInteractionEnabled = true
     }
     
-    @objc
-    func swipeGesture(){
-        guard let song = currentSong else{
-                        return
-                    }
-                        delegate?.expandSong(song: song)
+    @objc func swipeGesture(){
+        if currentTrack != nil{
+            delegate?.expandSong()
+        }
     }
-
 }
 
 
