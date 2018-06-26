@@ -29,7 +29,9 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
     }
     
     @objc func toggle() {
+        print("Toggle")
         if currentTrack == nil{
+            print("curr is nil")
             getNextTrack{ self.play() }
         } else {
             if (currentTrack?.isPlaying)! { pause() }
@@ -38,6 +40,7 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
     }
     
     func play() {
+        print("play")
         //TODO lookup in currentlyPlaying before
         //TODO write currentlyPlaying to firebase
         //TODO faster play action
@@ -114,16 +117,10 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
                 
                 
             }
-        
-        
-        
-        
+  
         
     }
-    
-    
-    
-    
+
     func pause() {
         print("Pause")
         let ref = Database.database().reference().child("/parties/\(currentParty!)")
@@ -148,7 +145,7 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
                 let next = snapshot.value as! NSDictionary
                 next.setValue(snapshot.key, forKey: "id")
                 next.setValue(false, forKey: "isPlaying")
-                next.setValue(["position": 0, "time": NSDate()], forKey: "playbackStatus")
+                next.setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
                 ref.child("currentlyPlaying").setValue(next, withCompletionBlock: { (_, _) in
                     ref.child("/queue/\(nextTrackId!)").removeValue(completionBlock: { (_, _) in completion() })
                 })

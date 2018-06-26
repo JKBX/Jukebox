@@ -58,6 +58,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         //currentTrack = nil
         //currentQueue = []
         freeObservers()
+
         //        MARK:
         //        broadcasting wird unterbrochen sobald man die playlistview verlässt
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
@@ -65,7 +66,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     
 //    wird benötigt? Methode wenn das Objekt freigegeben wird..
     deinit {
-        
+
     }
 
     //MARK: Observer-Methods

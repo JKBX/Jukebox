@@ -54,7 +54,6 @@ class PartyCollectionViewController: UICollectionViewController {
         if userID == nil {
             return
         }
-        
         ref.child("users/\(userID!)/parties").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let parties = snapshot.value as? NSDictionary

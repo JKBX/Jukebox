@@ -43,7 +43,6 @@ extension MainViewController{
         customStyle.trackTintColor = .white
         customStyle.progressTintColor = .black
         customStyle.backgroundColor = .init(red: 0, green: 0, blue: 0, alpha: 0)
-
         volumeBar.style = customStyle
         volumeBar.start()
     }

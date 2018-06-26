@@ -35,21 +35,8 @@ class MiniPlayerViewController: UIViewController{
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
         userTriggeredButton(isAdmin: currentAdmin)
-<<<<<<< HEAD
-        
-        let now = Date()
-        let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.current
-        formatter.dateFormat = "HH:mm:ss"
-        let dateString = formatter.string(from: now)
-   
-        print("\(dateString) , TESTESTEST")
-        
-
-=======
-        broadcastingImageSetter(isBroadcasting)
         timer = Timer.init()
->>>>>>> refs/remotes/origin/UIPlayer
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,11 +74,15 @@ extension MiniPlayerViewController{
     }
     
     func update() {
-        updateProgressBar()
+        if(currentTrack != nil){
+            updateProgressBar()
+            setting()} else{ return}
+      
         //TODO update track title album artist image
     }
     
     func updateProgressBar() {
+        
         if (currentTrack?.isPlaying)!{
             resetTimer()
             let duration:Float = Float((currentTrack?.duration)!)
@@ -230,64 +221,6 @@ extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
                 },completion:nil)
             })}
     }
-//
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
-//        //print("Player Did start playing track")
-//    }
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
-//
-//    }
-//    
-//    
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeVolume volume: SPTVolume) {
-//         print("Player Did change volume")
-//    }
-//    
-//    func audioStreamingDidSkip(toNextTrack audioStreaming: SPTAudioStreamingController!) {
-//         print("Player Did skip to next track")
-//    }
-//    
-//    func audioStreamingDidSkip(toPreviousTrack audioStreaming: SPTAudioStreamingController!) {
-//         print("Player Did skip to previous track")
-//    }
-//    
-//    func audioStreamingDidBecomeActivePlaybackDevice(_ audioStreaming: SPTAudioStreamingController!) {
-//         print("Player Did become active playback device")
-//    }
-//    
-//    func audioStreamingDidBecomeInactivePlaybackDevice(_ audioStreaming: SPTAudioStreamingController!) {
-//         print("Player Did become inactive playback device")
-//    }
-//    
-//    func audioStreamingDidLosePermission(forPlayback audioStreaming: SPTAudioStreamingController!) {
-//         print("Player Did lose permission")
-//    }
-//    
-//    func audioStreamingDidPopQueue(_ audioStreaming: SPTAudioStreamingController!) {
-//         print("Player Did pop queue")
-//    }
-//    
-//    
-//    // Mark - Unsupported Functions
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didSeekToPosition position: TimeInterval) {
-//        //Seeking will not be supported
-//    }
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeShuffleStatus enabled: Bool) {
-//        //Different Shufle Status will not be supported
-//    }
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeRepeatStatus repeateMode: SPTRepeatMode) {
-//        //Different Repeat modes will not be supported
-//    }
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceive event: SpPlaybackEvent) {
-//        //Not Needed ???
-//        //print("Player Did Receive Playback Event")
-//    }
-//    
+ 
+
 }
-//
