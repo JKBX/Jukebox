@@ -58,12 +58,14 @@ class SearchViewController: UIViewController {
     func searchTrackWithSpartanCall(track: String){
         Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
         foundTracks = []
+        existingTracks = []
         //        TODO: Abort request on continue editing
         _ = Spartan.search(query: track, type: .track, success: { (pagingObject: PagingObject<Track>) in
             for track in pagingObject.items{
                 let searchResult = TrackModel.init(from: track)
                 if let existing = searchResult.isIn(currentQueue){
-                    self.existingTracks.append(existing )
+                    print(existing.voteCount)
+                    self.existingTracks.append(existing)
                 } else {
                     self.foundTracks.append(searchResult)
                 }
