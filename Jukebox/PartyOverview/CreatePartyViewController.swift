@@ -32,6 +32,7 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        
         //datePicker
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = UIDatePickerMode.date
