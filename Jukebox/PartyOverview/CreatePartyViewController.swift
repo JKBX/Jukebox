@@ -40,6 +40,7 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         addDate.inputView = datePicker
         let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(CreatePartyViewController.dismissPicker))
         
+        //ToolbarDoneButton
         addDate.inputAccessoryView = toolBar
         addPlaylist.inputAccessoryView = toolBar
         
@@ -57,7 +58,6 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         //picker.backgroundColor = UIColor.black
         //view.addSubview(self.picker) //TODO
         addPlaylist.inputView = picker
-        
     /*
         picker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         picker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -82,7 +82,6 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
         }
         SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)
     }
-    
     @objc func dismissPicker() {
         view.endEditing(true)
     }
@@ -138,17 +137,17 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.playlists.count
-        
+        return self.playlists.count + 1
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        print(self.playlists[row].name)
-        return self.playlists[row].name
+        if row == 0 {return "None"}
+        return self.playlists[row - 1].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        addPlaylist.text = playlists[row].name
+        if row == 0 {addPlaylist.text = "None"; return}
+        addPlaylist.text = playlists[row - 1].name
     }
     
     //PartyId
@@ -201,10 +200,20 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
                     "Name" : enteredName,
                     "imagePath" : imagePath,
                 ]
-                ref.child("/parties/\(partyId)").setValue(newParty, withCompletionBlock: { (_, _) in
-                    self.dismiss(animated: true, completion: nil)
-                })
-                ref.child("/users/\(hostId)/parties/\(partyId)").setValue("host")
+                if (enteredName.isEmpty || enteredDate.isEmpty){
+                    let alert = UIAlertController(title: "Not so fast!", message: "Add a Name and a Date to your Party.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Ok, cool!", style: .default, handler: nil))
+                    
+                    self.present(alert, animated: true)
+                } else {
+                    print("Name & Date added")
+                    ref.child("/parties/\(partyId)").setValue(newParty, withCompletionBlock: { (_, _) in
+                        self.dismiss(animated: true, completion: nil)
+                    })
+                    ref.child("/users/\(hostId)/parties/\(partyId)").setValue("host")
+                }
+                
             })
             
         }
