@@ -36,8 +36,7 @@ class TrackModel{
         self.isPlaying = snapshot.hasChild("isPlaying") ? snapshot.childSnapshot(forPath: "isPlaying").value as! Bool : false
         self.playbackStatus = snapshot.hasChild("playbackStatus") ?
             ((position: snapshot.childSnapshot(forPath: "playbackStatus/position").value, time: snapshot.childSnapshot(forPath: "playbackStatus/time").value) as! (position: TimeInterval, time: TimeInterval)) : nil
-            
-            //snapshot.childSnapshot(forPath: "isPlaying").value as! Bool : false
+        self.duration = snapshot.childSnapshot(forPath: "duration").value as! Int
     }
     
     init(from track: Track) {

@@ -23,7 +23,7 @@ class MiniPlayerViewController: UIViewController{
     @IBOutlet weak var playPause: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var broadcastingButton: UIButton!
-    
+    var timer: Timer!
     
     var delegate: PlayerDelegate?
     
@@ -35,6 +35,7 @@ class MiniPlayerViewController: UIViewController{
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
         userTriggeredButton(isAdmin: currentAdmin)
+<<<<<<< HEAD
         
         let now = Date()
         let formatter = DateFormatter()
@@ -45,6 +46,10 @@ class MiniPlayerViewController: UIViewController{
         print("\(dateString) , TESTESTEST")
         
 
+=======
+        broadcastingImageSetter(isBroadcasting)
+        timer = Timer.init()
+>>>>>>> refs/remotes/origin/UIPlayer
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,6 +84,33 @@ extension MiniPlayerViewController{
         label.speed = .duration(10)
         label.trailingBuffer = 50
         label.fadeLength = 5.0
+    }
+    
+    func update() {
+        updateProgressBar()
+        //TODO update track title album artist image
+    }
+    
+    func updateProgressBar() {
+        if (currentTrack?.isPlaying)!{
+            resetTimer()
+            let duration:Float = Float((currentTrack?.duration)!)
+            let delay = NSDate.timeIntervalSinceReferenceDate - (currentTrack?.playbackStatus?.time)!
+            var elapsed: Float =  Float(((currentTrack?.playbackStatus?.position)! + delay) * 1000)
+            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                self.progressView.setProgress(elapsed/duration, animated: true)
+                elapsed += 100
+            })
+        } else {
+            resetTimer()
+        }
+    }
+    
+    func resetTimer() {
+        if timer != nil{
+            timer.invalidate()
+            timer = nil
+        }
     }
     
     func setting(){
