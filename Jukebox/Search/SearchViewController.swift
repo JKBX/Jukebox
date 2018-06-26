@@ -62,8 +62,8 @@ class SearchViewController: UIViewController {
         _ = Spartan.search(query: track, type: .track, success: { (pagingObject: PagingObject<Track>) in
             for track in pagingObject.items{
                 let searchResult = TrackModel.init(from: track)
-                if(searchResult.isIn(currentQueue) != nil){
-                    self.existingTracks.append(searchResult)
+                if let existing = searchResult.isIn(currentQueue){
+                    self.existingTracks.append(existing )
                 } else {
                     self.foundTracks.append(searchResult)
                 }
@@ -87,13 +87,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0){
-            let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! SearchCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "existing", for: indexPath) as! TrackCell
             cell.setup(from: existingTracks[indexPath.row])
             return cell
 
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! SearchCell
-            cell.setup(from: foundTracks[indexPath.row])
+            let cell = tableView.dequeueReusableCell(withIdentifier: "result", for: indexPath) as! SearchCell
+            cell.setup(from: foundTracks[indexPath.row], delegate: self)
             return cell
         }
     }
@@ -130,5 +130,11 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
+    }
+}
+
+extension SearchViewController: SearchCellDelegate{
+    func showSuccess() {
+        performSegue(withIdentifier: "404", sender: self)
     }
 }
