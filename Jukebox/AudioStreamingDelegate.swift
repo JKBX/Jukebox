@@ -148,7 +148,7 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
                 let next = snapshot.value as! NSDictionary
                 next.setValue(snapshot.key, forKey: "id")
                 next.setValue(false, forKey: "isPlaying")
-                next.setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
+                next.setValue(["position": 0, "time": NSDate()], forKey: "playbackStatus")
                 ref.child("currentlyPlaying").setValue(next, withCompletionBlock: { (_, _) in
                     ref.child("/queue/\(nextTrackId!)").removeValue(completionBlock: { (_, _) in completion() })
                 })

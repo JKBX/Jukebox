@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="owb-UJ-10A">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="owb-UJ-10A">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -41,13 +41,14 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ko0-fS-i5y" userLabel="Broadcasting Button">
-                                            <rect key="frame" x="354" y="7" width="50" height="50"/>
+                                            <rect key="frame" x="355" y="8" width="48" height="48"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="fDz-2h-zkB"/>
                                                 <constraint firstAttribute="width" constant="50" id="tMp-kv-0US" userLabel="width = 50"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <state key="normal" image="baseline_volume_up_white_36pt"/>
                                             <connections>
                                                 <action selector="broadcast:" destination="owb-UJ-10A" eventType="touchUpInside" id="U0O-bp-1qA"/>
                                             </connections>
@@ -365,6 +366,7 @@
     <resources>
         <image name="baseline_play_circle_outline_white_36pt" width="36" height="36"/>
         <image name="baseline_repeat_white_36pt" width="36" height="36"/>
+        <image name="baseline_volume_up_white_36pt" width="36" height="36"/>
         <image name="chevron" width="36" height="12"/>
         <image name="outline_play_circle_filled_white_black_48pt" width="48" height="48"/>
         <image name="outline_skip_next_black_36pt" width="36" height="36"/>

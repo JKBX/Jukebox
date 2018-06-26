@@ -35,12 +35,21 @@ class MiniPlayerViewController: UIViewController{
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
         userTriggeredButton(isAdmin: currentAdmin)
-        broadcastingImageSetter(isBroadcasting)
+        
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "HH:mm:ss"
+        let dateString = formatter.string(from: now)
+   
+        print("\(dateString) , TESTESTEST")
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         playPause.adjustsImageWhenHighlighted = false
-        
+    
     }
     
     @IBAction func Play(_ sender: Any) {
@@ -48,18 +57,17 @@ class MiniPlayerViewController: UIViewController{
     }
  
     @IBAction func broadcast(_ sender: Any) {
+        
         if(!isBroadcasting){
             NotificationCenter.default.post(name: NSNotification.Name.Spotify.startBroadcast, object: nil)
-            broadcastingButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-            isBroadcasting = !isBroadcasting
+            broadcastingButton.setImage(UIImage(named: "baseline_volume_off_white_36pt"), for: .normal)
         }else{
+//            Bild nur ändern wenn der playbackstatus sich auch geändert hat, also via observer & isPlaying & isBroadcasting
             NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
+            broadcastingButton.setImage(UIImage(named: "baseline_volume_up_white_36pt"), for: .normal)
+            
         }
-    
-    }
-    
-    func broadcastingImageSetter(_ isBroadcasting: Bool){
-        isBroadcasting ? broadcastingButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal) : broadcastingButton.setImage(UIImage(named: "baseline_rss_feed_white_36pt"), for: .normal)
+        isBroadcasting = !isBroadcasting
     }
     
 }
@@ -109,6 +117,23 @@ extension MiniPlayerViewController{
             delegate?.expandSong()
         }
     }
+    
+    
+    func songDuration(_ currentTrack: TrackModel){
+        var playStatus = currentTrack.playbackStatus
+        
+        
+    }
+    //        var time1 = position
+    //
+    //        var durationTime: String{
+    //            let formatter = DateFormatter()
+    //            formatter.dateFormat = "mm:ss"
+    //            let date = Date(timeIntervalSince1970: time1)
+    //            return formatter.string(from: date)
+    //        }
+    ////       --> progress bar
+    ////        durationTime.text = durationTime
 }
 
 
@@ -119,6 +144,7 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
         return windowRect
     }
     var coverImageView: UIImageView {
+        
         return thumbImage
     }
     
@@ -134,8 +160,8 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
 
 
 
-//extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
-//    
+extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
+//
 //    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
 //
 //        songTitle.text = metadata.currentTrack?.name
@@ -156,23 +182,23 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
 ////        durationTime.text = durationTime
 //    }
 //    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
-//         //print("Player Did change playback status")
-//        if (currentAdmin){
-//            UIView.animate(withDuration: 0.3, animations: {
-//                self.playPause.alpha = 0.3
-//            }, completion: {(finished) in
-//                if(currentTrack?.isPlaying)!{
-//                    self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-//                }else{
-//                    self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-//                }
-//                UIView.animate(withDuration: 0.2, animations:{
-//                    self.playPause.alpha = 1.0
-//                },completion:nil)
-//            })}
-//    }
-//    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
+         //print("Player Did change playback status")
+        if (currentAdmin){
+            UIView.animate(withDuration: 0.3, animations: {
+                self.playPause.alpha = 0.3
+            }, completion: {(finished) in
+                if(currentTrack?.isPlaying)!{
+                    self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+                }else{
+                    self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+                }
+                UIView.animate(withDuration: 0.2, animations:{
+                    self.playPause.alpha = 1.0
+                },completion:nil)
+            })}
+    }
+//
 //    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
 //        //print("Player Did start playing track")
 //    }
@@ -231,5 +257,5 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
 //        //print("Player Did Receive Playback Event")
 //    }
 //    
-//}
+}
 //
