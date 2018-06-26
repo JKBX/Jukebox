@@ -270,8 +270,8 @@ extension ExpandedTrackViewController{
     }
 }
 
-extension ExpandedTrackViewController: SPTAudioStreamingPlaybackDelegate{
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
-        coverImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
-    }
-}
+//extension ExpandedTrackViewController: SPTAudioStreamingPlaybackDelegate{
+//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
+//        coverImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
+//    }
+//}

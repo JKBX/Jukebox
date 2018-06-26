@@ -133,7 +133,7 @@ class AudioStreamingDelegate: NSObject,SPTAudioStreamingDelegate {
                 print(error)
             }
             print("Paused Spotify")
-            
+            isBroadcasting = false
             ref.child("currentlyPlaying/isPlaying").setValue(false)
             ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
         }
