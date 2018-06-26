@@ -112,6 +112,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
         print("Current Track Changed")
         miniPlayer?.setting()
+        miniPlayer?.update()
     }
     
     //Helper function finding a changed Track in the existing queue
