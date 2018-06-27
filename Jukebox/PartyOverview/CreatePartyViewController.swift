@@ -235,6 +235,7 @@ extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelega
             if error != nil{ print(error); return }
             guard let snapshot = data as? SPTPlaylistSnapshot else { print("Couldn't cast as SPTListPage"); return }
             var queue: NSMutableDictionary = [:]
+            if snapshot.firstTrackPage.items == nil {completion(); return}
             for item in snapshot.firstTrackPage.items{
                 guard let track = item as? SPTPartialTrack else { print("Couldn't cast as SPTPartialTrack"); return }
                 var artist = ""
