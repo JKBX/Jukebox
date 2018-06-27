@@ -16,10 +16,9 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
     var miniPlayer: MiniPlayerViewController?
-    //var currentSong: TrackModel?
-    //var partyID: String = ""
-    //var queue: [TrackModel] = []
     let userID = Auth.auth().currentUser?.uid
+    
+    var addObserver: UInt?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +31,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         currentQueue = []
-        //TODO fix back/forth bug
         self.tableView.reloadData()
         self.ref = Database.database().reference().child("/parties/\(currentParty!)")
         setupObservers()
@@ -71,14 +69,13 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     
     func setupObservers() {
         ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(TrackModel(from: snapshot))})
-        ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
+        addObserver = ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
         ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(TrackModel(from: snapshot))})
         ref.child("/currentlyPlaying").observe(.value, with: { (snapshot) in self.onCurrentTrackChanged(snapshot)})
-        
     }
     
     func onChildAdded(_ changedTrack: TrackModel) {
-        print("Track Changed: \(changedTrack.songName!)")
+        print("Track Added: \(changedTrack.songName!)")
         currentQueue.append(changedTrack)
         currentQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let index = getIndex(of: changedTrack)
@@ -130,7 +127,8 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     }
     
     func freeObservers(){
-        ref.removeAllObservers()
+        ref.child("/queue").removeAllObservers()
+        ref.child("/currentlyPlaying").removeAllObservers()
         self.ref = Database.database().reference()
     }
 }
