@@ -103,8 +103,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="s8y-br-0Yb" kind="presentation" identifier="createParty" id="nnb-rO-yg5"/>
-                        <segue destination="Qqn-oM-MYH" kind="presentation" identifier="joinParty" id="ml7-Ab-3CW"/>
+                        <segue destination="cX4-nZ-U0L" kind="presentation" identifier="createParty" id="nnb-rO-yg5"/>
+                        <segue destination="IdI-Cd-HUb" kind="presentation" identifier="joinParty" id="ml7-Ab-3CW"/>
                         <segue destination="BLf-gD-Hnv" kind="show" identifier="showParty" id="EKR-hu-ADj"/>
                     </connections>
                 </collectionViewController>
@@ -112,7 +112,7 @@
             </objects>
             <point key="canvasLocation" x="-72.799999999999997" y="-1066.4167916041979"/>
         </scene>
-        <!--Join Party View Controller-->
+        <!--Join-->
         <scene sceneID="ef7-l0-NTB">
             <objects>
                 <viewController id="Qqn-oM-MYH" customClass="JoinPartyViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
@@ -120,31 +120,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Join" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5g-hX-p2u">
-                                <rect key="frame" x="166" y="429" width="32" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textField opaque="NO" contentMode="center" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Party-ID" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="wNf-tk-xda" userLabel="IDTextField">
+                                <rect key="frame" x="40" y="322" width="295" height="30"/>
+                                <color key="backgroundColor" name="SolidGrey700"/>
+                                <color key="tintColor" name="SolidBlue400"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YcH-sk-gla">
-                                <rect key="frame" x="169" y="474" width="37" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Done"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES" textContentType="postal-code"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
+                                        <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" text="Join the Party with your ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-fA-qf8">
+                                <rect key="frame" x="40" y="291" width="295" height="21"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YcH-sk-gla">
+                                <rect key="frame" x="40" y="367" width="295" height="36"/>
+                                <color key="backgroundColor" name="SolidBlue500"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="done:" destination="Qqn-oM-MYH" eventType="touchUpInside" id="wMT-6Y-jAd"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="Q2J-mD-z9y">
+                                <rect key="frame" x="112" y="133" width="150" height="150"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey800"/>
+                        <constraints>
+                            <constraint firstItem="YcH-sk-gla" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="Aiu-gz-acY"/>
+                            <constraint firstItem="jzO-fA-qf8" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="Bw5-8Z-MgK"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="top" secondItem="jzO-fA-qf8" secondAttribute="bottom" constant="10" id="Cot-JI-cGf"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="centerX" secondItem="Q2J-mD-z9y" secondAttribute="centerX" id="Gap-ZU-BXM"/>
+                            <constraint firstItem="jzO-fA-qf8" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="227" id="JPc-Tr-Sm5"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="YcH-sk-gla" secondAttribute="trailing" constant="40" id="MfJ-j7-gvJ"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="jzO-fA-qf8" secondAttribute="trailing" constant="40" id="TM7-xf-iKS"/>
+                            <constraint firstItem="jzO-fA-qf8" firstAttribute="top" secondItem="Q2J-mD-z9y" secondAttribute="bottom" constant="8" symbolic="YES" id="fLr-Uc-5h0"/>
+                            <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="wNf-tk-xda" secondAttribute="trailing" constant="40" id="fWJ-QZ-a2e"/>
+                            <constraint firstItem="Q2J-mD-z9y" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="69" id="rxO-ve-dMg"/>
+                            <constraint firstItem="YcH-sk-gla" firstAttribute="top" secondItem="wNf-tk-xda" secondAttribute="bottom" constant="15" id="xVQ-GD-CLH"/>
+                            <constraint firstItem="wNf-tk-xda" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="zOF-vc-Vs3"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bCm-nt-qgI"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Join" id="ehr-Dv-6Wa">
+                        <barButtonItem key="rightBarButtonItem" title="Back" style="done" id="cBr-HM-ulp">
+                            <color key="tintColor" name="SolidBlue500"/>
+                            <connections>
+                                <segue destination="MJV-Gs-deF" kind="show" id="WTx-QU-Htn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="IDTextField" destination="wNf-tk-xda" id="jgt-BX-fT4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30U-H6-Ht9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="711" y="-654"/>
+            <point key="canvasLocation" x="1648.8" y="-654.42278860569718"/>
         </scene>
-        <!--Create Party View Controller-->
+        <!--Create-->
         <scene sceneID="3qu-6z-vis">
             <objects>
                 <viewController id="s8y-br-0Yb" customClass="CreatePartyViewController" customModule="Jukebox" customModuleProvider="target" sceneMemberID="viewController">
@@ -152,29 +196,122 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATF-Ha-FBP">
-                                <rect key="frame" x="166" y="396" width="51" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Date of Party" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eUR-B9-dy9">
+                                <rect key="frame" x="40" y="342" width="295" height="30"/>
+                                <color key="backgroundColor" name="SolidGrey700"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="295" id="j3A-Nf-el6"/>
+                                    <constraint firstAttribute="height" constant="30" id="xWK-Du-YTI"/>
+                                </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOm-rv-pPX">
-                                <rect key="frame" x="169" y="425" width="37" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Done"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Fallback Playlist" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6IW-gf-0c1">
+                                <rect key="frame" x="40" y="380" width="295" height="30"/>
+                                <color key="backgroundColor" name="SolidGrey700"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Thd-Le-wGx"/>
+                                    <constraint firstAttribute="width" constant="295" id="ovh-fk-MUP"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tb5-CJ-Zrd">
+                                <rect key="frame" x="87.5" y="96" width="200" height="200"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultPartyImageDark" translatesAutoresizingMaskIntoConstraints="NO" id="cGJ-rT-YRf">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SIm-No-KYQ">
+                                        <rect key="frame" x="0.0" y="140" width="200" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.043000001460313797" green="0.071000002324581146" blue="0.059000000357627869" alpha="0.69550506161971826" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="16"/>
+                                        <state key="normal" title="Choose your Own">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="uploadImage:" destination="s8y-br-0Yb" eventType="touchUpInside" id="7n3-jk-5gr"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="5OC-0E-W6u"/>
+                                    <constraint firstAttribute="width" constant="200" id="b8P-XQ-ydV"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="100"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a Party Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FHL-SC-89E">
+                                <rect key="frame" x="40" y="304" width="295" height="30"/>
+                                <color key="backgroundColor" name="SolidGrey700"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="295" id="Xmu-ve-iCG"/>
+                                    <constraint firstAttribute="height" constant="30" id="xTd-9U-qoz"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" textContentType="name"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjA-xS-TWK">
+                                <rect key="frame" x="40" y="426" width="295" height="30"/>
+                                <color key="backgroundColor" name="SolidBlue500"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="295" id="FhF-2u-BF4"/>
+                                    <constraint firstAttribute="height" constant="30" id="RZg-eF-gjf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Create">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="4"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="done:" destination="s8y-br-0Yb" eventType="touchUpInside" id="XGj-dT-jf0"/>
+                                    <action selector="createPressed:" destination="s8y-br-0Yb" eventType="touchUpInside" id="4u6-Cv-2NQ"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey800"/>
+                        <constraints>
+                            <constraint firstItem="xjA-xS-TWK" firstAttribute="centerX" secondItem="Zuz-8w-p4i" secondAttribute="centerX" id="3Nk-vK-Au1"/>
+                            <constraint firstItem="FHL-SC-89E" firstAttribute="centerX" secondItem="Zuz-8w-p4i" secondAttribute="centerX" id="KqI-4Z-exK"/>
+                            <constraint firstItem="tb5-CJ-Zrd" firstAttribute="top" secondItem="Zuz-8w-p4i" secondAttribute="top" constant="32" id="MSh-Y6-bYL"/>
+                            <constraint firstItem="6IW-gf-0c1" firstAttribute="top" secondItem="eUR-B9-dy9" secondAttribute="bottom" constant="8" id="Vo2-uk-7RX"/>
+                            <constraint firstItem="eUR-B9-dy9" firstAttribute="centerX" secondItem="Zuz-8w-p4i" secondAttribute="centerX" id="aTQ-UT-e7h"/>
+                            <constraint firstItem="eUR-B9-dy9" firstAttribute="top" secondItem="FHL-SC-89E" secondAttribute="bottom" constant="8" id="eCU-po-3XA"/>
+                            <constraint firstItem="tb5-CJ-Zrd" firstAttribute="centerX" secondItem="Zuz-8w-p4i" secondAttribute="centerX" id="fVC-ja-VMC"/>
+                            <constraint firstItem="FHL-SC-89E" firstAttribute="top" secondItem="tb5-CJ-Zrd" secondAttribute="bottom" constant="8" id="i2L-uT-AGL"/>
+                            <constraint firstItem="6IW-gf-0c1" firstAttribute="centerX" secondItem="Zuz-8w-p4i" secondAttribute="centerX" id="mwr-Gh-XEC"/>
+                            <constraint firstItem="xjA-xS-TWK" firstAttribute="top" secondItem="6IW-gf-0c1" secondAttribute="bottom" constant="16" id="tnp-mr-F4V"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Zuz-8w-p4i"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Create" id="mPL-wy-aeI">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="nuk-OG-Z2z">
+                            <color key="tintColor" name="SolidBlue500"/>
+                            <connections>
+                                <action selector="done:" destination="s8y-br-0Yb" id="9I3-zr-GYb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addDate" destination="eUR-B9-dy9" id="xvO-SW-cHF"/>
+                        <outlet property="addName" destination="FHL-SC-89E" id="868-et-NQ6"/>
+                        <outlet property="addPlaylist" destination="6IW-gf-0c1" id="Ew0-qk-cfE"/>
+                        <outlet property="partyImage" destination="cGJ-rT-YRf" id="pqd-9y-wgz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rmq-J5-hfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="711.20000000000005" y="-1397.4512743628186"/>
+            <point key="canvasLocation" x="1650.4000000000001" y="-1397.4512743628186"/>
         </scene>
         <!--UserProfile-->
         <scene sceneID="RNI-Gd-ya1">
@@ -192,15 +329,64 @@
             </objects>
             <point key="canvasLocation" x="1790" y="-1067"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="wZF-Ig-ddi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cX4-nZ-U0L" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="fm2-gW-3qS">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="SolidGrey900"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="s8y-br-0Yb" kind="relationship" relationship="rootViewController" id="A6L-By-Lvb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LoN-gS-ycr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="711.20000000000005" y="-1397.4512743628186"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kUC-cz-qfZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IdI-Cd-HUb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="uz3-RS-5Zi">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="SolidGrey900"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Qqn-oM-MYH" kind="relationship" relationship="rootViewController" id="Ym4-xZ-AZh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CLU-RJ-Xc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="709.60000000000002" y="-654.42278860569718"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AddIcon" width="60" height="60"/>
+        <image name="Jukebox" width="192" height="192"/>
         <image name="UserIcon" width="24" height="24"/>
+        <image name="defaultPartyImageDark" width="625" height="625"/>
+        <namedColor name="SolidBlue400">
+            <color red="0.3059999942779541" green="0.48199999332427979" blue="0.67500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="SolidBlue500">
             <color red="0.19599999487400055" green="0.38400000333786011" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="SolidGrey700">
+            <color red="0.21600000560283661" green="0.23899999260902405" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="SolidGrey800">
             <color red="0.13300000131130219" green="0.15299999713897705" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SolidGrey900">
+            <color red="0.043000001460313797" green="0.071000002324581146" blue="0.059000000357627869" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

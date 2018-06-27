@@ -2,9 +2,8 @@
 //  PartyPlaylistViewController.swift
 //  Jukebox
 //
-//  Created by Philipp on 22.05.18.
-//  Copyright © 2018 Philipp. All rights reserved.
-//
+//  Created by Team Jukebox/Gruppe 7
+//  Copyright © 2018 Jukebox. All rights reserved.
 
 import UIKit
 import FirebaseDatabase
@@ -24,7 +23,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = self
         tableView.delegate = self
         

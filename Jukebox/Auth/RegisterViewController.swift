@@ -194,7 +194,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UIImagePick
         
         // Create a storage reference from our storage service
         let profileRef = storage.reference().child("user").child(userId).child("profile.png")
-        
+       
         let uploadTask = profileRef.putData(picture, metadata: nil) { (metadata, error) in
             guard let metadata = metadata else {
                 // Uh-oh, an error occurred!
