@@ -11,154 +11,40 @@ import FirebaseDatabase
 import FirebaseAuth
 import Firebase
 
-class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate{
 
     @IBOutlet var addName: UITextField!
     @IBOutlet var addDate: UITextField!
     
+    @IBOutlet weak var partyImage: UIImageView!
     @IBOutlet var addPlaylist: UITextField!
-    @IBOutlet var addImage: UIButton!
-    @IBOutlet var loadPicture: UIImageView!
-
-    @IBOutlet var create: UIButton!
     
     let imagePicker = UIImagePickerController()
     
-    var numbers: [Int] = []
     var playlists: [SPTPartialPlaylist] = []
-    var pickerDataSource = ["White", "Red", "Green", "Blue"]
     let picker:UIPickerView = UIPickerView()
 
     override func viewDidLoad(){
         super.viewDidLoad()
-        
-        
-        //datePicker
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = UIDatePickerMode.date
-        datePicker.addTarget(self, action: #selector(CreatePartyViewController.datePickerValueChanged(sender:)), for: UIControlEvents.valueChanged)
-        
-        addDate.inputView = datePicker
-        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(CreatePartyViewController.dismissPicker))
-        
-        //ToolbarDoneButton
-        addDate.inputAccessoryView = toolBar
-        addPlaylist.inputAccessoryView = toolBar
-        
-        //addPicture
-        loadPicture.layer.borderWidth = 1
-        loadPicture.layer.masksToBounds = false
-        loadPicture.layer.cornerRadius = loadPicture.frame.height/2
-        loadPicture.clipsToBounds = true
-        
-        //let picker = UIPickerView()
-        //picker.translatesAutoresizingMaskIntoConstraints = false
-        picker.dataSource = self
-        picker.delegate = self
-        //picker.tintColor = UIColor.white
-        //picker.backgroundColor = UIColor.black
-        //view.addSubview(self.picker) //TODO
-        addPlaylist.inputView = picker
-    /*
-        picker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        picker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        picker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-   */     // Do any additional setup after loading the view.
-        
-        // Load Playlist Data For Fallback
-        //TODO clean recursion 
-        let user = SPTAuth.defaultInstance().session.canonicalUsername
-        let accessToken = SPTAuth.defaultInstance().session.accessToken
-        var callback:SPTRequestCallback = {(error, data) in
-            if error != nil{ print(error); return }
-            guard let playlists = data as? SPTPlaylistList else { print("Couldn't cast as SPTPlaylistList"); return }
-            self.playlists = self.playlists + (playlists.items as? [SPTPartialPlaylist])!
-            if playlists.hasNextPage {
-                self.getNextPage(playlists: playlists)
-            } else {
-                print("Done loading Playlists")
-                print(self.playlists)
-                self.picker.reloadAllComponents()
-            }
-        }
-        SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)
-    }
-    @objc func dismissPicker() {
-        view.endEditing(true)
+        setupImagePicker()
+        setupDatePicker()
+        setupPlaylistPicker()
     }
     
-    //datePicker
-    @objc func datePickerValueChanged(sender: UIDatePicker){
-        let formatter = DateFormatter()
-        formatter.dateStyle = DateFormatter.Style.medium
-        formatter.timeStyle = DateFormatter.Style.none
-        addDate.text = formatter.string(from: sender.date)
-        
-    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
-    //addImage
-    @IBAction func addImagePressed(_ sender: Any) {
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        self.present(imagePicker, animated: true, completion: nil)
+    
+    @IBAction func done(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    //imagePicker
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        {
-            loadPicture.image = image
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func getNextPage(playlists: SPTListPage) -> Void {
-        // Load Playlist Data
-        let accessToken = SPTAuth.defaultInstance().session.accessToken
-        let callback:SPTRequestCallback = {(error, data) in
-            if error != nil{ print(error); return }
-            guard let playlists = data as? SPTListPage else { print("Couldn't cast as SPTListPage"); return }
-            self.playlists = self.playlists + (playlists.items as? [SPTPartialPlaylist])!
-            if playlists.hasNextPage {
-                self.getNextPage(playlists: playlists)
-            } else {
-                print("Done loading Playlists")
-                print(self.playlists)
-                self.picker.reloadAllComponents()
-            }
-        }
-        playlists.requestNextPage(withAccessToken: accessToken, callback: callback)
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.playlists.count + 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if row == 0 {return "None"}
-        return self.playlists[row - 1].name
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if row == 0 {addPlaylist.text = "None"; return}
-        addPlaylist.text = playlists[row - 1].name
-    }
-    
-    //PartyId
     func generatePartyId(completion: @escaping (_ id: String)->Void) {
-        let min: UInt32 = 000000
-        let max: UInt32 = 999999
+        let min: UInt32 = 000000, max: UInt32 = 999999
         var newId : String = ""
         Database.database().reference().child("parties").observeSingleEvent(of: .value) { (snapshot) in
             var ids:[String] = []
-           
             for party in snapshot.children{
                 if let party : DataSnapshot = party as? DataSnapshot {
                     ids.append((party.childSnapshot(forPath: "ID").value as? String)!)
@@ -174,12 +60,13 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     func uploadPartyPicture(for partyId: String, completion: @escaping (_ path: String)->Void) -> Void {
         // Get a reference to the storage service using the default Firebase App
         let storage = Storage.storage()
-        let picture:Data = (UIImagePNGRepresentation(loadPicture.image!) as Data?)!
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        let picture:Data = (UIImagePNGRepresentation(partyImage.image!) as Data?)!
         
         // Create a storage reference from our storage service
-        let pictureRef = storage.reference().child("/partyImages/\(partyId)/").child("party.png")
-        
-        let uploadTask = pictureRef.putData(picture, metadata: nil) { (metadata, error) in
+        let pictureRef = storage.reference().child("/partyImages/\(partyId).png")
+        _ = pictureRef.putData(picture, metadata: metadata) { (metadata, error) in
             guard let metadata = metadata else { return }
             completion(metadata.path!)
         }
@@ -187,11 +74,27 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
     
     //Create
     @IBAction func createPressed(_ sender: UIButton) {
-        let ref = Database.database().reference()
         let enteredName = addName.text!
         let enteredDate = addDate.text!
         let enteredPlaylist = addPlaylist.text!
+        let playlistIdx = picker.selectedRow(inComponent: 0) - 1
+        if playlistIdx != -1{
+            let playist = playlists[playlistIdx].playableUri
+            self.add(playist, to: "111111") {
+                print("done")
+            }
+        }
+        print(SPTAuth.defaultInstance().session.canonicalUsername)
+        let ref = Database.database().reference()
         let hostId:String = (Auth.auth().currentUser?.uid)!
+        print(picker.selectedRow(inComponent: 0))
+        
+        if (enteredName.isEmpty || enteredDate.isEmpty){
+            let alert = UIAlertController(title: "Not so fast!", message: "Add a Name and a Date to your Party.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok, cool!", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
         generatePartyId { (partyId) in
             self.uploadPartyPicture(for: partyId, completion: { (imagePath) in
                 let newParty: NSDictionary = [
@@ -201,20 +104,11 @@ class CreatePartyViewController: UIViewController, UIPickerViewDataSource, UIPic
                     "Name" : enteredName,
                     "imagePath" : imagePath,
                 ]
-                if (enteredName.isEmpty || enteredDate.isEmpty){
-                    let alert = UIAlertController(title: "Not so fast!", message: "Add a Name and a Date to your Party.", preferredStyle: .alert)
-                    
-                    alert.addAction(UIAlertAction(title: "Ok, cool!", style: .default, handler: nil))
-                    
-                    self.present(alert, animated: true)
-                } else {
-                    print("Name & Date added")
-                    ref.child("/parties/\(partyId)").setValue(newParty, withCompletionBlock: { (_, _) in
-                        self.dismiss(animated: true, completion: nil)
-                    })
-                    ref.child("/users/\(hostId)/parties/\(partyId)").setValue("host")
-                }
-                
+                print("Name & Date added")
+                ref.child("/parties/\(partyId)").setValue(newParty, withCompletionBlock: { (_, _) in
+                    self.dismiss(animated: true, completion: nil)
+                })
+                ref.child("/users/\(hostId)/parties/\(partyId)").setValue("host")
             })
             
         }
@@ -256,6 +150,114 @@ extension UIToolbar {
         toolBar.isUserInteractionEnabled = true
         
         return toolBar
+    }
+    
+}
+
+//Image Picker Extension
+extension CreatePartyViewController: UIImagePickerControllerDelegate{
+    
+    func setupImagePicker() {
+        imagePicker.delegate = self
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+    }
+    
+    @IBAction func uploadImage(_ sender: Any) {
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            partyImage.image = image
+        }
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+//Date Picker Extension
+extension CreatePartyViewController{
+    
+    
+    func setupDatePicker(){
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = UIDatePickerMode.date
+        datePicker.addTarget(self, action: #selector(self.datePickerValueChanged(sender:)), for: .valueChanged)
+        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(self.dismissPicker))
+        addDate.inputAccessoryView = toolBar
+        addDate.inputView = datePicker
+    }
+    
+    //datePicker
+    @objc func datePickerValueChanged(sender: UIDatePicker){
+        let formatter = DateFormatter()
+        formatter.dateStyle = DateFormatter.Style.medium
+        formatter.timeStyle = DateFormatter.Style.none
+        addDate.text = formatter.string(from: sender.date)
+    }
+    
+    @objc func dismissPicker() {
+        view.endEditing(true)
+    }
+}
+
+//Date & Playlist Picker Extension
+extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelegate{
+    
+    func setupPlaylistPicker() {
+        picker.dataSource = self
+        picker.delegate = self
+        self.loadPlaylists(nil)
+        addPlaylist.inputView = picker
+        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(self.dismissPicker))
+        addPlaylist.inputAccessoryView = toolBar
+    }
+    
+    func loadPlaylists(_ page: SPTListPage?) -> Void {
+        // Load Playlist Data
+        let user = SPTAuth.defaultInstance().session.canonicalUsername
+        let accessToken = SPTAuth.defaultInstance().session.accessToken
+        let callback:SPTRequestCallback = {(error, data) in
+            if error != nil{ print(error); return }
+            guard let page = data as? SPTListPage else { print("Couldn't cast as SPTListPage"); return }
+            self.playlists = self.playlists + (page.items as? [SPTPartialPlaylist])!
+            if page.hasNextPage { self.loadPlaylists(page) }
+            else { self.picker.reloadAllComponents() }
+        }
+        if let page = page {
+            page.requestNextPage(withAccessToken: accessToken, callback: callback)
+        } else {
+            SPTPlaylistList.playlists(forUser: user, withAccessToken: accessToken, callback: callback)
+        }
+    }
+    
+    func add(_ playlistURI: URL!, to partyId: String!, with completion: ()->Void){
+        let accessToken = SPTAuth.defaultInstance().session.accessToken
+        SPTPlaylistSnapshot.playlist(withURI: playlistURI, accessToken: accessToken!) { (error, data) in
+            if error != nil{ print(error); return }
+            guard let snapshot = data as? SPTPlaylistSnapshot else { print("Couldn't cast as SPTListPage"); return }
+            for item in snapshot.firstTrackPage.items{
+                guard let track = item as? SPTPartialTrack else { print("Couldn't cast as SPTPartialTrack"); return }
+                print(track.name)
+            }
+        }
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.playlists.count + 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if row == 0 {return nil}
+        return self.playlists[row - 1].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if row == 0 {addPlaylist.text = nil; return}
+        addPlaylist.text = playlists[row - 1].name
     }
     
 }
