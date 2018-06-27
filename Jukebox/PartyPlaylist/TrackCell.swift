@@ -26,12 +26,20 @@ class TrackCell: UITableViewCell {
     func setup(from track:TrackModel) {
         self.track = track
         self.textLabel?.text = track.songName
+        self.heightAnchor.constraint(equalToConstant: 100).isActive = true
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"
         self.imageView?.kf.setImage(with: track.coverUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, URL) in
             self.setNeedsLayout()
         })
         
-        voteCountLabel.text = String(track.voteCount)
+        let label = UILabel(frame: CGRect(x: UIScreen.main.bounds.width - 48, y: 40, width: 32, height: 24))
+        label.text =  String(track.voteCount)//"I'am a test label"
+        label.textAlignment = .right
+        label.textColor = .white
+        label.font.withSize(8)
+        self.contentView.addSubview(label)
+        
+        //voteCountLabel.text = String(track.voteCount)
         
         let accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))
         accessoryButton.setImage(UIImage(named: track.liked ? "favorite" : "favoriteOutline"), for: .normal)
