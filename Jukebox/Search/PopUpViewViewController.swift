@@ -16,6 +16,7 @@ class PopUpViewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        popUp.layer.cornerRadius = 10
         pulsate(checkButton: self.checkButton)
     }
     
