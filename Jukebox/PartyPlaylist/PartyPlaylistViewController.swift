@@ -2,13 +2,13 @@
 //  PartyPlaylistViewController.swift
 //  Jukebox
 //
-//  Created by Philipp on 22.05.18.
-//  Copyright © 2018 Philipp. All rights reserved.
-//
+//  Created by Team Jukebox/Gruppe 7
+//  Copyright © 2018 Jukebox. All rights reserved.
 
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+
 
 class PartyPlaylistViewController: UIViewController {
     
@@ -21,12 +21,13 @@ class PartyPlaylistViewController: UIViewController {
     var queue: [Track] = []
     let userID = Auth.auth().currentUser?.uid
     
+
+    
     //MARK: LifeCycle
     var party:NSDictionary = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -102,6 +103,7 @@ class PartyPlaylistViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
+
 
 /*
  Data Source
