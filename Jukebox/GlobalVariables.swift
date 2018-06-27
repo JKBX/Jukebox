@@ -14,3 +14,10 @@ var currentTrack: TrackModel?
 var currentQueue: [TrackModel] = []
 var currentAdmin: Bool = false
 var isBroadcasting: Bool = false
+
+var currentPartyId:String = "" {
+    didSet {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        delegate.streamingDelegate.update()
+    }
+}

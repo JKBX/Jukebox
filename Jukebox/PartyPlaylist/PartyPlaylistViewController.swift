@@ -106,7 +106,9 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     func onCurrentTrackChanged(_ snapshot: DataSnapshot) {
         let needsCheck = currentTrack == nil
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
-        if needsCheck && (currentTrack?.isPlaying)! { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
+        if needsCheck && currentTrack != nil {
+            print("checking")
+            self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
         miniPlayer?.setting()
         miniPlayer?.update()
     }
@@ -126,6 +128,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     func freeObservers(){
         ref.child("/queue").removeAllObservers()
         ref.child("/currentlyPlaying").removeAllObservers()
+        currentPartyId = ""
     }
 }
 

@@ -67,13 +67,14 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
         // Create a storage reference from our storage service
         let pictureRef = storage.reference().child("/partyImages/\(partyId).png")
         _ = pictureRef.putData(picture, metadata: metadata) { (metadata, error) in
-            guard let metadata = metadata else { return }
+            guard let metadata = metadata else { completion(""); return }
             completion(metadata.path!)
         }
     }
     
     //Create
     @IBAction func createPressed(_ sender: UIButton) {
+        print("create party")
         let enteredName = addName.text!
         let enteredDate = addDate.text!
         let playlistIdx = picker.selectedRow(inComponent: 0) - 1
