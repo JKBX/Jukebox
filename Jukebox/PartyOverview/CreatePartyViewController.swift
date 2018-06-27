@@ -76,18 +76,10 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
     @IBAction func createPressed(_ sender: UIButton) {
         let enteredName = addName.text!
         let enteredDate = addDate.text!
-        let enteredPlaylist = addPlaylist.text!
         let playlistIdx = picker.selectedRow(inComponent: 0) - 1
-        if playlistIdx != -1{
-            let playist = playlists[playlistIdx].playableUri
-            self.add(playist, to: "111111") {
-                print("done")
-            }
-        }
-        print(SPTAuth.defaultInstance().session.canonicalUsername)
+        
         let ref = Database.database().reference()
         let hostId:String = (Auth.auth().currentUser?.uid)!
-        print(picker.selectedRow(inComponent: 0))
         
         if (enteredName.isEmpty || enteredDate.isEmpty){
             let alert = UIAlertController(title: "Not so fast!", message: "Add a Name and a Date to your Party.", preferredStyle: .alert)
@@ -106,7 +98,13 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
                 ]
                 print("Name & Date added")
                 ref.child("/parties/\(partyId)").setValue(newParty, withCompletionBlock: { (_, _) in
-                    self.dismiss(animated: true, completion: nil)
+                    if playlistIdx != -1{
+                        self.add(self.playlists[playlistIdx].playableUri, to: partyId) {
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    } else {
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 })
                 ref.child("/users/\(hostId)/parties/\(partyId)").setValue("host")
             })
@@ -230,15 +228,35 @@ extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelega
         }
     }
     
-    func add(_ playlistURI: URL!, to partyId: String!, with completion: ()->Void){
+    func add(_ playlistURI: URL!, to partyId: String!, with completion: @escaping ()->Void){
+        let ref = Database.database().reference().child("parties/\(partyId!)/queue")
         let accessToken = SPTAuth.defaultInstance().session.accessToken
         SPTPlaylistSnapshot.playlist(withURI: playlistURI, accessToken: accessToken!) { (error, data) in
             if error != nil{ print(error); return }
             guard let snapshot = data as? SPTPlaylistSnapshot else { print("Couldn't cast as SPTListPage"); return }
+            var queue: NSMutableDictionary = [:]
             for item in snapshot.firstTrackPage.items{
                 guard let track = item as? SPTPartialTrack else { print("Couldn't cast as SPTPartialTrack"); return }
-                print(track.name)
+                var artist = ""
+                for item in track.artists {
+                    guard let a = item as? SPTPartialArtist else { print("Couldn't cast as SPTPartialArtist"); return }
+                    artist.append("\(a.name!), ")
+                }
+                artist.removeLast(2)
+                let newTrack: NSDictionary = [
+                    "songTitle": track.name,
+                    "artist": artist,
+                    "albumTitle": track.album.name,
+                    "coverURL": track.album.largestCover.imageURL.absoluteString,
+                    "duration": Int(track.duration * 1000)
+                ]
+                queue["\(track.identifier!)"] = newTrack
             }
+            ref.setValue(queue, withCompletionBlock: { (error, _) in
+                if error != nil {print(error)}
+                completion()
+            })
+            
         }
     }
     

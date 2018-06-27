@@ -28,6 +28,9 @@
 		17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9D20BDC689000EF085 /* LTRSegue.swift */; };
 		17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */; };
 		17AE0EA320BDDBCD000EF085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0EA220BDDBCD000EF085 /* Assets.xcassets */; };
+		17DC0B8320CEDC37001C8DF1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DC0B8220CEDC37001C8DF1 /* Search.storyboard */; };
+		17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */; };
+		17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DDDEEA20C84D680097291F /* TrackModel.swift */; };
 		429711964046E703E19BCAF1 /* Pods_Jukebox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60740AC9D31343F94383E55D /* Pods_Jukebox.framework */; };
 		7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904FD1920C6907400F101ED /* RoundButton.swift */; };
 		790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */; };
@@ -64,6 +67,9 @@
 		17AE0E9D20BDC689000EF085 /* LTRSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTRSegue.swift; sourceTree = "<group>"; };
 		17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		17AE0EA220BDDBCD000EF085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		17DC0B8220CEDC37001C8DF1 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		17DDDEEA20C84D680097291F /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
 		60740AC9D31343F94383E55D /* Pods_Jukebox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jukebox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7904FD1920C6907400F101ED /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PartyPlaylist.storyboard; sourceTree = "<group>"; };
@@ -134,6 +140,15 @@
 			path = UserProfile;
 			sourceTree = "<group>";
 		};
+		17DC0B8120CEDC0A001C8DF1 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				17DC0B8220CEDC37001C8DF1 /* Search.storyboard */,
+				17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		7904FD1820C6905700F101ED /* Designables */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +163,7 @@
 				790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */,
 				17AE0E8F20BDC657000EF085 /* PartyPlaylistViewController.swift */,
 				790CCC8420BDE0080081621B /* TrackCell.swift */,
+				17DDDEEA20C84D680097291F /* TrackModel.swift */,
 			);
 			path = PartyPlaylist;
 			sourceTree = "<group>";
@@ -194,6 +210,7 @@
 		E0C4D34520BDB3C700B74C31 /* Jukebox */ = {
 			isa = PBXGroup;
 			children = (
+				17DC0B8120CEDC0A001C8DF1 /* Search */,
 				7904FD1820C6905700F101ED /* Designables */,
 				790CCC7A20BDDC870081621B /* PartyPlaylist */,
 				17AE0E7F20BDC3AA000EF085 /* Auth */,
@@ -280,6 +297,7 @@
 				790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */,
 				17AE0E9920BDC657000EF085 /* PartyOverview.storyboard in Resources */,
 				E0C4D35120BDB3C800B74C31 /* LaunchScreen.storyboard in Resources */,
+				17DC0B8320CEDC37001C8DF1 /* Search.storyboard in Resources */,
 				E0C4D36420BDBC9300B74C31 /* GoogleService-Info.plist in Resources */,
 				17AE0E8520BDC3AA000EF085 /* Auth.storyboard in Resources */,
 				17AE0E7D20BDC23A000EF085 /* Main.storyboard in Resources */,
@@ -317,6 +335,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -324,6 +343,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -355,6 +375,8 @@
 				790CCC8520BDE0080081621B /* TrackCell.swift in Sources */,
 				17AE0E8620BDC3AA000EF085 /* LoginViewController.swift in Sources */,
 				17AE0E7820BDC1D8000EF085 /* MainViewController.swift in Sources */,
+				17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */,
+				17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */,
 				17AE0E9520BDC657000EF085 /* PartyCollectionViewController.swift in Sources */,
 				17AE0E9420BDC657000EF085 /* JoinPartyViewController.swift in Sources */,
 				17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */,

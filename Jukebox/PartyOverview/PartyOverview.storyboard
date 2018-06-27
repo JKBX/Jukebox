@@ -327,7 +327,7 @@
                 <viewControllerPlaceholder storyboardName="PartyPlaylist" id="BLf-gD-Hnv" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAK-53-4Vk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1792.8" y="-1073.1634182908547"/>
+            <point key="canvasLocation" x="1790" y="-1067"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wZF-Ig-ddi">
