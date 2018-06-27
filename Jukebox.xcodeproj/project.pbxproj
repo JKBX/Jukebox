@@ -50,6 +50,7 @@
 		E0C4D35D20BDB98E00B74C31 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C4D35B20BDB98E00B74C31 /* SpotifyAudioPlayback.framework */; };
 		E0C4D35F20BDB9CC00B74C31 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C4D35E20BDB9CC00B74C31 /* AVFoundation.framework */; };
 		E0C4D36420BDBC9300B74C31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0C4D36320BDBC9300B74C31 /* GoogleService-Info.plist */; };
+		E0E7422220E36AD10076432D /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E7422120E36AD10076432D /* Party.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		E0C4D35E20BDB9CC00B74C31 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E0C4D36020BDBB8400B74C31 /* Jukebox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Jukebox-Bridging-Header.h"; sourceTree = "<group>"; };
 		E0C4D36320BDBC9300B74C31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E0E7422120E36AD10076432D /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 		FBEB44F6DEBAE8E4E175C37D /* Pods-Jukebox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jukebox.release.xcconfig"; path = "Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,7 +142,7 @@
 				17AE0E9120BDC657000EF085 /* CreatePartyViewController.swift */,
 				17AE0E9220BDC657000EF085 /* PartyOverview.storyboard */,
 				17AE0E9320BDC657000EF085 /* SectionHeader.swift */,
-				8481D78F20CEC0A9002D0AD1 /* PartyModel.swift */,
+				E0E7422120E36AD10076432D /* Party.swift */,
 			);
 			path = PartyOverview;
 			sourceTree = "<group>";
@@ -416,7 +418,7 @@
 				17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
-				8481D79020CEC0A9002D0AD1 /* PartyModel.swift in Sources */,
+				E0E7422220E36AD10076432D /* Party.swift in Sources */,
 				17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */,
 				17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */,
 				17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */,
