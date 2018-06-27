@@ -200,7 +200,7 @@ extension PartyPlaylistViewController: UITableViewDelegate{
             let alert = UIAlertController(title: "Are you sure you want to remove \(track.songName!)?", message: "This track had \(String(track.voteCount)) votes.", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-                self.ref.child("/parties/\(currentParty!)/queue/\(track.trackId as String)").removeValue()
+                self.ref.child("/queue/\(track.trackId as String)").removeValue()
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
