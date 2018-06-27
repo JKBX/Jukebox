@@ -22,9 +22,9 @@ class PopUpViewViewController: UIViewController {
     
     func pulsate(checkButton: UIImageView){
         let pulse = CASpringAnimation(keyPath: "transform.scale")
-        pulse.duration = 1
-        pulse.fromValue = 0.9
-        pulse.toValue = 1.1
+        pulse.duration = 2
+        pulse.fromValue = 0.1
+        pulse.toValue = 1.0
         pulse.initialVelocity = 0.2
         
         checkButton.layer.add(pulse, forKey: "pulse")

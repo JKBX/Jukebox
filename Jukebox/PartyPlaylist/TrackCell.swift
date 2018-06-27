@@ -2,8 +2,9 @@
 //  TrackCell.swift
 //  Jukebox
 //
-//  Created by Team Jukebox/Gruppe 7
+//  Created by Maximilian Babel on 29.05.18.
 //  Copyright © 2018 Jukebox. All rights reserved.
+//
 
 import UIKit
 import Kingfisher
