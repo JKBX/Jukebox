@@ -30,10 +30,11 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        currentQueue = []
-        self.tableView.reloadData()
-        self.ref = Database.database().reference().child("/parties/\(currentParty!)")
-        setupObservers()
+        super.viewWillAppear(animated)
+        //Only set if coming from Party Overview
+        if self.isMovingToParentViewController {
+            setupObservers()
+        }
     }
     
     //TODO ??
@@ -46,28 +47,27 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         }
     }
     
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //TODO test if viewDidDisappear is right
-        //Reset Global Vars
-        //currentParty = nil
-        //currentTrack = nil
-        //currentQueue = []
-        freeObservers()
-
-        //        MARK:
-        //        broadcasting wird unterbrochen sobald man die playlistview verlässt
-        NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        //Only Reset if moving to Party Overview
+        if self.isMovingFromParentViewController {
+            freeObservers()
+            currentQueue = []
+            self.tableView.reloadData()
+            //Stop Playback
+            if (currentTrack?.isPlaying)! && currentAdmin {
+                NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
+            }
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
+        }
     }
-    
-//    wird benötigt? Methode wenn das Objekt freigegeben wird..
-    deinit {
 
-    }
 
     //MARK: Observer-Methods
     
     func setupObservers() {
+        self.ref = Database.database().reference().child("/parties/\(currentParty!)")
+        
         ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(TrackModel(from: snapshot))})
         addObserver = ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
         ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(TrackModel(from: snapshot))})
@@ -75,7 +75,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     }
     
     func onChildAdded(_ changedTrack: TrackModel) {
-        print("Track Added: \(changedTrack.songName!)")
         currentQueue.append(changedTrack)
         currentQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let index = getIndex(of: changedTrack)
@@ -83,7 +82,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     }
     
     func onChildChanged(_ changedTrack: TrackModel) {
-        print("Track Changed: \(changedTrack.songName!)")
         let index = getIndex(of: changedTrack)
         currentQueue[index] = changedTrack
         self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
@@ -99,8 +97,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     
     
     func onChildRemoved(_ changedTrack: TrackModel) {
-        print("Track Removed: \(changedTrack.songName!)")
-        //Todo test if only called on vote
         let index = getIndex(of: changedTrack)
         currentQueue.remove(at: index)
         self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
@@ -108,8 +104,9 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     
     
     func onCurrentTrackChanged(_ snapshot: DataSnapshot) {
+        let needsCheck = currentTrack == nil
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
-        print("Current Track Changed")
+        if needsCheck && (currentTrack?.isPlaying)! { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
         miniPlayer?.setting()
         miniPlayer?.update()
     }
@@ -129,7 +126,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     func freeObservers(){
         ref.child("/queue").removeAllObservers()
         ref.child("/currentlyPlaying").removeAllObservers()
-        self.ref = Database.database().reference()
     }
 }
 
