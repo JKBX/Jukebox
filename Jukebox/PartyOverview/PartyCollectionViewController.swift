@@ -54,7 +54,6 @@ class PartyCollectionViewController: UICollectionViewController {
         if userID == nil {
             return
         }
-        
         ref.child("users/\(userID!)/parties").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let parties = snapshot.value as? NSDictionary
@@ -184,16 +183,9 @@ class PartyCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         (self.selectedPartyInfo, self.selectedParty) = getParty(for: indexPath)
         self.performSegue(withIdentifier: "showParty", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showParty" {
-            let controller = segue.destination as! PartyPlaylistViewController
-            controller.partyID = self.selectedParty
-            controller.isAdmin = (self.selectedPartyInfo.value(forKey: "Host") as! String) == Auth.auth().currentUser?.uid
-            print(self.selectedParty)
-            self.selectedParty = ""
-        }
+        currentAdmin = (self.selectedPartyInfo.value(forKey: "Host") as! String) == Auth.auth().currentUser?.uid
+        currentParty = self.selectedParty
+        self.selectedParty = ""
     }
 
     

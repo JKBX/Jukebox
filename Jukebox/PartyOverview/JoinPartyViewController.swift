@@ -41,7 +41,7 @@ class JoinPartyViewController: UIViewController, UITextFieldDelegate {
      ref.child("/parties").observeSingleEvent(of: .value, with: { (snapshot) in
       //print(snapshot)
      for child in snapshot.children{
-       let party = Party(from:child as! DataSnapshot)
+       let party = PartyModel(from:child as! DataSnapshot)
        print(party.id)
        //print((party.childSnapshot(forPath: "ID").value) as! Int)
        if party.id == enteredID{

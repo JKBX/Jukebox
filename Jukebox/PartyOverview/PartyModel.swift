@@ -10,7 +10,7 @@ import Foundation
 import FirebaseDatabase
 
 
-class Party {
+class PartyModel {
     //var date : Date
     var host : String
     var id : String

@@ -28,6 +28,8 @@
 		17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9D20BDC689000EF085 /* LTRSegue.swift */; };
 		17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */; };
 		17AE0EA320BDDBCD000EF085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0EA220BDDBCD000EF085 /* Assets.xcassets */; };
+		17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */; };
+		17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */; };
 		17DC0B8320CEDC37001C8DF1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DC0B8220CEDC37001C8DF1 /* Search.storyboard */; };
 		17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */; };
 		17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DDDEEA20C84D680097291F /* TrackModel.swift */; };
@@ -35,7 +37,12 @@
 		7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904FD1920C6907400F101ED /* RoundButton.swift */; };
 		790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */; };
 		790CCC8520BDE0080081621B /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CCC8420BDE0080081621B /* TrackCell.swift */; };
-		8481D79020CEC0A9002D0AD1 /* PartyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8481D78F20CEC0A9002D0AD1 /* PartyModel.swift */; };
+		E0153E4020DE70BC00EBCE79 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0153E3F20DE70BC00EBCE79 /* SearchCell.swift */; };
+		E02E252E20DA557D0014FD5E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E02E252D20DA557D0014FD5E /* QuartzCore.framework */; };
+		E03118DB20CFE89800B9E570 /* UIPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E03118DA20CFE89800B9E570 /* UIPlayer.storyboard */; };
+		E03118DF20CFEC0B00B9E570 /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03118DE20CFEC0B00B9E570 /* MiniPlayerViewController.swift */; };
+		E06F85D920D29A910073E29D /* ExpandedTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06F85D820D29A910073E29D /* ExpandedTrackViewController.swift */; };
+		E06F85DB20D2CAEF0073E29D /* TrackPlayControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06F85DA20D2CAEF0073E29D /* TrackPlayControlViewController.swift */; };
 		E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C4D34620BDB3C700B74C31 /* AppDelegate.swift */; };
 		E0C4D34920BDB3C800B74C31 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C4D34820BDB3C800B74C31 /* ViewController.swift */; };
 		E0C4D35120BDB3C800B74C31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0C4D34F20BDB3C800B74C31 /* LaunchScreen.storyboard */; };
@@ -43,6 +50,7 @@
 		E0C4D35D20BDB98E00B74C31 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C4D35B20BDB98E00B74C31 /* SpotifyAudioPlayback.framework */; };
 		E0C4D35F20BDB9CC00B74C31 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0C4D35E20BDB9CC00B74C31 /* AVFoundation.framework */; };
 		E0C4D36420BDBC9300B74C31 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0C4D36320BDBC9300B74C31 /* GoogleService-Info.plist */; };
+		E0E7422420E370350076432D /* PartyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E7422320E370350076432D /* PartyModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +75,8 @@
 		17AE0E9D20BDC689000EF085 /* LTRSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTRSegue.swift; sourceTree = "<group>"; };
 		17AE0E9E20BDC689000EF085 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		17AE0EA220BDDBCD000EF085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDelegate.swift; sourceTree = "<group>"; };
 		17DC0B8220CEDC37001C8DF1 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		17DDDEEA20C84D680097291F /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
@@ -75,7 +85,12 @@
 		790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PartyPlaylist.storyboard; sourceTree = "<group>"; };
 		790CCC8420BDE0080081621B /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		80517207188883059530FC1A /* Pods-Jukebox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jukebox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox.debug.xcconfig"; sourceTree = "<group>"; };
-		8481D78F20CEC0A9002D0AD1 /* PartyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyModel.swift; sourceTree = "<group>"; };
+		E0153E3F20DE70BC00EBCE79 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		E02E252D20DA557D0014FD5E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E03118DA20CFE89800B9E570 /* UIPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UIPlayer.storyboard; sourceTree = "<group>"; };
+		E03118DE20CFEC0B00B9E570 /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
+		E06F85D820D29A910073E29D /* ExpandedTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedTrackViewController.swift; sourceTree = "<group>"; };
+		E06F85DA20D2CAEF0073E29D /* TrackPlayControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPlayControlViewController.swift; sourceTree = "<group>"; };
 		E0C4D34320BDB3C700B74C31 /* Jukebox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jukebox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C4D34620BDB3C700B74C31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0C4D34820BDB3C800B74C31 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +101,7 @@
 		E0C4D35E20BDB9CC00B74C31 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E0C4D36020BDBB8400B74C31 /* Jukebox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Jukebox-Bridging-Header.h"; sourceTree = "<group>"; };
 		E0C4D36320BDBC9300B74C31 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E0E7422320E370350076432D /* PartyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyModel.swift; sourceTree = "<group>"; };
 		FBEB44F6DEBAE8E4E175C37D /* Pods-Jukebox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jukebox.release.xcconfig"; path = "Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E02E252E20DA557D0014FD5E /* QuartzCore.framework in Frameworks */,
 				17AE0E8B20BDC52E000EF085 /* SpotifyMetadata.framework in Frameworks */,
 				E0C4D35F20BDB9CC00B74C31 /* AVFoundation.framework in Frameworks */,
 				429711964046E703E19BCAF1 /* Pods_Jukebox.framework in Frameworks */,
@@ -125,7 +142,7 @@
 				17AE0E9120BDC657000EF085 /* CreatePartyViewController.swift */,
 				17AE0E9220BDC657000EF085 /* PartyOverview.storyboard */,
 				17AE0E9320BDC657000EF085 /* SectionHeader.swift */,
-				8481D78F20CEC0A9002D0AD1 /* PartyModel.swift */,
+				E0E7422320E370350076432D /* PartyModel.swift */,
 			);
 			path = PartyOverview;
 			sourceTree = "<group>";
@@ -145,6 +162,7 @@
 			children = (
 				17DC0B8220CEDC37001C8DF1 /* Search.storyboard */,
 				17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */,
+				E0153E3F20DE70BC00EBCE79 /* SearchCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -171,6 +189,7 @@
 		7AD41CA77BB432B2EABA7ED1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E02E252D20DA557D0014FD5E /* QuartzCore.framework */,
 				E0C4D35E20BDB9CC00B74C31 /* AVFoundation.framework */,
 				17AE0E8A20BDC52E000EF085 /* SpotifyMetadata.framework */,
 				E0C4D35B20BDB98E00B74C31 /* SpotifyAudioPlayback.framework */,
@@ -187,6 +206,19 @@
 				FBEB44F6DEBAE8E4E175C37D /* Pods-Jukebox.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		E048D23120CEF4BA006AE916 /* UIPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				E03118DA20CFE89800B9E570 /* UIPlayer.storyboard */,
+				E03118DE20CFEC0B00B9E570 /* MiniPlayerViewController.swift */,
+				E06F85D820D29A910073E29D /* ExpandedTrackViewController.swift */,
+				E06F85DA20D2CAEF0073E29D /* TrackPlayControlViewController.swift */,
+				17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */,
+			);
+			name = UIPlayer;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		E0C4D33A20BDB3C700B74C31 = {
@@ -210,6 +242,7 @@
 		E0C4D34520BDB3C700B74C31 /* Jukebox */ = {
 			isa = PBXGroup;
 			children = (
+				E048D23120CEF4BA006AE916 /* UIPlayer */,
 				17DC0B8120CEDC0A001C8DF1 /* Search */,
 				7904FD1820C6905700F101ED /* Designables */,
 				790CCC7A20BDDC870081621B /* PartyPlaylist */,
@@ -228,6 +261,7 @@
 				17AE0E6620BDC119000EF085 /* AudioStreamingDelegate.swift */,
 				17AE0E6820BDC146000EF085 /* NotificationConstants.swift */,
 				17AE0EA220BDDBCD000EF085 /* Assets.xcassets */,
+				17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */,
 			);
 			path = Jukebox;
 			sourceTree = "<group>";
@@ -294,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				17AE0E9F20BDC689000EF085 /* UserProfile.storyboard in Resources */,
+				E03118DB20CFE89800B9E570 /* UIPlayer.storyboard in Resources */,
 				790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */,
 				17AE0E9920BDC657000EF085 /* PartyOverview.storyboard in Resources */,
 				E0C4D35120BDB3C800B74C31 /* LaunchScreen.storyboard in Resources */,
@@ -333,17 +368,31 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AlamoRecord/AlamoRecord.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Spartan/Spartan.framework",
+				"${BUILT_PRODUCTS_DIR}/VolumeBar/VolumeBar.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamoRecord.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spartan.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VolumeBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -361,17 +410,23 @@
 			files = (
 				17AE0E8720BDC3AA000EF085 /* RegisterViewController.swift in Sources */,
 				17AE0E8420BDC3AA000EF085 /* SpotifyAuthViewController.swift in Sources */,
+				E06F85DB20D2CAEF0073E29D /* TrackPlayControlViewController.swift in Sources */,
+				17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */,
 				17AE0E9A20BDC657000EF085 /* SectionHeader.swift in Sources */,
 				E0C4D34920BDB3C800B74C31 /* ViewController.swift in Sources */,
 				7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */,
 				17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */,
+				E0E7422420E370350076432D /* PartyModel.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
-				8481D79020CEC0A9002D0AD1 /* PartyModel.swift in Sources */,
 				17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */,
+				17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */,
 				17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */,
 				E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */,
+				E06F85D920D29A910073E29D /* ExpandedTrackViewController.swift in Sources */,
+				E0153E4020DE70BC00EBCE79 /* SearchCell.swift in Sources */,
 				17AE0E6720BDC119000EF085 /* AudioStreamingDelegate.swift in Sources */,
+				E03118DF20CFEC0B00B9E570 /* MiniPlayerViewController.swift in Sources */,
 				790CCC8520BDE0080081621B /* TrackCell.swift in Sources */,
 				17AE0E8620BDC3AA000EF085 /* LoginViewController.swift in Sources */,
 				17AE0E7820BDC1D8000EF085 /* MainViewController.swift in Sources */,
@@ -526,11 +581,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DHQGWSH658;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
 				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -539,6 +607,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.deap.Jukebox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jukebox/Jukebox-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -552,11 +621,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DHQGWSH658;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
 				);
 				INFOPLIST_FILE = Jukebox/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -565,6 +647,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.deap.Jukebox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jukebox/Jukebox-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
