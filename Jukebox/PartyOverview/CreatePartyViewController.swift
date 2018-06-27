@@ -65,7 +65,7 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
         let picture:Data = UIImageJPEGRepresentation(partyImage.image!, 0.2)! as Data
         
         // Create a storage reference from our storage service
-        let pictureRef = storage.reference().child("/partyImages/\(partyId).png")
+        let pictureRef = storage.reference().child("/partyImages/\(partyId).jpg")
         _ = pictureRef.putData(picture, metadata: metadata) { (metadata, error) in
             guard let metadata = metadata else { return }
             completion(metadata.path!)
