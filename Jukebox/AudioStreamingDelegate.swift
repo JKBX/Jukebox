@@ -95,9 +95,7 @@ class AudioStreamingDelegate: NSObject {
         let ref = Database.database().reference().child("/parties/\(currentParty!)")
         
         SPTAudioStreamingController.sharedInstance().setIsPlaying(false) { (error) in
-            if error != nil {
-                print(error)
-            }
+            if let error = error { print(error) }
             print("Paused Spotify")
             isBroadcasting = false
             ref.child("currentlyPlaying/isPlaying").setValue(false)
