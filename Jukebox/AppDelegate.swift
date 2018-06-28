@@ -28,6 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //Setup AV Audio
         //setupAudioSession()
+        
+        do {try Auth.auth().signOut()}
+        catch let signOutError as NSError {  print ("Error signing out: %@", signOutError) }
+        
+        SPTAudioStreamingController.sharedInstance().logout()
+        SPTAuth.defaultInstance().session = nil
+        UserDefaults.standard.removeObject(forKey: SpotifyConfig.sessionKey)
 
         return true
     }
