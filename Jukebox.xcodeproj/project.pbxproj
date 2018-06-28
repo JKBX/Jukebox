@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		178431C720CAB0FF0097046E /* CenteredSquareProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431C620CAB0FF0097046E /* CenteredSquareProcessor.swift */; };
-		178431C920CACB940097046E /* FirebaseProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431C820CACB940097046E /* FirebaseProfileViewController.swift */; };
-		178431CB20CAD5C90097046E /* FirebaseLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431CA20CAD5C90097046E /* FirebaseLoginViewController.swift */; };
-		178431CD20CADDE30097046E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178431CC20CADDE30097046E /* UserProfileViewController.swift */; };
-		178E2B6720CD456800CE2A5A /* FirebaseAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */; };
-		179C11CD20D9BAB200EF9726 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11CC20D9BAB200EF9726 /* AuthViewController.swift */; };
 		179C11CF20D9CBAF00EF9726 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */; };
 		179C11D120DBE08300EF9726 /* InfoCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11D020DBE08300EF9726 /* InfoCardViewController.swift */; };
 		179C11D320DBE09000EF9726 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C11D220DBE09000EF9726 /* EditCardViewController.swift */; };
@@ -33,12 +27,11 @@
 		17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9120BDC657000EF085 /* CreatePartyViewController.swift */; };
 		17AE0E9920BDC657000EF085 /* PartyOverview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0E9220BDC657000EF085 /* PartyOverview.storyboard */; };
 		17AE0E9A20BDC657000EF085 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9320BDC657000EF085 /* SectionHeader.swift */; };
-		17AE0E9F20BDC689000EF085 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0E9C20BDC689000EF085 /* UserProfile.storyboard */; };
-		17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9D20BDC689000EF085 /* LTRSegue.swift */; };
-		17AE0EA120BDC689000EF085 /* ProfileViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E9E20BDC689000EF085 /* ProfileViewController2.swift */; };
 		17AE0EA320BDDBCD000EF085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0EA220BDDBCD000EF085 /* Assets.xcassets */; };
 		17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */; };
 		17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */; };
+		17D2C91F20E51F4800FA94FA /* CenteredSquareProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91E20E51F4800FA94FA /* CenteredSquareProcessor.swift */; };
+		17D2C92120E524C400FA94FA /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C92020E524C400FA94FA /* AuthViewController.swift */; };
 		17DC0B8320CEDC37001C8DF1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DC0B8220CEDC37001C8DF1 /* Search.storyboard */; };
 		17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */; };
 		17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DDDEEA20C84D680097291F /* TrackModel.swift */; };
@@ -62,12 +55,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		178431C620CAB0FF0097046E /* CenteredSquareProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredSquareProcessor.swift; sourceTree = "<group>"; };
-		178431C820CACB940097046E /* FirebaseProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProfileViewController.swift; sourceTree = "<group>"; };
-		178431CA20CAD5C90097046E /* FirebaseLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLoginViewController.swift; sourceTree = "<group>"; };
-		178431CC20CADDE30097046E /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthViewController.swift; sourceTree = "<group>"; };
-		179C11CC20D9BAB200EF9726 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		179C11D020DBE08300EF9726 /* InfoCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardViewController.swift; sourceTree = "<group>"; };
 		179C11D220DBE09000EF9726 /* EditCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
@@ -88,12 +75,11 @@
 		17AE0E9120BDC657000EF085 /* CreatePartyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePartyViewController.swift; sourceTree = "<group>"; };
 		17AE0E9220BDC657000EF085 /* PartyOverview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PartyOverview.storyboard; sourceTree = "<group>"; };
 		17AE0E9320BDC657000EF085 /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
-		17AE0E9C20BDC689000EF085 /* UserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserProfile.storyboard; sourceTree = "<group>"; };
-		17AE0E9D20BDC689000EF085 /* LTRSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LTRSegue.swift; sourceTree = "<group>"; };
-		17AE0E9E20BDC689000EF085 /* ProfileViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController2.swift; sourceTree = "<group>"; };
 		17AE0EA220BDDBCD000EF085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDelegate.swift; sourceTree = "<group>"; };
+		17D2C91E20E51F4800FA94FA /* CenteredSquareProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredSquareProcessor.swift; sourceTree = "<group>"; };
+		17D2C92020E524C400FA94FA /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		17DC0B8220CEDC37001C8DF1 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		17DDDEEA20C84D680097291F /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
@@ -141,14 +127,15 @@
 		17AE0E7F20BDC3AA000EF085 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				17AE0E8020BDC3AA000EF085 /* SpotifyAuthViewController.swift */,
 				17AE0E8120BDC3AA000EF085 /* Auth.storyboard */,
-				17AE0E8220BDC3AA000EF085 /* LoginViewController.swift */,
-				17AE0E8320BDC3AA000EF085 /* RegisterViewController.swift */,
-				179C11CC20D9BAB200EF9726 /* AuthViewController.swift */,
+				17D2C92020E524C400FA94FA /* AuthViewController.swift */,
+				17AE0E8020BDC3AA000EF085 /* SpotifyAuthViewController.swift */,
 				179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */,
 				179C11D020DBE08300EF9726 /* InfoCardViewController.swift */,
 				179C11D220DBE09000EF9726 /* EditCardViewController.swift */,
+				17D2C91E20E51F4800FA94FA /* CenteredSquareProcessor.swift */,
+				17AE0E8220BDC3AA000EF085 /* LoginViewController.swift */,
+				17AE0E8320BDC3AA000EF085 /* RegisterViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -165,21 +152,6 @@
 				E0E7422320E370350076432D /* PartyModel.swift */,
 			);
 			path = PartyOverview;
-			sourceTree = "<group>";
-		};
-		17AE0E9B20BDC689000EF085 /* UserProfile */ = {
-			isa = PBXGroup;
-			children = (
-				17AE0E9C20BDC689000EF085 /* UserProfile.storyboard */,
-				17AE0E9D20BDC689000EF085 /* LTRSegue.swift */,
-				17AE0E9E20BDC689000EF085 /* ProfileViewController2.swift */,
-				178431C620CAB0FF0097046E /* CenteredSquareProcessor.swift */,
-				178431C820CACB940097046E /* FirebaseProfileViewController.swift */,
-				178E2B6620CD456800CE2A5A /* FirebaseAuthViewController.swift */,
-				178431CA20CAD5C90097046E /* FirebaseLoginViewController.swift */,
-				178431CC20CADDE30097046E /* UserProfileViewController.swift */,
-			);
-			path = UserProfile;
 			sourceTree = "<group>";
 		};
 		17DC0B8120CEDC0A001C8DF1 /* Search */ = {
@@ -273,7 +245,6 @@
 				790CCC7A20BDDC870081621B /* PartyPlaylist */,
 				17AE0E8C20BDC657000EF085 /* PartyOverview */,
 				17AE0E7F20BDC3AA000EF085 /* Auth */,
-				17AE0E9B20BDC689000EF085 /* UserProfile */,
 				E0C4D34620BDB3C700B74C31 /* AppDelegate.swift */,
 				17AE0E7B20BDC23A000EF085 /* Main.storyboard */,
 				17AE0E7720BDC1D8000EF085 /* MainViewController.swift */,
@@ -356,7 +327,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17AE0E9F20BDC689000EF085 /* UserProfile.storyboard in Resources */,
 				E03118DB20CFE89800B9E570 /* UIPlayer.storyboard in Resources */,
 				790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */,
 				17AE0E9920BDC657000EF085 /* PartyOverview.storyboard in Resources */,
@@ -442,18 +412,14 @@
 				E06F85DB20D2CAEF0073E29D /* TrackPlayControlViewController.swift in Sources */,
 				17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */,
 				17AE0E9A20BDC657000EF085 /* SectionHeader.swift in Sources */,
-				178431CB20CAD5C90097046E /* FirebaseLoginViewController.swift in Sources */,
-				178431C920CACB940097046E /* FirebaseProfileViewController.swift in Sources */,
 				7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */,
 				179C11D320DBE09000EF9726 /* EditCardViewController.swift in Sources */,
 				179C11CF20D9CBAF00EF9726 /* ProfileViewController.swift in Sources */,
-				178E2B6720CD456800CE2A5A /* FirebaseAuthViewController.swift in Sources */,
 				179C11D120DBE08300EF9726 /* InfoCardViewController.swift in Sources */,
-				17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */,
 				E0E7422420E370350076432D /* PartyModel.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
-				17AE0EA120BDC689000EF085 /* ProfileViewController.swift in Sources */,
+				17D2C92120E524C400FA94FA /* AuthViewController.swift in Sources */,
 				17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */,
 				17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */,
 				E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */,
@@ -470,6 +436,7 @@
 				17AE0E9420BDC657000EF085 /* JoinPartyViewController.swift in Sources */,
 				17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */,
 				17AE0E6520BDC0BC000EF085 /* Constants.swift in Sources */,
+				17D2C91F20E51F4800FA94FA /* CenteredSquareProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
