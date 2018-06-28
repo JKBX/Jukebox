@@ -136,7 +136,7 @@ extension UIToolbar {
         
         let toolBar = UIToolbar()
         
-        toolBar.barStyle = UIBarStyle.default
+        toolBar.barStyle = UIBarStyle.blackTranslucent
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.white
         toolBar.sizeToFit()
@@ -179,6 +179,8 @@ extension CreatePartyViewController{
     
     func setupDatePicker(){
         let datePicker = UIDatePicker()
+        datePicker.tintColor = UIColor.lightText
+        datePicker.backgroundColor = UIColor.darkGray
         datePicker.datePickerMode = UIDatePickerMode.date
         datePicker.addTarget(self, action: #selector(self.datePickerValueChanged(sender:)), for: .valueChanged)
         let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(self.dismissPicker))
@@ -203,6 +205,8 @@ extension CreatePartyViewController{
 extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelegate{
     
     func setupPlaylistPicker() {
+        picker.backgroundColor = UIColor.darkGray
+        //self.setValue(UIColor.white, forKey: "text")
         picker.dataSource = self
         picker.delegate = self
         self.loadPlaylists(nil)
