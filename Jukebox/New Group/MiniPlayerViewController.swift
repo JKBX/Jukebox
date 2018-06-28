@@ -169,6 +169,7 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     var coverImageView: UIImageView {
         
         return thumbImage
+        
     }
     
 //    trigger Admin or User

@@ -239,7 +239,7 @@ extension PartyPlaylistViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
         if(currentQueue.count <= 5){
-            label.text = "Just \(currentQueue.count) songs left. The Show must go on! Keep adding Tracks."
+            label.text = "Just \(currentQueue.count) songs left. Keep adding Tracks."
             label.font.withSize(8)
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping

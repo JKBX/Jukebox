@@ -68,6 +68,10 @@ class ExpandedTrackViewController: UIViewController {
         backingPicView.image = backingPic
         coverContainer.layer.cornerRadius = cardCornerRadius
         coverContainer.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+        coverImage.layer.masksToBounds = true
+        let corner: CGFloat = 10
+        coverImage.layer.cornerRadius = corner
     }
 
     override func viewWillAppear(_ animated: Bool) {
