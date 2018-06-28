@@ -52,13 +52,12 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         //Only Reset if moving to Party Overview
         if self.isMovingFromParentViewController {
             freeObservers()
-            currentQueue = []
             self.tableView.reloadData()
             //Stop Playback
-            if (currentTrack?.isPlaying)! && currentAdmin {
+            /*if (currentTrack?.isPlaying)! && currentAdmin {
                 NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
             }
-            NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)*/
         }
     }
 
@@ -66,7 +65,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     //MARK: Observer-Methods
     
     func setupObservers() {
-        self.ref = Database.database().reference().child("/parties/\(currentParty!)")
+        self.ref = Database.database().reference().child("/parties/\(currentParty)")
         
         ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(TrackModel(from: snapshot))})
         addObserver = ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
@@ -79,6 +78,9 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         currentQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let index = getIndex(of: changedTrack)
         self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+        
+        self.tableView.reloadData()
+
     }
     
     func onChildChanged(_ changedTrack: TrackModel) {
@@ -100,13 +102,15 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         let index = getIndex(of: changedTrack)
         currentQueue.remove(at: index)
         self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
+        self.tableView.reloadData()
+
     }
     
     
     func onCurrentTrackChanged(_ snapshot: DataSnapshot) {
         let needsCheck = currentTrack == nil
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
-        if needsCheck && (currentTrack?.isPlaying)! { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
+        if needsCheck && currentTrack != nil { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
         miniPlayer?.setting()
         miniPlayer?.update()
     }
@@ -126,6 +130,10 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     func freeObservers(){
         ref.child("/queue").removeAllObservers()
         ref.child("/currentlyPlaying").removeAllObservers()
+        currentParty = ""
+        currentQueue = []
+        currentTrack = nil
+        currentAdmin = false
     }
 }
 
@@ -217,10 +225,10 @@ extension PartyPlaylistViewController: UITableViewDelegate{
             success(true)
             if track.liked{
                 //Unlike
-                self.ref.child("/parties/\(currentParty!)/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
+                self.ref.child("/parties/\(currentParty)/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
             } else {
                 //Like
-                self.ref.child("/parties/\(currentParty!)/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
+                self.ref.child("/parties/\(currentParty)/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
             }
         })
         voteAction.image = UIImage(named: track.liked ? "favorite" : "favoriteOutline")
@@ -229,11 +237,20 @@ extension PartyPlaylistViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        //TODO center
         let label = UILabel()
-        label.text = "The Show must go on! Keep adding Tracks."
-        label.font.withSize(8)
-        label.textColor = .white
-        return label
+        if(currentQueue.count <= 5){
+            label.text = "Just \(currentQueue.count) songs left. The Show must go on! Keep adding Tracks."
+            label.font.withSize(8)
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
+            label.textColor = .white
+            label.textAlignment = .center
+            return label }
+    
+        else {
+            label.isHidden = true
+            return label
+        }
+       
     }
 }

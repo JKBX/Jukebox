@@ -9,8 +9,19 @@
 import Foundation
 import FirebaseDatabase
 
-var currentParty: String?
+//var currentParty: String?
 var currentTrack: TrackModel?
 var currentQueue: [TrackModel] = []
 var currentAdmin: Bool = false
 var isBroadcasting: Bool = false
+
+var currentParty:String = "" {
+    willSet{
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        delegate.streamingDelegate.willUpdate()
+    }
+    didSet {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        delegate.streamingDelegate.update()
+    }
+}

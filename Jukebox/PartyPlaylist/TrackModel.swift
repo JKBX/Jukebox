@@ -25,7 +25,6 @@ class TrackModel{
         
     init(from snapshot: DataSnapshot){
         let userId = Auth.auth().currentUser?.uid as! String
-        print(snapshot.childSnapshot(forPath: "songTitle").value)
         self.trackId = snapshot.hasChild("id") ? snapshot.childSnapshot(forPath: "id").value as! String : snapshot.key
         self.songName = snapshot.childSnapshot(forPath: "songTitle").value as! String
         self.artist = snapshot.childSnapshot(forPath: "artist").value as! String
