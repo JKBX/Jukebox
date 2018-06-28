@@ -7,6 +7,8 @@
 //  Class just for Player animations
 
 import UIKit
+import Firebase
+
 
 // Chris - 17.06.2018
 protocol ExpandedTrackSourceProtocol: class {
@@ -68,10 +70,11 @@ class ExpandedTrackViewController: UIViewController {
         backingPicView.image = backingPic
         coverContainer.layer.cornerRadius = cardCornerRadius
         coverContainer.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        
         coverImage.layer.masksToBounds = true
         let corner: CGFloat = 10
         coverImage.layer.cornerRadius = corner
+        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in self.onCurrentTrackChangedExpandedPlayer(snapshot)})
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -274,8 +277,20 @@ extension ExpandedTrackViewController{
     }
 }
 
-//extension ExpandedTrackViewController: SPTAudioStreamingPlaybackDelegate{
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
-//        coverImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
-//    }
-//}
+extension ExpandedTrackViewController {
+    
+    func onCurrentTrackChangedExpandedPlayer(_ snapshot: DataSnapshot) {
+        
+        let needsCheck = currentTrack == nil
+        if needsCheck { Database.database().reference().child("/currentlyPlaying/isPlaying").setValue(false) }
+            let duration = 1.0
+            UIView.animate(withDuration: 0.2, animations: {
+                self.coverImage.alpha = 0.7
+            }, completion: {(finished) in
+                self.coverImage.kf.indicatorType = .activity
+                self.coverImage.kf.setImage(with: currentTrack?.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
+                UIView.animate(withDuration: duration, animations:{
+                    self.coverImage.alpha = 1.0
+                },completion:nil)
+            })
+    }}

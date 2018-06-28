@@ -91,6 +91,8 @@ class AudioStreamingDelegate: NSObject {
     }
     
     func getNextTrack(completion: @escaping ()->Void) {
+//        Fix fix the get rid of the bug --> when you skip the last song in expandedTrackPlayer
+        if(currentQueue.count > 0){
         let nextTrackId = currentQueue.first?.trackId
         let ref = Database.database().reference().child("/parties/\(currentParty)")
         
@@ -105,7 +107,7 @@ class AudioStreamingDelegate: NSObject {
                 })
             }
         }
-        
+        }else{return}
     }
     
     func swapToHistory(completion: @escaping () ->Void) {

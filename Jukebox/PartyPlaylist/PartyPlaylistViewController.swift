@@ -238,19 +238,29 @@ extension PartyPlaylistViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
-        if(currentQueue.count <= 5){
-            label.text = "Just \(currentQueue.count) songs left. Keep adding Tracks."
-            label.font.withSize(8)
-            label.numberOfLines = 0
-            label.lineBreakMode = .byWordWrapping
+        label.font.withSize(8)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
+        
+        if(currentQueue.count == 0){
+            label.text = "Add Tracks! There is no song left!"
+            label.textColor = .red
+            return label}
+        
+        if(currentQueue.count <= 5 && currentQueue.count > 0){
+            
             label.textColor = .white
-            label.textAlignment = .center
+            let myString:String = "Just \(currentQueue.count) songs left. Keep adding Tracks." as String
+            let myMutableString = NSMutableAttributedString(string: myString)
+            myMutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.red, range: NSRange(location:5,length:1))
+            label.attributedText = myMutableString
             return label }
-    
+            
         else {
             label.isHidden = true
             return label
         }
-       
+        }
     }
-}
+
