@@ -185,7 +185,6 @@ class PartyCollectionViewController: UICollectionViewController {
         self.performSegue(withIdentifier: "showParty", sender: self)
         currentAdmin = (self.selectedPartyInfo.value(forKey: "Host") as! String) == Auth.auth().currentUser?.uid
         currentParty = self.selectedParty
-        currentPartyId = self.selectedParty
         self.selectedParty = ""
     }
 

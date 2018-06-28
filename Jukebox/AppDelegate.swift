@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupSpotify()
         
         //Setup AV Audio
-        setupAudioSession()
+        //setupAudioSession()
         
         return true
     }
@@ -93,14 +93,6 @@ extension AppDelegate {
         }
         
         
-    }
-    
-    func setupAudioSession(){
-        UIApplication.shared.beginReceivingRemoteControlEvents()
-        do { try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            do { try AVAudioSession.sharedInstance().setActive(true) }
-            catch let error as NSError { print(error.localizedDescription) } }
-        catch let error as NSError { print(error.localizedDescription) }
     }
     
 }
