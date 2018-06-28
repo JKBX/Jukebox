@@ -79,6 +79,9 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         currentQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let index = getIndex(of: changedTrack)
         self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+        
+        self.tableView.reloadData()
+
     }
     
     func onChildChanged(_ changedTrack: TrackModel) {
@@ -100,6 +103,8 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         let index = getIndex(of: changedTrack)
         currentQueue.remove(at: index)
         self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
+        self.tableView.reloadData()
+
     }
     
     
@@ -232,11 +237,20 @@ extension PartyPlaylistViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        //TODO center
         let label = UILabel()
-        label.text = "The Show must go on! Keep adding Tracks."
-        label.font.withSize(8)
-        label.textColor = .white
-        return label
+        if(currentQueue.count <= 5){
+            label.text = "Just \(currentQueue.count) songs left. The Show must go on! Keep adding Tracks."
+            label.font.withSize(8)
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
+            label.textColor = .white
+            label.textAlignment = .center
+            return label }
+    
+        else {
+            label.isHidden = true
+            return label
+        }
+       
     }
 }
