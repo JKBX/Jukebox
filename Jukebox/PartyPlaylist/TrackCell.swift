@@ -12,19 +12,18 @@ import FirebaseAuth
 
 protocol TrackCellDelegate{
     func likedTrack(trackID: String)
-//    func showTrackOptions(trackID: String)
 }
 
 class TrackCell: UITableViewCell {
 
     //var delegate: TrackCellDelegate?
     //var trackID: String = ""
-    var track:Track?
+    var track:TrackModel?
     var partyRef: DatabaseReference?
 
     @IBOutlet weak var voteCountLabel: UILabel!
 
-    func setup(from track:Track) {
+    func setup(from track:TrackModel) {
         self.track = track
         self.textLabel?.text = track.songName
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"
@@ -41,8 +40,7 @@ class TrackCell: UITableViewCell {
     }
 
     @objc func toggleLike(){
-        print("like")
-        print(partyRef.debugDescription)
+
         let userId = Auth.auth().currentUser?.uid as! String
         let voteRef = self.partyRef?.child("/queue/\(track?.trackId as! String)/votes/\(userId as String)")
         if (track?.liked)!{

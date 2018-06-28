@@ -8,74 +8,28 @@
 
 import UIKit
 import Firebase
+import AVFoundation
+import MediaPlayer
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var streamingDelegate: SPTAudioStreamingDelegate?
+    var streamingDelegate: AudioStreamingDelegate & SPTAudioStreamingDelegate = AudioStreamingDelegate()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+
         //Setup Firebase
         FirebaseApp.configure()
-        
+
         //Setup Spotify
         setupSpotify()
-        
-        //Make sure spotify is disconnected on launch
-        SPTAuth.defaultInstance().session = nil
-        UserDefaults.standard.removeObject(forKey: SpotifyConfig.sessionKey)
-        var switchOnce = true
-        Auth.auth().addIDTokenDidChangeListener { (_, _) in
-            if switchOnce{
-                do {try Auth.auth().signOut()}
-                catch let signOutError as NSError {  print ("Error signing out: %@", signOutError) }
-                switchOnce = false
-            }
-            
-        }
-        
+
+        //Setup AV Audio
+        //setupAudioSession()
+
         return true
-    }
-    
-    func setupSpotify() {
-        //Shorthands
-        let auth:SPTAuth! = SPTAuth.defaultInstance()
-        let stream:SPTAudioStreamingController! = SPTAudioStreamingController.sharedInstance()
-        
-        //Configure Spotify ID, scope and keys + redirect, swap, refresh URLs
-        auth.clientID = SpotifyConfig.clientID
-        auth.redirectURL = SpotifyConfig.redirectURI
-        auth.sessionUserDefaultsKey = SpotifyConfig.sessionKey
-        auth.tokenRefreshURL = SpotifyConfig.refreshURL
-        auth.tokenSwapURL = SpotifyConfig.swapURL
-        auth.requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthPlaylistModifyPublicScope, SPTAuthPlaylistModifyPrivateScope, SPTAuthUserLibraryReadScope, SPTAuthUserLibraryModifyScope, SPTAuthUserReadPrivateScope, SPTAuthUserReadTopScope, SPTAuthUserReadBirthDateScope, SPTAuthUserReadEmailScope]
-        
-        //Init and Set Streaming Delegate
-        streamingDelegate = AudioStreamingDelegate()
-        stream.delegate = streamingDelegate
-        
-        // Start the spotify player
-        do { try stream.start(withClientId: SpotifyConfig.clientID)
-        } catch { fatalError("Couldn't start Spotify SDK") }
-        
-        if let session = auth.session {
-            if session.isValid(){
-                stream.login(withAccessToken: session.accessToken)
-            } else {
-                auth.renewSession(auth.session) { (error, session) in
-                    //Check if there is an error because then there won't be a session.
-                    if let error = error { print(error); return }
-                    // Check if there is a session
-                    if let session = session {
-                        stream.login(withAccessToken: session.accessToken)
-                        print("Login Spotify")
-                    }
-                }
-            }
-        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -98,8 +52,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        /*if (currentTrack?.isPlaying)!{
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
+        }*/
     }
-
 
 }
 
+extension AppDelegate {
+
+
+    func setupSpotify() {
+        //Shorthands
+        let auth:SPTAuth! = SPTAuth.defaultInstance()
+        let stream:SPTAudioStreamingController! = SPTAudioStreamingController.sharedInstance()
+
+        //Configure Spotify ID, scope and keys + redirect, swap, refresh URLs
+        auth.clientID = SpotifyConfig.clientID
+        auth.redirectURL = SpotifyConfig.redirectURI
+        auth.sessionUserDefaultsKey = SpotifyConfig.sessionKey
+        auth.tokenRefreshURL = SpotifyConfig.refreshURL
+        auth.tokenSwapURL = SpotifyConfig.swapURL
+        auth.requestedScopes = [SPTAuthStreamingScope, SPTAuthPlaylistReadPrivateScope, SPTAuthPlaylistModifyPublicScope, SPTAuthPlaylistModifyPrivateScope, SPTAuthUserLibraryReadScope, SPTAuthUserLibraryModifyScope, SPTAuthUserReadPrivateScope, SPTAuthUserReadTopScope, SPTAuthUserReadBirthDateScope, SPTAuthUserReadEmailScope]
+
+        //Init and Set Streaming Delegate
+        stream.delegate = streamingDelegate
+
+        // Start the spotify player
+        do { try stream.start(withClientId: SpotifyConfig.clientID)}
+        catch { fatalError("Couldn't start Spotify SDK") }
+
+        if let session = auth.session {
+            if session.isValid(){ stream.login(withAccessToken: session.accessToken) }
+            else {
+                auth.renewSession(auth.session) { (error, session) in
+                    if let error = error { print(error); return }
+                    if let session = session { stream.login(withAccessToken: session.accessToken) }
+                }
+            }
+        }
+
+
+    }
+
+}
+
+extension AppDelegate {
+    func updateStreamingDelegate() {
+        streamingDelegate.update()
+    }
+}

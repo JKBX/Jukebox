@@ -9,25 +9,19 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class PartyPlaylistViewController: UIViewController {
+class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
 
     //MARK: Vars
 
     @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
-    var isAdmin: Bool = false
-    var partyID: String = ""
-    var queue: [Track] = []
+    var miniPlayer: MiniPlayerViewController?
     let userID = Auth.auth().currentUser?.uid
 
-
-
-    //MARK: LifeCycle
-    var party:NSDictionary = [:]
+    var addObserver: UInt?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tableView.dataSource = self
         tableView.delegate = self
 
@@ -36,56 +30,96 @@ class PartyPlaylistViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.queue = []
-        self.tableView.reloadData()
-
-        self.ref = ref.child("/parties/\(self.partyID)")
-        setupObservers()
+        super.viewWillAppear(animated)
+        //Only set if coming from Party Overview
+        if self.isMovingToParentViewController {
+            setupObservers()
+        }
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        freeObservers()
+    //TODO ??
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? MiniPlayerViewController {
+
+            miniPlayer = destination
+            miniPlayer?.delegate = self
+
+        }
     }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        //Only Reset if moving to Party Overview
+        if self.isMovingFromParentViewController {
+            freeObservers()
+            self.tableView.reloadData()
+            //Stop Playback
+            /*if (currentTrack?.isPlaying)! && currentAdmin {
+                NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
+            }
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)*/
+        }
+    }
+
 
     //MARK: Observer-Methods
 
     func setupObservers() {
-        ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(changedTrack: Track(from: snapshot))})
-        ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(changedTrack: Track(from: snapshot))})
-        ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(changedTrack: Track(from: snapshot))})
+        self.ref = Database.database().reference().child("/parties/\(currentParty)")
+
+        ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(TrackModel(from: snapshot))})
+        addObserver = ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
+        ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(TrackModel(from: snapshot))})
+        ref.child("/currentlyPlaying").observe(.value, with: { (snapshot) in self.onCurrentTrackChanged(snapshot)})
     }
 
-    func onChildAdded(changedTrack: Track) {
-        self.queue.append(changedTrack)
-        self.queue = self.queue.sorted() { $0.voteCount > $1.voteCount }
+    func onChildAdded(_ changedTrack: TrackModel) {
+        currentQueue.append(changedTrack)
+        currentQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let index = getIndex(of: changedTrack)
         self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+
+        self.tableView.reloadData()
+
     }
 
-    func onChildChanged(changedTrack: Track) {
-        //Update Votes
+    func onChildChanged(_ changedTrack: TrackModel) {
         let index = getIndex(of: changedTrack)
-        self.queue[index] = changedTrack
+        currentQueue[index] = changedTrack
         self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
 
-        //Reorder Cell
-        let sortedQueue = self.queue.sorted() { $0.voteCount > $1.voteCount }
+        let sortedQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let newIndex = sortedQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId })!
+
         if newIndex != index {
             self.tableView.moveRow(at: IndexPath(item: index, section: 0), to: IndexPath(item: newIndex, section: 0))
-            self.queue = sortedQueue
+            currentQueue = sortedQueue
         }
     }
 
-    func onChildRemoved(changedTrack: Track) {
+
+    func onChildRemoved(_ changedTrack: TrackModel) {
         let index = getIndex(of: changedTrack)
-        self.queue.remove(at: index)
-        self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: .left)
+        currentQueue.remove(at: index)
+        self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
+        self.tableView.reloadData()
+
+    }
+
+
+    func onCurrentTrackChanged(_ snapshot: DataSnapshot) {
+        let needsCheck = currentTrack == nil
+        currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
+        if needsCheck && currentTrack != nil { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
+        miniPlayer?.setting()
+        miniPlayer?.update()
     }
 
     //Helper function finding a changed Track in the existing queue
-    func getIndex(of findTrack: Track) -> Int {
-        return self.queue.index(where: { (track) -> Bool in track.trackId == findTrack.trackId })!
+    func getIndex(of findTrack: TrackModel) -> Int {
+        //TODO Thread 1: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+        if currentQueue.count == 0 { return -1}
+        return currentQueue.index(where: { (track) -> Bool in track.trackId == findTrack.trackId })!
     }
 
 
@@ -94,40 +128,64 @@ class PartyPlaylistViewController: UIViewController {
     }
 
     func freeObservers(){
-        ref.removeAllObservers()
-        self.ref = Database.database().reference()
-    }
-
-  override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        ref.child("/queue").removeAllObservers()
+        ref.child("/currentlyPlaying").removeAllObservers()
+        currentParty = ""
+        currentQueue = []
+        currentTrack = nil
+        currentAdmin = false
     }
 }
 
-/*
- Data Source
 
- */
+extension PartyPlaylistViewController: PlayerDelegate{
+    func expandSong() {
 
+        guard let expandedTrackCard = UIStoryboard(name: "UIPlayer", bundle: nil).instantiateViewController(withIdentifier: "ExpandedTrackViewController")
+            as? ExpandedTrackViewController else {
+                assertionFailure("No view controller ID ExpandedTrackViewController in this storyboard found")
+                return
+        }
+        expandedTrackCard.backingPic = view.makeScreenshot(true)
+        expandedTrackCard.sourceView = miniPlayer
+        present(expandedTrackCard, animated: false)
+    }
+}
+
+// Screenshot for Expanded Player Background
+extension UIView  {
+    func makeScreenshot(_ fullScreen: Bool) -> UIImage? {
+        if fullScreen {
+            let layer = UIApplication.shared.keyWindow!.layer
+            let scale = UIScreen.main.scale
+            UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
+            layer.render(in: UIGraphicsGetCurrentContext()!)
+        } else {
+            UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+            drawHierarchy(in: bounds, afterScreenUpdates: true)
+        }
+        let screen = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return screen
+    }
+}
+
+
+// MARK: Table View Extensions
 extension PartyPlaylistViewController: UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return queue.count
+        return currentQueue.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let track = queue[indexPath.item]
+        let track = currentQueue[indexPath.item]
         let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! TrackCell
         cell.setup(from: track)
         cell.partyRef = self.ref
         return cell
     }
 }
-
-/*
- ViewDelegate
-
- */
 
 extension PartyPlaylistViewController: UITableViewDelegate{
 
@@ -138,8 +196,8 @@ extension PartyPlaylistViewController: UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
 
-        let track = self.queue[indexPath.item]
-        if !isAdmin{
+        let track = currentQueue[indexPath.item]
+        if !currentAdmin{
             return UISwipeActionsConfiguration(actions: [])
         }
         let modifyAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
@@ -160,18 +218,18 @@ extension PartyPlaylistViewController: UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
-        let track = self.queue[indexPath.item]
+        let track = currentQueue[indexPath.item]
 
         let voteAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
 
+            success(true)
             if track.liked{
                 //Unlike
-                self.ref.child("/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
+                self.ref.child("/parties/\(currentParty)/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
             } else {
                 //Like
-                self.ref.child("/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
+                self.ref.child("/parties/\(currentParty)/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
             }
-            success(true)
         })
         voteAction.image = UIImage(named: track.liked ? "favorite" : "favoriteOutline")
         voteAction.backgroundColor = UIColor(named: "SolidBlue400")
@@ -180,10 +238,19 @@ extension PartyPlaylistViewController: UITableViewDelegate{
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.text = "The Show must go on! Keep adding Tracks."
-        label.textAlignment = .center
-        label.textColor = .white
-        return label
+        if(currentQueue.count <= 5){
+            label.text = "Just \(currentQueue.count) songs left. The Show must go on! Keep adding Tracks."
+            label.font.withSize(8)
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
+            label.textColor = .white
+            label.textAlignment = .center
+            return label }
+
+        else {
+            label.isHidden = true
+            return label
+        }
+
     }
 }

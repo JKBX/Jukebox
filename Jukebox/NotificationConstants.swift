@@ -9,8 +9,14 @@
 extension Notification.Name {
     struct Spotify {
         static let loggedIn = Notification.Name("loggedIn")
+        static let toggle = Notification.Name("toggle")
+        static let nextSong = Notification.Name("SptNext")
+        static let prevSong = Notification.Name("SptRestart")
+        static let startBroadcast = Notification.Name("SptStartBroadcast")
+        static let stopBroadcast = Notification.Name("SptStopBroadcast")
+
     }
-    
+
     struct Auth {
         static let loading = Notification.Name("loading")
     }
