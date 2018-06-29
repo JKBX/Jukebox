@@ -54,8 +54,11 @@ class PartyCollectionViewController: UICollectionViewController {
         if userID == nil {
             return
         }
-        ref.child("users/\(userID!)/parties").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
+        self.hostParties = []
+        self.guestParties = []
+        //ref.child("users/\(userID!)/parties").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("users/\(userID!)/parties").observe(.value) { (snapshot) in
+                // Get user value
             let parties = snapshot.value as? NSDictionary
             print("\(snapshot.value)")
             parties?.forEach({ (arg: (key: Any, value: Any)) in
@@ -74,7 +77,7 @@ class PartyCollectionViewController: UICollectionViewController {
                     self.collectionView?.reloadData()
                 }) {(error) in print(error.localizedDescription)}
             })
-        }) {(error) in print(error.localizedDescription)}
+        }/*) {(error) in print(error.localizedDescription)}*/
     }
 
     override func didReceiveMemoryWarning() {
