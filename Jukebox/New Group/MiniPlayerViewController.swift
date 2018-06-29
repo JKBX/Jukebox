@@ -148,16 +148,7 @@ extension MiniPlayerViewController{
         
         
     }
-    //        var time1 = position
-    //
-    //        var durationTime: String{
-    //            let formatter = DateFormatter()
-    //            formatter.dateFormat = "mm:ss"
-    //            let date = Date(timeIntervalSince1970: time1)
-    //            return formatter.string(from: date)
-    //        }
-    ////       --> progress bar
-    ////        durationTime.text = durationTime
+
 }
 
 

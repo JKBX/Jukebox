@@ -20,12 +20,9 @@ class MainViewController: UINavigationController {
         if SPTAuth.defaultInstance().session == nil || Auth.auth().currentUser == nil{
             DispatchQueue.main.async { self.performSegue(withIdentifier: "showLogin", sender: self) }
         }
-
-        
         volumeBar()
     }
-    
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -39,10 +36,10 @@ class MainViewController: UINavigationController {
 extension MainViewController{
     func volumeBar(){
         let volumeBar = VolumeBar.shared
-        var customStyle = VolumeBarStyle.rightOfNotch
-        customStyle.trackTintColor = .white
-        customStyle.progressTintColor = .black
-        customStyle.backgroundColor = .init(red: 0, green: 0, blue: 0, alpha: 0)
+        var customStyle = VolumeBarStyle.likeInstagram
+        customStyle.trackTintColor = .black
+        customStyle.progressTintColor = .white
+        customStyle.backgroundColor = UIColor(named: "SolidGrey800")!
         volumeBar.style = customStyle
         volumeBar.start()
     }
