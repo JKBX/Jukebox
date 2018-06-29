@@ -25,4 +25,13 @@ extension Auth {
             })
         }
     }
+    
+    func signOut(completion: (_: Error?)->Void){
+        do {try Auth.auth().signOut()}
+        catch let error as NSError { completion(error); return}
+        SPTAudioStreamingController.sharedInstance().logout()
+        SPTAuth.defaultInstance().session = nil
+        UserDefaults.standard.removeObject(forKey: SpotifyConfig.sessionKey)
+        completion(nil)
+    }
 }
