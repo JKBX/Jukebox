@@ -13,6 +13,7 @@ import Alamofire
 
 class SpotifyAuthViewController: UIViewController {
     
+    var delegate: CardDelegate?
     //Spotify User Object, containing User Data, once authenticated \w Spotify
     var user: SPTUser?
     
