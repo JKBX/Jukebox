@@ -15,10 +15,8 @@
 		17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E6820BDC146000EF085 /* NotificationConstants.swift */; };
 		17AE0E7820BDC1D8000EF085 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E7720BDC1D8000EF085 /* MainViewController.swift */; };
 		17AE0E7D20BDC23A000EF085 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0E7B20BDC23A000EF085 /* Main.storyboard */; };
-		17AE0E8420BDC3AA000EF085 /* SpotifyAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E8020BDC3AA000EF085 /* SpotifyAuthViewController.swift */; };
+		17AE0E8420BDC3AA000EF085 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E8020BDC3AA000EF085 /* LoginViewController.swift */; };
 		17AE0E8520BDC3AA000EF085 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0E8120BDC3AA000EF085 /* Auth.storyboard */; };
-		17AE0E8620BDC3AA000EF085 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E8220BDC3AA000EF085 /* LoginViewController.swift */; };
-		17AE0E8720BDC3AA000EF085 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E8320BDC3AA000EF085 /* RegisterViewController.swift */; };
 		17AE0E8B20BDC52E000EF085 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17AE0E8A20BDC52E000EF085 /* SpotifyMetadata.framework */; };
 		17AE0E9420BDC657000EF085 /* JoinPartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E8D20BDC657000EF085 /* JoinPartyViewController.swift */; };
 		17AE0E9520BDC657000EF085 /* PartyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AE0E8E20BDC657000EF085 /* PartyCollectionViewController.swift */; };
@@ -30,8 +28,8 @@
 		17AE0EA320BDDBCD000EF085 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17AE0EA220BDDBCD000EF085 /* Assets.xcassets */; };
 		17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */; };
 		17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */; };
-		17D2C91F20E51F4800FA94FA /* CenteredSquareProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C91E20E51F4800FA94FA /* CenteredSquareProcessor.swift */; };
 		17D2C92120E524C400FA94FA /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C92020E524C400FA94FA /* AuthViewController.swift */; };
+		17D2C92320E5B02400FA94FA /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D2C92220E5B02400FA94FA /* FirebaseAuth.swift */; };
 		17DC0B8320CEDC37001C8DF1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DC0B8220CEDC37001C8DF1 /* Search.storyboard */; };
 		17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */; };
 		17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DDDEEA20C84D680097291F /* TrackModel.swift */; };
@@ -63,10 +61,8 @@
 		17AE0E6820BDC146000EF085 /* NotificationConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationConstants.swift; sourceTree = "<group>"; };
 		17AE0E7720BDC1D8000EF085 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		17AE0E7C20BDC23A000EF085 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		17AE0E8020BDC3AA000EF085 /* SpotifyAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAuthViewController.swift; sourceTree = "<group>"; };
+		17AE0E8020BDC3AA000EF085 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		17AE0E8120BDC3AA000EF085 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
-		17AE0E8220BDC3AA000EF085 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		17AE0E8320BDC3AA000EF085 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		17AE0E8A20BDC52E000EF085 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
 		17AE0E8D20BDC657000EF085 /* JoinPartyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 1; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = JoinPartyViewController.swift; sourceTree = "<group>"; tabWidth = 1; };
 		17AE0E8E20BDC657000EF085 /* PartyCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyCollectionViewController.swift; sourceTree = "<group>"; };
@@ -78,8 +74,8 @@
 		17AE0EA220BDDBCD000EF085 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17D2C91A20DEAF7500FA94FA /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		17D2C91C20DFCDE700FA94FA /* PlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDelegate.swift; sourceTree = "<group>"; };
-		17D2C91E20E51F4800FA94FA /* CenteredSquareProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredSquareProcessor.swift; sourceTree = "<group>"; };
 		17D2C92020E524C400FA94FA /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		17D2C92220E5B02400FA94FA /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		17DC0B8220CEDC37001C8DF1 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		17DDDEEA20C84D680097291F /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
@@ -129,13 +125,11 @@
 			children = (
 				17AE0E8120BDC3AA000EF085 /* Auth.storyboard */,
 				17D2C92020E524C400FA94FA /* AuthViewController.swift */,
-				17AE0E8020BDC3AA000EF085 /* SpotifyAuthViewController.swift */,
+				17AE0E8020BDC3AA000EF085 /* LoginViewController.swift */,
 				179C11CE20D9CBAF00EF9726 /* ProfileViewController.swift */,
 				179C11D020DBE08300EF9726 /* InfoCardViewController.swift */,
 				179C11D220DBE09000EF9726 /* EditCardViewController.swift */,
-				17D2C91E20E51F4800FA94FA /* CenteredSquareProcessor.swift */,
-				17AE0E8220BDC3AA000EF085 /* LoginViewController.swift */,
-				17AE0E8320BDC3AA000EF085 /* RegisterViewController.swift */,
+				17D2C92220E5B02400FA94FA /* FirebaseAuth.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -407,8 +401,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17AE0E8720BDC3AA000EF085 /* RegisterViewController.swift in Sources */,
-				17AE0E8420BDC3AA000EF085 /* SpotifyAuthViewController.swift in Sources */,
+				17AE0E8420BDC3AA000EF085 /* LoginViewController.swift in Sources */,
 				E06F85DB20D2CAEF0073E29D /* TrackPlayControlViewController.swift in Sources */,
 				17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */,
 				17AE0E9A20BDC657000EF085 /* SectionHeader.swift in Sources */,
@@ -421,6 +414,7 @@
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
 				17D2C92120E524C400FA94FA /* AuthViewController.swift in Sources */,
 				17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */,
+				17D2C92320E5B02400FA94FA /* FirebaseAuth.swift in Sources */,
 				17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */,
 				E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */,
 				E06F85D920D29A910073E29D /* ExpandedTrackViewController.swift in Sources */,
@@ -428,7 +422,6 @@
 				17AE0E6720BDC119000EF085 /* AudioStreamingDelegate.swift in Sources */,
 				E03118DF20CFEC0B00B9E570 /* MiniPlayerViewController.swift in Sources */,
 				790CCC8520BDE0080081621B /* TrackCell.swift in Sources */,
-				17AE0E8620BDC3AA000EF085 /* LoginViewController.swift in Sources */,
 				17AE0E7820BDC1D8000EF085 /* MainViewController.swift in Sources */,
 				17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */,
 				17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */,
@@ -436,7 +429,6 @@
 				17AE0E9420BDC657000EF085 /* JoinPartyViewController.swift in Sources */,
 				17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */,
 				17AE0E6520BDC0BC000EF085 /* Constants.swift in Sources */,
-				17D2C91F20E51F4800FA94FA /* CenteredSquareProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
