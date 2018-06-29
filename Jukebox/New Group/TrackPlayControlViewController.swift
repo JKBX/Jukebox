@@ -18,6 +18,7 @@ class TrackPlayControlViewController: UIViewController {
     @IBOutlet weak var previousButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
+    var timer: Timer!
     
     
     override func viewDidLoad() {
@@ -46,7 +47,7 @@ class TrackPlayControlViewController: UIViewController {
                     self.playPauseButton.alpha = 1.0
                 },completion:nil)
             })
-            
+            self.songDuration(currentTrack!)
         })
     }
     
@@ -91,16 +92,43 @@ extension TrackPlayControlViewController{
     
     //        var time1 = position
     //
-    //        var durationTime: String{
-    //            let formatter = DateFormatter()
-    //            formatter.dateFormat = "mm:ss"
-    //            let date = Date(timeIntervalSince1970: time1)
-    //            return formatter.string(from: date)
+
     //        }
     ////       --> progress bar
     ////        durationTime.text = durationTime
+
+    
+    func songDuration(_ currentTrack: TrackModel){
+        
+            var position = currentTrack.playbackStatus?.position
+            
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                if(currentTrack.isPlaying){
+                    
+                    self.resetTimer()
+                    print(position)
+                    var durationTime: String{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "mm:ss"
+                        let date = Date(timeIntervalSince1970: position!)
+                        return formatter.string(from: date)
+                        
+                    }
+                    print(durationTime, "TESTEsTES")
+                    self.songDuration.text = durationTime
+                }
+              })
+        
+        
+}
+    
+func resetTimer() {
+    if timer != nil{
+        timer.invalidate()
+        timer = nil
+    }
 }
 
 
-
+}
 

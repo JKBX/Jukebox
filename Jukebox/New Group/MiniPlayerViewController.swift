@@ -142,12 +142,7 @@ extension MiniPlayerViewController{
         }
     }
     
-    
-    func songDuration(_ currentTrack: TrackModel){
-        var playStatus = currentTrack.playbackStatus
-        
-        
-    }
+
 
 }
 
