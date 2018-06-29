@@ -11,13 +11,15 @@ import FirebaseAuth
 import SafariServices
 
 class LoginViewController: UIViewController {
+    
+    var authSession: SFAuthenticationSession?
     @IBAction func authenticateSpotify(_ sender: Any) {
         //Grab URLs for App & Web Auth, get Redirect URL
         let webURL = SPTAuth.defaultInstance().spotifyWebAuthenticationURL()!
         let redURL = SPTAuth.defaultInstance().redirectURL.absoluteString
     
         //Init Auth Session
-        let authSession = SFAuthenticationSession(url: webURL, callbackURLScheme: redURL) { (url:URL?, error:Error? ) in
+        self.authSession = SFAuthenticationSession(url: webURL, callbackURLScheme: redURL) { (url:URL?, error:Error? ) in
             guard error == nil, let successURL = url else { print("Error Authenticating!"); return; }
             NotificationCenter.default.post(name: NSNotification.Name.Auth.loading, object:(true, "Signing in..."))
             SPTAuth.defaultInstance().handleAuthCallback(withTriggeredAuthURL: successURL) { (error, session) in
@@ -28,6 +30,6 @@ class LoginViewController: UIViewController {
                 }
             }
         }
-        authSession.start()
+        self.authSession?.start()
     }
 }
