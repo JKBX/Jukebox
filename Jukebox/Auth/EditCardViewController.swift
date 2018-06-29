@@ -64,6 +64,7 @@ class EditCardViewController: UIViewController, UITextFieldDelegate, UIImagePick
     
     @IBAction func update(_ sender: Any) {
         uploadProfilePicture { (imageUrl) in
+            self.view.endEditing(true)
             guard let update = Auth.auth().currentUser?.createProfileChangeRequest() else {print("Failed to Update Profile"); return }
             update.displayName = self.displayName.text
             if let url = imageUrl { update.photoURL = url }
