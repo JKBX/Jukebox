@@ -1,6 +1,6 @@
 //
-//  ViewController.swift
-//  test
+//  LoginViewController.swift
+//  Jukebox
 //
 //  Created by Philipp on 25.04.18.
 //  Copyright © 2018 Philipp. All rights reserved.
@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import SafariServices
 
-class SpotifyAuthViewController: UIViewController {
+class LoginViewController: UIViewController {
     @IBAction func authenticateSpotify(_ sender: Any) {
         //Grab URLs for App & Web Auth, get Redirect URL
         let webURL = SPTAuth.defaultInstance().spotifyWebAuthenticationURL()!
