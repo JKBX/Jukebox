@@ -107,7 +107,9 @@ class PartyCollectionViewController: UICollectionViewController {
             return (party: self.guestParties[indexPath.item], id: self.guestPartyIds[indexPath.item])
         }
     }
-
+    
+// setzt die PartyBilder, leider gerade willkürlich und gleiche bilder werden mehrmals gesetzt
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,

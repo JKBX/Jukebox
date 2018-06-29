@@ -78,7 +78,6 @@ extension TrackPlayControlViewController{
     func setFields(){
         songTitle.text = currentTrack?.songName
         artist.text = currentTrack?.artist
-        print("\(currentTrack?.artist) + ARTIST TEST")
     }
 
     // Marquee settings
