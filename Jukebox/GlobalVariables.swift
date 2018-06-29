@@ -14,6 +14,7 @@ var currentTrack: TrackModel?
 var currentQueue: [TrackModel] = []
 var currentAdmin: Bool = false
 var isBroadcasting: Bool = false
+var currentTrackPosition: TimeInterval = 0
 
 var currentParty:String = "" {
     willSet{

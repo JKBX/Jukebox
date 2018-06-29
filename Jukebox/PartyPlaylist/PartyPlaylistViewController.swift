@@ -110,6 +110,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         let needsCheck = currentTrack == nil
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
         if needsCheck && currentTrack != nil { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
+        NotificationCenter.default.post(name: NSNotification.Name.Player.trackChanged, object: nil)
         miniPlayer?.setting()
         miniPlayer?.update()
     }

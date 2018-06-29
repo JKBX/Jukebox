@@ -18,6 +18,8 @@ class TrackPlayControlViewController: UIViewController {
     @IBOutlet weak var previousButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
+    var timer: Timer!
+
     
     
     override func viewDidLoad() {
@@ -25,39 +27,28 @@ class TrackPlayControlViewController: UIViewController {
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
         setFields()
-        if((currentTrack?.isPlaying)!){
-            playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-        }else{playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)}
+        updateDuration()
         
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in  DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // change  - 0.5 - to desired number of seconds
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
             self.setFields()
-            }})
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/isPlaying").observe(.value, with: { (snapshot) in
+            self.playPause()
             
-            UIView.animate(withDuration: 0.3, animations: {
-                self.playPauseButton.alpha = 0.3
-            }, completion: {(finished) in
-                if("\(snapshot.value!)" == "1"){
-                    self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-                }else{
-                    self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-                }
-                UIView.animate(withDuration: 0.2, animations:{
-                    self.playPauseButton.alpha = 1.0
-                },completion:nil)
-            })
-            
-        })
-    }
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.position, object: nil, queue: nil) { (note) in
+            self.updateDuration()
+
+        }
+        timer = Timer.init()
+        
+  
+ }
     
     override func viewWillAppear(_ animated: Bool) {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
-        
-        
-        
-    }
+        setPlayPause()
+   }
     
     @IBAction func playButton(_ sender: Any) {
         
@@ -87,13 +78,81 @@ extension TrackPlayControlViewController{
         label.trailingBuffer = 50
         label.fadeLength = 5.0
         label.isUserInteractionEnabled = false
+        
+  }
+        
+        
+
+    
+    
+    func playPause () {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.playPauseButton.alpha = 0.3
+        }, completion: {(finished) in
+            if(currentTrack?.isPlaying)!{
+                self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+            }else{
+                self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+            }
+            UIView.animate(withDuration: 0.2, animations:{
+                self.playPauseButton.alpha = 1.0
+            },completion:nil)
+        })
+    }
+    func setPlayPause(){
+        if((currentTrack?.isPlaying)!){
+            playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+        }else{playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)}
     }
     
-    func onCurrentTrackChangedTrackPlayer(_ snapshot: DataSnapshot) {
-       
-        
+    
+    
+    
+    
+    func updateDuration() {
+        if(currentAdmin){
+            
+            var durationTime: String{
+                let formatter = DateFormatter()
+                formatter.dateFormat = "mm:ss"
+                let date = Date(timeIntervalSince1970: currentTrackPosition)
+                return formatter.string(from: date)
+            }
+            
+            self.songDuration.text = durationTime
+        }
+        else{
+            if (currentTrack?.isPlaying)!{
+                
+                resetTimer()
+                
+                var position: TimeInterval = (currentTrack?.playbackStatus?.position)!
+                
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                
+                var durationTime: String{
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "mm:ss"
+                    let date = Date(timeIntervalSince1970: currentTrackPosition)
+                    return formatter.string(from: date)
+                }
+                
+                self.songDuration.text = durationTime
+                
+                            })
+                        } else {
+                            resetTimer()}
+        } }
+    
+    func resetTimer() {
+        if timer != nil{
+            timer.invalidate()
+            timer = nil
+        }
     }
- 
+
+    
+
 }
 
 
