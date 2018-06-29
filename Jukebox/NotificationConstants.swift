@@ -17,4 +17,6 @@ extension Notification.Name {
 
     }
     
+    
+    static let loading = Notification.Name("loading")
 }

@@ -7,7 +7,11 @@
 		<key>Jukebox.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
+<<<<<<< HEAD
+			<integer>10</integer>
+=======
 			<integer>17</integer>
+>>>>>>> master
 		</dict>
 	</dict>
 </dict>

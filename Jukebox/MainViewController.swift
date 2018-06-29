@@ -13,7 +13,10 @@ import VolumeBar
 class MainViewController: UINavigationController {
 
     @IBOutlet weak var naviBar: UINavigationBar!
-   
+    //Loading View
+    var blurredBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,19 +26,11 @@ class MainViewController: UINavigationController {
 
         
         volumeBar()
+        setupLoadingOverlay()
     }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
-/*
- setting for the volumeBar
- */
+
+//Volume Bar Extension
 extension MainViewController{
     func volumeBar(){
         let volumeBar = VolumeBar.shared
@@ -48,4 +43,30 @@ extension MainViewController{
     }
 }
 
-
+//Loading Overlay Extension
+extension MainViewController{
+    func setupLoadingOverlay() {
+        self.blurredBackgroundView.frame = view.bounds
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(forName: NSNotification.Name.loading, object: nil, queue: nil) { (e) in
+            guard let notification: (loading:Bool, message:String, at: UIViewController) = e.object as? (loading: Bool, message: String, at: UIViewController) else {return}
+            if notification.loading {
+                notification.at.view.addSubview(self.blurredBackgroundView)
+                notification.at.present(self.getAlert(for: notification.message), animated: true, completion: nil)
+            } else {
+                notification.at.dismiss(animated: true, completion: nil)
+                self.blurredBackgroundView.removeFromSuperview()
+            }
+        }
+    }
+    
+    func getAlert(for message: String) -> UIAlertController {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        alert.view.addSubview(loadingIndicator)
+        return alert
+    }
+}
