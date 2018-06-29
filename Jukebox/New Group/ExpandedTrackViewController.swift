@@ -91,7 +91,13 @@ class ExpandedTrackViewController: UIViewController {
         animateImageLayerIN()
         animateCoverImageIN()
         animateLowerModulIN()
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in self.onCurrentTrackChangedExpandedPlayer(snapshot)})
+        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                
+                self.coverImage.kf.indicatorType = .activity
+                self.coverImage.kf.setImage(with: currentTrack?.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
+            }
+        })
     }
 }
 
@@ -276,20 +282,3 @@ extension ExpandedTrackViewController{
         animateLowerModul(isPresenting: false)
     }
 }
-
-extension ExpandedTrackViewController {
-    
-    func onCurrentTrackChangedExpandedPlayer(_ snapshot: DataSnapshot) {
-        
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let duration = 1.0
-            UIView.animate(withDuration: 0.2, animations: {
-                self.coverImage.alpha = 0.7
-            }, completion: {(finished) in
-                self.coverImage.kf.indicatorType = .activity
-                self.coverImage.kf.setImage(with: currentTrack?.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
-                UIView.animate(withDuration: duration, animations:{
-                    self.coverImage.alpha = 1.0
-                },completion:nil)
-            })
-        }}}
