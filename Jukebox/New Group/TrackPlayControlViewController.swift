@@ -26,39 +26,20 @@ class TrackPlayControlViewController: UIViewController {
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
         setFields()
-        if((currentTrack?.isPlaying)!){
-            playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-        }else{playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)}
-        
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in  DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // change  - 0.5 - to desired number of seconds
+        durationSet()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
             self.setFields()
-            }})
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/isPlaying").observe(.value, with: { (snapshot) in
-            
-            UIView.animate(withDuration: 0.3, animations: {
-                self.playPauseButton.alpha = 0.3
-            }, completion: {(finished) in
-                if("\(snapshot.value!)" == "1"){
-                    self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-                }else{
-                    self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-                }
-                UIView.animate(withDuration: 0.2, animations:{
-                    self.playPauseButton.alpha = 1.0
-                },completion:nil)
-            })
-            self.songDuration(currentTrack!)
-        })
-    }
+            self.playPause()
+        }
+  
+ }
     
     override func viewWillAppear(_ animated: Bool) {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
-        
-        
-        
-    }
+        setPlayPause()
+   }
     
     @IBAction func playButton(_ sender: Any) {
         
@@ -88,47 +69,63 @@ extension TrackPlayControlViewController{
         label.trailingBuffer = 50
         label.fadeLength = 5.0
         label.isUserInteractionEnabled = false
-    }
-    
-    //        var time1 = position
-    //
-
-    //        }
-    ////       --> progress bar
-    ////        durationTime.text = durationTime
-
-    
-    func songDuration(_ currentTrack: TrackModel){
         
-            var position = currentTrack.playbackStatus?.position
+  }
+        
+        
+    func durationSet(){
+        
+        if (timer == nil) && (currentTrack?.isPlaying)! {
             
-            Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-                if(currentTrack.isPlaying){
-                    
-                    self.resetTimer()
-                    print(position)
-                    var durationTime: String{
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "mm:ss"
-                        let date = Date(timeIntervalSince1970: position!)
-                        return formatter.string(from: date)
-                        
-                    }
-                    print(durationTime, "TESTEsTES")
-                    self.songDuration.text = durationTime
-                }
-              })
-        
-        
-}
-    
-func resetTimer() {
-    if timer != nil{
-        timer.invalidate()
-        timer = nil
+            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+                
+                print("TEstest")
+                
+            })
+        }else{
+            resetTimer()
+        }
     }
+    
+    func resetTimer() {
+        if timer != nil{
+            timer.invalidate()
+            timer = nil
+        }
+    }
+    
+    
+    func playPause () {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.playPauseButton.alpha = 0.3
+        }, completion: {(finished) in
+            if(currentTrack?.isPlaying)!{
+                self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+            }else{
+                self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+            }
+            UIView.animate(withDuration: 0.2, animations:{
+                self.playPauseButton.alpha = 1.0
+            },completion:nil)
+        })
+    }
+    func setPlayPause(){
+        if((currentTrack?.isPlaying)!){
+            playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+        }else{playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)}
+    }
+//timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+//    var durationTime: String{
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "mm:ss"
+//        let date = Date(timeIntervalSince1970: position!)
+//        return formatter.string(from: date)
+//    }
+//
+//    self.songDuration.text = durationTime
+
 }
 
 
-}
+
 

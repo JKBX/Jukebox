@@ -17,4 +17,10 @@ extension Notification.Name {
 
     }
     
+    struct Player {
+        
+        static let trackChanged = Notification.Name("player")
+        
+    }
+    
 }

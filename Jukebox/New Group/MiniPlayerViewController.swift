@@ -36,13 +36,13 @@ class MiniPlayerViewController: UIViewController{
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
         userTriggeredButton(isAdmin: currentAdmin)
         timer = Timer.init()
+        playPauseButton()
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         playPause.adjustsImageWhenHighlighted = false
-        playPause =  playPauseButton(playPause)
-        
+  
     }
     
     @IBAction func Play(_ sender: Any) {
@@ -167,24 +167,22 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
         broadcastingButton.isEnabled = !isAdmin
     }
  
-    func playPauseButton(_ button: UIButton) -> UIButton{
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/isPlaying").observe(.value, with: { (snapshot) in
+    func playPauseButton(){
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
             
             UIView.animate(withDuration: 0.3, animations: {
-                button.alpha = 0.3
+                self.playPause.alpha = 0.3
             }, completion: {(finished) in
-                if("\(snapshot.value!)" == "1"){
-                    button.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+                if(currentTrack?.isPlaying)!{
+                    self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
                 }else{
-                    button.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+                    self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
                 }
                 UIView.animate(withDuration: 0.2, animations:{
                     self.playPause.alpha = 1.0
                 },completion:nil)
             })
-            
-        })
-        return button
+        }
     }
 }
 

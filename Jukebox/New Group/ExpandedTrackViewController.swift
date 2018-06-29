@@ -73,6 +73,7 @@ class ExpandedTrackViewController: UIViewController {
         coverImage.layer.masksToBounds = true
         let corner: CGFloat = 10
         coverImage.layer.cornerRadius = corner
+        update()
         
     }
 
@@ -91,13 +92,7 @@ class ExpandedTrackViewController: UIViewController {
         animateImageLayerIN()
         animateCoverImageIN()
         animateLowerModulIN()
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                
-                self.coverImage.kf.indicatorType = .activity
-                self.coverImage.kf.setImage(with: currentTrack?.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
-            }
-        })
+
     }
 }
 
@@ -258,7 +253,11 @@ extension ExpandedTrackViewController{
         let inset = bounds.height - bounds.width
         return inset
     }
-    
+    func update(){
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
+            self.coverImage.kf.indicatorType = .activity
+            self.coverImage.kf.setImage(with: currentTrack?.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
+        }}
     func setModulStartPosition(){
         lowerModulTopConstraint.constant = lowerModulPosition
     }
