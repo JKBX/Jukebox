@@ -19,23 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
-        //Setup Firebase
         FirebaseApp.configure()
-
-        //Setup Spotify
         setupSpotify()
-
-        //Setup AV Audio
-        //setupAudioSession()
-        
-        do {try Auth.auth().signOut()}
-        catch let signOutError as NSError {  print ("Error signing out: %@", signOutError) }
-        
-        SPTAudioStreamingController.sharedInstance().logout()
-        SPTAuth.defaultInstance().session = nil
-        UserDefaults.standard.removeObject(forKey: SpotifyConfig.sessionKey)
-
         return true
     }
 
@@ -59,9 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        /*if (currentTrack?.isPlaying)!{
-            NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
-        }*/
     }
 
 }
@@ -88,18 +70,6 @@ extension AppDelegate {
         // Start the spotify player
         do { try stream.start(withClientId: SpotifyConfig.clientID)}
         catch { fatalError("Couldn't start Spotify SDK") }
-
-        if let session = auth.session {
-            if session.isValid(){ stream.login(withAccessToken: session.accessToken) }
-            else {
-                auth.renewSession(auth.session) { (error, session) in
-                    if let error = error { print(error); return }
-                    if let session = session { stream.login(withAccessToken: session.accessToken) }
-                }
-            }
-        }
-
-
     }
 
 }
