@@ -9,82 +9,89 @@
 import UIKit
 import FirebaseAuth
 
+protocol CardDelegate { func editing(_ active: Bool) }
+
 class ProfileViewController: UIViewController, CardDelegate {
     
-    @IBOutlet weak var infoCard: InfoCardViewController!
-    @IBOutlet weak var editCard: EditCardViewController!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var container: UIView!
+    var info: InfoCardViewController?
+    var edit: EditCardViewController?
+    var delegate: CardDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        infoCard.delegate = self
-        editCard.delegate = self
-
-        // Do any additional setup after loading the view.
+        self.addCardViews()
+        self.setObservers()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if Auth.auth().currentUser?.displayName == nil{
-            self.editing(true)
+    func addCardViews() {
+        self.info = self.storyboard?.instantiateViewController(withIdentifier: "infoCard") as? InfoCardViewController
+        if let info = self.info {
+            self.info?.delegate = self
+            info.willMove(toParentViewController: self)
+            container.addSubview(info.view)
+            self.addChildViewController(info)
+            info.view.frame = container.bounds
+            info.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            info.didMove(toParentViewController: self)
+            self.info?.view.isHidden = true
+        }
+        
+        self.edit = self.storyboard?.instantiateViewController(withIdentifier: "editCard") as? EditCardViewController
+        if let edit = self.edit {
+            self.edit?.delegate = self
+            edit.willMove(toParentViewController: self)
+            container.addSubview(edit.view)
+            self.addChildViewController(edit)
+            edit.view.frame = container.bounds
+            edit.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            edit.didMove(toParentViewController: self)
+            self.edit?.view.isHidden = true
         }
     }
     
-    @IBAction func switchEditing(_ sender: Any) {
-        self.editing(editCard.isHidden)
+    func setObservers(){
+        Auth.auth().addIDTokenDidChangeListener { (_, user) in
+            guard let user = user else { return }
+            self.info?.update(user)
+            self.edit?.update(user)
+            if let _ = user.displayName { self.editing(false) }
+            else { self.editing(true) }
+        }
     }
     
     func editing(_ active: Bool) {
-        //TODO switch title
         let transitionOptions: UIViewAnimationOptions = [.transitionFlipFromRight, .showHideTransitionViews]
-        
-        if active{
-            UIView.transition(with: infoCard, duration: 0.8, options: transitionOptions, animations: {
-                self.infoCard.isHidden = true
-            })
-            UIView.transition(with: editCard, duration: 0.8, options: transitionOptions, animations: {
-                self.editCard.isHidden = false
-            })
-        } else {
-            UIView.transition(with: editCard, duration: 0.8, options: transitionOptions, animations: {
-                self.editCard.isHidden = true
-            })
-            UIView.transition(with: infoCard, duration: 0.8, options: transitionOptions, animations: {
-                self.infoCard.isHidden = false
-            })
+        guard let info = info else {print("Info View not set"); return}
+        guard let edit = edit else {print("Edit View not set"); return}
+        if info.view.isHidden && edit.view.isHidden{
+            if active {edit.view.isHidden = false}
+            else {info.view.isHidden = false}
+            return
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        if active{
+            UIView.transition(with: info.view, duration: 0.8, options: transitionOptions, animations: { info.view.isHidden = true })
+            UIView.transition(with: edit.view, duration: 0.8, options: transitionOptions, animations: { edit.view.isHidden = false })
+        } else {
+            UIView.transition(with: edit.view, duration: 0.8, options: transitionOptions, animations: { edit.view.isHidden = true })
+            UIView.transition(with: info.view, duration: 0.8, options: transitionOptions, animations: { info.view.isHidden = false })
+        }
+        guard let user = Auth.auth().currentUser else { return }
+        info.update(user)
+        edit.update(user)
+        self.delegate?.editing(active)
     }
     
     @IBAction func logout(_ sender: Any) {
-        print("lgout")
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in }
         let logoutAction = UIAlertAction(title: "Disconnect", style: .destructive) { action in
-            do {try Auth.auth().signOut()}
-            catch let signOutError as NSError {  print ("Error signing out: %@", signOutError) }
-            SPTAudioStreamingController.sharedInstance().logout()
-            SPTAuth.defaultInstance().session = nil
-            UserDefaults.standard.removeObject(forKey: SpotifyConfig.sessionKey)
+            Auth.auth().signOut(completion: { (error) in
+                if let error = error {print(error)}
+            })
         }
-        
         let alertController = UIAlertController(title: nil, message: "Do you really want to disconnect from Spotify ?", preferredStyle: .actionSheet)
         alertController.addAction(cancelAction)
         alertController.addAction(logoutAction)
         self.present(alertController, animated: true)
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
