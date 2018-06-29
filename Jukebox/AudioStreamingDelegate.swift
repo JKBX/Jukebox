@@ -104,11 +104,8 @@ class AudioStreamingDelegate: NSObject {
         swapToHistory {
             ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
                 let next = snapshot.value as! NSDictionary
-                next.setValue(snapshot.key, forKey: "id")
-                
+                next.setValue(snapshot.key, forKey: "id")                
                 next.setValue(currentTrack?.isPlaying, forKey: "isPlaying")
-                
-                
                 next.setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
                 ref.child("currentlyPlaying").setValue(next, withCompletionBlock: { (_, _) in
                     ref.child("/queue/\(nextTrackId!)").removeValue(completionBlock: { (_, _) in completion() })
