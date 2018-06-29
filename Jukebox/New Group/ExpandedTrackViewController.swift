@@ -280,9 +280,7 @@ extension ExpandedTrackViewController{
 extension ExpandedTrackViewController {
     
     func onCurrentTrackChangedExpandedPlayer(_ snapshot: DataSnapshot) {
-        
-        let needsCheck = currentTrack == nil
-        if needsCheck { Database.database().reference().child("/currentlyPlaying/isPlaying").setValue(false) }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             let duration = 1.0
             UIView.animate(withDuration: 0.2, animations: {
                 self.coverImage.alpha = 0.7
@@ -293,4 +291,4 @@ extension ExpandedTrackViewController {
                     self.coverImage.alpha = 1.0
                 },completion:nil)
             })
-    }}
+        }}}

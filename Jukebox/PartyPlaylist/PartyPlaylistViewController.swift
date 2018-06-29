@@ -22,9 +22,8 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: #selector(search))
         navigationItem.rightBarButtonItem = button
     }
@@ -177,13 +176,13 @@ extension PartyPlaylistViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentQueue.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let track = currentQueue[indexPath.item]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! TrackCell
-        cell.setup(from: track)
-        cell.partyRef = self.ref
-        return cell
+        
+            let track = currentQueue[indexPath.item]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "trackWithImage", for: indexPath) as! TrackCell
+            cell.setup(from: track)
+            cell.partyRef = self.ref
+            return cell
     }
 }
 

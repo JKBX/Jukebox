@@ -106,20 +106,20 @@ extension MiniPlayerViewController{
     }
     
     func setting(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
         if let song = currentTrack {
-            songTitle.text = song.songName
-            artist.text = song.artist
-            thumbImage.kf.indicatorType = .activity
-            thumbImage.kf.setImage(with: song.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
+            self.songTitle.text = song.songName
+            self.artist.text = song.artist
+            self.thumbImage.kf.indicatorType = .activity
+            self.thumbImage.kf.setImage(with: song.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
             
         }else {
             //TODO Handle no song in playing yet
-            songTitle.text = "Weclome!"
-            artist.text = "Awaiting a song to be in the playlist! Please add a song!"
-            thumbImage.image = UIImage(named: "SpotifyLogoWhite")
-
+            self.songTitle.text = "Weclome!"
+            self.artist.text = "Awaiting a song to be in the playlist! Please add a song!"
+           self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
         }
-    }
+        }}
 }
 
 extension MiniPlayerViewController{

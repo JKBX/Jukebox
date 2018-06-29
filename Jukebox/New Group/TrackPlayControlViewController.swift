@@ -24,34 +24,37 @@ class TrackPlayControlViewController: UIViewController {
         super.viewDidLoad()
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
-
         setFields()
         if((currentTrack?.isPlaying)!){
             playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-        }
+        }else{playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)}
+        
+        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in  DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // change  - 0.5 - to desired number of seconds
+            self.setFields()
+            }})
+        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/isPlaying").observe(.value, with: { (snapshot) in
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                self.playPauseButton.alpha = 0.3
+            }, completion: {(finished) in
+                if("\(snapshot.value!)" == "1"){
+                    self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+                }else{
+                    self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+                }
+                UIView.animate(withDuration: 0.2, animations:{
+                    self.playPauseButton.alpha = 1.0
+                },completion:nil)
+            })
+            
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in self.onCurrentTrackChangedTrackPlayer(snapshot)})
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/isPlaying").observe(.value, with: { (snapshot) in
-            
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.playPauseButton.alpha = 0.3
-                }, completion: {(finished) in
-                    if("\(snapshot.value!)" == "1"){
-                        self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-                    }else{
-                        self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-                    }
-                    UIView.animate(withDuration: 0.2, animations:{
-                        self.playPauseButton.alpha = 1.0
-                    },completion:nil)
-                })
-
-        })
+        
         
         
     }
@@ -73,9 +76,9 @@ class TrackPlayControlViewController: UIViewController {
 }
 extension TrackPlayControlViewController{
     func setFields(){
-        //guard songTitle != nil else{ return } //Maybe causing errors :)
         songTitle.text = currentTrack?.songName
         artist.text = currentTrack?.artist
+        print("\(currentTrack?.artist) + ARTIST TEST")
     }
 
     // Marquee settings
@@ -88,9 +91,8 @@ extension TrackPlayControlViewController{
     }
     
     func onCurrentTrackChangedTrackPlayer(_ snapshot: DataSnapshot) {
-        let needsCheck = currentTrack == nil
-        if needsCheck  { Database.database().reference().child("/currentlyPlaying/isPlaying").setValue(false) }
-        setFields()
+       
+        
     }
  
 }

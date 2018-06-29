@@ -41,9 +41,13 @@ class AudioStreamingDelegate: NSObject {
     }
     
     @objc func next() {
-        getNextTrack{ self.play() }
+        if (currentTrack?.isPlaying)!{
+            getNextTrack{ self.play() }
+        }
+        else{
+            getNextTrack{ self.pause(){}}
+        }
     }
-    
     @objc func toggle() {
         print("Toggle")
         if currentTrack == nil{
@@ -56,6 +60,7 @@ class AudioStreamingDelegate: NSObject {
     }
     
     func play() {
+
         let ref = Database.database().reference().child("/parties/\(currentParty)")
         if let currentMetadata = SPTAudioStreamingController.sharedInstance().metadata{
             var id = currentMetadata.currentTrack?.uri
@@ -100,7 +105,10 @@ class AudioStreamingDelegate: NSObject {
             ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
                 let next = snapshot.value as! NSDictionary
                 next.setValue(snapshot.key, forKey: "id")
-                next.setValue(false, forKey: "isPlaying")
+                
+                next.setValue(currentTrack?.isPlaying, forKey: "isPlaying")
+                
+                
                 next.setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
                 ref.child("currentlyPlaying").setValue(next, withCompletionBlock: { (_, _) in
                     ref.child("/queue/\(nextTrackId!)").removeValue(completionBlock: { (_, _) in completion() })
