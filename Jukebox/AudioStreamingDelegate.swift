@@ -78,7 +78,7 @@ class AudioStreamingDelegate: NSObject {
         SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: (currentTrack?.playbackStatus?.position)!, callback: { (error) in
             if let error = error { print(error); return }
             ref.child("currentlyPlaying/isPlaying").setValue(true)
-            ref.child("currentlyPlaying/playbackStatus").setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate])
+            ref.child("currentlyPlaying/playbackStatus").setValue(["position":SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
         })
     }
 

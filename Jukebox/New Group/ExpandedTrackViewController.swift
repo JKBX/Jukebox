@@ -73,7 +73,6 @@ class ExpandedTrackViewController: UIViewController {
         coverImage.layer.masksToBounds = true
         let corner: CGFloat = 10
         coverImage.layer.cornerRadius = corner
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in self.onCurrentTrackChangedExpandedPlayer(snapshot)})
         
     }
 
@@ -92,6 +91,7 @@ class ExpandedTrackViewController: UIViewController {
         animateImageLayerIN()
         animateCoverImageIN()
         animateLowerModulIN()
+        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in self.onCurrentTrackChangedExpandedPlayer(snapshot)})
     }
 }
 
@@ -280,6 +280,7 @@ extension ExpandedTrackViewController{
 extension ExpandedTrackViewController {
     
     func onCurrentTrackChangedExpandedPlayer(_ snapshot: DataSnapshot) {
+        
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             let duration = 1.0
             UIView.animate(withDuration: 0.2, animations: {
