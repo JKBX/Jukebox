@@ -21,12 +21,12 @@ class LoginViewController: UIViewController {
         //Init Auth Session
         self.authSession = SFAuthenticationSession(url: webURL, callbackURLScheme: redURL) { (url:URL?, error:Error? ) in
             guard error == nil, let successURL = url else { print("Error Authenticating!"); return; }
-            NotificationCenter.default.post(name: NSNotification.Name.Auth.loading, object:(true, "Signing in..."))
+            NotificationCenter.default.post(name: NSNotification.Name.loading, object:(true, "Signing in...", self))
             SPTAuth.defaultInstance().handleAuthCallback(withTriggeredAuthURL: successURL) { (error, session) in
                 if let error = error { print(error); return }
                 Auth.auth().signIn(with: session) { (user, error) in
                     if let error = error {print(error); return;}
-                    NotificationCenter.default.post(name: NSNotification.Name.Auth.loading, object:(false, ""))
+                    NotificationCenter.default.post(name: NSNotification.Name.loading, object:(false, "", self))
                 }
             }
         }

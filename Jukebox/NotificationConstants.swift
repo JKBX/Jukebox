@@ -16,8 +16,7 @@ extension Notification.Name {
         static let stopBroadcast = Notification.Name("SptStopBroadcast")
 
     }
-
-    struct Auth {
-        static let loading = Notification.Name("loading")
-    }
+    
+    
+    static let loading = Notification.Name("loading")
 }
