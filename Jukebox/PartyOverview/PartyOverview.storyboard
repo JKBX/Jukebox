@@ -99,7 +99,7 @@
                     <navigationItem key="navigationItem" title="Jukebox" id="cIw-or-vAu">
                         <barButtonItem key="leftBarButtonItem" image="UserIcon" id="RQm-Am-hsR">
                             <connections>
-                                <segue destination="2gd-AY-uLX" kind="presentation" customClass="LTRSegue" customModule="Jukebox" customModuleProvider="target" id="yaH-eQ-zut"/>
+                                <segue destination="2gd-AY-uLX" kind="presentation" id="yaH-eQ-zut"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -309,13 +309,13 @@
             </objects>
             <point key="canvasLocation" x="1650.4000000000001" y="-1397.4512743628186"/>
         </scene>
-        <!--UserProfile-->
+        <!--AuthView-->
         <scene sceneID="RNI-Gd-ya1">
             <objects>
-                <viewControllerPlaceholder storyboardName="UserProfile" id="2gd-AY-uLX" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Auth" referencedIdentifier="AuthView" id="2gd-AY-uLX" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dPh-kM-Ir8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1012" y="-288"/>
+            <point key="canvasLocation" x="-73" y="-527"/>
         </scene>
         <!--PartyPlaylist-->
         <scene sceneID="brX-Hv-8QF">

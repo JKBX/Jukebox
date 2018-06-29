@@ -12,17 +12,21 @@ import MediaPlayer
 import Kingfisher
 
 class AudioStreamingDelegate: NSObject {
-    
+
+    //TODO
+    //TODO move to streaming delegate
+    //SPTAudioStreamingController.sharedInstance().login(withAccessToken: session.accessToken)
+
     var partyTMP: String?
-    
+
     func willUpdate() {
         partyTMP = currentParty
     }
-    
-    
+
+
     func update() {
         if currentParty == ""{
-            if currentAdmin{ pause(){ self.stopAudioSession() }}
+            if currentAdmin{ pause(){ self.stopAudioSession()}}
             else { stop(){self.stopAudioSession()} }
             invalidateRemotes()
             partyTMP = nil
@@ -39,7 +43,7 @@ class AudioStreamingDelegate: NSObject {
             ref.setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
         }
     }
-    
+
     @objc func next() {
         if (currentTrack?.isPlaying)!{
             getNextTrack{ self.play() }
@@ -48,6 +52,7 @@ class AudioStreamingDelegate: NSObject {
             getNextTrack{ self.pause(){}}
         }
     }
+
     @objc func toggle() {
         print("Toggle")
         if currentTrack == nil{
@@ -58,7 +63,7 @@ class AudioStreamingDelegate: NSObject {
             else { play() }
         }
     }
-    
+
     func play() {
 
         let ref = Database.database().reference().child("/parties/\(currentParty)")
@@ -97,17 +102,17 @@ class AudioStreamingDelegate: NSObject {
             completion()
         }
     }
-    
+
     func getNextTrack(completion: @escaping ()->Void) {
 //        Fix fix the get rid of the bug --> when you skip the last song in expandedTrackPlayer
         if(currentQueue.count > 0){
         let nextTrackId = currentQueue.first?.trackId
         let ref = Database.database().reference().child("/parties/\(currentParty)")
-        
+
         swapToHistory {
             ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
                 let next = snapshot.value as! NSDictionary
-                next.setValue(snapshot.key, forKey: "id")                
+                next.setValue(snapshot.key, forKey: "id")
                 next.setValue(currentTrack?.isPlaying, forKey: "isPlaying")
                 next.setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
                 ref.child("currentlyPlaying").setValue(next, withCompletionBlock: { (_, _) in
@@ -117,7 +122,7 @@ class AudioStreamingDelegate: NSObject {
         }
         }else{return}
     }
-    
+
     func swapToHistory(completion: @escaping () ->Void) {
         let ref = Database.database().reference().child("/parties/\(currentParty)")
         ref.child("/currentlyPlaying").observeSingleEvent(of: .value) { (snapshot) in
@@ -133,16 +138,16 @@ class AudioStreamingDelegate: NSObject {
             })
         }
     }
-    
+
     func start() {
         print("Starting Broadcast")
-        
+
         isBroadcasting = true
     }
-    
+
     func stop(completion: ()->Void) {
         print("Stopping Broadcast")
-        
+
         isBroadcasting = false
         completion()
     }
@@ -150,24 +155,32 @@ class AudioStreamingDelegate: NSObject {
 
 //MARK - Remote Player Extension
 extension AudioStreamingDelegate {
-    
+
     func setupAudioSession(){
         UIApplication.shared.beginReceivingRemoteControlEvents()
         do { try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback) }
         catch let error as NSError { print(error.localizedDescription) }
     }
-    
+
     func startAudioSession() {
-        do { try AVAudioSession.sharedInstance().setActive(true) }
-        catch let error as NSError { print(error.localizedDescription) }
+        if SPTAuth.defaultInstance().session.isValid(){
+            let accessToken = SPTAuth.defaultInstance().session.accessToken
+            SPTAudioStreamingController.sharedInstance().login(withAccessToken: accessToken)
+        } else { print("Session not valid")}
     }
-    
-    //TODO realy stop it 
+
+    //TODO realy stop it
     func stopAudioSession() {
-        do { try AVAudioSession.sharedInstance().setActive(false) }
+        SPTAudioStreamingController.sharedInstance().logout()
+    }
+
+    func resetAudioSession() {
+        UIApplication.shared.endReceivingRemoteControlEvents()
+        //AVAudioSession.sharedInstance().setCategory(nil)
+        do { try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback) }
         catch let error as NSError { print(error.localizedDescription) }
     }
-    
+
     func invalidateRemotes() {
         let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.playCommand.removeTarget(nil)
@@ -176,7 +189,7 @@ extension AudioStreamingDelegate {
         commandCenter.nextTrackCommand.removeTarget(nil)
         commandCenter.previousTrackCommand.removeTarget(nil)
     }
-    
+
     func setupRemotes() {
         let commandCenter = MPRemoteCommandCenter.shared()
         let playHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus = {
@@ -197,7 +210,7 @@ extension AudioStreamingDelegate {
         let stopHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus = {
             (event) -> MPRemoteCommandHandlerStatus in
             self.stop(){}; return .success }
-        
+
         if currentAdmin {
             commandCenter.playCommand.addTarget(handler: playHandler)
             commandCenter.pauseCommand.addTarget(handler: pauseHandler)
@@ -208,7 +221,7 @@ extension AudioStreamingDelegate {
             commandCenter.stopCommand.addTarget(handler: stopHandler)
         }
     }
-    
+
     func updatePlayingCenter(_ audioStreaming: SPTAudioStreamingController!){
         if let track = audioStreaming.metadata.currentTrack{
             var nowPlayingInfo = [String : Any]()
@@ -228,99 +241,100 @@ extension AudioStreamingDelegate {
 }
 
 extension AudioStreamingDelegate: SPTAudioStreamingDelegate{
-    
+
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
+        print("Did Login")
+
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.loggedIn, object: nil)
         SPTAudioStreamingController.sharedInstance().playbackDelegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(toggle), name: NSNotification.Name.Spotify.toggle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(next), name: NSNotification.Name.Spotify.nextSong, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(prev), name: NSNotification.Name.Spotify.prevSong, object: nil)
-        
+
         setupAudioSession()
+        do { try AVAudioSession.sharedInstance().setActive(true) }
+        catch let error as NSError { print(error.localizedDescription) }
     }
-    
+
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         print("Did receive Error")
         print(error)
     }
-    
+
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveMessage message: String!) {
         print("Did receive Message")
     }
-    
+
     func audioStreamingDidLogout(_ audioStreaming: SPTAudioStreamingController!) {
         print("Did Logout")
-        
+
+        do { try AVAudioSession.sharedInstance().setActive(false) }
+        catch let error as NSError { print(error.localizedDescription) }
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.Spotify.toggle, object: nil)
     }
-    
+
     func audioStreamingDidEncounterTemporaryConnectionError(_ audioStreaming: SPTAudioStreamingController!) {
         print("Did encounter tmp Connection Error")
     }
-    
+
     func audioStreamingDidDisconnect(_ audioStreaming: SPTAudioStreamingController!) {
         print("Did disconnect")
     }
-    
+
     func audioStreamingDidReconnect(_ audioStreaming: SPTAudioStreamingController!) {
         print("Did Reconnect")
     }
 }
 
 extension AudioStreamingDelegate: SPTAudioStreamingPlaybackDelegate{
-    
+
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
         updatePlayingCenter(audioStreaming)
     }
-    
+
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
         updatePlayingCenter(audioStreaming)
     }
-    
-    
+
+
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didSeekToPosition position: TimeInterval) {
         updatePlayingCenter(audioStreaming)
     }
-    
+
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
         //print("Player Did start playing track")
     }
-    
+
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
         if (currentTrack?.isPlaying)! {
             print("Track stopped, need to get new one")
             self.getNextTrack { self.play() }
         }
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     func audioStreamingDidBecomeActivePlaybackDevice(_ audioStreaming: SPTAudioStreamingController!) {
-        print("Player Did become active playback device")
+        print("Did become active")
     }
-    
+
     func audioStreamingDidBecomeInactivePlaybackDevice(_ audioStreaming: SPTAudioStreamingController!) {
-        print("Player Did become inactive playback device")
     }
-    
-    func audioStreamingDidLosePermission(forPlayback audioStreaming: SPTAudioStreamingController!) {
-        print("Player Did lose permission")
-    }
-    
-    
-    
-    
+
+
+
     // Mark - Unsupported Functions
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) { }
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeVolume volume: SPTVolume) { }
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeShuffleStatus enabled: Bool) { }
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeRepeatStatus repeateMode: SPTRepeatMode) { }
+    func audioStreamingDidLosePermission(forPlayback audioStreaming: SPTAudioStreamingController!) { }
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceive event: SpPlaybackEvent) { }
     func audioStreamingDidSkip(toNextTrack audioStreaming: SPTAudioStreamingController!) { }
     func audioStreamingDidSkip(toPreviousTrack audioStreaming: SPTAudioStreamingController!) { }
     func audioStreamingDidPopQueue(_ audioStreaming: SPTAudioStreamingController!) { }
-    
-    
+
+
 }

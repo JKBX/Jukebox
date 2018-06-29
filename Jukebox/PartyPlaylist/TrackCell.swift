@@ -15,14 +15,14 @@ protocol TrackCellDelegate{
 }
 
 class TrackCell: UITableViewCell {
-    
+
     //var delegate: TrackCellDelegate?
     //var trackID: String = ""
     var track:TrackModel?
     var partyRef: DatabaseReference?
-    
+
     @IBOutlet weak var voteCountLabel: UILabel!
-    
+
     func setup(from track:TrackModel) {
         self.track = track
         self.textLabel?.text = track.songName
@@ -30,17 +30,17 @@ class TrackCell: UITableViewCell {
         self.imageView?.kf.setImage(with: track.coverUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, URL) in
             self.setNeedsLayout()
         })
-        
+
         voteCountLabel.text = String(track.voteCount)
-        
+
         let accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))
         accessoryButton.setImage(UIImage(named: track.liked ? "favorite" : "favoriteOutline"), for: .normal)
         accessoryButton.addTarget(self, action: #selector(toggleLike), for: .touchUpInside)
         self.accessoryView = accessoryButton
     }
-    
+
     @objc func toggleLike(){
-        
+
         let userId = Auth.auth().currentUser?.uid as! String
         let voteRef = self.partyRef?.child("/queue/\(track?.trackId as! String)/votes/\(userId as String)")
         if (track?.liked)!{
@@ -52,11 +52,10 @@ class TrackCell: UITableViewCell {
         }
         //delegate?.likedTrack(trackID: trackID)
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.imageView?.image = UIImage(named: "coverImagePlaceholder")
         // Initialization code
     }
 }
-
