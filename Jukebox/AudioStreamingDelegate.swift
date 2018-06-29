@@ -14,12 +14,11 @@ import Kingfisher
 class AudioStreamingDelegate: NSObject {
     
     var partyTMP: String?
-    
     func willUpdate() {
         partyTMP = currentParty
     }
     
-    
+
     func update() {
         if currentParty == ""{
             if currentAdmin{ pause(){ self.stopAudioSession() }}
@@ -103,7 +102,7 @@ class AudioStreamingDelegate: NSObject {
         if(currentQueue.count > 0){
         let nextTrackId = currentQueue.first?.trackId
         let ref = Database.database().reference().child("/parties/\(currentParty)")
-        
+
         swapToHistory {
             ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
                 let next = snapshot.value as! NSDictionary
@@ -293,7 +292,18 @@ extension AudioStreamingDelegate: SPTAudioStreamingPlaybackDelegate{
         }
     }
     
-    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
+        currentTrackPosition = position
+        NotificationCenter.default.post(name: NSNotification.Name.Player.position, object: nil)
+        
+//        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: { (timer) in
+//            let partyId:String = (currentParty != "") ? (currentParty) : (self.partyTMP!)
+//            let ref = Database.database().reference().child("/parties/\(partyId)")
+//            ref.child("/currentlyPlaying").child("isPosition").setValue(currentTrackPosition)
+//
+//        })
+       
+    }
     
     
     
@@ -313,7 +323,7 @@ extension AudioStreamingDelegate: SPTAudioStreamingPlaybackDelegate{
     
     
     // Mark - Unsupported Functions
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) { }
+  
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeVolume volume: SPTVolume) { }
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeShuffleStatus enabled: Bool) { }
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangeRepeatStatus repeateMode: SPTRepeatMode) { }

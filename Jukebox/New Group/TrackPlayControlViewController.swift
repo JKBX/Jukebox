@@ -19,6 +19,7 @@ class TrackPlayControlViewController: UIViewController {
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     var timer: Timer!
+
     
     
     override func viewDidLoad() {
@@ -26,11 +27,19 @@ class TrackPlayControlViewController: UIViewController {
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
         setFields()
-        durationSet()
+        updateDuration()
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
             self.setFields()
             self.playPause()
+            
         }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.position, object: nil, queue: nil) { (note) in
+            self.updateDuration()
+
+        }
+        timer = Timer.init()
+        
   
  }
     
@@ -73,26 +82,7 @@ extension TrackPlayControlViewController{
   }
         
         
-    func durationSet(){
-        
-        if (timer == nil) && (currentTrack?.isPlaying)! {
-            
-            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-                
-                print("TEstest")
-                
-            })
-        }else{
-            resetTimer()
-        }
-    }
-    
-    func resetTimer() {
-        if timer != nil{
-            timer.invalidate()
-            timer = nil
-        }
-    }
+
     
     
     func playPause () {
@@ -114,15 +104,54 @@ extension TrackPlayControlViewController{
             playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
         }else{playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)}
     }
-//timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-//    var durationTime: String{
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "mm:ss"
-//        let date = Date(timeIntervalSince1970: position!)
-//        return formatter.string(from: date)
-//    }
-//
-//    self.songDuration.text = durationTime
+    
+    
+    
+    
+    
+    func updateDuration() {
+        if(currentAdmin){
+            
+            var durationTime: String{
+                let formatter = DateFormatter()
+                formatter.dateFormat = "mm:ss"
+                let date = Date(timeIntervalSince1970: currentTrackPosition)
+                return formatter.string(from: date)
+            }
+            
+            self.songDuration.text = durationTime
+        }
+        else{
+            if (currentTrack?.isPlaying)!{
+                
+                resetTimer()
+                
+                var position: TimeInterval = (currentTrack?.playbackStatus?.position)!
+                
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                
+                var durationTime: String{
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "mm:ss"
+                    let date = Date(timeIntervalSince1970: currentTrackPosition)
+                    return formatter.string(from: date)
+                }
+                
+                self.songDuration.text = durationTime
+                
+                            })
+                        } else {
+                            resetTimer()}
+        } }
+    
+    func resetTimer() {
+        if timer != nil{
+            timer.invalidate()
+            timer = nil
+        }
+    }
+
+    
 
 }
 

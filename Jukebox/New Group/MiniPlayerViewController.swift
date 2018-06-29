@@ -141,11 +141,7 @@ extension MiniPlayerViewController{
             delegate?.expandSong()
         }
     }
-    
-
-
 }
-
 
 extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     
