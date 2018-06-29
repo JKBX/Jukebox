@@ -22,7 +22,12 @@ class JoinPartyViewController: UIViewController, UITextFieldDelegate {
             super.viewDidLoad()
             IDTextField.delegate = self                  //set delegate
         }
-    
+ func textFieldDidBeginEditing(_ textField: UITextField) {
+  if IDTextField.isFirstResponder == true {
+   IDTextField.placeholder = ""
+  }
+  
+ }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                        replacementString string: String) -> Bool
         {

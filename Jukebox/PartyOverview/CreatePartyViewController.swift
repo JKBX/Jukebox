@@ -34,12 +34,11 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
+
     
     @IBAction func done(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
     func generatePartyId(completion: @escaping (_ id: String)->Void) {
         let min: UInt32 = 000000, max: UInt32 = 999999
         var newId : String = ""
