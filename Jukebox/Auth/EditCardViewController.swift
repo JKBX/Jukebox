@@ -8,105 +8,91 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 import Kingfisher
 
 class EditCardViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    
-/*class EditCardViewController: UIViewController, UIImagePickerControllerDelegate {*/
     var delegate: CardDelegate?
-
     let imagePicker = UIImagePickerController()
-    
     @IBOutlet weak var displayName: UITextField!
     @IBOutlet weak var profilePicture: UIImageView!
+    var didChangeImage: Bool = false
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        imagePicker.delegate = self
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        profilePicture.isUserInteractionEnabled = true
-        profilePicture.addGestureRecognizer(tapGestureRecognizer)
-        profilePicture.layer.masksToBounds = true
-        profilePicture.layer.cornerRadius = 64.0
-        
-        Auth.auth().addIDTokenDidChangeListener { (auth, _) in
-            self.displayName.text = auth.currentUser?.displayName
-            self.profilePicture.kf.setImage(with: auth.currentUser?.photoURL, options: [.processor(CenteredSquareProcessor())])
-            self.profilePicture.layer.cornerRadius = self.profilePicture.bounds.height / 2
-        }
-        
-       
+    func update(_ user: User) {
+        self.displayName.text = user.displayName
+        if let image = user.photoURL {
+            self.profilePicture.kf.setImage(with: image)
+        } else { self.profilePicture.image = UIImage(named: "ProfilePictureDefault") }
+        self.didChangeImage = false
+        self.displayName.delegate = self
     }
     
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        //TODO add icons to actions
-        let alertController = UIAlertController(title: nil, message: "Edit your image.", preferredStyle: .actionSheet)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in }
-        alertController.addAction(cancelAction)
-        
-        //Open camera roll to load new Picture
-        let replaceAction = UIAlertAction(title: "Upload from Camera Roll", style: .default) { action in
-            self.imagePicker.allowsEditing = false
-            self.imagePicker.sourceType = .photoLibrary
-            self.present(self.imagePicker, animated: true, completion: nil) }
-        alertController.addAction(replaceAction)
-        
-        //Replace Image with Default user Picture
-        let removeAction = UIAlertAction(title: "Remove", style: .default) { action in
-            let defaultPicture = UIImage.init(named: "ProfilePictureDefault")
-            self.profilePicture.image = defaultPicture }
-        alertController.addAction(removeAction)
-        
-        self.present(alertController, animated: true) { }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
+    @IBAction func changeImage(_ sender: Any?) {
+        imagePicker.delegate = self
+        self.imagePicker.allowsEditing = false
+        self.imagePicker.sourceType = .photoLibrary
+        self.present(self.imagePicker, animated: true, completion: nil)
     }
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        self.profilePicture.image = chosenImage
-        //dismiss(animated: true, completion: nil)
+        let finalImage = resizeImage(image: chosenImage)
+        self.profilePicture.image = finalImage
+        self.didChangeImage = true
+        dismiss(animated: true, completion: nil)
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
+    func resizeImage(image: UIImage) -> UIImage? {
+        let newSize = image.size.width > image.size.height ? image.size.height : image.size.width
+        let size = CGSize(width: newSize, height: newSize)
+        let origin = CGPoint(x: (image.size.width - size.width) / 2, y: (image.size.height - size.height) / 2)
+        let cropRect = CGRect(origin: origin, size: size)
+        guard let cropping = image.cgImage!.cropping(to: cropRect) else {print("Crop failed"); return nil}
+        let squaredImage =  UIImage(cgImage: cropping, scale: 0, orientation: image.imageOrientation)
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 256, height: 256), false, 1.0)
+        squaredImage.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 256, height: 256)))
+        guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else {print("Crop failed"); return nil}
+        UIGraphicsEndImageContext()
+        return newImage
     }
     
-    @IBAction func finishEditing(_ sender: Any) {
-        var update = Auth.auth().currentUser?.createProfileChangeRequest()
-        update?.displayName = displayName.text
-        update?.commitChanges(completion: { (e) in
-            if e != nil{
-                print("Failed to update")
-                return
-            }
-            print("Updated")
-        })
+    @IBAction func update(_ sender: Any) {
+        uploadProfilePicture { (imageUrl) in
+            guard let update = Auth.auth().currentUser?.createProfileChangeRequest() else {print("Failed to Update Profile"); return }
+            update.displayName = self.displayName.text
+            if let url = imageUrl { update.photoURL = url }
+            update.commitChanges(completion: { (error) in
+                if let error = error {print(error); return}
+                NotificationCenter.default.post(name: NSNotification.Name.loading, object:(false, "", self))
+                self.delegate?.editing(false)
+            })
+        }
     }
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //PartyPicStorage
+    func uploadProfilePicture(completion: @escaping (_ pictureURL: URL?)->Void) -> Void {
+        // Get a reference to the storage service using the default Firebase App
+        if !didChangeImage {completion(nil)}
+        NotificationCenter.default.post(name: NSNotification.Name.loading, object:(true, "Updating Profile...", self))
+        let storage = Storage.storage()
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        let picture:Data = UIImageJPEGRepresentation(profilePicture.image!, 1)! as Data
+        // Create a storage reference from our storage service
+        let pictureRef = storage.reference().child("/profileImages/\((Auth.auth().currentUser?.uid)!)/picture.jpg")
+        _ = pictureRef.putData(picture, metadata: metadata) { (metadata, error) in
+            //guard let metadata = metadata else { completion(""); return }
+            if let error = error {print(error); return}
+            pictureRef.downloadURL(completion: { (url, error) in
+                if let error = error {print(error); return}
+                completion(url!)
+            })
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-
-protocol CardDelegate {
-    func editing(_ active: Bool)
 }
