@@ -118,14 +118,50 @@ class PartyCollectionViewController: UICollectionViewController {
             print("From assets")
             cell.Image.image = UIImage(named: imagePath)
         } else {
+            
             let imageReference = Storage.storage().reference(withPath: imagePath)
-            imageReference.getData(maxSize: 1 * 512 * 512) { data, error in
-                if let error = error {print(error)}
-                else { cell.Image.image = UIImage(data: data!) }
-            }
+            
+                        imageReference.downloadURL(completion: { (url, error) in
+                            if (error == nil) {
+                                if let downloadUrl = url {
+                                    // Make you download string
+                                    cell.Image.kf.indicatorType = .activity
+                                    cell.Image.kf.setImage(with: downloadUrl, placeholder: UIImage(named: "AppIcon"))
+                                }
+                            } else {
+                                imageReference.getData(maxSize: 1 * 512 * 512) { data, error in
+                                    if let error = error {print(error)}
+                                    else {
+                                        cell.Image.image = UIImage(data: data!) }
+                                }
+                            }
+                        })
+
             cell.Label.text = party.object(forKey: "Name") as! String
         }
         return cell
+        
+        // ALT oben NEU mit Kingfisher
+        
+        
+        //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
+        //                                                      for: indexPath) as! PartyCollectionViewCell
+        //        let (party, _) = getParty(for: indexPath)
+        //        let imagePath = party.object(forKey: "imagePath") as! String
+        //        if imagePath.contains("default") {
+        //            print("From assets")
+        //            cell.Image.image = UIImage(named: imagePath)
+        //        } else {
+        //
+        //            let imageReference = Storage.storage().reference(withPath: imagePath)
+        //            imageReference.getData(maxSize: 1 * 512 * 512) { data, error in
+        //                if let error = error {print(error)}
+        //                else {
+        //                    cell.Image.image = UIImage(data: data!) }
+        //            }
+        //            cell.Label.text = party.object(forKey: "Name") as! String
+        //        }
+        //        return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
