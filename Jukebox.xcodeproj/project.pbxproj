@@ -412,14 +412,11 @@
 				17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */,
 				17AE0E9A20BDC657000EF085 /* SectionHeader.swift in Sources */,
 				7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */,
-<<<<<<< HEAD
 				17AE0EA020BDC689000EF085 /* LTRSegue.swift in Sources */,
 				79F97BF720E3BA3A00329524 /* DesignableView.swift in Sources */,
-=======
 				179C11D320DBE09000EF9726 /* EditCardViewController.swift in Sources */,
 				179C11CF20D9CBAF00EF9726 /* ProfileViewController.swift in Sources */,
 				179C11D120DBE08300EF9726 /* InfoCardViewController.swift in Sources */,
->>>>>>> e84a313c6c58166953d468d54ad1f111a2a2513c
 				E0E7422420E370350076432D /* PartyModel.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
