@@ -125,6 +125,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
+        if(existingTracks.count == 0){return 1}
         return 2
     }
 }
