@@ -33,11 +33,13 @@ class SearchCell: UITableViewCell {
         })
         accessoryButton.setImage(UIImage(named: track.liked ? "checkedButtonAcc" : "addIconAcc"), for: .normal)
         accessoryButton.addTarget(self, action: #selector(prepareAndAddToFirebase), for: .touchUpInside)
+        
         self.accessoryView = accessoryButton
         
     }
     
     @objc func prepareAndAddToFirebase(){
+        accessoryButton.setImage(UIImage(named: "checkedButtonAcc"), for: .normal)
         let userID = Auth.auth().currentUser?.uid
         var trackId = self.track?.trackId!
         let ref = Database.database().reference().child("/parties/\(currentParty)/queue/\(trackId!)")

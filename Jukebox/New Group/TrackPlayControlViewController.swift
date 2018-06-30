@@ -20,6 +20,7 @@ class TrackPlayControlViewController: UIViewController {
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     var timer: Timer!
+    var nextSwitch:Bool = true
 
     
     
@@ -50,19 +51,22 @@ class TrackPlayControlViewController: UIViewController {
    }
     
     @IBAction func playButton(_ sender: Any) {
-        
+        nextSwitch = true
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
-        
     }
     
     @IBAction func previousButton(_ sender: Any) {
+        currentTrackPosition = 0
+        songDuration.text = "00:00"
+        nextSwitch = false
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.prevSong, object: nil)
 //        currentPositionForFirebase()
+        
     }
     
     @IBAction func nextButton(_ sender: Any) {
+        nextSwitch = false
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
-        
     }
 
 }
@@ -84,7 +88,8 @@ extension TrackPlayControlViewController{
 
     func playPause () {
         if(currentTrack == nil){return}
-        UIView.animate(withDuration: 0.3, animations: {
+        if(nextSwitch)
+        {UIView.animate(withDuration: 0.3, animations: {
             self.playPauseButton.alpha = 0.3
         }, completion: {(finished) in
             if(currentTrack?.isPlaying)!{
@@ -95,8 +100,10 @@ extension TrackPlayControlViewController{
             UIView.animate(withDuration: 0.2, animations:{
                 self.playPauseButton.alpha = 1.0
             },completion:nil)
-        })
+        })}
+        
     }
+    
     func setPlayPause(){
         if((currentTrack?.isPlaying)!){
             playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)

@@ -44,6 +44,7 @@ class SearchViewController: UIViewController {
 
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
+        tableView.allowsSelection = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -134,6 +135,7 @@ extension SearchViewController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
+        view.endEditing(true)
     }
 }
 

@@ -17,6 +17,10 @@ class PopUpViewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pulsate(checkButton: self.checkButton)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.04){
+            // your code with delay
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     func pulsate(checkButton: UIImageView){
@@ -27,6 +31,7 @@ class PopUpViewViewController: UIViewController {
         pulse.initialVelocity = 0.2
         
         checkButton.layer.add(pulse, forKey: "pulse")
+
     }
     
     @IBAction func dismissPopUp(_ sender: UIButton) {

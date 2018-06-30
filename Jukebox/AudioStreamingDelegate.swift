@@ -40,11 +40,12 @@ class AudioStreamingDelegate: NSObject {
         let ref = Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying/playbackStatus")
         SPTAudioStreamingController.sharedInstance().seek(to: 0) { (error) in
             if let error = error {print(error); return}
-            ref.setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
+            ref.setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])
         }
     }
 
     @objc func next() {
+        currentTrackPosition = 0.0
         if (currentTrack?.isPlaying)!{
             getNextTrack{ self.play() }
         }
@@ -74,7 +75,7 @@ class AudioStreamingDelegate: NSObject {
                     SPTAudioStreamingController.sharedInstance().setIsPlaying(true) { (error) in
                         if let error = error { print(error); return}
                         ref.child("currentlyPlaying/isPlaying").setValue(true)
-                        ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
+                        ref.child("currentlyPlaying/playbackStatus").setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])
                         return
                     }
                 }
@@ -102,10 +103,10 @@ class AudioStreamingDelegate: NSObject {
             print("Paused Spotify")
             ref.child("currentlyPlaying/isPlaying").setValue(false)
             if(currentTrack == nil){
-                ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
+                ref.child("currentlyPlaying/playbackStatus").setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])
                 return}
             if(currentTrack?.isPlaying)!{
-                ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])}
+                ref.child("currentlyPlaying/playbackStatus").setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])}
             else{
                 ref.child("currentlyPlaying/playbackStatus").setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate])
             }
