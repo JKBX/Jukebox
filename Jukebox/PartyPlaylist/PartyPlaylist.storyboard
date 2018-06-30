@@ -59,9 +59,6 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <outlet property="voteCountLabel" destination="RUF-tB-t7Q" id="tV5-ub-Ll8"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
