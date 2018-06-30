@@ -65,7 +65,6 @@ class AudioStreamingDelegate: NSObject {
     }
 
     func play() {
-
         let ref = Database.database().reference().child("/parties/\(currentParty)")
         if let currentMetadata = SPTAudioStreamingController.sharedInstance().metadata{
             var id = currentMetadata.currentTrack?.uri
@@ -94,8 +93,12 @@ class AudioStreamingDelegate: NSObject {
         SPTAudioStreamingController.sharedInstance().setIsPlaying(false) { (error) in
             if let error = error { print(error); return }
             print("Paused Spotify")
+            print("\(currentTrack?.isPlaying),  TESTESTESTEST")
             ref.child("currentlyPlaying/isPlaying").setValue(false)
-            if(currentTrack?.isPlaying)!{ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])}
+            if(currentTrack == nil){return}
+            if(currentTrack?.isPlaying)!{
+                
+                ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])}
             else{
                 ref.child("currentlyPlaying/playbackStatus").setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate])
             }
@@ -312,7 +315,18 @@ extension AudioStreamingDelegate: SPTAudioStreamingPlaybackDelegate{
         }
     }
 
-
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
+        currentTrackPosition = position
+        NotificationCenter.default.post(name: NSNotification.Name.Player.position, object: nil)
+        
+        //        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: { (timer) in
+        //            let partyId:String = (currentParty != "") ? (currentParty) : (self.partyTMP!)
+        //            let ref = Database.database().reference().child("/parties/\(partyId)")
+        //            ref.child("/currentlyPlaying").child("isPosition").setValue(currentTrackPosition)
+        //
+        //        })
+        
+    }
 
 
 

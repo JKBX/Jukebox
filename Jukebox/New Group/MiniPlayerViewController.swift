@@ -46,6 +46,7 @@ class MiniPlayerViewController: UIViewController{
     }
     
     @IBAction func Play(_ sender: Any) {
+        print("test PLAY")
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
     }
  
@@ -165,7 +166,9 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
  
     func playPauseButton(){
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
-            
+            if(currentTrack == nil){self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+                return
+            }
             UIView.animate(withDuration: 0.3, animations: {
                 self.playPause.alpha = 0.3
             }, completion: {(finished) in

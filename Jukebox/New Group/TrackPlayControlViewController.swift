@@ -122,6 +122,7 @@ extension TrackPlayControlViewController{
             self.songDuration.text = durationTime
         }
         else{
+            if(currentTrack == nil){return}
             if (currentTrack?.isPlaying)!{
                 
                 resetTimer()
