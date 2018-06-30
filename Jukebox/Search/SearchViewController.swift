@@ -109,10 +109,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         label.textColor = .red
         label.backgroundColor = UIColor(named: "SolidGrey800")
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        if(foundTracks.count > 0 && foundTracks.count > 0){
-            if(section == 0 ){
+        if(foundTracks.count > 0){
+            if(section == 0 && existingTracks.count > 0){
                 label.text = sectionOneHeader
-            }else {
+            }else if (section == 1) {
                 label.text = sectionTwoHeader
             }
             return label
@@ -142,7 +142,6 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
         view.endEditing(true)
     }
 }
