@@ -80,8 +80,6 @@ class AudioStreamingDelegate: NSObject {
                     }
                 }
             }
-            print(SPTAudioStreamingController.sharedInstance(), "TESTESTES PLAY")
-
             let trackId = currentTrack?.trackId
             SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: (currentTrack?.playbackStatus?.position)!, callback: { (error) in
                 if let error = error { print(error); return }
