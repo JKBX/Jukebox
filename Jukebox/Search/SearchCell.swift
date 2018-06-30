@@ -11,21 +11,26 @@ import FirebaseAuth
 import FirebaseDatabase
 import Kingfisher
 
+protocol SearchCellDelegate {
+    func showSuccess() -> Void
+}
+
 class SearchCell: UITableViewCell {
 
     var track: TrackModel?
     var partyRef: DatabaseReference?
     var accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))
+    var delegate: SearchCellDelegate?
     
-    func setup(from track:TrackModel) {
+    func setup(from track:TrackModel, delegate: SearchCellDelegate) {
         self.track = track
         self.textLabel?.text = track.songName
+        self.delegate = delegate
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"
         self.heightAnchor.constraint(equalToConstant: 100).isActive = true
         self.imageView?.kf.setImage(with: track.coverUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, URL) in
             self.setNeedsLayout()
         })
-//        if ()checkedButtonAcc
         accessoryButton.setImage(UIImage(named: track.liked ? "checkedButtonAcc" : "addIconAcc"), for: .normal)
         accessoryButton.addTarget(self, action: #selector(prepareAndAddToFirebase), for: .touchUpInside)
         self.accessoryView = accessoryButton
@@ -46,7 +51,11 @@ class SearchCell: UITableViewCell {
                 "\(userID!)" : "true"
             ]
         ]
-        ref.setValue(newTrack)
+        ref.setValue(newTrack) { (e, _) in
+            if e == nil {
+                self.delegate?.showSuccess()
+            }
+        }
     }
 
     override func awakeFromNib() {
