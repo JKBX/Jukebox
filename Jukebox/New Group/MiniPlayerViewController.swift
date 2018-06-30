@@ -37,7 +37,6 @@ class MiniPlayerViewController: UIViewController{
         userTriggeredButton(isAdmin: currentAdmin)
         timer = Timer.init()
         playPauseButton()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,6 +159,13 @@ extension MiniPlayerViewController{
         if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
             ref.child("/currentlyPlaying").child("isPosition").setValue(currentTrackPosition)}
         else{return}
+    }
+    
+    func broadcasting (){
+        if(!(currentTrack == nil)){
+            
+        }
+        else {return}
     }
 }
 

@@ -65,25 +65,31 @@ class AudioStreamingDelegate: NSObject {
     }
 
     func play() {
-        let ref = Database.database().reference().child("/parties/\(currentParty)")
-        if let currentMetadata = SPTAudioStreamingController.sharedInstance().metadata{
-            var id = currentMetadata.currentTrack?.uri
-            id?.removeFirst(14)
-            if id == currentTrack?.trackId{
-                SPTAudioStreamingController.sharedInstance().setIsPlaying(true) { (error) in
-                    if let error = error { print(error); return}
-                    ref.child("currentlyPlaying/isPlaying").setValue(true)
-                    ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
-                    return
+        if(currentAdmin){
+            let ref = Database.database().reference().child("/parties/\(currentParty)")
+            if let currentMetadata = SPTAudioStreamingController.sharedInstance().metadata{
+                var id = currentMetadata.currentTrack?.uri
+                id?.removeFirst(14)
+                if id == currentTrack?.trackId{
+                    SPTAudioStreamingController.sharedInstance().setIsPlaying(true) { (error) in
+                        if let error = error { print(error); return}
+                        ref.child("currentlyPlaying/isPlaying").setValue(true)
+                        ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
+                        return
+                    }
                 }
             }
+            print(SPTAudioStreamingController.sharedInstance(), "TESTESTES PLAY")
+
+            let trackId = currentTrack?.trackId
+            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: (currentTrack?.playbackStatus?.position)!, callback: { (error) in
+                if let error = error { print(error); return }
+                ref.child("currentlyPlaying/isPlaying").setValue(true)
+                ref.child("currentlyPlaying/playbackStatus").setValue(["position":currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])
+            })
+  
         }
-        let trackId = currentTrack?.trackId
-        SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: (currentTrack?.playbackStatus?.position)!, callback: { (error) in
-            if let error = error { print(error); return }
-            ref.child("currentlyPlaying/isPlaying").setValue(true)
-            ref.child("currentlyPlaying/playbackStatus").setValue(["position":currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])
-        })
+        
     }
 
     func pause(completion: @escaping ()->Void) {
@@ -143,18 +149,7 @@ class AudioStreamingDelegate: NSObject {
         }
     }
 
-    func start() {
-        print("Starting Broadcast")
 
-        isBroadcasting = true
-    }
-
-    func stop(completion: ()->Void) {
-        print("Stopping Broadcast")
-
-        isBroadcasting = false
-        completion()
-    }
 }
 
 //MARK - Remote Player Extension
@@ -254,11 +249,47 @@ extension AudioStreamingDelegate: SPTAudioStreamingDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(toggle), name: NSNotification.Name.Spotify.toggle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(next), name: NSNotification.Name.Spotify.nextSong, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(prev), name: NSNotification.Name.Spotify.prevSong, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(startBroad), name: NSNotification.Name.Spotify.startBroadcast, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopBroad), name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
 
         setupAudioSession()
         do { try AVAudioSession.sharedInstance().setActive(true) }
         catch let error as NSError { print(error.localizedDescription) }
     }
+  func start() {
+        print("Starting Broadcast")
+        
+        isBroadcasting = true
+    }
+    
+    func stop(completion: ()->Void) {
+        print("Stopping Broadcast")
+        
+        isBroadcasting = false
+        completion()
+    }
+    
+    @objc func startBroad(){
+        
+        print("BROADCASTING START")
+        let ref = Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying/")
+
+        ref.observe(.value) { (snapshot) in
+            currentTrackPosition = snapshot.hasChild("isPosition") ? snapshot.childSnapshot(forPath: "isPosition").value as! TimeInterval : 0.0
+        }
+      print(currentTrackPosition, "Track Position")
+        let trackId = currentTrack?.trackId
+
+        SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: currentTrackPosition, callback: { (error) in
+            if let error = error { print(error); return }
+
+        })
+
+    }
+    
+    @objc func stopBroad(){
+        SPTAudioStreamingController.sharedInstance().setIsPlaying(false) { (error) in
+            if let error = error { print(error); return }}    }
 
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         print("Did receive Error")
