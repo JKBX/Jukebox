@@ -33,8 +33,8 @@ class SearchViewController: UIViewController {
     var existingTracks: [TrackModel] = []
 
     var textSearchedFor: String = ""
-    var sectionOneHeader: String = "In Queue"
-    var sectionTwoHeader: String = "Spotify Results"
+    var sectionOneHeader: String = "Found in Playlist:"
+    var sectionTwoHeader: String = "SPOTIFY Search Results: "
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,15 +105,23 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        if(section == 0 ){
-            label.text = sectionOneHeader
-        }else {
-            label.text = sectionTwoHeader
-        }
-        label.backgroundColor = UIColor.darkGray
+        label.textAlignment = .center
+        label.textColor = .red
+        label.backgroundColor = UIColor(named: "SolidGrey800")
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = UIColor.white
-        return label
+        if(foundTracks.count > 0 && foundTracks.count > 0){
+            if(section == 0 ){
+                label.text = sectionOneHeader
+            }else {
+                label.text = sectionTwoHeader
+            }
+            return label
+        }else{
+            label.text = section == 0 ? "Keep searching Tracks!" : "(Cool Tracks!)"
+
+            return label
+        }
+        
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
