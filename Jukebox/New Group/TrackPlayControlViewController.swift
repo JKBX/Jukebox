@@ -9,6 +9,7 @@
 import UIKit
 import MarqueeLabel
 import Firebase
+import FirebaseDatabase
 
 class TrackPlayControlViewController: UIViewController {
     
@@ -39,8 +40,6 @@ class TrackPlayControlViewController: UIViewController {
 
         }
         timer = Timer.init()
-        
-  
  }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,10 +57,12 @@ class TrackPlayControlViewController: UIViewController {
     
     @IBAction func previousButton(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.prevSong, object: nil)
+        currentPositionForFirebase()
     }
     
     @IBAction func nextButton(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
+        
     }
 
 }
@@ -80,12 +81,9 @@ extension TrackPlayControlViewController{
         label.isUserInteractionEnabled = false
         
   }
-        
-        
 
-    
-    
     func playPause () {
+        if(currentTrack == nil){return}
         UIView.animate(withDuration: 0.3, animations: {
             self.playPauseButton.alpha = 0.3
         }, completion: {(finished) in
@@ -104,11 +102,7 @@ extension TrackPlayControlViewController{
             playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
         }else{playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)}
     }
-    
-    
-    
-    
-    
+
     func updateDuration() {
         if(currentAdmin){
             
@@ -150,6 +144,11 @@ extension TrackPlayControlViewController{
             timer.invalidate()
             timer = nil
         }
+    }
+    func currentPositionForFirebase(){
+        if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
+            ref.child("/currentlyPlaying").child("isPosition").setValue(0.0)}
+        else{return}
     }
 
     

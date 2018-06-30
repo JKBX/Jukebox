@@ -19,7 +19,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     let userID = Auth.auth().currentUser?.uid
 
     var addObserver: UInt?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self
@@ -262,4 +262,7 @@ extension PartyPlaylistViewController: UITableViewDelegate{
             return label
         }
         }
+    
+   
+    
     }

@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 import MarqueeLabel
 import Firebase
+import FirebaseDatabase
 
 
 class MiniPlayerViewController: UIViewController{
@@ -30,7 +31,6 @@ class MiniPlayerViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setting()
-
         swipeUpGesture()
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
@@ -46,7 +46,6 @@ class MiniPlayerViewController: UIViewController{
     }
     
     @IBAction func Play(_ sender: Any) {
-        print("test PLAY")
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
     }
  
@@ -142,6 +141,26 @@ extension MiniPlayerViewController{
             delegate?.expandSong()
         }
     }
+    
+    func streamCurrentPosition(){
+        self.resetTimer()
+        if(currentTrack == nil){
+            self.resetTimer()
+            return}
+        if(currentAdmin){
+            timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (timer) in
+                self.currentPositionForFirebase()
+            })
+        } else {
+            resetTimer()
+            
+        }
+    }
+    func currentPositionForFirebase(){
+        if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
+            ref.child("/currentlyPlaying").child("isPosition").setValue(currentTrackPosition)}
+        else{return}
+    }
 }
 
 extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
@@ -173,8 +192,10 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
                 self.playPause.alpha = 0.3
             }, completion: {(finished) in
                 if(currentTrack?.isPlaying)!{
+                    self.streamCurrentPosition()
                     self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
                 }else{
+                    self.currentPositionForFirebase()
                     self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
                 }
                 UIView.animate(withDuration: 0.2, animations:{
@@ -183,6 +204,9 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
             })
         }
     }
+    
+
+
 }
 
 

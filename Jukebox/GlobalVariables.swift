@@ -26,3 +26,4 @@ var currentParty:String = "" {
         delegate.streamingDelegate.update()
     }
 }
+
