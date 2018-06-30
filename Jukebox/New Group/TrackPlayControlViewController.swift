@@ -57,7 +57,7 @@ class TrackPlayControlViewController: UIViewController {
     
     @IBAction func previousButton(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.prevSong, object: nil)
-        currentPositionForFirebase()
+//        currentPositionForFirebase()
     }
     
     @IBAction func nextButton(_ sender: Any) {
@@ -145,11 +145,13 @@ extension TrackPlayControlViewController{
             timer = nil
         }
     }
-    func currentPositionForFirebase(){
-        if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
-            ref.child("/currentlyPlaying").child("isPosition").setValue(0.0)}
-        else{return}
-    }
+    
+//
+//    func currentPositionForFirebase(){
+//        if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
+//            ref.child("/currentlyPlaying").child("isPosition").setValue(0.0)}
+//        else{return}
+//    }
 
     
 

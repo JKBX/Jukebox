@@ -249,16 +249,15 @@ extension AudioStreamingDelegate: SPTAudioStreamingDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(toggle), name: NSNotification.Name.Spotify.toggle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(next), name: NSNotification.Name.Spotify.nextSong, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(prev), name: NSNotification.Name.Spotify.prevSong, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(startBroad), name: NSNotification.Name.Spotify.startBroadcast, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopBroad), name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
 
+//        OBSERVER FÜR Broadcast
+        
         setupAudioSession()
         do { try AVAudioSession.sharedInstance().setActive(true) }
         catch let error as NSError { print(error.localizedDescription) }
     }
   func start() {
         print("Starting Broadcast")
-        
         isBroadcasting = true
     }
     
@@ -269,27 +268,29 @@ extension AudioStreamingDelegate: SPTAudioStreamingDelegate{
         completion()
     }
     
-    @objc func startBroad(){
-        
-        print("BROADCASTING START")
-        let ref = Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying/")
-
-        ref.observe(.value) { (snapshot) in
-            currentTrackPosition = snapshot.hasChild("isPosition") ? snapshot.childSnapshot(forPath: "isPosition").value as! TimeInterval : 0.0
-        }
-      print(currentTrackPosition, "Track Position")
-        let trackId = currentTrack?.trackId
-
-        SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: currentTrackPosition, callback: { (error) in
-            if let error = error { print(error); return }
-
-        })
-
-    }
+//    @objc func startBroad(){
+//
+////        print("BROADCASTING START")
+//////        let ref = Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying/")
+////                let trackId = currentTrack?.trackId
+////            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: 0, callback: { (error) in
+////                if let error = error { print(error); return }
+////            })
+////
+//////        ref.child("isPosition").observe(.value) { (snapshot) in
+//////            currentTrackPosition = snapshot.value as! TimeInterval
+////////            currentTrackPosition = snapshot.hasChild("isPosition") ? snapshot.childSnapshot(forPath: "isPosition").value as! TimeInterval : 0.0
+//////        }
+//////
+//////      print(currentTrackPosition, "Track Position")
+////
+// }
     
-    @objc func stopBroad(){
-        SPTAudioStreamingController.sharedInstance().setIsPlaying(false) { (error) in
-            if let error = error { print(error); return }}    }
+//    @objc func stopBroad(){
+//        SPTAudioStreamingController.sharedInstance().setIsPlaying(false) { (error) in
+//            if let error = error { print(error); return }}
+//
+//    }
 
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         print("Did receive Error")
