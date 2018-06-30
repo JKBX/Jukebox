@@ -9,6 +9,7 @@
 import UIKit
 import MarqueeLabel
 import Firebase
+import FirebaseDatabase
 
 class TrackPlayControlViewController: UIViewController {
     
@@ -18,43 +19,35 @@ class TrackPlayControlViewController: UIViewController {
     @IBOutlet weak var previousButton: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
+    var timer: Timer!
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
-
         setFields()
-        if((currentTrack?.isPlaying)!){
-            playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+        updateDuration()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
+            self.setFields()
+            self.playPause()
+            
         }
-    }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.position, object: nil, queue: nil) { (note) in
+            self.updateDuration()
+
+        }
+        timer = Timer.init()
+ }
     
     override func viewWillAppear(_ animated: Bool) {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in self.onCurrentTrackChangedTrackPlayer(snapshot)})
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/isPlaying").observe(.value, with: { (snapshot) in
-            
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.playPauseButton.alpha = 0.3
-                }, completion: {(finished) in
-                    if("\(snapshot.value!)" == "1"){
-                        self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-                    }else{
-                        self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-                    }
-                    UIView.animate(withDuration: 0.2, animations:{
-                        self.playPauseButton.alpha = 1.0
-                    },completion:nil)
-                })
-
-        })
-        
-        
-    }
+        setPlayPause()
+   }
     
     @IBAction func playButton(_ sender: Any) {
         
@@ -64,16 +57,17 @@ class TrackPlayControlViewController: UIViewController {
     
     @IBAction func previousButton(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.prevSong, object: nil)
+        currentPositionForFirebase()
     }
     
     @IBAction func nextButton(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
+        
     }
 
 }
 extension TrackPlayControlViewController{
     func setFields(){
-        //guard songTitle != nil else{ return } //Maybe causing errors :)
         songTitle.text = currentTrack?.songName
         artist.text = currentTrack?.artist
     }
@@ -85,14 +79,80 @@ extension TrackPlayControlViewController{
         label.trailingBuffer = 50
         label.fadeLength = 5.0
         label.isUserInteractionEnabled = false
+        
+  }
+
+    func playPause () {
+        if(currentTrack == nil){return}
+        UIView.animate(withDuration: 0.3, animations: {
+            self.playPauseButton.alpha = 0.3
+        }, completion: {(finished) in
+            if(currentTrack?.isPlaying)!{
+                self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+            }else{
+                self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+            }
+            UIView.animate(withDuration: 0.2, animations:{
+                self.playPauseButton.alpha = 1.0
+            },completion:nil)
+        })
     }
+    func setPlayPause(){
+        if((currentTrack?.isPlaying)!){
+            playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+        }else{playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)}
+    }
+
+    func updateDuration() {
+        if(currentAdmin){
+            
+            var durationTime: String{
+                let formatter = DateFormatter()
+                formatter.dateFormat = "mm:ss"
+                let date = Date(timeIntervalSince1970: currentTrackPosition)
+                return formatter.string(from: date)
+            }
+            
+            self.songDuration.text = durationTime
+        }
+        else{
+            if(currentTrack == nil){return}
+            if (currentTrack?.isPlaying)!{
+                
+                resetTimer()
+                
+                var position: TimeInterval = (currentTrack?.playbackStatus?.position)!
+                
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                
+                var durationTime: String{
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "mm:ss"
+                    let date = Date(timeIntervalSince1970: currentTrackPosition)
+                    return formatter.string(from: date)
+                }
+                
+                self.songDuration.text = durationTime
+                
+                            })
+                        } else {
+                            resetTimer()}
+        } }
     
-    func onCurrentTrackChangedTrackPlayer(_ snapshot: DataSnapshot) {
-        let needsCheck = currentTrack == nil
-        if needsCheck  { Database.database().reference().child("/currentlyPlaying/isPlaying").setValue(false) }
-        setFields()
+    func resetTimer() {
+        if timer != nil{
+            timer.invalidate()
+            timer = nil
+        }
     }
- 
+    func currentPositionForFirebase(){
+        if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
+            ref.child("/currentlyPlaying").child("isPosition").setValue(0.0)}
+        else{return}
+    }
+
+    
+
 }
 
 

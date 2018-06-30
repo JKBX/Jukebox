@@ -22,10 +22,10 @@ class PartyCollectionViewController: UICollectionViewController {
     //var selectedParty:NSDictionary = [:]
     var selectedParty:String = ""
     var selectedPartyInfo:NSDictionary = [:]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         print("Ready")
 
         // Uncomment the following line to preserve selection between presentations
@@ -33,7 +33,7 @@ class PartyCollectionViewController: UICollectionViewController {
 
         // Register cell classes
         //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
+
         self.ref = Database.database().reference()
         /*let sampleParty: NSDictionary = [
             "Name" : "Another Lit Party",
@@ -41,21 +41,24 @@ class PartyCollectionViewController: UICollectionViewController {
             "Date" : "18.05.2018"
         ]
         self.ref.child("parties").childByAutoId().setValue(sampleParty)*/
-        
-        
+
+
         getParties()
 
         // Do any additional setup after loading the view.
     }
-    
+
     func getParties() -> Void {
-        
+
         let userID = Auth.auth().currentUser?.uid
         if userID == nil {
             return
         }
-        ref.child("users/\(userID!)/parties").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
+        self.hostParties = []
+        self.guestParties = []
+        //ref.child("users/\(userID!)/parties").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("users/\(userID!)/parties").observe(.value) { (snapshot) in
+                // Get user value
             let parties = snapshot.value as? NSDictionary
             print("\(snapshot.value)")
             parties?.forEach({ (arg: (key: Any, value: Any)) in
@@ -74,25 +77,13 @@ class PartyCollectionViewController: UICollectionViewController {
                     self.collectionView?.reloadData()
                 }) {(error) in print(error.localizedDescription)}
             })
-        }) {(error) in print(error.localizedDescription)}
+        }/*) {(error) in print(error.localizedDescription)}*/
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -110,7 +101,7 @@ class PartyCollectionViewController: UICollectionViewController {
             return self.guestParties.count
         }
     }
-    
+
     func getParty(for indexPath: IndexPath) -> (party: NSDictionary, id: String){
         switch indexPath.section {
         case 0:
@@ -120,8 +111,10 @@ class PartyCollectionViewController: UICollectionViewController {
         }
     }
 
+// setzt die PartyBilder, leider gerade willkürlich und gleiche bilder werden mehrmals gesetzt
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as! PartyCollectionViewCell
         let (party, _) = getParty(for: indexPath)
@@ -130,18 +123,54 @@ class PartyCollectionViewController: UICollectionViewController {
             print("From assets")
             cell.Image.image = UIImage(named: imagePath)
         } else {
+
             let imageReference = Storage.storage().reference(withPath: imagePath)
-            imageReference.getData(maxSize: 1 * 512 * 512) { data, error in
-                if let error = error {print(error)}
-                else { cell.Image.image = UIImage(data: data!) }
-            }
+
+                        imageReference.downloadURL(completion: { (url, error) in
+                            if (error == nil) {
+                                if let downloadUrl = url {
+                                    // Make you download string
+                                    cell.Image.kf.indicatorType = .activity
+                                    cell.Image.kf.setImage(with: downloadUrl, placeholder: UIImage(named: "AppIcon"))
+                                }
+                            } else {
+                                imageReference.getData(maxSize: 1 * 512 * 512) { data, error in
+                                    if let error = error {print(error)}
+                                    else {
+                                        cell.Image.image = UIImage(data: data!) }
+                                }
+                            }
+                        })
+
             cell.Label.text = party.object(forKey: "Name") as! String
         }
         return cell
+
+        // ALT oben NEU mit Kingfisher
+
+
+        //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
+        //                                                      for: indexPath) as! PartyCollectionViewCell
+        //        let (party, _) = getParty(for: indexPath)
+        //        let imagePath = party.object(forKey: "imagePath") as! String
+        //        if imagePath.contains("default") {
+        //            print("From assets")
+        //            cell.Image.image = UIImage(named: imagePath)
+        //        } else {
+        //
+        //            let imageReference = Storage.storage().reference(withPath: imagePath)
+        //            imageReference.getData(maxSize: 1 * 512 * 512) { data, error in
+        //                if let error = error {print(error)}
+        //                else {
+        //                    cell.Image.image = UIImage(data: data!) }
+        //            }
+        //            cell.Label.text = party.object(forKey: "Name") as! String
+        //        }
+        //        return cell
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
+
         if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as? SectionHeader{
             switch indexPath.section{
             case 0:
@@ -156,14 +185,15 @@ class PartyCollectionViewController: UICollectionViewController {
         }
         return UICollectionReusableView()
     }
-    
+
     @objc func createParty() -> Void{
         self.performSegue(withIdentifier: "createParty", sender: self)
     }
-    
+
     @objc func joinParty() -> Void{
         self.performSegue(withIdentifier: "joinParty", sender: self)
     }
+
 
     // MARK: UICollectionViewDelegate
 
@@ -173,10 +203,11 @@ class PartyCollectionViewController: UICollectionViewController {
         return true
     }
     */
-    
+
     //TODO Long press to remove
-    
+
     // Uncomment this method to specify if the specified item should be selected
+
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -188,7 +219,7 @@ class PartyCollectionViewController: UICollectionViewController {
         self.selectedParty = ""
     }
 
-    
+
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
     /*override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
         return true
@@ -201,8 +232,6 @@ class PartyCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         print(indexPath)
         self.performSegue(withIdentifier: "showParty", sender: self)
-    
-    }*/
-    
 
+    }*/
 }

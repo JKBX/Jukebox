@@ -19,13 +19,13 @@ struct sPTFTrackModel {
 }
 
 class SearchViewController: UIViewController {
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
+
     public static var authorizationToken: String?
     public static var loggingEnabled: Bool = true
-    
+
     var ref: DatabaseReference! = Database.database().reference()
     let userID = Auth.auth().currentUser?.uid
     var isAdmin: Bool = false
@@ -35,26 +35,26 @@ class SearchViewController: UIViewController {
     var textSearchedFor: String = ""
     var sectionOneHeader: String = "In Queue"
     var sectionTwoHeader: String = "Spotify Results"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.dataSource = self
         tableView.delegate = self
-        
+
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         searchBar.becomeFirstResponder()
         searchBar.showsCancelButton = true
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     func searchTrackWithSpartanCall(track: String){
         Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
         foundTracks = []
@@ -80,7 +80,7 @@ class SearchViewController: UIViewController {
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0){
             return existingTracks.count
@@ -88,7 +88,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             return foundTracks.count
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: "existing", for: indexPath) as! TrackCell
@@ -101,7 +101,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
         if(section == 0 ){
@@ -114,14 +114,14 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         label.textColor = UIColor.white
         return label
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text == "" {
             tableView.reloadData()
@@ -131,7 +131,7 @@ extension SearchViewController: UISearchBarDelegate {
             tableView.reloadData()
         }
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
     }

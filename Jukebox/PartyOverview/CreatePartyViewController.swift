@@ -34,12 +34,11 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
+
     
     @IBAction func done(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
     func generatePartyId(completion: @escaping (_ id: String)->Void) {
         let min: UInt32 = 000000, max: UInt32 = 999999
         var newId : String = ""
@@ -63,7 +62,7 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         let picture:Data = UIImageJPEGRepresentation(partyImage.image!, 0.2)! as Data
-        
+
         // Create a storage reference from our storage service
         let pictureRef = storage.reference().child("/partyImages/\(partyId).jpg")
         _ = pictureRef.putData(picture, metadata: metadata) { (metadata, error) in

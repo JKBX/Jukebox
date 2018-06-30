@@ -73,7 +73,7 @@ class ExpandedTrackViewController: UIViewController {
         coverImage.layer.masksToBounds = true
         let corner: CGFloat = 10
         coverImage.layer.cornerRadius = corner
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in self.onCurrentTrackChangedExpandedPlayer(snapshot)})
+        update()
         
     }
 
@@ -92,6 +92,7 @@ class ExpandedTrackViewController: UIViewController {
         animateImageLayerIN()
         animateCoverImageIN()
         animateLowerModulIN()
+
     }
 }
 
@@ -252,7 +253,11 @@ extension ExpandedTrackViewController{
         let inset = bounds.height - bounds.width
         return inset
     }
-    
+    func update(){
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
+            self.coverImage.kf.indicatorType = .activity
+            self.coverImage.kf.setImage(with: currentTrack?.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
+        }}
     func setModulStartPosition(){
         lowerModulTopConstraint.constant = lowerModulPosition
     }
@@ -276,21 +281,3 @@ extension ExpandedTrackViewController{
         animateLowerModul(isPresenting: false)
     }
 }
-
-extension ExpandedTrackViewController {
-    
-    func onCurrentTrackChangedExpandedPlayer(_ snapshot: DataSnapshot) {
-        
-        let needsCheck = currentTrack == nil
-        if needsCheck { Database.database().reference().child("/currentlyPlaying/isPlaying").setValue(false) }
-            let duration = 1.0
-            UIView.animate(withDuration: 0.2, animations: {
-                self.coverImage.alpha = 0.7
-            }, completion: {(finished) in
-                self.coverImage.kf.indicatorType = .activity
-                self.coverImage.kf.setImage(with: currentTrack?.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
-                UIView.animate(withDuration: duration, animations:{
-                    self.coverImage.alpha = 1.0
-                },completion:nil)
-            })
-    }}

@@ -16,5 +16,17 @@ extension Notification.Name {
         static let stopBroadcast = Notification.Name("SptStopBroadcast")
 
     }
+    struct Player {
+        
+        static let trackChanged = Notification.Name("player")
+        static let position = Notification.Name("songDuration")
+        
+    }
     
+    static let loading = Notification.Name("loading")
 }
+
+
+
+
+

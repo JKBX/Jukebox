@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 import MarqueeLabel
 import Firebase
+import FirebaseDatabase
 
 
 class MiniPlayerViewController: UIViewController{
@@ -30,19 +31,18 @@ class MiniPlayerViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setting()
-
         swipeUpGesture()
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
         userTriggeredButton(isAdmin: currentAdmin)
         timer = Timer.init()
+        playPauseButton()
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         playPause.adjustsImageWhenHighlighted = false
-        playPause =  playPauseButton(playPause)
-        
+  
     }
     
     @IBAction func Play(_ sender: Any) {
@@ -106,20 +106,20 @@ extension MiniPlayerViewController{
     }
     
     func setting(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
         if let song = currentTrack {
-            songTitle.text = song.songName
-            artist.text = song.artist
-            thumbImage.kf.indicatorType = .activity
-            thumbImage.kf.setImage(with: song.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
+            self.songTitle.text = song.songName
+            self.artist.text = song.artist
+            self.thumbImage.kf.indicatorType = .activity
+            self.thumbImage.kf.setImage(with: song.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
             
         }else {
             //TODO Handle no song in playing yet
-            songTitle.text = "Weclome!"
-            artist.text = "Awaiting a song to be in the playlist! Please add a song!"
-            thumbImage.image = UIImage(named: "SpotifyLogoWhite")
-
+            self.songTitle.text = "Weclome!"
+            self.artist.text = "Awaiting a song to be in the playlist! Please add a song!"
+           self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
         }
-    }
+        }}
 }
 
 extension MiniPlayerViewController{
@@ -142,24 +142,26 @@ extension MiniPlayerViewController{
         }
     }
     
-    
-    func songDuration(_ currentTrack: TrackModel){
-        var playStatus = currentTrack.playbackStatus
-        
-        
+    func streamCurrentPosition(){
+        self.resetTimer()
+        if(currentTrack == nil){
+            self.resetTimer()
+            return}
+        if(currentAdmin){
+            timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (timer) in
+                self.currentPositionForFirebase()
+            })
+        } else {
+            resetTimer()
+            
+        }
     }
-    //        var time1 = position
-    //
-    //        var durationTime: String{
-    //            let formatter = DateFormatter()
-    //            formatter.dateFormat = "mm:ss"
-    //            let date = Date(timeIntervalSince1970: time1)
-    //            return formatter.string(from: date)
-    //        }
-    ////       --> progress bar
-    ////        durationTime.text = durationTime
+    func currentPositionForFirebase(){
+        if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
+            ref.child("/currentlyPlaying").child("isPosition").setValue(currentTrackPosition)}
+        else{return}
+    }
 }
-
 
 extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     
@@ -181,25 +183,30 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
         broadcastingButton.isEnabled = !isAdmin
     }
  
-    func playPauseButton(_ button: UIButton) -> UIButton{
-        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/isPlaying").observe(.value, with: { (snapshot) in
-            
+    func playPauseButton(){
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
+            if(currentTrack == nil){self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+                return
+            }
             UIView.animate(withDuration: 0.3, animations: {
-                button.alpha = 0.3
+                self.playPause.alpha = 0.3
             }, completion: {(finished) in
-                if("\(snapshot.value!)" == "1"){
-                    button.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+                if(currentTrack?.isPlaying)!{
+                    self.streamCurrentPosition()
+                    self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
                 }else{
-                    button.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+                    self.currentPositionForFirebase()
+                    self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
                 }
                 UIView.animate(withDuration: 0.2, animations:{
                     self.playPause.alpha = 1.0
                 },completion:nil)
             })
-            
-        })
-        return button
+        }
     }
+    
+
+
 }
 
 

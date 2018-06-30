@@ -43,13 +43,14 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T2l-2i-Suu">
                                             <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="tintColor" name="SolidGrey800"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="70"/>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                     </subviews>
                                 </view>
-                                <color key="backgroundColor" name="SolidBlue500"/>
+                                <color key="backgroundColor" name="SolidGrey800"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="70"/>
                                 </userDefinedRuntimeAttributes>
@@ -98,7 +99,7 @@
                     <navigationItem key="navigationItem" title="Jukebox" id="cIw-or-vAu">
                         <barButtonItem key="leftBarButtonItem" image="UserIcon" id="RQm-Am-hsR">
                             <connections>
-                                <segue destination="2gd-AY-uLX" kind="presentation" customClass="LTRSegue" customModule="Jukebox" customModuleProvider="target" id="yaH-eQ-zut"/>
+                                <segue destination="2gd-AY-uLX" kind="presentation" id="yaH-eQ-zut"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -110,7 +111,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aex-xX-hYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-72.799999999999997" y="-1066.4167916041979"/>
+            <point key="canvasLocation" x="-758" y="-1185"/>
         </scene>
         <!--Join-->
         <scene sceneID="ef7-l0-NTB">
@@ -127,11 +128,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES" textContentType="postal-code"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
-                                        <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" text="Join the Party with your ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-fA-qf8">
                                 <rect key="frame" x="40" y="291" width="334" height="21"/>
@@ -313,13 +309,13 @@
             </objects>
             <point key="canvasLocation" x="1650.4000000000001" y="-1397.4512743628186"/>
         </scene>
-        <!--UserProfile-->
+        <!--AuthView-->
         <scene sceneID="RNI-Gd-ya1">
             <objects>
-                <viewControllerPlaceholder storyboardName="UserProfile" id="2gd-AY-uLX" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Auth" referencedIdentifier="AuthView" id="2gd-AY-uLX" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dPh-kM-Ir8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1012" y="-288"/>
+            <point key="canvasLocation" x="-73" y="-527"/>
         </scene>
         <!--PartyPlaylist-->
         <scene sceneID="brX-Hv-8QF">
