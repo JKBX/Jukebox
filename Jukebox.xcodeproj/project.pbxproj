@@ -37,6 +37,9 @@
 		7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904FD1920C6907400F101ED /* RoundButton.swift */; };
 		790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */; };
 		790CCC8520BDE0080081621B /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CCC8420BDE0080081621B /* TrackCell.swift */; };
+		7952BD7320E7EF6900E970D0 /* CustomPartyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7952BD7220E7EF6900E970D0 /* CustomPartyImage.swift */; };
+		79BB68E320E27100009331F6 /* PopUpViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB68E220E27100009331F6 /* PopUpViewViewController.swift */; };
+		79F97BF720E3BA3A00329524 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F97BF620E3BA3A00329524 /* DesignableView.swift */; };
 		E0153E4020DE70BC00EBCE79 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0153E3F20DE70BC00EBCE79 /* SearchCell.swift */; };
 		E02E252E20DA557D0014FD5E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E02E252D20DA557D0014FD5E /* QuartzCore.framework */; };
 		E03118DB20CFE89800B9E570 /* UIPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E03118DA20CFE89800B9E570 /* UIPlayer.storyboard */; };
@@ -83,6 +86,9 @@
 		7904FD1920C6907400F101ED /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PartyPlaylist.storyboard; sourceTree = "<group>"; };
 		790CCC8420BDE0080081621B /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
+		7952BD7220E7EF6900E970D0 /* CustomPartyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPartyImage.swift; sourceTree = "<group>"; };
+		79BB68E220E27100009331F6 /* PopUpViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewViewController.swift; sourceTree = "<group>"; };
+		79F97BF620E3BA3A00329524 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		80517207188883059530FC1A /* Pods-Jukebox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jukebox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox.debug.xcconfig"; sourceTree = "<group>"; };
 		E0153E3F20DE70BC00EBCE79 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		E02E252D20DA557D0014FD5E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -144,6 +150,7 @@
 				17AE0E9220BDC657000EF085 /* PartyOverview.storyboard */,
 				17AE0E9320BDC657000EF085 /* SectionHeader.swift */,
 				E0E7422320E370350076432D /* PartyModel.swift */,
+				7952BD7220E7EF6900E970D0 /* CustomPartyImage.swift */,
 			);
 			path = PartyOverview;
 			sourceTree = "<group>";
@@ -154,6 +161,7 @@
 				17DC0B8220CEDC37001C8DF1 /* Search.storyboard */,
 				17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */,
 				E0153E3F20DE70BC00EBCE79 /* SearchCell.swift */,
+				79BB68E220E27100009331F6 /* PopUpViewViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				7904FD1920C6907400F101ED /* RoundButton.swift */,
+				79F97BF620E3BA3A00329524 /* DesignableView.swift */,
 			);
 			path = Designables;
 			sourceTree = "<group>";
@@ -404,11 +413,13 @@
 				17AE0E8420BDC3AA000EF085 /* LoginViewController.swift in Sources */,
 				E06F85DB20D2CAEF0073E29D /* TrackPlayControlViewController.swift in Sources */,
 				17D2C91B20DEAF7500FA94FA /* GlobalVariables.swift in Sources */,
+				7952BD7320E7EF6900E970D0 /* CustomPartyImage.swift in Sources */,
 				17AE0E9A20BDC657000EF085 /* SectionHeader.swift in Sources */,
 				7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */,
 				179C11D320DBE09000EF9726 /* EditCardViewController.swift in Sources */,
 				179C11CF20D9CBAF00EF9726 /* ProfileViewController.swift in Sources */,
 				179C11D120DBE08300EF9726 /* InfoCardViewController.swift in Sources */,
+				79F97BF720E3BA3A00329524 /* DesignableView.swift in Sources */,
 				E0E7422420E370350076432D /* PartyModel.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
@@ -417,6 +428,7 @@
 				17D2C92320E5B02400FA94FA /* FirebaseAuth.swift in Sources */,
 				17AE0E9820BDC657000EF085 /* CreatePartyViewController.swift in Sources */,
 				E0C4D34720BDB3C700B74C31 /* AppDelegate.swift in Sources */,
+				79BB68E320E27100009331F6 /* PopUpViewViewController.swift in Sources */,
 				E06F85D920D29A910073E29D /* ExpandedTrackViewController.swift in Sources */,
 				E0153E4020DE70BC00EBCE79 /* SearchCell.swift in Sources */,
 				17AE0E6720BDC119000EF085 /* AudioStreamingDelegate.swift in Sources */,
