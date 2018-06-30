@@ -221,7 +221,9 @@ extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelega
         let callback:SPTRequestCallback = {(error, data) in
             if error != nil{ print(error); return }
             guard let page = data as? SPTListPage else { print("Couldn't cast as SPTListPage"); return }
-            self.playlists = self.playlists + (page.items as? [SPTPartialPlaylist])!
+            if let lst = page.items as? [SPTPartialPlaylist]{
+                self.playlists = self.playlists + lst
+            }
             if page.hasNextPage { self.loadPlaylists(page) }
             else { self.picker.reloadAllComponents() }
         }

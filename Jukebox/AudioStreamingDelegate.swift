@@ -66,6 +66,8 @@ class AudioStreamingDelegate: NSObject {
     }
 
     func play() {
+        print("Play")
+        print(currentAdmin)
         if(currentAdmin){
             let ref = Database.database().reference().child("/parties/\(currentParty)")
             if let currentMetadata = SPTAudioStreamingController.sharedInstance().metadata{
@@ -212,6 +214,7 @@ extension AudioStreamingDelegate {
             self.stop(){}; return .success }
 
         if currentAdmin {
+            print("Setting Admin commands")
             commandCenter.playCommand.addTarget(handler: playHandler)
             commandCenter.pauseCommand.addTarget(handler: pauseHandler)
             commandCenter.nextTrackCommand.addTarget(handler: nextHandler)
