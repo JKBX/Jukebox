@@ -95,7 +95,9 @@ class AudioStreamingDelegate: NSObject {
             print("Paused Spotify")
             print("\(currentTrack?.isPlaying),  TESTESTESTEST")
             ref.child("currentlyPlaying/isPlaying").setValue(false)
-            if(currentTrack == nil){return}
+            if(currentTrack == nil){
+                ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
+                return}
             if(currentTrack?.isPlaying)!{
                 
                 ref.child("currentlyPlaying/playbackStatus").setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])}
