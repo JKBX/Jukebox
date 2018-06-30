@@ -33,8 +33,13 @@ class TrackCell: UITableViewCell {
             self.setNeedsLayout()
         })
 
-        voteCountLabel.text = String(track.voteCount)
-
+        let label = UILabel(frame: CGRect(x: UIScreen.main.bounds.width - 48, y: 40, width: 32, height: 24))
+        label.text =  String(track.voteCount)//"I'am a test label"
+        label.textAlignment = .right
+        label.textColor = .white
+        label.font.withSize(8)
+        self.contentView.addSubview(label)
+        
         let accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))
         accessoryButton.setImage(UIImage(named: track.liked ? "favorite" : "favoriteOutline"), for: .normal)
         accessoryButton.addTarget(self, action: #selector(toggleLike), for: .touchUpInside)
