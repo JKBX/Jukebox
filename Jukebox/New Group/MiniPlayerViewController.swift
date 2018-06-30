@@ -41,7 +41,8 @@ class MiniPlayerViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         playPause.adjustsImageWhenHighlighted = false
-    
+        playPause =  playPauseButton(playPause)
+        
     }
     
     @IBAction func Play(_ sender: Any) {
@@ -169,6 +170,7 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     var coverImageView: UIImageView {
         
         return thumbImage
+        
     }
     
 //    trigger Admin or User
@@ -179,48 +181,28 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
         broadcastingButton.isEnabled = !isAdmin
     }
  
-}
-
-
-
-extension MiniPlayerViewController: SPTAudioStreamingPlaybackDelegate{
-//
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
-//
-//        songTitle.text = metadata.currentTrack?.name
-//        artist.text = metadata.currentTrack?.artistName
-//        thumbImage.kf.setImage(with: URL(string: (metadata.currentTrack?.albumCoverArtURL)!))
-//    }
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
-//        var time1 = position
-//        
-//        var durationTime: String{
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "mm:ss"
-//            let date = Date(timeIntervalSince1970: time1)
-//            return formatter.string(from: date)
-//        }
-////       --> progress bar
-////        durationTime.text = durationTime
-//    }
-//    
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
-         //print("Player Did change playback status")
-        if (currentAdmin){
+    func playPauseButton(_ button: UIButton) -> UIButton{
+        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/isPlaying").observe(.value, with: { (snapshot) in
+            
             UIView.animate(withDuration: 0.3, animations: {
-                self.playPause.alpha = 0.3
+                button.alpha = 0.3
             }, completion: {(finished) in
-                if(currentTrack?.isPlaying)!{
-                    self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+                if("\(snapshot.value!)" == "1"){
+                    button.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
                 }else{
-                    self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+                    button.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
                 }
                 UIView.animate(withDuration: 0.2, animations:{
                     self.playPause.alpha = 1.0
                 },completion:nil)
-            })}
+            })
+            
+        })
+        return button
     }
+}
+
+
  
 
-}
+

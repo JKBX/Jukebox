@@ -35,9 +35,29 @@ class TrackPlayControlViewController: UIViewController {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
+        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/id").observe(.value, with: { (snapshot) in self.onCurrentTrackChangedTrackPlayer(snapshot)})
+        Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying").child("/isPlaying").observe(.value, with: { (snapshot) in
+            
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.playPauseButton.alpha = 0.3
+                }, completion: {(finished) in
+                    if("\(snapshot.value!)" == "1"){
+                        self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
+                    }else{
+                        self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+                    }
+                    UIView.animate(withDuration: 0.2, animations:{
+                        self.playPauseButton.alpha = 1.0
+                    },completion:nil)
+                })
+
+        })
+        
+        
     }
     
     @IBAction func playButton(_ sender: Any) {
+        
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
         
     }
@@ -66,48 +86,15 @@ extension TrackPlayControlViewController{
         label.fadeLength = 5.0
         label.isUserInteractionEnabled = false
     }
+    
+    func onCurrentTrackChangedTrackPlayer(_ snapshot: DataSnapshot) {
+        let needsCheck = currentTrack == nil
+        if needsCheck  { Database.database().reference().child("/currentlyPlaying/isPlaying").setValue(false) }
+        setFields()
+    }
+ 
 }
 
 
-
-//extension TrackPlayControlViewController: SPTAudioStreamingPlaybackDelegate{
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChange metadata: SPTPlaybackMetadata!) {
-//        songTitle.text = metadata.currentTrack?.name
-//        artist.text = metadata.currentTrack?.artistName
-//    }
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
-//        var durationTime: String{
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "mm:ss"
-//            let date = Date(timeIntervalSince1970: position)
-//            return formatter.string(from: date)
-//        }
-//        songDuration.text = durationTime
-//
-//    }
-//    
-//    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
-//        
-//        UIView.animate(withDuration: 0.3, animations: {
-//            self.playPauseButton.alpha = 0.3
-//        }, completion: {(finished) in
-//            if(currentTrack?.isPlaying)!{
-//                self.playPauseButton.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-//            }else{
-//                self.playPauseButton.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-//            }
-//            UIView.animate(withDuration: 0.2, animations:{
-//                self.playPauseButton.alpha = 1.0
-//            },completion:nil)
-//        })
-//    }
-//    
-//    
-//    
-//
-//}
-    
 
 

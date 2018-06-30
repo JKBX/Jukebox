@@ -62,18 +62,19 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
         let storage = Storage.storage()
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-        let picture:Data = (UIImagePNGRepresentation(partyImage.image!) as Data?)!
+        let picture:Data = UIImageJPEGRepresentation(partyImage.image!, 0.2)! as Data
         
         // Create a storage reference from our storage service
-        let pictureRef = storage.reference().child("/partyImages/\(partyId).png")
+        let pictureRef = storage.reference().child("/partyImages/\(partyId).jpg")
         _ = pictureRef.putData(picture, metadata: metadata) { (metadata, error) in
-            guard let metadata = metadata else { return }
+            guard let metadata = metadata else { completion(""); return }
             completion(metadata.path!)
         }
     }
     
     //Create
     @IBAction func createPressed(_ sender: UIButton) {
+        print("create party")
         let enteredName = addName.text!
         let enteredDate = addDate.text!
         let playlistIdx = picker.selectedRow(inComponent: 0) - 1
@@ -135,7 +136,7 @@ extension UIToolbar {
         
         let toolBar = UIToolbar()
         
-        toolBar.barStyle = UIBarStyle.default
+        toolBar.barStyle = UIBarStyle.blackTranslucent
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.white
         toolBar.sizeToFit()
@@ -178,6 +179,8 @@ extension CreatePartyViewController{
     
     func setupDatePicker(){
         let datePicker = UIDatePicker()
+        datePicker.tintColor = UIColor.lightText
+        datePicker.backgroundColor = UIColor.darkGray
         datePicker.datePickerMode = UIDatePickerMode.date
         datePicker.addTarget(self, action: #selector(self.datePickerValueChanged(sender:)), for: .valueChanged)
         let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(self.dismissPicker))
@@ -202,6 +205,8 @@ extension CreatePartyViewController{
 extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelegate{
     
     func setupPlaylistPicker() {
+        picker.backgroundColor = UIColor.darkGray
+        //self.setValue(UIColor.white, forKey: "text")
         picker.dataSource = self
         picker.delegate = self
         self.loadPlaylists(nil)
@@ -235,6 +240,7 @@ extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelega
             if error != nil{ print(error); return }
             guard let snapshot = data as? SPTPlaylistSnapshot else { print("Couldn't cast as SPTListPage"); return }
             var queue: NSMutableDictionary = [:]
+            if snapshot.firstTrackPage.items == nil {completion(); return}
             for item in snapshot.firstTrackPage.items{
                 guard let track = item as? SPTPartialTrack else { print("Couldn't cast as SPTPartialTrack"); return }
                 var artist = ""

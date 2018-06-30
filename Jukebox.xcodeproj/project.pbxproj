@@ -307,6 +307,11 @@
 					E0C4D34220BDB3C700B74C31 = {
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 0930;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

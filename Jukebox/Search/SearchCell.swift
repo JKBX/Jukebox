@@ -40,7 +40,7 @@ class SearchCell: UITableViewCell {
     @objc func prepareAndAddToFirebase(){
         let userID = Auth.auth().currentUser?.uid
         var trackId = self.track?.trackId!
-        let ref = Database.database().reference().child("/parties/\(currentParty!)/queue/\(trackId!)")
+        let ref = Database.database().reference().child("/parties/\(currentParty)/queue/\(trackId!)")
         let newTrack: NSDictionary = [
             "albumTitle": self.track?.album!,
             "artist" : self.track?.artist!,

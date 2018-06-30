@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MJV-Gs-deF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MJV-Gs-deF">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -352,7 +352,6 @@
         <!--Item-->
         <scene sceneID="kUC-cz-qfZ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CLU-RJ-Xc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IdI-Cd-HUb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="0lb-jL-0b2"/>
                     <toolbarItems/>
@@ -366,6 +365,7 @@
                         <segue destination="Qqn-oM-MYH" kind="relationship" relationship="rootViewController" id="Ym4-xZ-AZh"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CLU-RJ-Xc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="709.60000000000002" y="-654.42278860569718"/>
         </scene>

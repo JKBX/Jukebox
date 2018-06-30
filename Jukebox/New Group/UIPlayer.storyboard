@@ -41,7 +41,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ko0-fS-i5y" userLabel="Broadcasting Button">
-                                            <rect key="frame" x="355" y="8" width="48" height="48"/>
+                                            <rect key="frame" x="354" y="7" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="fDz-2h-zkB"/>
                                                 <constraint firstAttribute="width" constant="50" id="tMp-kv-0US" userLabel="width = 50"/>

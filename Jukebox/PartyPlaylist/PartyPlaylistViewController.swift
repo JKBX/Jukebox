@@ -16,10 +16,9 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
     var miniPlayer: MiniPlayerViewController?
-    //var currentSong: TrackModel?
-    //var partyID: String = ""
-    //var queue: [TrackModel] = []
     let userID = Auth.auth().currentUser?.uid
+    
+    var addObserver: UInt?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +30,11 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        currentQueue = []
-        //TODO fix back/forth bug
-        self.tableView.reloadData()
-        self.ref = Database.database().reference().child("/parties/\(currentParty!)")
-        setupObservers()
+        super.viewWillAppear(animated)
+        //Only set if coming from Party Overview
+        if self.isMovingToParentViewController {
+            setupObservers()
+        }
     }
     
     //TODO ??
@@ -48,45 +47,43 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         }
     }
     
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //TODO test if viewDidDisappear is right
-        //Reset Global Vars
-        //currentParty = nil
-        //currentTrack = nil
-        //currentQueue = []
-        freeObservers()
-
-        //        MARK:
-        //        broadcasting wird unterbrochen sobald man die playlistview verlässt
-        NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        //Only Reset if moving to Party Overview
+        if self.isMovingFromParentViewController {
+            freeObservers()
+            self.tableView.reloadData()
+            //Stop Playback
+            /*if (currentTrack?.isPlaying)! && currentAdmin {
+                NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
+            }
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)*/
+        }
     }
-    
-//    wird benötigt? Methode wenn das Objekt freigegeben wird..
-    deinit {
 
-    }
 
     //MARK: Observer-Methods
     
     func setupObservers() {
+        self.ref = Database.database().reference().child("/parties/\(currentParty)")
+        
         ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(TrackModel(from: snapshot))})
-        ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
+        addObserver = ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
         ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(TrackModel(from: snapshot))})
         ref.child("/currentlyPlaying").observe(.value, with: { (snapshot) in self.onCurrentTrackChanged(snapshot)})
-        
     }
     
     func onChildAdded(_ changedTrack: TrackModel) {
-        print("Track Changed: \(changedTrack.songName!)")
         currentQueue.append(changedTrack)
         currentQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let index = getIndex(of: changedTrack)
         self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+        
+        self.tableView.reloadData()
+
     }
     
     func onChildChanged(_ changedTrack: TrackModel) {
-        print("Track Changed: \(changedTrack.songName!)")
         let index = getIndex(of: changedTrack)
         currentQueue[index] = changedTrack
         self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
@@ -102,17 +99,18 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     
     
     func onChildRemoved(_ changedTrack: TrackModel) {
-        print("Track Removed: \(changedTrack.songName!)")
-        //Todo test if only called on vote
         let index = getIndex(of: changedTrack)
         currentQueue.remove(at: index)
         self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
+        self.tableView.reloadData()
+
     }
     
     
     func onCurrentTrackChanged(_ snapshot: DataSnapshot) {
+        let needsCheck = currentTrack == nil
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
-        print("Current Track Changed")
+        if needsCheck && currentTrack != nil { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
         miniPlayer?.setting()
         miniPlayer?.update()
     }
@@ -130,8 +128,12 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     }
     
     func freeObservers(){
-        ref.removeAllObservers()
-        self.ref = Database.database().reference()
+        ref.child("/queue").removeAllObservers()
+        ref.child("/currentlyPlaying").removeAllObservers()
+        currentParty = ""
+        currentQueue = []
+        currentTrack = nil
+        currentAdmin = false
     }
 }
 
@@ -202,7 +204,7 @@ extension PartyPlaylistViewController: UITableViewDelegate{
             let alert = UIAlertController(title: "Are you sure you want to remove \(track.songName!)?", message: "This track had \(String(track.voteCount)) votes.", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-                self.ref.child("/parties/\(currentParty!)/queue/\(track.trackId as String)").removeValue()
+                self.ref.child("/queue/\(track.trackId as String)").removeValue()
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
@@ -223,10 +225,10 @@ extension PartyPlaylistViewController: UITableViewDelegate{
             success(true)
             if track.liked{
                 //Unlike
-                self.ref.child("/parties/\(currentParty!)/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
+                self.ref.child("/parties/\(currentParty)/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
             } else {
                 //Like
-                self.ref.child("/parties/\(currentParty!)/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
+                self.ref.child("/parties/\(currentParty)/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
             }
         })
         voteAction.image = UIImage(named: track.liked ? "favorite" : "favoriteOutline")
@@ -235,11 +237,30 @@ extension PartyPlaylistViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        //TODO center
         let label = UILabel()
-        label.text = "The Show must go on! Keep adding Tracks."
         label.font.withSize(8)
-        label.textColor = .white
-        return label
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
+        
+        if(currentQueue.count == 0){
+            label.text = "Add Tracks! There is no song left!"
+            label.textColor = .red
+            return label}
+        
+        if(currentQueue.count <= 5 && currentQueue.count > 0){
+            
+            label.textColor = .white
+            let myString:String = "Just \(currentQueue.count) songs left. Keep adding Tracks." as String
+            let myMutableString = NSMutableAttributedString(string: myString)
+            myMutableString.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.red, range: NSRange(location:5,length:1))
+            label.attributedText = myMutableString
+            return label }
+            
+        else {
+            label.isHidden = true
+            return label
+        }
+        }
     }
-}
+
