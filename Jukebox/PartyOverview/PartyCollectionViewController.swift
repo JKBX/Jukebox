@@ -42,7 +42,6 @@ class PartyCollectionViewController: UICollectionViewController {
         ]
         self.ref.child("parties").childByAutoId().setValue(sampleParty)*/
 
-
         getParties()
 
         // Do any additional setup after loading the view.
