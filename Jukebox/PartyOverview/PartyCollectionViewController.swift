@@ -46,6 +46,7 @@ class PartyCollectionViewController: UICollectionViewController {
         getParties()
 
         // Do any additional setup after loading the view.
+        setupLongPressGestureRecognizer()
     }
 
     func getParties() -> Void {
@@ -234,4 +235,19 @@ class PartyCollectionViewController: UICollectionViewController {
         self.performSegue(withIdentifier: "showParty", sender: self)
 
     }*/
+}
+
+extension PartyCollectionViewController{
+
+    func setupLongPressGestureRecognizer(){
+        let lpgr = UILongPressGestureRecognizer (target: self, action: #selector(handleLongPress))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        self.collectionView?.addGestureRecognizer(lpgr)
+        self.collectionView?.isUserInteractionEnabled = true
+    }
+    
+    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
+       performSegue(withIdentifier: "PartyMenu", sender: self)
+    }
 }
