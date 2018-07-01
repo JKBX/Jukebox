@@ -34,6 +34,8 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         if self.isMovingToParentViewController {
             setupObservers()
         }
+        
+
     }
 
     //TODO ??
@@ -64,6 +66,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     //MARK: Observer-Methods
 
     func setupObservers() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {if(!(SPTAudioStreamingController.sharedInstance().loggedIn)){NotificationCenter.default.post(name: NSNotification.Name.Spotify.loggedOut, object: nil)}}
         self.ref = Database.database().reference().child("/parties/\(currentParty)")
 
         ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(TrackModel(from: snapshot))})

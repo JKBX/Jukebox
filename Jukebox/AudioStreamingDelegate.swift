@@ -308,6 +308,7 @@ extension AudioStreamingDelegate: SPTAudioStreamingDelegate{
 
     func audioStreamingDidLogout(_ audioStreaming: SPTAudioStreamingController!) {
         print("Did Logout")
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.loggedOut, object: nil)
 
         do { try AVAudioSession.sharedInstance().setActive(false) }
         catch let error as NSError { print(error.localizedDescription) }

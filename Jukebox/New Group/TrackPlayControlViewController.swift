@@ -31,7 +31,7 @@ class TrackPlayControlViewController: UIViewController {
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
         setFields()
         updateDuration()
-        
+    
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
             self.setFields()
             self.playPause()
@@ -64,8 +64,6 @@ class TrackPlayControlViewController: UIViewController {
         songDuration.text = "00:00"
         nextSwitch = false
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.prevSong, object: nil)
-//        currentPositionForFirebase()
-        
     }
     
     @IBAction func nextButton(_ sender: Any) {
@@ -77,9 +75,7 @@ class TrackPlayControlViewController: UIViewController {
             NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
             self.nextButton.isEnabled = true
         }
-
     }
-
 }
 extension TrackPlayControlViewController{
     func setFields(){
@@ -94,7 +90,6 @@ extension TrackPlayControlViewController{
         label.trailingBuffer = 50
         label.fadeLength = 5.0
         label.isUserInteractionEnabled = false
-        
   }
 
     func playPause () {

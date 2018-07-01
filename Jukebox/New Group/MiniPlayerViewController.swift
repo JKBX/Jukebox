@@ -15,8 +15,6 @@ import FirebaseDatabase
 
 class MiniPlayerViewController: UIViewController{
 
-    // MARK: Properties
-    
     
     @IBOutlet weak var thumbImage: UIImageView!
     @IBOutlet weak var songTitle: MarqueeLabel!
@@ -25,7 +23,8 @@ class MiniPlayerViewController: UIViewController{
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var broadcastingButton: UIButton!
     var timer: Timer!
-    
+    var triggerSpotifyLogin: Bool = true
+
     var delegate: PlayerDelegate?
     
     override func viewDidLoad() {
@@ -37,6 +36,7 @@ class MiniPlayerViewController: UIViewController{
         userTriggeredButton(isAdmin: currentAdmin)
         timer = Timer.init()
         playPauseButton()
+        isLoggedInSpotify()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +55,6 @@ class MiniPlayerViewController: UIViewController{
             NotificationCenter.default.post(name: NSNotification.Name.Spotify.startBroadcast, object: nil)
             broadcastingButton.setImage(UIImage(named: "baseline_volume_off_white_36pt"), for: .normal)
         }else{
-//            Bild nur ändern wenn der playbackstatus sich auch geändert hat, also via observer & isPlaying & isBroadcasting
             NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
             broadcastingButton.setImage(UIImage(named: "baseline_volume_up_white_36pt"), for: .normal)
             
@@ -78,8 +77,6 @@ extension MiniPlayerViewController{
         if(currentTrack != nil){
             updateProgressBar()
             setting()} else{ return}
-      
-        //TODO update track title album artist image
     }
     
     func updateProgressBar() {
@@ -107,7 +104,8 @@ extension MiniPlayerViewController{
     }
     
     func setting(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
         if let song = currentTrack {
             self.songTitle.text = song.songName
             self.artist.text = song.artist
@@ -115,12 +113,13 @@ extension MiniPlayerViewController{
             self.thumbImage.kf.setImage(with: song.coverUrl, placeholder: UIImage(named: "SpotifyLogoWhite"))
             
         }else {
-            //TODO Handle no song in playing yet
             self.songTitle.text = "Weclome!"
             self.artist.text = "Awaiting a song to be in the playlist! Please add a song!"
+           
            self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
         }
-        }}
+            }
+    }
 }
 
 extension MiniPlayerViewController{
@@ -138,7 +137,7 @@ extension MiniPlayerViewController{
     }
     
     @objc func swipeGesture(){
-        if ((currentTrack != nil) && (currentAdmin || isBroadcasting)) {
+        if ((currentTrack != nil) && (currentAdmin || isBroadcasting) && triggerSpotifyLogin) {
             delegate?.expandSong()
         }
     }
@@ -185,9 +184,21 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
         broadcastingButton.isHidden = isAdmin
         broadcastingButton.isEnabled = !isAdmin
     }
+    func isLoggedInSpotify(){
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Spotify.loggedOut, object: nil, queue: nil) { (note) in
+            self.songTitle.text = "SPOTIFY loggedOut"
+            self.artist.text = "Please refresh your Login!"
+            self.playPause.isEnabled = false
+            self.triggerSpotifyLogin = false
+            self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
+        }
+    }
  
     func playPauseButton(){
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
+            self.playPause.isEnabled = true
+            self.triggerSpotifyLogin = true
+
             if(currentTrack == nil){self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
                 return
             }
@@ -195,10 +206,8 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
                 self.playPause.alpha = 0.3
             }, completion: {(finished) in
                 if(currentTrack?.isPlaying)!{
-//                    self.streamCurrentPosition()    ------->Broadcasting
                     self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
                 }else{
-//                    self.currentPositionForFirebase()     ------>Broadcasting
                     self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
                 }
                 UIView.animate(withDuration: 0.2, animations:{

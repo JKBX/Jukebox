@@ -9,6 +9,7 @@
 extension Notification.Name {
     struct Spotify {
         static let loggedIn = Notification.Name("loggedIn")
+        static let loggedOut = Notification.Name("loggedOut")
         static let toggle = Notification.Name("toggle")
         static let nextSong = Notification.Name("SptNext")
         static let prevSong = Notification.Name("SptRestart")
@@ -20,6 +21,7 @@ extension Notification.Name {
         
         static let trackChanged = Notification.Name("player")
         static let position = Notification.Name("songDuration")
+
         
     }
     static let isEditing = Notification.Name("editingExit")
