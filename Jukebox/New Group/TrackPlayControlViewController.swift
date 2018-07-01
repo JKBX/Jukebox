@@ -51,11 +51,13 @@ class TrackPlayControlViewController: UIViewController {
    }
     
     @IBAction func playButton(_ sender: Any) {
+        AudioServicesPlaySystemSound(1520)
         nextSwitch = true
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
     }
     
     @IBAction func previousButton(_ sender: Any) {
+        AudioServicesPlaySystemSound(1519)
         currentTrackPosition = 0
         songDuration.text = "00:00"
         nextSwitch = false
@@ -65,6 +67,7 @@ class TrackPlayControlViewController: UIViewController {
     }
     
     @IBAction func nextButton(_ sender: Any) {
+        AudioServicesPlaySystemSound(1521)
         if(!(currentTrack?.isPlaying)!){self.songDuration.text = "00:00"}
         nextButton.isEnabled = false
         nextSwitch = false

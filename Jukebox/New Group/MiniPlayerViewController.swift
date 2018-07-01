@@ -45,6 +45,7 @@ class MiniPlayerViewController: UIViewController{
     }
     
     @IBAction func Play(_ sender: Any) {
+        AudioServicesPlaySystemSound(1520)
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
     }
  

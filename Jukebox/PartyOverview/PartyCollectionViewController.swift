@@ -245,6 +245,7 @@ extension PartyCollectionViewController{
         lpgr.delaysTouchesBegan = true
         self.collectionView?.addGestureRecognizer(lpgr)
         self.collectionView?.isUserInteractionEnabled = true
+
     }
     
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {

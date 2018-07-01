@@ -39,6 +39,7 @@ class SearchCell: UITableViewCell {
     }
     
     @objc func prepareAndAddToFirebase(){
+        AudioServicesPlaySystemSound(1520)
         accessoryButton.setImage(UIImage(named: "checkedButtonAcc"), for: .normal)
         NotificationCenter.default.post(name: NSNotification.Name.isEditing, object: nil)
 
