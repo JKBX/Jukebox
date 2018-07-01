@@ -45,9 +45,9 @@ class AudioStreamingDelegate: NSObject {
     }
 
     @objc func next() {
+        pause(){}
         currentTrackPosition = 0
         prev()
-        pause(){}
         if (currentTrack?.isPlaying)!{
             getNextTrack{ self.play() }
         }
@@ -119,14 +119,12 @@ class AudioStreamingDelegate: NSObject {
     func getNextTrack(completion: @escaping ()->Void) {
 //        Fix fix the get rid of the bug --> when you skip the last song in expandedTrackPlayer
         currentTrackPosition = 0
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2){self.prev()}
-        
         if(currentQueue.count > 0){
         let nextTrackId = currentQueue.first?.trackId
         let ref = Database.database().reference().child("/parties/\(currentParty)")
 
         swapToHistory {
-ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
+                ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
                 let next = snapshot.value as! NSDictionary
                 next.setValue(snapshot.key, forKey: "id")
                 next.setValue(currentTrack?.isPlaying, forKey: "isPlaying")
