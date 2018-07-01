@@ -125,7 +125,7 @@ extension MiniPlayerViewController{
 extension MiniPlayerViewController{
     
     @IBAction func tapGesturee(_ sender: Any) {
-        if ((currentTrack != nil) && (currentAdmin || isBroadcasting)) {
+        if ((currentTrack != nil) && (currentAdmin || isBroadcasting) && triggerSpotifyLogin) {
             delegate?.expandSong()
         }
     }
@@ -195,7 +195,7 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     }
  
     func playPauseButton(){
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.isPlay, object: nil, queue: nil) { (note) in
             self.playPause.isEnabled = true
             self.triggerSpotifyLogin = true
 

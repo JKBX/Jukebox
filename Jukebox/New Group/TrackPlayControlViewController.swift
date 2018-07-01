@@ -34,11 +34,13 @@ class TrackPlayControlViewController: UIViewController {
     
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
             self.setFields()
-            self.playPause()
             self.nextButtonTrigger()
         }
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.position, object: nil, queue: nil) { (note) in
             self.updateDuration()
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.isPlay, object: nil, queue: nil) { (note) in
+            self.playPause()
         }
         timer = Timer.init()
  }
