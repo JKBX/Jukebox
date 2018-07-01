@@ -372,6 +372,9 @@
                                             <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="sharePartyIDPressed:" destination="L5Y-fd-bda" eventType="touchUpInside" id="HOo-co-lf6"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giF-Yh-Aij" customClass="ButtonDesignable" customModule="Jukebox" customModuleProvider="target">
                                     <rect key="frame" x="8" y="587" width="398" height="50"/>
@@ -385,6 +388,9 @@
                                             <real key="value" value="10"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="deletePartyPressed:" destination="L5Y-fd-bda" eventType="touchUpInside" id="FQJ-UG-SfO"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -393,7 +399,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vrp-Hq-WiF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-78.260869565217391" y="-1775.5434782608697"/>
+            <point key="canvasLocation" x="7" y="-2093"/>
         </scene>
         <!--Item-->
         <scene sceneID="wZF-Ig-ddi">
