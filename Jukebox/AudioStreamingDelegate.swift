@@ -45,9 +45,6 @@ class AudioStreamingDelegate: NSObject {
     }
 
     @objc func next() {
-        pause(){}
-        currentTrackPosition = 0
-        prev()
         if (currentTrack?.isPlaying)!{
             getNextTrack{ self.play() }
         }
@@ -68,8 +65,7 @@ class AudioStreamingDelegate: NSObject {
     }
 
     func play() {
-        print("Play")
-        print(currentAdmin)
+
         if(currentAdmin){
             let ref = Database.database().reference().child("/parties/\(currentParty)")
             if let currentMetadata = SPTAudioStreamingController.sharedInstance().metadata{
@@ -85,6 +81,7 @@ class AudioStreamingDelegate: NSObject {
                 }
             }
             let trackId = currentTrack?.trackId
+            if(currentTrack?.isPlaying)!{currentTrackPosition = 0}
             SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: currentTrackPosition, callback: { (error) in
                 if let error = error { print(error); return }
                 ref.child("currentlyPlaying/isPlaying").setValue(true)
@@ -117,8 +114,6 @@ class AudioStreamingDelegate: NSObject {
     }
 
     func getNextTrack(completion: @escaping ()->Void) {
-//        Fix fix the get rid of the bug --> when you skip the last song in expandedTrackPlayer
-        currentTrackPosition = 0
         if(currentQueue.count > 0){
         let nextTrackId = currentQueue.first?.trackId
         let ref = Database.database().reference().child("/parties/\(currentParty)")
@@ -133,6 +128,7 @@ class AudioStreamingDelegate: NSObject {
                     ref.child("/queue/\(nextTrackId!)").removeValue(completionBlock: { (_, _) in completion() })
                 })
             }
+
             }
         }else{return}
     }
@@ -151,6 +147,7 @@ class AudioStreamingDelegate: NSObject {
                 completion()
             })
         }
+
     }
 
 

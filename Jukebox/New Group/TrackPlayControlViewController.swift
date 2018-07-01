@@ -60,7 +60,6 @@ class TrackPlayControlViewController: UIViewController {
     
     @IBAction func previousButton(_ sender: Any) {
         AudioServicesPlaySystemSound(1519)
-        currentTrackPosition = 0
         songDuration.text = "00:00"
         nextSwitch = false
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.prevSong, object: nil)
