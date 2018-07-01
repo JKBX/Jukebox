@@ -65,8 +65,14 @@ class TrackPlayControlViewController: UIViewController {
     }
     
     @IBAction func nextButton(_ sender: Any) {
+        if(!(currentTrack?.isPlaying)!){self.songDuration.text = "00:00"}
+        nextButton.isEnabled = false
         nextSwitch = false
-        NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
+            self.nextButton.isEnabled = true
+        }
+
     }
 
 }

@@ -118,12 +118,15 @@ class AudioStreamingDelegate: NSObject {
 
     func getNextTrack(completion: @escaping ()->Void) {
 //        Fix fix the get rid of the bug --> when you skip the last song in expandedTrackPlayer
+        currentTrackPosition = 0
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2){self.prev()}
+        
         if(currentQueue.count > 0){
         let nextTrackId = currentQueue.first?.trackId
         let ref = Database.database().reference().child("/parties/\(currentParty)")
 
         swapToHistory {
-            ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
+ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
                 let next = snapshot.value as! NSDictionary
                 next.setValue(snapshot.key, forKey: "id")
                 next.setValue(currentTrack?.isPlaying, forKey: "isPlaying")
@@ -132,7 +135,7 @@ class AudioStreamingDelegate: NSObject {
                     ref.child("/queue/\(nextTrackId!)").removeValue(completionBlock: { (_, _) in completion() })
                 })
             }
-        }
+            }
         }else{return}
     }
 
@@ -356,6 +359,7 @@ extension AudioStreamingDelegate: SPTAudioStreamingPlaybackDelegate{
         currentTrackPosition = position
         NotificationCenter.default.post(name: NSNotification.Name.Player.position, object: nil)        
     }
+
     
 
 
