@@ -45,7 +45,9 @@ class AudioStreamingDelegate: NSObject {
     }
 
     @objc func next() {
-        currentTrackPosition = 0.0
+        currentTrackPosition = 0
+        prev()
+        pause(){}
         if (currentTrack?.isPlaying)!{
             getNextTrack{ self.play() }
         }
@@ -83,7 +85,7 @@ class AudioStreamingDelegate: NSObject {
                 }
             }
             let trackId = currentTrack?.trackId
-            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: (currentTrack?.playbackStatus?.position)!, callback: { (error) in
+            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: currentTrackPosition, callback: { (error) in
                 if let error = error { print(error); return }
                 ref.child("currentlyPlaying/isPlaying").setValue(true)
                 ref.child("currentlyPlaying/playbackStatus").setValue(["position":currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])
@@ -116,21 +118,24 @@ class AudioStreamingDelegate: NSObject {
 
     func getNextTrack(completion: @escaping ()->Void) {
 //        Fix fix the get rid of the bug --> when you skip the last song in expandedTrackPlayer
+        currentTrackPosition = 0
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2){self.prev()}
+        
         if(currentQueue.count > 0){
         let nextTrackId = currentQueue.first?.trackId
         let ref = Database.database().reference().child("/parties/\(currentParty)")
 
         swapToHistory {
-            ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
+ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
                 let next = snapshot.value as! NSDictionary
                 next.setValue(snapshot.key, forKey: "id")
                 next.setValue(currentTrack?.isPlaying, forKey: "isPlaying")
-                next.setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
+                next.setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
                 ref.child("currentlyPlaying").setValue(next, withCompletionBlock: { (_, _) in
                     ref.child("/queue/\(nextTrackId!)").removeValue(completionBlock: { (_, _) in completion() })
                 })
             }
-        }
+            }
         }else{return}
     }
 
@@ -230,7 +235,7 @@ extension AudioStreamingDelegate {
             nowPlayingInfo[MPMediaItemPropertyArtist] = track.artistName
             nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = track.albumName
             nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = track.duration
-            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = audioStreaming.playbackState.position
+            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTrackPosition
             nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = audioStreaming.playbackState.isPlaying ? 1 : 0
             ImageDownloader.default.downloadImage(with: URL(string: track.albumCoverArtURL!)!) { (result, _, _, _) in
                 guard let image: UIImage = result else { print("Can't cast result to UIImage."); return}
@@ -354,6 +359,7 @@ extension AudioStreamingDelegate: SPTAudioStreamingPlaybackDelegate{
         currentTrackPosition = position
         NotificationCenter.default.post(name: NSNotification.Name.Player.position, object: nil)        
     }
+
     
 
 

@@ -45,6 +45,9 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
         tableView.allowsSelection = false
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.isEditing, object: nil, queue: nil) { (note) in
+           self.view.endEditing(true)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -57,6 +60,7 @@ class SearchViewController: UIViewController {
     }
 
     func searchTrackWithSpartanCall(track: String){
+        
         Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
         foundTracks = []
         existingTracks = []
