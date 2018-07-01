@@ -21,6 +21,7 @@ class TrackPlayControlViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     var timer: Timer!
     var nextSwitch:Bool = true
+    var triggerPlayNext:Bool = true
 
     
     
@@ -34,11 +35,10 @@ class TrackPlayControlViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
             self.setFields()
             self.playPause()
-            
+            self.nextButtonTrigger()
         }
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.position, object: nil, queue: nil) { (note) in
             self.updateDuration()
-
         }
         timer = Timer.init()
  }
@@ -47,6 +47,8 @@ class TrackPlayControlViewController: UIViewController {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
+        nextButtonTrigger()
+
         setPlayPause()
    }
     
@@ -162,6 +164,12 @@ extension TrackPlayControlViewController{
         }
     }
     
+    func nextButtonTrigger(){
+        if(currentQueue.count >= 1){self.nextButton.isEnabled = true}else{self.nextButton.isEnabled = false}
+    }
+    
+        
+    }
 //
 //    func currentPositionForFirebase(){
 //        if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
@@ -171,7 +179,7 @@ extension TrackPlayControlViewController{
 
     
 
-}
+
 
 
 
