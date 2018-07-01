@@ -57,6 +57,7 @@ class SearchViewController: UIViewController {
     }
 
     func searchTrackWithSpartanCall(track: String){
+        
         Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
         foundTracks = []
         existingTracks = []
