@@ -22,7 +22,7 @@ extension Notification.Name {
         static let position = Notification.Name("songDuration")
         
     }
-    
+    static let isEditing = Notification.Name("editingExit")
     static let loading = Notification.Name("loading")
 }
 

@@ -40,6 +40,8 @@ class SearchCell: UITableViewCell {
     
     @objc func prepareAndAddToFirebase(){
         accessoryButton.setImage(UIImage(named: "checkedButtonAcc"), for: .normal)
+        NotificationCenter.default.post(name: NSNotification.Name.isEditing, object: nil)
+
         let userID = Auth.auth().currentUser?.uid
         var trackId = self.track?.trackId!
         let ref = Database.database().reference().child("/parties/\(currentParty)/queue/\(trackId!)")

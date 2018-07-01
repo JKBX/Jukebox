@@ -92,6 +92,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="WEB-dK-tos" firstAttribute="bottom" secondItem="s4V-bJ-GYc" secondAttribute="bottom" id="19W-Xe-MfP"/>
                             <constraint firstItem="WEB-dK-tos" firstAttribute="trailing" secondItem="s4V-bJ-GYc" secondAttribute="trailing" id="1uL-gc-QF9"/>

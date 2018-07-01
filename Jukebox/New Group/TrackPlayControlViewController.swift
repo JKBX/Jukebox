@@ -65,7 +65,6 @@ class TrackPlayControlViewController: UIViewController {
     }
     
     @IBAction func nextButton(_ sender: Any) {
-        currentTrackPosition = 0
         nextSwitch = false
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
     }

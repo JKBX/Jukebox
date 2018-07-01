@@ -85,6 +85,7 @@ extension MiniPlayerViewController{
         
         if (currentTrack?.isPlaying)!{
             resetTimer()
+            
             let duration:Float = Float((currentTrack?.duration)!)
             let delay = NSDate.timeIntervalSinceReferenceDate - (currentTrack?.playbackStatus?.time)!
             var elapsed: Float =  Float(((currentTrack?.playbackStatus?.position)! + delay) * 1000)
