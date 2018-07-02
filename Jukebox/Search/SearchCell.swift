@@ -2,7 +2,6 @@
 //  SearchCell.swift
 //  Jukebox
 //
-//  Created by Maximilian Babel on 12.06.18.
 //  Copyright © 2018 Jukebox. All rights reserved.
 //
 
@@ -61,6 +60,8 @@ class SearchCell: UITableViewCell {
                 self.delegate?.showSuccess()
             }
         }
+        NotificationCenter.default.post(name: NSNotification.Name.Player.searchNewTrack, object: nil)
+
     }
 
     override func awakeFromNib() {

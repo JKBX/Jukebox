@@ -2,7 +2,7 @@
 //  CustomPartyImage.swift
 //  Jukebox
 //
-//  Created by Maximilian Babel on 30.06.18.
+//  Created by Team Jukebox/Gruppe 7
 //  Copyright © 2018 Jukebox. All rights reserved.
 //
 

@@ -2,7 +2,6 @@
 //  MiniPlayerViewController.swift
 //  Jukebox
 //
-//  Created by Christian Reiner on 12.06.18.
 //  Copyright © 2018 Jukebox. All rights reserved.
 //
 
@@ -38,6 +37,7 @@ class MiniPlayerViewController: UIViewController{
         timer = Timer.init()
         playPauseButton()
         lastSongPlayed()
+        newTrackViaSearch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -234,8 +234,18 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
             self.triggerSpotifyLogin = false
             self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
             self.progressView.isHidden = true
+            self.playPause.isEnabled = false
             currentTrack?.isPlaying = false
+            currentTrack = nil
         }
+    }
+    func newTrackViaSearch (){
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.searchNewTrack, object: nil, queue: nil) { (note) in
+            self.playPause.isEnabled = true
+            self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+
+        }
+
     }
     
 
