@@ -40,6 +40,7 @@ class AudioStreamingDelegate: NSObject {
         let ref = Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying/playbackStatus")
         SPTAudioStreamingController.sharedInstance().seek(to: 0) { (error) in
             if let error = error {print(error); return}
+            currentTrackPosition = 0
             ref.setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])
         }
     }
