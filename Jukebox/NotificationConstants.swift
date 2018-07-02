@@ -12,14 +12,16 @@ extension Notification.Name {
         static let toggle = Notification.Name("toggle")
         static let nextSong = Notification.Name("SptNext")
         static let prevSong = Notification.Name("SptRestart")
-        static let startBroadcast = Notification.Name("SptStartBroadcast")
-        static let stopBroadcast = Notification.Name("SptStopBroadcast")
+        static let broadcast = Notification.Name("spotifyToggleBroadcast")
+        //static let startBroadcast = Notification.Name("SptStartBroadcast")
+        //static let stopBroadcast = Notification.Name("SptStopBroadcast")
 
     }
     struct Player {
         
         static let trackChanged = Notification.Name("player")
         static let position = Notification.Name("songDuration")
+        static let broadcast = Notification.Name("broadcast")
         
     }
     
