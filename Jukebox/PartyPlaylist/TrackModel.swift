@@ -21,7 +21,7 @@ class TrackModel{
     var liked: Bool
     var duration: Int!
     var isPlaying: Bool!
-    var playbackStatus: (position: TimeInterval, time: TimeInterval)?
+    var playbackStatus: (position: TimeInterval, time: TimeInterval, delay: TimeInterval?)?
 
     init(from snapshot: DataSnapshot){
         let userId = Auth.auth().currentUser?.uid as! String
@@ -33,8 +33,16 @@ class TrackModel{
         self.liked = snapshot.childSnapshot(forPath: "votes/\(userId)").exists()
         self.voteCount = snapshot.childSnapshot(forPath: "votes").childrenCount
         self.isPlaying = snapshot.hasChild("isPlaying") ? snapshot.childSnapshot(forPath: "isPlaying").value as! Bool : false
+       /* if snapshot.hasChild("playbackStatus"){
+            let playbackStatus = snapshot.childSnapshot(forPath: "playbackStatus")
+            self.playbackStatus?.position = playbackStatus.childSnapshot(forPath: "position").value as! TimeInterval
+            self.playbackStatus?.time = playbackStatus.ch
+        }*/
         self.playbackStatus = snapshot.hasChild("playbackStatus") ?
-            ((position: snapshot.childSnapshot(forPath: "playbackStatus/position").value, time: snapshot.childSnapshot(forPath: "playbackStatus/time").value) as! (position: TimeInterval, time: TimeInterval)) : nil
+            ((position: snapshot.childSnapshot(forPath: "playbackStatus/position").value,
+              time: snapshot.childSnapshot(forPath: "playbackStatus/time").value,
+              delay: snapshot.hasChild("playbackStatus/delay") ? snapshot.childSnapshot(forPath: "playbackStatus/delay").value : nil) 
+                as! (position: TimeInterval, time: TimeInterval, delay: TimeInterval?)) : nil
         self.duration = snapshot.childSnapshot(forPath: "duration").value as! Int
     }
 
