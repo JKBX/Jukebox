@@ -2,7 +2,7 @@
 //  PartyModel.swift
 //  Jukebox
 //
-//  Created by admin on 11.06.18.
+//  Created by Team Jukebox/Gruppe 7
 //  Copyright © 2018 Jukebox. All rights reserved.
 //
 

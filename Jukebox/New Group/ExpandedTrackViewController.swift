@@ -2,7 +2,6 @@
 //  ExpandedTrackViewController.swift
 //  Jukebox
 //
-//  Created by Christian Reiner on 14.06.18.
 //  Copyright © 2018 Jukebox. All rights reserved.
 //  Class just for Player animations
 
@@ -74,6 +73,7 @@ class ExpandedTrackViewController: UIViewController {
         let corner: CGFloat = 10
         coverImage.layer.cornerRadius = corner
         update()
+        lastSongPlayed()
         
     }
 
@@ -279,5 +279,14 @@ extension ExpandedTrackViewController{
     
     func animateLowerModulOUT(){
         animateLowerModul(isPresenting: false)
+    }
+    func lastSongPlayed(){
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.lastSong, object: nil, queue: nil) { (note) in
+           self.dismiss(animated: true, completion: nil)
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Spotify.loggedOut, object: nil, queue: nil) { (note) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
 }

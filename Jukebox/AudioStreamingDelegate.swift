@@ -2,7 +2,7 @@
 //  AudioStreamingDelegate.swift
 //  Jukebox
 //
-//  Created by Philipp on 28.04.18.
+//  Created by Team Jukebox/Gruppe 7
 //  Copyright © 2018 Philipp. All rights reserved.
 //
 
@@ -41,12 +41,18 @@ class AudioStreamingDelegate: NSObject {
         let ref = Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying/playbackStatus")
         SPTAudioStreamingController.sharedInstance().seek(to: 0) { (error) in
             if let error = error {print(error); return}
+<<<<<<< HEAD
             ref.setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
+=======
+            currentTrackPosition = 0
+            ref.setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])
+>>>>>>> 5_broadcasting
         }
     }
 
     @objc func next() {
-        currentTrackPosition = 0.0
+        SPTAudioStreamingController.sharedInstance().setIsPlaying(false) { (error) in
+                        if let error = error { print(error); return }}
         if (currentTrack?.isPlaying)!{
             self.getNextTrack{  self.play() }
         }
@@ -67,6 +73,10 @@ class AudioStreamingDelegate: NSObject {
     }
 
     func play() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5_broadcasting
         if(currentAdmin){
             let ref = Database.database().reference().child("/parties/\(currentParty)")
             if let currentMetadata = SPTAudioStreamingController.sharedInstance().metadata{
@@ -80,7 +90,8 @@ class AudioStreamingDelegate: NSObject {
                 }
             }
             let trackId = currentTrack?.trackId
-            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: (currentTrack?.playbackStatus?.position)!, callback: { (error) in
+            if(currentTrack?.isPlaying)!{currentTrackPosition = 0}
+            SPTAudioStreamingController.sharedInstance().playSpotifyURI("spotify:track:\(trackId!)", startingWith: 0, startingWithPosition: currentTrackPosition, callback: { (error) in
                 if let error = error { print(error); return }
             })
             
@@ -110,23 +121,25 @@ class AudioStreamingDelegate: NSObject {
     }
 
     func getNextTrack(completion: @escaping ()->Void) {
-//        Fix fix the get rid of the bug --> when you skip the last song in expandedTrackPlayer
-        if(currentQueue.count > 0){
         let nextTrackId = currentQueue.first?.trackId
         let ref = Database.database().reference().child("/parties/\(currentParty)")
-
+        if(currentQueue.count > 0){
         swapToHistory {
-            ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
+                ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
                 let next = snapshot.value as! NSDictionary
                 next.setValue(snapshot.key, forKey: "id")
                 next.setValue(currentTrack?.isPlaying, forKey: "isPlaying")
-                next.setValue(["position": 0, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
+                currentTrackPosition = 0
+                next.setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
                 ref.child("currentlyPlaying").setValue(next, withCompletionBlock: { (_, _) in
                     ref.child("/queue/\(nextTrackId!)").removeValue(completionBlock: { (_, _) in completion() })
                 })
             }
-        }
-        }else{return}
+
+            }
+        }else{
+            NotificationCenter.default.post(name: NSNotification.Name.Player.lastSong, object: nil)
+            return}
     }
 
     func swapToHistory(completion: @escaping () ->Void) {
@@ -143,6 +156,7 @@ class AudioStreamingDelegate: NSObject {
                 completion()
             })
         }
+
     }
 
 
@@ -224,7 +238,7 @@ extension AudioStreamingDelegate {
             nowPlayingInfo[MPMediaItemPropertyArtist] = track.artistName
             nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = track.albumName
             nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = track.duration
-            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = audioStreaming.playbackState.position
+            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTrackPosition
             nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = audioStreaming.playbackState.isPlaying ? 1 : 0
             ImageDownloader.default.downloadImage(with: URL(string: track.albumCoverArtURL!)!) { (result, _, _, _) in
                 guard let image: UIImage = result else { print("Can't cast result to UIImage."); return}
@@ -355,6 +369,12 @@ extension AudioStreamingDelegate: SPTAudioStreamingDelegate{
     }
 
     func audioStreamingDidLogout(_ audioStreaming: SPTAudioStreamingController!) {
+<<<<<<< HEAD
+=======
+        print("Did Logout")
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.loggedOut, object: nil)
+
+>>>>>>> 5_broadcasting
         do { try AVAudioSession.sharedInstance().setActive(false) }
         catch let error as NSError { print(error.localizedDescription) }
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.Spotify.toggle, object: nil)
@@ -444,6 +464,7 @@ extension AudioStreamingDelegate: SPTAudioStreamingPlaybackDelegate{
             }
         }
     }
+
     
 
 

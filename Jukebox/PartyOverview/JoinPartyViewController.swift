@@ -2,7 +2,7 @@
 //  JoinPartyViewController.swift
 //  Jukebox
 //
-//  Created by Philipp on 09.05.18.
+//  Created by Team Jukebox/Gruppe 7
 //  Copyright © 2018 Philipp. All rights reserved.
 //
 

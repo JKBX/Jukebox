@@ -2,7 +2,6 @@
 //  SearchCell.swift
 //  Jukebox
 //
-//  Created by Maximilian Babel on 12.06.18.
 //  Copyright © 2018 Jukebox. All rights reserved.
 //
 
@@ -39,16 +38,19 @@ class SearchCell: UITableViewCell {
     }
     
     @objc func prepareAndAddToFirebase(){
+        AudioServicesPlaySystemSound(1520)
         accessoryButton.setImage(UIImage(named: "checkedButtonAcc"), for: .normal)
+        NotificationCenter.default.post(name: NSNotification.Name.isEditing, object: nil)
+
         let userID = Auth.auth().currentUser?.uid
-        var trackId = self.track?.trackId!
+        let trackId = self.track?.trackId!
         let ref = Database.database().reference().child("/parties/\(currentParty)/queue/\(trackId!)")
         let newTrack: NSDictionary = [
-            "albumTitle": self.track?.album!,
-            "artist" : self.track?.artist!,
-            "coverURL" : self.track?.coverUrl!.absoluteString,
-            "songTitle" : self.track?.songName!,
-            "duration": self.track?.duration!,
+            "albumTitle": self.track?.album! as Any,
+            "artist" : self.track?.artist! as Any,
+            "coverURL" : self.track?.coverUrl!.absoluteString as Any,
+            "songTitle" : self.track?.songName! as Any,
+            "duration": self.track?.duration! as Any,
             "votes" : [
                 "\(userID!)" : "true"
             ]
@@ -58,6 +60,8 @@ class SearchCell: UITableViewCell {
                 self.delegate?.showSuccess()
             }
         }
+        NotificationCenter.default.post(name: NSNotification.Name.Player.searchNewTrack, object: nil)
+
     }
 
     override func awakeFromNib() {

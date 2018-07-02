@@ -2,7 +2,7 @@
 //  PartyCollectionViewController.swift
 //  Jukebox
 //
-//  Created by Philipp on 09.05.18.
+//  Created by Team Jukebox/Gruppe 7
 //  Copyright © 2018 Philipp. All rights reserved.
 //
 
@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 
 private let reuseIdentifier = "Cell"
-
 
 class PartyCollectionViewController: UICollectionViewController {
 
@@ -46,6 +45,7 @@ class PartyCollectionViewController: UICollectionViewController {
         getParties()
 
         // Do any additional setup after loading the view.
+        setupLongPressGestureRecognizer()
     }
 
     func getParties() -> Void {
@@ -110,6 +110,14 @@ class PartyCollectionViewController: UICollectionViewController {
             return (party: self.guestParties[indexPath.item], id: self.guestPartyIds[indexPath.item])
         }
     }
+    
+    func shapeImage(incImage: UIImage){
+        let customImgView = customPartyImage()
+        customImgView.image = incImage
+        customImgView.frame = CGRect(x: 0, y: 0, width: 250, height: 250)
+        
+        self.view.addSubview(customImgView)
+    }
 
 // setzt die PartyBilder, leider gerade willkürlich und gleiche bilder werden mehrmals gesetzt
 
@@ -143,6 +151,7 @@ class PartyCollectionViewController: UICollectionViewController {
                         })
 
             cell.Label.text = party.object(forKey: "Name") as! String
+            cell.PartyID = party.object(forKey: "ID") as! String
         }
         return cell
 
@@ -211,12 +220,14 @@ class PartyCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         (self.selectedPartyInfo, self.selectedParty) = getParty(for: indexPath)
         self.performSegue(withIdentifier: "showParty", sender: self)
         currentAdmin = (self.selectedPartyInfo.value(forKey: "Host") as! String) == Auth.auth().currentUser?.uid
         currentParty = self.selectedParty
         self.selectedParty = ""
+        
     }
 
 
@@ -225,13 +236,75 @@ class PartyCollectionViewController: UICollectionViewController {
         return true
     }
 
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return true
-    }
-
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         print(indexPath)
         self.performSegue(withIdentifier: "showParty", sender: self)
 
     }*/
+}
+
+extension PartyCollectionViewController: UIGestureRecognizerDelegate{
+    
+    func setupLongPressGestureRecognizer(){
+        let lpgr = UILongPressGestureRecognizer (target: self, action: #selector(handleLongPress(_:)))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delaysTouchesBegan = true
+        self.collectionView?.addGestureRecognizer(lpgr)
+        self.collectionView?.isUserInteractionEnabled = true
+
+    }
+    
+    @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer){
+        let point = sender.location(in: collectionView)
+        if let indexPath = collectionView?.indexPathForItem(at: point) {
+            print(#function, indexPath)
+            let cell = collectionView?.cellForItem(at: indexPath) as! PartyCollectionViewCell
+            print(cell.PartyID)
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let point = touch.location(in: collectionView)
+        if let indexPath = collectionView?.indexPathForItem(at: point),
+            let cell = collectionView?.cellForItem(at: indexPath) {
+            return touch.location(in: cell).y > 50
+        }
+        return false
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//        if segue.identifier == "PartyMenu" {
+//            let next: PartyMenuViewController = segue.destination as! PartyMenuViewController
+//            let indexPath1 = collectionView?.indexPath(for: sender as! PartyCollectionViewCell)
+//            let cell = collectionView?.cellForItem(at: indexPath1!) as! PartyCollectionViewCell
+//            let PMVC = PartyMenuViewController()
+//            PMVC.partyID = cell.PartyID
+//        }
+//    }
+//
+//    @objc func showResetMenu(_ gestureRecognizer: UILongPressGestureRecognizer) {
+//        if gestureRecognizer.state == .began {
+//            self.becomeFirstResponder()
+////            self.viewForReset = gestureRecognizer.view
+//
+//            // Configure the menu item to display
+//            let menuItemTitle = NSLocalizedString("Reset", comment: "Reset menu item title")
+//            let action = #selector(handleLongPress)
+//            let resetMenuItem = UIMenuItem(title: menuItemTitle, action: action)
+//
+//            // Configure the shared menu controller
+//            let menuController = UIMenuController.shared
+//            menuController.menuItems = [resetMenuItem]
+//
+//            // Set the location of the menu in the view.
+//            let location = gestureRecognizer.location(in: gestureRecognizer.view)
+//            let menuLocation = CGRect(x: location.x, y: location.y, width: 0, height: 0)
+//            menuController.setTargetRect(menuLocation, in: gestureRecognizer.view!)
+//
+//            // Show the menu.
+//            menuController.setMenuVisible(true, animated: true)
+//        }
+//    }
+    
 }

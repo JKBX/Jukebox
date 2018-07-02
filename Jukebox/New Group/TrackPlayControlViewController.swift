@@ -2,7 +2,6 @@
 //  TrackPlayControlViewController.swift
 //  Jukebox
 //
-//  Created by Christian Reiner on 14.06.18.
 //  Copyright © 2018 Jukebox. All rights reserved.
 //
 
@@ -21,6 +20,7 @@ class TrackPlayControlViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     var timer: Timer!
     var nextSwitch:Bool = true
+    var triggerPlayNext:Bool = true
 
     
     
@@ -30,15 +30,16 @@ class TrackPlayControlViewController: UIViewController {
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
         setFields()
         updateDuration()
-        
+    
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
             self.setFields()
-            self.playPause()
-            
+            self.nextButtonTrigger()
         }
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.position, object: nil, queue: nil) { (note) in
             self.updateDuration()
-
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.isPlay, object: nil, queue: nil) { (note) in
+            self.playPause()
         }
         timer = Timer.init()
  }
@@ -47,28 +48,34 @@ class TrackPlayControlViewController: UIViewController {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
+        nextButtonTrigger()
+
         setPlayPause()
    }
     
     @IBAction func playButton(_ sender: Any) {
+        AudioServicesPlaySystemSound(1520)
         nextSwitch = true
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
     }
     
     @IBAction func previousButton(_ sender: Any) {
-        currentTrackPosition = 0
+        AudioServicesPlaySystemSound(1519)
         songDuration.text = "00:00"
         nextSwitch = false
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.prevSong, object: nil)
-//        currentPositionForFirebase()
-        
     }
     
     @IBAction func nextButton(_ sender: Any) {
+        AudioServicesPlaySystemSound(1521)
+        nextButton.isEnabled = false
         nextSwitch = false
-        NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.nextSong, object: nil)
+            self.nextButton.isEnabled = true
+            self.songDuration.text = "00:00"
+        }
     }
-
 }
 extension TrackPlayControlViewController{
     func setFields(){
@@ -83,7 +90,6 @@ extension TrackPlayControlViewController{
         label.trailingBuffer = 50
         label.fadeLength = 5.0
         label.isUserInteractionEnabled = false
-        
   }
 
     func playPause () {
@@ -135,7 +141,7 @@ extension TrackPlayControlViewController{
                 var durationTime: String{
                     let formatter = DateFormatter()
                     formatter.dateFormat = "mm:ss"
-                    let date = Date(timeIntervalSince1970: currentTrackPosition)
+                    let date = Date(timeIntervalSince1970: position)
                     return formatter.string(from: date)
                 }
                 
@@ -153,6 +159,12 @@ extension TrackPlayControlViewController{
         }
     }
     
+    func nextButtonTrigger(){
+        if(currentQueue.count >= 1){self.nextButton.isEnabled = true}else{self.nextButton.isEnabled = false}
+    }
+    
+        
+    }
 //
 //    func currentPositionForFirebase(){
 //        if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
@@ -162,7 +174,7 @@ extension TrackPlayControlViewController{
 
     
 
-}
+
 
 
 

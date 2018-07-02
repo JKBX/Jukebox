@@ -34,6 +34,8 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         if self.isMovingToParentViewController {
             setupObservers()
         }
+        
+
     }
 
     //TODO ??
@@ -64,12 +66,14 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     //MARK: Observer-Methods
 
     func setupObservers() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {if(!(SPTAudioStreamingController.sharedInstance().loggedIn)){NotificationCenter.default.post(name: NSNotification.Name.Spotify.loggedOut, object: nil)}}
         self.ref = Database.database().reference().child("/parties/\(currentParty)")
-
         ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(TrackModel(from: snapshot))})
         addObserver = ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
         ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(TrackModel(from: snapshot))})
         ref.child("/currentlyPlaying").observe(.value, with: { (snapshot) in self.onCurrentTrackChanged(snapshot)})
+        ref.child("/currentlyPlaying").child("isPlaying").observe(.value, with: { (snapshot) in NotificationCenter.default.post(name: NSNotification.Name.Player.isPlay, object: nil) })
+
     }
 
     func onChildAdded(_ changedTrack: TrackModel) {
@@ -77,7 +81,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         currentQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let index = getIndex(of: changedTrack)
         self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
-
         self.tableView.reloadData()
 
     }
@@ -86,10 +89,8 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         let index = getIndex(of: changedTrack)
         currentQueue[index] = changedTrack
         self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
-
         let sortedQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let newIndex = sortedQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId })!
-
         if newIndex != index {
             self.tableView.moveRow(at: IndexPath(item: index, section: 0), to: IndexPath(item: newIndex, section: 0))
             currentQueue = sortedQueue
@@ -111,7 +112,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
         if needsCheck && currentTrack != nil { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
         NotificationCenter.default.post(name: NSNotification.Name.Player.trackChanged, object: nil)
-        miniPlayer?.setting()
         miniPlayer?.update()
     }
 
@@ -135,6 +135,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         currentTrack = nil
         currentAdmin = false
     }
+
 }
 
 
@@ -262,6 +263,7 @@ extension PartyPlaylistViewController: UITableViewDelegate{
             return label
         }
         }
+    
     
    
     

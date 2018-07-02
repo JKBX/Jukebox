@@ -2,9 +2,8 @@
 //  PopUpViewViewController.swift
 //  Jukebox
 //
-//  Created by Maximilian Babel on 26.06.18.
 //  Copyright © 2018 Jukebox. All rights reserved.
-//
+
 
 import UIKit
 
@@ -18,7 +17,6 @@ class PopUpViewViewController: UIViewController {
         super.viewDidLoad()
         pulsate(checkButton: self.checkButton)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.04){
-            // your code with delay
             self.dismiss(animated: true, completion: nil)
         }
     }

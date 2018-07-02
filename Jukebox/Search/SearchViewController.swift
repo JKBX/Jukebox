@@ -2,7 +2,6 @@
 //  SearchViewController.swift
 //  Jukebox
 //
-//  Created by Philipp on 11.06.18.
 //  Copyright © 2018 Jukebox. All rights reserved.
 //
 
@@ -45,6 +44,9 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
         tableView.allowsSelection = false
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.isEditing, object: nil, queue: nil) { (note) in
+           self.view.endEditing(true)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -57,6 +59,7 @@ class SearchViewController: UIViewController {
     }
 
     func searchTrackWithSpartanCall(track: String){
+        
         Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
         foundTracks = []
         existingTracks = []
@@ -109,10 +112,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         label.textColor = .red
         label.backgroundColor = UIColor(named: "SolidGrey800")
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        if(foundTracks.count > 0 && foundTracks.count > 0){
-            if(section == 0 ){
+        if(foundTracks.count > 0){
+            if(section == 0 && existingTracks.count > 0){
                 label.text = sectionOneHeader
-            }else {
+            }else if (section == 1) {
                 label.text = sectionTwoHeader
             }
             return label
@@ -125,6 +128,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
+        if(foundTracks.count == 0){return 1}
         return 2
     }
 }
@@ -142,7 +146,6 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = ""
         view.endEditing(true)
     }
 }

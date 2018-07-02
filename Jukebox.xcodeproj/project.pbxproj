@@ -39,6 +39,7 @@
 		790CCC8520BDE0080081621B /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790CCC8420BDE0080081621B /* TrackCell.swift */; };
 		7952BD7320E7EF6900E970D0 /* CustomPartyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7952BD7220E7EF6900E970D0 /* CustomPartyImage.swift */; };
 		79BB68E320E27100009331F6 /* PopUpViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BB68E220E27100009331F6 /* PopUpViewViewController.swift */; };
+		79F4459320E903900023AAA1 /* PartyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F4459220E903900023AAA1 /* PartyMenuViewController.swift */; };
 		79F97BF720E3BA3A00329524 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F97BF620E3BA3A00329524 /* DesignableView.swift */; };
 		E0153E4020DE70BC00EBCE79 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0153E3F20DE70BC00EBCE79 /* SearchCell.swift */; };
 		E02E252E20DA557D0014FD5E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E02E252D20DA557D0014FD5E /* QuartzCore.framework */; };
@@ -88,6 +89,7 @@
 		790CCC8420BDE0080081621B /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		7952BD7220E7EF6900E970D0 /* CustomPartyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPartyImage.swift; sourceTree = "<group>"; };
 		79BB68E220E27100009331F6 /* PopUpViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewViewController.swift; sourceTree = "<group>"; };
+		79F4459220E903900023AAA1 /* PartyMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyMenuViewController.swift; sourceTree = "<group>"; };
 		79F97BF620E3BA3A00329524 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
 		80517207188883059530FC1A /* Pods-Jukebox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jukebox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Jukebox/Pods-Jukebox.debug.xcconfig"; sourceTree = "<group>"; };
 		E0153E3F20DE70BC00EBCE79 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				17AE0E9320BDC657000EF085 /* SectionHeader.swift */,
 				E0E7422320E370350076432D /* PartyModel.swift */,
 				7952BD7220E7EF6900E970D0 /* CustomPartyImage.swift */,
+				79F4459220E903900023AAA1 /* PartyMenuViewController.swift */,
 			);
 			path = PartyOverview;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */,
 				17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */,
 				17AE0E9520BDC657000EF085 /* PartyCollectionViewController.swift in Sources */,
+				79F4459320E903900023AAA1 /* PartyMenuViewController.swift in Sources */,
 				17AE0E9420BDC657000EF085 /* JoinPartyViewController.swift in Sources */,
 				17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */,
 				17AE0E6520BDC0BC000EF085 /* Constants.swift in Sources */,
@@ -588,7 +592,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6X6VW9NKB6;
+				DEVELOPMENT_TEAM = DHQGWSH658;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -610,7 +614,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.deap.JKBX;
+				PRODUCT_BUNDLE_IDENTIFIER = io.deap.Jukebox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jukebox/Jukebox-Bridging-Header.h";
@@ -628,7 +632,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6X6VW9NKB6;
+				DEVELOPMENT_TEAM = DHQGWSH658;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -650,7 +654,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.deap.JKBX;
+				PRODUCT_BUNDLE_IDENTIFIER = io.deap.Jukebox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jukebox/Jukebox-Bridging-Header.h";
