@@ -456,9 +456,6 @@
         <namedColor name="SolidGrey600">
             <color red="0.3059999942779541" green="0.32899999618530273" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="SolidGrey600">
-            <color red="0.30599999430000002" green="0.32899999619999998" blue="0.31799998880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="SolidGrey700">
             <color red="0.21600000560283661" green="0.23899999260902405" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
