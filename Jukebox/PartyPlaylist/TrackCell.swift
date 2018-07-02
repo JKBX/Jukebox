@@ -17,8 +17,6 @@ protocol TrackCellDelegate{
 
 class TrackCell: UITableViewCell {
 
-    //var delegate: TrackCellDelegate?
-    //var trackID: String = ""
     var track:TrackModel?
     var partyRef: DatabaseReference?
 
@@ -34,7 +32,7 @@ class TrackCell: UITableViewCell {
         })
 
         let label = UILabel(frame: CGRect(x: UIScreen.main.bounds.width - 48, y: 40, width: 32, height: 24))
-        label.text =  String(track.voteCount)//"I'am a test label"
+        label.text = String(track.voteCount)
         label.textAlignment = .right
         label.textColor = .white
         label.font.withSize(8)
@@ -47,22 +45,17 @@ class TrackCell: UITableViewCell {
     }
 
     @objc func toggleLike(){
-
         let userId = Auth.auth().currentUser?.uid as! String
         let voteRef = self.partyRef?.child("/queue/\(track?.trackId as! String)/votes/\(userId as String)")
         if (track?.liked)!{
-            //Unlike
             voteRef?.removeValue()
         } else {
-            //Like
             voteRef?.setValue(true)
         }
-        //delegate?.likedTrack(trackID: trackID)
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.imageView?.image = UIImage(named: "coverImagePlaceholder")
-        // Initialization code
     }
 }

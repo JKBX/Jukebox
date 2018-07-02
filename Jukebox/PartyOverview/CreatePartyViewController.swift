@@ -212,7 +212,6 @@ extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelega
     
     func setupPlaylistPicker() {
         picker.backgroundColor = UIColor.darkGray
-        //self.setValue(UIColor.white, forKey: "text")
         picker.dataSource = self
         picker.delegate = self
         self.loadPlaylists(nil)
@@ -222,7 +221,6 @@ extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelega
     }
     
     func loadPlaylists(_ page: SPTListPage?) -> Void {
-        // Load Playlist Data
         let user = SPTAuth.defaultInstance().session.canonicalUsername
         let accessToken = SPTAuth.defaultInstance().session.accessToken
         let callback:SPTRequestCallback = {(error, data) in

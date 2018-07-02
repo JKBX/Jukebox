@@ -119,7 +119,7 @@ class PartyCollectionViewController: UICollectionViewController {
     }
     
     func shapeImage(incImage: UIImage){
-        let customImgView = customPartyImage()
+        let customImgView = CustomPartyImage()
         customImgView.image = incImage
         customImgView.frame = CGRect(x: 0, y: 0, width: 250, height: 250)
         
@@ -156,11 +156,11 @@ class PartyCollectionViewController: UICollectionViewController {
                                 }
                             }
                         })
-
+            cell.PartyName.text = party.object(forKey: "ID") as! String
             cell.Label.text = party.object(forKey: "Name") as! String
             cell.PartyID = party.object(forKey: "ID") as! String
             cell.PartyHost = party.object(forKey: "Host") as! String
-//            cell.cellPartyInfo = getParty(for: indexPath)
+            cell.setCellShadow()
         }
         return cell
 

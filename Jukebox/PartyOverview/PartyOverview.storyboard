@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MJV-Gs-deF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MJV-Gs-deF">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,37 +22,64 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="SolidGrey800"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4oi-6T-B9P">
-                            <size key="itemSize" width="215" height="128"/>
+                            <size key="itemSize" width="381" height="128"/>
                             <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Cell" id="L15-Pp-pkZ" customClass="PartyCollectionViewCell" customModule="Jukebox" customModuleProvider="target">
-                                <rect key="frame" x="99.666666666666671" y="50" width="215" height="128"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="Cell" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Cell" id="L15-Pp-pkZ" customClass="PartyCollectionViewCell" customModule="Jukebox" customModuleProvider="target">
+                                <rect key="frame" x="16.666666666666668" y="50" width="381" height="128"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="215" height="128"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="128"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="Image" translatesAutoresizingMaskIntoConstraints="NO" id="T2l-2i-Suu" customClass="customPartyImage" customModule="Jukebox">
-                                            <rect key="frame" x="0.0" y="0.0" width="215" height="140"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="Image" translatesAutoresizingMaskIntoConstraints="NO" id="T2l-2i-Suu" customClass="customPartyImage" customModule="Jukebox" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="223" height="128"/>
                                             <color key="tintColor" name="SolidGrey800"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzm-uj-BeL">
-                                            <rect key="frame" x="153" y="107" width="42" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzm-uj-BeL">
+                                            <rect key="frame" x="231" y="87" width="138" height="21"/>
+                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ze5-wI-GJe">
+                                            <rect key="frame" x="231" y="54" width="138" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="138" id="1St-gS-mt0"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </view>
-                                <color key="backgroundColor" name="SolidGrey800"/>
+                                <color key="backgroundColor" name="SolidGrey700"/>
+                                <constraints>
+                                    <constraint firstItem="gzm-uj-BeL" firstAttribute="height" secondItem="ze5-wI-GJe" secondAttribute="height" id="1TY-nx-OdZ"/>
+                                    <constraint firstItem="gzm-uj-BeL" firstAttribute="leading" secondItem="T2l-2i-Suu" secondAttribute="trailing" constant="8" symbolic="YES" id="CO2-kz-kf2"/>
+                                    <constraint firstItem="ze5-wI-GJe" firstAttribute="centerY" secondItem="L15-Pp-pkZ" secondAttribute="centerY" id="Cc7-sa-qHF"/>
+                                    <constraint firstItem="ze5-wI-GJe" firstAttribute="leading" secondItem="T2l-2i-Suu" secondAttribute="trailing" constant="8" symbolic="YES" id="Iwy-X7-x9L"/>
+                                    <constraint firstItem="T2l-2i-Suu" firstAttribute="top" secondItem="L15-Pp-pkZ" secondAttribute="top" id="Rt3-b4-QbX"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="ze5-wI-GJe" secondAttribute="trailing" constant="4" id="Xaf-j0-kVc"/>
+                                    <constraint firstItem="T2l-2i-Suu" firstAttribute="leading" secondItem="L15-Pp-pkZ" secondAttribute="leading" id="ghw-tB-f2b"/>
+                                    <constraint firstItem="gzm-uj-BeL" firstAttribute="leading" secondItem="T2l-2i-Suu" secondAttribute="trailing" constant="8" id="k6T-64-oZ9"/>
+                                    <constraint firstItem="ze5-wI-GJe" firstAttribute="leading" secondItem="T2l-2i-Suu" secondAttribute="trailing" constant="8" id="la7-f1-8Bd"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="T2l-2i-Suu" secondAttribute="bottom" constant="-8" id="nNo-dq-DdD"/>
+                                    <constraint firstItem="gzm-uj-BeL" firstAttribute="width" secondItem="ze5-wI-GJe" secondAttribute="width" id="plf-yB-REp"/>
+                                    <constraint firstItem="gzm-uj-BeL" firstAttribute="top" secondItem="ze5-wI-GJe" secondAttribute="bottom" constant="12" id="tKD-S6-iKB"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="Image" destination="T2l-2i-Suu" id="Hoi-GF-d3F"/>
                                     <outlet property="Label" destination="gzm-uj-BeL" id="uja-qW-Qzv"/>
+                                    <outlet property="PartyName" destination="ze5-wI-GJe" id="ccZ-vv-pCW"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -331,16 +360,17 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2RI-la-fqE">
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2RI-la-fqE">
                                     <rect key="frame" x="0.0" y="8" width="414" height="728"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="2RI-la-fqE" secondAttribute="height" multiplier="414:719" constant="-5.1821974965229174" id="0HA-Ky-n8V"/>
+                                    </constraints>
                                     <connections>
                                         <action selector="dismissPopUp:" destination="L5Y-fd-bda" eventType="touchUpInside" id="SGJ-kr-AaB"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaU-hC-G22" customClass="ButtonDesignable" customModule="Jukebox" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaU-hC-G22" customClass="ButtonDesignable" customModule="Jukebox" customModuleProvider="target">
                                     <rect key="frame" x="8" y="678" width="398" height="50"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" name="SolidGrey600"/>
                                     <state key="normal" title="Cancel">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -354,10 +384,12 @@
                                         <action selector="dismissPopUp:" destination="L5Y-fd-bda" eventType="touchUpInside" id="mkq-GC-5CB"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbW-F0-JBB" customClass="ButtonDesignable" customModule="Jukebox" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbW-F0-JBB" customClass="ButtonDesignable" customModule="Jukebox" customModuleProvider="target">
                                     <rect key="frame" x="8" y="529" width="398" height="50"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" name="SolidGrey600"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="67Q-ne-kbg"/>
+                                    </constraints>
                                     <state key="normal" title="Share Party-ID">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -370,9 +402,8 @@
                                         <action selector="sharePartyIDPressed:" destination="L5Y-fd-bda" eventType="touchUpInside" id="HOo-co-lf6"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giF-Yh-Aij" customClass="ButtonDesignable" customModule="Jukebox" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giF-Yh-Aij" customClass="ButtonDesignable" customModule="Jukebox" customModuleProvider="target">
                                     <rect key="frame" x="8" y="587" width="398" height="50"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <state key="normal" title="Delete Party">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -387,13 +418,28 @@
                                     </connections>
                                 </button>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="2RI-la-fqE" firstAttribute="centerX" secondItem="v5B-hi-MiQ" secondAttribute="centerX" id="B43-11-ni6"/>
+                                <constraint firstItem="yaU-hC-G22" firstAttribute="width" secondItem="vbW-F0-JBB" secondAttribute="width" id="BzD-CW-q8H"/>
+                                <constraint firstItem="vbW-F0-JBB" firstAttribute="centerX" secondItem="2RI-la-fqE" secondAttribute="centerX" id="F8o-8N-LO2"/>
+                                <constraint firstItem="yaU-hC-G22" firstAttribute="bottom" secondItem="v5B-hi-MiQ" secondAttribute="bottomMargin" id="HIL-uw-56v"/>
+                                <constraint firstItem="2RI-la-fqE" firstAttribute="centerY" secondItem="v5B-hi-MiQ" secondAttribute="centerY" constant="4" id="INQ-mS-Ebk"/>
+                                <constraint firstItem="giF-Yh-Aij" firstAttribute="width" secondItem="vbW-F0-JBB" secondAttribute="width" id="Kic-dw-OX3"/>
+                                <constraint firstItem="vbW-F0-JBB" firstAttribute="leading" secondItem="v5B-hi-MiQ" secondAttribute="leadingMargin" id="Ldk-S0-e28"/>
+                                <constraint firstItem="giF-Yh-Aij" firstAttribute="height" secondItem="vbW-F0-JBB" secondAttribute="height" id="MXH-yQ-hVs"/>
+                                <constraint firstItem="giF-Yh-Aij" firstAttribute="leading" secondItem="yaU-hC-G22" secondAttribute="leading" id="OUX-4K-RMv"/>
+                                <constraint firstItem="giF-Yh-Aij" firstAttribute="top" secondItem="vbW-F0-JBB" secondAttribute="bottom" constant="8" symbolic="YES" id="Vrj-zh-U8v"/>
+                                <constraint firstItem="yaU-hC-G22" firstAttribute="height" secondItem="vbW-F0-JBB" secondAttribute="height" id="e0U-m4-TXH"/>
+                                <constraint firstItem="vbW-F0-JBB" firstAttribute="leading" secondItem="giF-Yh-Aij" secondAttribute="leading" id="m0Z-Ps-9B2"/>
+                                <constraint firstItem="yaU-hC-G22" firstAttribute="top" secondItem="giF-Yh-Aij" secondAttribute="bottom" constant="41" id="uAj-2Z-D2l"/>
+                            </constraints>
                         </view>
                         <blurEffect style="light"/>
                     </visualEffectView>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vrp-Hq-WiF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7" y="-2093"/>
+            <point key="canvasLocation" x="5.7971014492753632" y="-2093.4782608695655"/>
         </scene>
         <!--Item-->
         <scene sceneID="wZF-Ig-ddi">
@@ -449,6 +495,9 @@
         </namedColor>
         <namedColor name="SolidGrey600">
             <color red="0.3059999942779541" green="0.32899999618530273" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SolidGrey700">
+            <color red="0.21600000560283661" green="0.23899999260902405" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SolidGrey700">
             <color red="0.21600000560283661" green="0.23899999260902405" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

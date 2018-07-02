@@ -23,7 +23,7 @@ class PartyMenuViewController: UIViewController {
         super.viewDidLoad()
         self.ref = Database.database().reference()
 
-        shareMessage = "Welcome to the party \(partyName)!\nThe host \(partyHost) invited you to the party with the ID: \n \(self.partyID)"
+        shareMessage = "Welcome to the party \(partyName!)!\nThe host \(partyHost!) invited you to the party with the ID: \n \(self.partyID!)"
         // Do any additional setup after loading the view.
     }
 
@@ -47,7 +47,7 @@ class PartyMenuViewController: UIViewController {
     }
     
     @IBAction func deletePartyPressed(_ sender: ButtonDesignable) {
-        let alert = UIAlertController(title: "Delete", message: "Do you want to delete the party \(currentParty)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete", message: "Do you want to delete the party \(partyName!)", preferredStyle: .alert)
         let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
         let deleteParty = UIAlertAction(title: "Delete", style: .destructive) { (action) in
             self.extinguishPartyFromFirebase()

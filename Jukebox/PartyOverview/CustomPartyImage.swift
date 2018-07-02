@@ -9,8 +9,12 @@
 import Foundation
 import UIKit
 
-class customPartyImage: UIImageView {
+class CustomPartyImage: UIImageView {
+    
+    
+    
     override func setNeedsLayout() {
+//        super.setNeedsLayout()
         let path = UIBezierPath()
         path.move(to: .zero)
         path.addLine(to: CGPoint(x: self.frame.width/2, y: self.frame.height/2))
