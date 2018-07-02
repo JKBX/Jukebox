@@ -16,7 +16,7 @@ class PopUpViewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pulsate(checkButton: self.checkButton)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.04){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
             self.dismiss(animated: true, completion: nil)
         }
     }

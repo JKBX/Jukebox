@@ -22,25 +22,14 @@ class PartyMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.ref = Database.database().reference()
-
         shareMessage = "Welcome to the party \(partyName!)!\nThe host \(partyHost!) invited you to the party with the ID: \n \(self.partyID!)"
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func sharePartyIDPressed(_ sender: ButtonDesignable) {
-//        ref.child("/parties/\(currentParty)").observeSingleEvent(of: .value, with: { (snapshot) in
-//            // Get user value
-//            let value = snapshot.value as? NSDictionary
-//            let partyId = value?["ID"] as? String ?? ""
-//            
-//        }) { (error) in
-//            print(error.localizedDescription)
-//        }
         let activity = UIActivityViewController(activityItems: [shareMessage], applicationActivities: nil)
         activity.popoverPresentationController?.sourceView = self.view
         self.present(activity, animated: true, completion: nil)

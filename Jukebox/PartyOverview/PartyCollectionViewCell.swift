@@ -22,6 +22,5 @@ class PartyCollectionViewCell: UICollectionViewCell {
         Image.layer.borderWidth = 1.0
         Image.layer.borderColor = UIColor.clear.cgColor
         Image.layer.masksToBounds = true
-
     }
 }

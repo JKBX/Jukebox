@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -103,7 +102,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGu-v6-Y1e">
-                                    <rect key="frame" x="317" y="9" width="42" height="42"/>
+                                    <rect key="frame" x="317" y="-1" width="42" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" image="baseline_add_white_36pt"/>
@@ -360,11 +359,8 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2RI-la-fqE">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2RI-la-fqE" userLabel="Dismiss">
                                     <rect key="frame" x="0.0" y="8" width="414" height="728"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="2RI-la-fqE" secondAttribute="height" multiplier="414:719" constant="-5.1821974965229174" id="0HA-Ky-n8V"/>
-                                    </constraints>
                                     <connections>
                                         <action selector="dismissPopUp:" destination="L5Y-fd-bda" eventType="touchUpInside" id="SGJ-kr-AaB"/>
                                     </connections>
@@ -419,18 +415,20 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="2RI-la-fqE" firstAttribute="centerX" secondItem="v5B-hi-MiQ" secondAttribute="centerX" id="B43-11-ni6"/>
+                                <constraint firstItem="2RI-la-fqE" firstAttribute="leading" secondItem="v5B-hi-MiQ" secondAttribute="leading" id="2PN-8y-cWG"/>
                                 <constraint firstItem="yaU-hC-G22" firstAttribute="width" secondItem="vbW-F0-JBB" secondAttribute="width" id="BzD-CW-q8H"/>
-                                <constraint firstItem="vbW-F0-JBB" firstAttribute="centerX" secondItem="2RI-la-fqE" secondAttribute="centerX" id="F8o-8N-LO2"/>
                                 <constraint firstItem="yaU-hC-G22" firstAttribute="bottom" secondItem="v5B-hi-MiQ" secondAttribute="bottomMargin" id="HIL-uw-56v"/>
-                                <constraint firstItem="2RI-la-fqE" firstAttribute="centerY" secondItem="v5B-hi-MiQ" secondAttribute="centerY" constant="4" id="INQ-mS-Ebk"/>
                                 <constraint firstItem="giF-Yh-Aij" firstAttribute="width" secondItem="vbW-F0-JBB" secondAttribute="width" id="Kic-dw-OX3"/>
                                 <constraint firstItem="vbW-F0-JBB" firstAttribute="leading" secondItem="v5B-hi-MiQ" secondAttribute="leadingMargin" id="Ldk-S0-e28"/>
+                                <constraint firstItem="2RI-la-fqE" firstAttribute="top" secondItem="v5B-hi-MiQ" secondAttribute="topMargin" id="Lgh-qe-vfd"/>
                                 <constraint firstItem="giF-Yh-Aij" firstAttribute="height" secondItem="vbW-F0-JBB" secondAttribute="height" id="MXH-yQ-hVs"/>
                                 <constraint firstItem="giF-Yh-Aij" firstAttribute="leading" secondItem="yaU-hC-G22" secondAttribute="leading" id="OUX-4K-RMv"/>
+                                <constraint firstAttribute="trailing" secondItem="2RI-la-fqE" secondAttribute="trailing" id="VRp-bR-8Y5"/>
                                 <constraint firstItem="giF-Yh-Aij" firstAttribute="top" secondItem="vbW-F0-JBB" secondAttribute="bottom" constant="8" symbolic="YES" id="Vrj-zh-U8v"/>
                                 <constraint firstItem="yaU-hC-G22" firstAttribute="height" secondItem="vbW-F0-JBB" secondAttribute="height" id="e0U-m4-TXH"/>
                                 <constraint firstItem="vbW-F0-JBB" firstAttribute="leading" secondItem="giF-Yh-Aij" secondAttribute="leading" id="m0Z-Ps-9B2"/>
+                                <constraint firstAttribute="bottom" secondItem="2RI-la-fqE" secondAttribute="bottom" id="qrl-fI-cMf"/>
+                                <constraint firstItem="2RI-la-fqE" firstAttribute="centerX" secondItem="giF-Yh-Aij" secondAttribute="centerX" id="rhv-5H-RZN"/>
                                 <constraint firstItem="yaU-hC-G22" firstAttribute="top" secondItem="giF-Yh-Aij" secondAttribute="bottom" constant="41" id="uAj-2Z-D2l"/>
                             </constraints>
                         </view>
