@@ -59,11 +59,7 @@ class PartyMenuViewController: UIViewController {
     }
     
     func extinguishPartyFromFirebase() {
-        if(user! != partyHost!){
-            self.ref.child("/users/\(user!)/parties/\(partyID!)").setValue(nil)
-        } else if(user! == partyHost){
-            
-        }
+        self.ref.child("/users/\(user!)/parties/\(partyID!)").setValue(nil)
     }
     
     @IBAction func dismissPopUp(_ sender: ButtonDesignable) {
