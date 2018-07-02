@@ -96,7 +96,7 @@ extension MiniPlayerViewController{
         
         if (currentTrack?.isPlaying)!{
             resetTimer()
-            
+            progressView.isHidden = false
             let duration:Float = Float((currentTrack?.duration)!)
             let delay = NSDate.timeIntervalSinceReferenceDate - (currentTrack?.playbackStatus?.time)!
             var elapsed: Float =  Float(((currentTrack?.playbackStatus?.position)! + delay) * 1000)
@@ -233,6 +233,8 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
             self.artist.text = "Thanks"
             self.triggerSpotifyLogin = false
             self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
+            self.progressView.isHidden = true
+            currentTrack?.isPlaying = false
         }
     }
     
