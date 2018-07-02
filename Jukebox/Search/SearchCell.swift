@@ -2,7 +2,6 @@
 //  SearchCell.swift
 //  Jukebox
 //
-//  Created by Maximilian Babel on 12.06.18.
 //  Copyright © 2018 Jukebox. All rights reserved.
 //
 

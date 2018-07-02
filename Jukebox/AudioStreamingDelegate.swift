@@ -2,7 +2,7 @@
 //  AudioStreamingDelegate.swift
 //  test
 //
-//  Created by Philipp on 28.04.18.
+//  Created by Team Jukebox/Gruppe 7
 //  Copyright © 2018 Philipp. All rights reserved.
 //
 
