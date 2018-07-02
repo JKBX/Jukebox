@@ -18,9 +18,16 @@ class PartyCollectionViewController: UICollectionViewController {
     var hostPartyIds:[String] = []
     var guestParties:[NSDictionary] = []
     var guestPartyIds:[String] = []
-    //var selectedParty:NSDictionary = [:]
     var selectedParty:String = ""
     var selectedPartyInfo:NSDictionary = [:]
+    
+    var cellMenuPartyId: String!
+    var cellMenuPartyName: String!
+    var cellMenuPartyHost: String!
+    
+    var cellPartyInfo: NSDictionary = [:]
+    
+    //var selectedParty:NSDictionary = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,6 +159,8 @@ class PartyCollectionViewController: UICollectionViewController {
 
             cell.Label.text = party.object(forKey: "Name") as! String
             cell.PartyID = party.object(forKey: "ID") as! String
+            cell.PartyHost = party.object(forKey: "Host") as! String
+//            cell.cellPartyInfo = getParty(for: indexPath)
         }
         return cell
 
@@ -254,12 +263,26 @@ extension PartyCollectionViewController: UIGestureRecognizerDelegate{
 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.destination is PartyMenuViewController){
+            let vc = segue.destination as? PartyMenuViewController
+            vc?.partyID = self.cellMenuPartyId
+            vc?.partyName = self.cellMenuPartyName
+            vc?.partyHost = self.cellMenuPartyHost
+        }
+    }
+    
     @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer){
         let point = sender.location(in: collectionView)
         if let indexPath = collectionView?.indexPathForItem(at: point) {
-            print(#function, indexPath)
             let cell = collectionView?.cellForItem(at: indexPath) as! PartyCollectionViewCell
-            print(cell.PartyID)
+            self.cellMenuPartyId = cell.PartyID
+            self.cellMenuPartyName = cell.Label.text
+            self.cellMenuPartyHost = cell.PartyHost
+            
+//            let PMVC = PartyMenuViewController(nibName: "PartyMenuViewController", bundle: nil)
+//            PMVC.partyID = cell.PartyID
+            performSegue(withIdentifier: "PartyMenu", sender: sender)
         }
     }
     

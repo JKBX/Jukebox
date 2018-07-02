@@ -13,14 +13,17 @@ import Firebase
 class PartyMenuViewController: UIViewController {
     
     var partyID: String!
+    var partyName: String!
+    var partyHost: String!
     var ref: DatabaseReference!
-    var user = Auth.auth().currentUser
-    var shareMessage: String = "This is your PartyID: \n \(currentParty)"
+    var user = Auth.auth().currentUser?.uid
+    var shareMessage: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.ref = Database.database().reference()
-        print(partyID)
+
+        shareMessage = "Welcome to the party \(partyName)!\nThe host \(partyHost) invited you to the party with the ID: \n \(self.partyID)"
         // Do any additional setup after loading the view.
     }
 
@@ -30,14 +33,14 @@ class PartyMenuViewController: UIViewController {
     }
     
     @IBAction func sharePartyIDPressed(_ sender: ButtonDesignable) {
-        ref.child("/parties/\(currentParty)").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let partyId = value?["ID"] as? String ?? ""
-            
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+//        ref.child("/parties/\(currentParty)").observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            let value = snapshot.value as? NSDictionary
+//            let partyId = value?["ID"] as? String ?? ""
+//            
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
         let activity = UIActivityViewController(activityItems: [shareMessage], applicationActivities: nil)
         activity.popoverPresentationController?.sourceView = self.view
         self.present(activity, animated: true, completion: nil)
@@ -56,11 +59,7 @@ class PartyMenuViewController: UIViewController {
     }
     
     func extinguishPartyFromFirebase() {
-        if(currentAdmin == false){
-            self.ref.child("/users/\(user?.uid)/parties/\(currentParty)").setValue(nil)
-        } else {
-            print("Du bist Admin dieser Party!")
-        }
+        self.ref.child("/users/\(user!)/parties/\(partyID!)").setValue(nil)
     }
     
     @IBAction func dismissPopUp(_ sender: ButtonDesignable) {
