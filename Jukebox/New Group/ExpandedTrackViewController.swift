@@ -74,6 +74,7 @@ class ExpandedTrackViewController: UIViewController {
         let corner: CGFloat = 10
         coverImage.layer.cornerRadius = corner
         update()
+        lastSongPlayed()
         
     }
 
@@ -279,5 +280,10 @@ extension ExpandedTrackViewController{
     
     func animateLowerModulOUT(){
         animateLowerModul(isPresenting: false)
+    }
+    func lastSongPlayed(){
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.lastSong, object: nil, queue: nil) { (note) in
+           self.dismiss(animated: true, completion: nil)
+        }
     }
 }

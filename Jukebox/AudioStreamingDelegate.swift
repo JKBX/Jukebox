@@ -116,10 +116,9 @@ class AudioStreamingDelegate: NSObject {
     }
 
     func getNextTrack(completion: @escaping ()->Void) {
-        if(currentQueue.count > 0){
         let nextTrackId = currentQueue.first?.trackId
         let ref = Database.database().reference().child("/parties/\(currentParty)")
-
+        if(currentQueue.count > 0){
         swapToHistory {
                 ref.child("/queue/\(nextTrackId!)").observeSingleEvent(of: .value) { (snapshot) in
                 let next = snapshot.value as! NSDictionary
@@ -133,7 +132,9 @@ class AudioStreamingDelegate: NSObject {
             }
 
             }
-        }else{return}
+        }else{
+            NotificationCenter.default.post(name: NSNotification.Name.Player.lastSong, object: nil)
+            return}
     }
 
     func swapToHistory(completion: @escaping () ->Void) {
