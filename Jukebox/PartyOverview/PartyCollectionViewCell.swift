@@ -11,6 +11,8 @@ import UIKit
 class PartyCollectionViewCell: UICollectionViewCell {
     
     var PartyID: String!
+    var PartyHost: String!
+    var cellPartyInfo: NSDictionary!
     @IBOutlet weak var Label: UILabel!
     @IBOutlet weak var Image: UIImageView!
     
