@@ -23,6 +23,9 @@ extension Notification.Name {
         static let position = Notification.Name("songDuration")
         static let isPlay = Notification.Name("isPlay")
         static let lastSong = Notification.Name("lastSong")
+        static let searchNewTrack = Notification.Name("searchNewTrack")
+
+        
         
     }
     static let isEditing = Notification.Name("editingExit")
