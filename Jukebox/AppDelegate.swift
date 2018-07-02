@@ -66,6 +66,10 @@ extension AppDelegate {
 
         //Init and Set Streaming Delegate
         stream.delegate = streamingDelegate
+        
+        SPTAuth.defaultInstance().renewSession(SPTAuth.defaultInstance().session) { (error, session) in
+            if let error = error {print(error); return}
+        }
 
         // Start the spotify player
         do { try stream.start(withClientId: SpotifyConfig.clientID)}
