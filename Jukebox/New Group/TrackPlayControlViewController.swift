@@ -142,7 +142,7 @@ extension TrackPlayControlViewController{
                 var durationTime: String{
                     let formatter = DateFormatter()
                     formatter.dateFormat = "mm:ss"
-                    let date = Date(timeIntervalSince1970: currentTrackPosition)
+                    let date = Date(timeIntervalSince1970: position)
                     return formatter.string(from: date)
                 }
                 

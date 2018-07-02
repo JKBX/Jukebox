@@ -285,5 +285,9 @@ extension ExpandedTrackViewController{
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.lastSong, object: nil, queue: nil) { (note) in
            self.dismiss(animated: true, completion: nil)
         }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Spotify.loggedOut, object: nil, queue: nil) { (note) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
 }

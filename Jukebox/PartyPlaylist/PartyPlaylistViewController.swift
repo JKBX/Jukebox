@@ -68,7 +68,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
     func setupObservers() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {if(!(SPTAudioStreamingController.sharedInstance().loggedIn)){NotificationCenter.default.post(name: NSNotification.Name.Spotify.loggedOut, object: nil)}}
         self.ref = Database.database().reference().child("/parties/\(currentParty)")
-
         ref.child("/queue").observe(.childChanged, with: { (snapshot) in self.onChildChanged(TrackModel(from: snapshot))})
         addObserver = ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
         ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(TrackModel(from: snapshot))})
