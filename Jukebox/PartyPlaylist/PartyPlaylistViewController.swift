@@ -82,7 +82,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         currentQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let index = getIndex(of: changedTrack)
         self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
-
         self.tableView.reloadData()
 
     }
@@ -91,10 +90,8 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         let index = getIndex(of: changedTrack)
         currentQueue[index] = changedTrack
         self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
-
         let sortedQueue = currentQueue.sorted() { $0.voteCount > $1.voteCount }
         let newIndex = sortedQueue.index(where: { (track) -> Bool in track.trackId == changedTrack.trackId })!
-
         if newIndex != index {
             self.tableView.moveRow(at: IndexPath(item: index, section: 0), to: IndexPath(item: newIndex, section: 0))
             currentQueue = sortedQueue
@@ -116,7 +113,6 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
         if needsCheck && currentTrack != nil { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
         NotificationCenter.default.post(name: NSNotification.Name.Player.trackChanged, object: nil)
-        miniPlayer?.setting()
         miniPlayer?.update()
     }
 

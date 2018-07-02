@@ -30,24 +30,33 @@ class MiniPlayerViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setting()
+        isLoggedInSpotify()
         swipeUpGesture()
         marqueeLabelMiniPlayer(MarqueeLabel: artist)
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
         userTriggeredButton(isAdmin: currentAdmin)
         timer = Timer.init()
         playPauseButton()
-        isLoggedInSpotify()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         playPause.adjustsImageWhenHighlighted = false
-  
+        
     }
     
     @IBAction func Play(_ sender: Any) {
-        AudioServicesPlaySystemSound(1520)
-        NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
-    }
+        
+        if(SPTAudioStreamingController.sharedInstance().loggedIn){
+            triggerSpotifyLogin = true
+            AudioServicesPlaySystemSound(1520)
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.toggle, object: nil)
+        }else{
+            playPause.isEnabled = false
+            NotificationCenter.default.post(name: NSNotification.Name.Spotify.loggedOut, object: nil)}
+        }
+        
+        
+    
  
     @IBAction func broadcast(_ sender: Any) {
         
@@ -76,7 +85,9 @@ extension MiniPlayerViewController{
     func update() {
         if(currentTrack != nil){
             updateProgressBar()
-            setting()} else{ return}
+            setting()
+            }
+        else{ return}
     }
     
     func updateProgressBar() {
@@ -105,7 +116,6 @@ extension MiniPlayerViewController{
     
     func setting(){
         
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
         if let song = currentTrack {
             self.songTitle.text = song.songName
             self.artist.text = song.artist
@@ -115,10 +125,9 @@ extension MiniPlayerViewController{
         }else {
             self.songTitle.text = "Weclome!"
             self.artist.text = "Awaiting a song to be in the playlist! Please add a song!"
-           
-           self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
+            self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
         }
-            }
+        
     }
 }
 
@@ -185,20 +194,20 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
         broadcastingButton.isEnabled = !isAdmin
     }
     func isLoggedInSpotify(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Spotify.loggedOut, object: nil, queue: nil) { (note) in
             self.songTitle.text = "SPOTIFY loggedOut"
             self.artist.text = "Please refresh your Login!"
-            self.playPause.isEnabled = false
-            self.triggerSpotifyLogin = false
+            self.triggerSpotifyLogin = SPTAudioStreamingController.sharedInstance().loggedIn
+            self.playPause.isEnabled = self.triggerSpotifyLogin
             self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
-        }
+            }}
     }
  
     func playPauseButton(){
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.isPlay, object: nil, queue: nil) { (note) in
-            self.playPause.isEnabled = true
             self.triggerSpotifyLogin = true
-
             if(currentTrack == nil){self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
                 return
             }

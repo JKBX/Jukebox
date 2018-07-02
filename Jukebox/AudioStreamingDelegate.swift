@@ -45,6 +45,8 @@ class AudioStreamingDelegate: NSObject {
     }
 
     @objc func next() {
+        SPTAudioStreamingController.sharedInstance().setIsPlaying(false) { (error) in
+                        if let error = error { print(error); return }}
         if (currentTrack?.isPlaying)!{
             getNextTrack{ self.play() }
         }
@@ -123,6 +125,7 @@ class AudioStreamingDelegate: NSObject {
                 let next = snapshot.value as! NSDictionary
                 next.setValue(snapshot.key, forKey: "id")
                 next.setValue(currentTrack?.isPlaying, forKey: "isPlaying")
+                currentTrackPosition = 0
                 next.setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate], forKey: "playbackStatus")
                 ref.child("currentlyPlaying").setValue(next, withCompletionBlock: { (_, _) in
                     ref.child("/queue/\(nextTrackId!)").removeValue(completionBlock: { (_, _) in completion() })

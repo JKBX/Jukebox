@@ -44,14 +44,14 @@ class SearchCell: UITableViewCell {
         NotificationCenter.default.post(name: NSNotification.Name.isEditing, object: nil)
 
         let userID = Auth.auth().currentUser?.uid
-        var trackId = self.track?.trackId!
+        let trackId = self.track?.trackId!
         let ref = Database.database().reference().child("/parties/\(currentParty)/queue/\(trackId!)")
         let newTrack: NSDictionary = [
-            "albumTitle": self.track?.album!,
-            "artist" : self.track?.artist!,
-            "coverURL" : self.track?.coverUrl!.absoluteString,
-            "songTitle" : self.track?.songName!,
-            "duration": self.track?.duration!,
+            "albumTitle": self.track?.album! as Any,
+            "artist" : self.track?.artist! as Any,
+            "coverURL" : self.track?.coverUrl!.absoluteString as Any,
+            "songTitle" : self.track?.songName! as Any,
+            "duration": self.track?.duration! as Any,
             "votes" : [
                 "\(userID!)" : "true"
             ]

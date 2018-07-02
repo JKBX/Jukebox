@@ -61,19 +61,19 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peA-rN-JNe" userLabel="Song Title" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                            <rect key="frame" x="90" y="8" width="244" height="21"/>
+                                            <rect key="frame" x="90" y="47" width="244" height="0.0"/>
                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QS6-9H-Rff" userLabel="Artist" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                            <rect key="frame" x="90" y="35" width="164" height="18"/>
+                                            <rect key="frame" x="90" y="53" width="164" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P1U-tR-Y1L">
-                                            <rect key="frame" x="274" y="44" width="60" height="2"/>
+                                            <rect key="frame" x="274" y="62" width="60" height="2"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="neY-Ta-6So"/>
                                             </constraints>
@@ -277,22 +277,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="y7n-qT-zEm" userLabel="Stack View Track Data">
-                                <rect key="frame" x="20" y="10" width="374" height="98"/>
+                                <rect key="frame" x="20" y="10" width="374" height="140.33333333333334"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gj2-86-hyv" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                        <rect key="frame" x="15" y="0.0" width="344" height="33.666666666666664"/>
+                                        <rect key="frame" x="15" y="0.0" width="344" height="50"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f27-AV-lpj" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                        <rect key="frame" x="25" y="43.666666666666664" width="324" height="23.999999999999993"/>
+                                        <rect key="frame" x="25" y="60" width="324" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0w-iq-qBm">
-                                        <rect key="frame" x="134.33333333333337" y="77.666666666666686" width="46" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0w-iq-qBm">
+                                        <rect key="frame" x="164" y="119.99999999999999" width="46" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -306,7 +306,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="O7T-zt-KVW" userLabel="Stack View Player Controls">
-                                <rect key="frame" x="123" y="138" width="168" height="50"/>
+                                <rect key="frame" x="123" y="180.33333333333334" width="168" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnA-bL-OHx" userLabel="Previous">
                                         <rect key="frame" x="0.0" y="7" width="36" height="36"/>
