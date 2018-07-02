@@ -41,12 +41,7 @@ class AudioStreamingDelegate: NSObject {
         let ref = Database.database().reference().child("/parties/\(currentParty)/currentlyPlaying/playbackStatus")
         SPTAudioStreamingController.sharedInstance().seek(to: 0) { (error) in
             if let error = error {print(error); return}
-<<<<<<< HEAD
             ref.setValue(["position": SPTAudioStreamingController.sharedInstance().playbackState.position, "time": NSDate.timeIntervalSinceReferenceDate])
-=======
-            currentTrackPosition = 0
-            ref.setValue(["position": currentTrackPosition, "time": NSDate.timeIntervalSinceReferenceDate])
->>>>>>> 5_broadcasting
         }
     }
 
@@ -73,10 +68,6 @@ class AudioStreamingDelegate: NSObject {
     }
 
     func play() {
-<<<<<<< HEAD
-=======
-
->>>>>>> 5_broadcasting
         if(currentAdmin){
             let ref = Database.database().reference().child("/parties/\(currentParty)")
             if let currentMetadata = SPTAudioStreamingController.sharedInstance().metadata{
@@ -369,12 +360,9 @@ extension AudioStreamingDelegate: SPTAudioStreamingDelegate{
     }
 
     func audioStreamingDidLogout(_ audioStreaming: SPTAudioStreamingController!) {
-<<<<<<< HEAD
-=======
         print("Did Logout")
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.loggedOut, object: nil)
-
->>>>>>> 5_broadcasting
+        
         do { try AVAudioSession.sharedInstance().setActive(false) }
         catch let error as NSError { print(error.localizedDescription) }
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.Spotify.toggle, object: nil)
