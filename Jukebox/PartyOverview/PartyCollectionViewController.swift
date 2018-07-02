@@ -219,15 +219,12 @@ class PartyCollectionViewController: UICollectionViewController {
         currentAdmin = (self.selectedPartyInfo.value(forKey: "Host") as! String) == Auth.auth().currentUser?.uid
         currentParty = self.selectedParty
         self.selectedParty = ""
+        
     }
 
 
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
     /*override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         return true
     }
 
@@ -238,35 +235,42 @@ class PartyCollectionViewController: UICollectionViewController {
     }*/
 }
 
-extension PartyCollectionViewController{
+extension PartyCollectionViewController: UIGestureRecognizerDelegate{
     
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-        
-        let lpgr = UILongPressGestureRecognizer (target: collectionView, action: #selector(handleLongPress))
+    func setupLongPressGestureRecognizer(){
+        let lpgr = UILongPressGestureRecognizer (target: self, action: #selector(handleLongPress(_:)))
         lpgr.minimumPressDuration = 0.5
         lpgr.delaysTouchesBegan = true
         self.collectionView?.addGestureRecognizer(lpgr)
         self.collectionView?.isUserInteractionEnabled = true
         
-        let cell = collectionView.cellForItem(at: indexPath) as! PartyCollectionViewCell
-        let PMVC = PartyMenuViewController()
-        PMVC.partyID = cell.PartyID
-    }
-    
-    func setupLongPressGestureRecognizer(){
-        
-//        let lpgr = UILongPressGestureRecognizer (target: self, action: #selector(handleLongPress))
-//        lpgr.minimumPressDuration = 0.5
-//        lpgr.delaysTouchesBegan = true
-//        self.collectionView?.addGestureRecognizer(lpgr)
-//        self.collectionView?.isUserInteractionEnabled = true
+//        @objc func handleLongPressGesture(gesture : UILongPressGestureRecognizer!) {
+//            print("BLAH BLAH BLAH")
+//        }
         
 //        print(selectedPartyInfo.value(forKey: "ID") as! String)
 //        let location = lpgr.location(in: collectionView)
 //        let movingIndexPath = collectionView?.indexPathForItem(at: location)
 //        (self.selectedPartyInfo, self.selectedParty) = getParty(for: movingIndexPath!)
 //        let cell = collectionView?.cellForItem(at: movingIndexPath!) as! PartyCollectionViewCell
-        
+    }
+    
+    @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer){
+        let point = sender.location(in: collectionView)
+        if let indexPath = collectionView?.indexPathForItem(at: point) {
+            print(#function, indexPath)
+            let cell = collectionView?.cellForItem(at: indexPath) as! PartyCollectionViewCell
+            print(cell.PartyID)
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let point = touch.location(in: collectionView)
+        if let indexPath = collectionView?.indexPathForItem(at: point),
+            let cell = collectionView?.cellForItem(at: indexPath) {
+            return touch.location(in: cell).y > 50
+        }
+        return false
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -279,12 +283,29 @@ extension PartyCollectionViewController{
 //            PMVC.partyID = cell.PartyID
 //        }
 //    }
+//
+//    @objc func showResetMenu(_ gestureRecognizer: UILongPressGestureRecognizer) {
+//        if gestureRecognizer.state == .began {
+//            self.becomeFirstResponder()
+////            self.viewForReset = gestureRecognizer.view
+//
+//            // Configure the menu item to display
+//            let menuItemTitle = NSLocalizedString("Reset", comment: "Reset menu item title")
+//            let action = #selector(handleLongPress)
+//            let resetMenuItem = UIMenuItem(title: menuItemTitle, action: action)
+//
+//            // Configure the shared menu controller
+//            let menuController = UIMenuController.shared
+//            menuController.menuItems = [resetMenuItem]
+//
+//            // Set the location of the menu in the view.
+//            let location = gestureRecognizer.location(in: gestureRecognizer.view)
+//            let menuLocation = CGRect(x: location.x, y: location.y, width: 0, height: 0)
+//            menuController.setTargetRect(menuLocation, in: gestureRecognizer.view!)
+//
+//            // Show the menu.
+//            menuController.setMenuVisible(true, animated: true)
+//        }
+//    }
     
-    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
-//        let PMVC = PartyMenuViewController()
-//        PMVC.partyID = selectedPartyInfo.value(forKey: "ID") as! String
-//        let indexPath1 = collectionView?.indexPath(for: gesture)
-
-        performSegue(withIdentifier: "PartyMenu", sender: self)
-    }
 }
