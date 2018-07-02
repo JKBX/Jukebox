@@ -26,6 +26,7 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
 
     override func viewDidLoad(){
         super.viewDidLoad()
+        getActualDate()
         setupImagePicker()
         setupDatePicker()
         setupPlaylistPicker()
@@ -175,7 +176,6 @@ extension CreatePartyViewController: UIImagePickerControllerDelegate{
 //Date Picker Extension
 extension CreatePartyViewController{
     
-    
     func setupDatePicker(){
         let datePicker = UIDatePicker()
         datePicker.tintColor = UIColor.lightText
@@ -187,7 +187,14 @@ extension CreatePartyViewController{
         addDate.inputView = datePicker
     }
     
-    //datePicker
+    func getActualDate(){
+        let formatterDate = DateFormatter()
+        formatterDate.dateStyle = DateFormatter.Style.medium
+        formatterDate.timeStyle = DateFormatter.Style.none
+        let actualDate = formatterDate.string(from: Date())
+        addDate.text = actualDate
+    }
+    
     @objc func datePickerValueChanged(sender: UIDatePicker){
         let formatter = DateFormatter()
         formatter.dateStyle = DateFormatter.Style.medium

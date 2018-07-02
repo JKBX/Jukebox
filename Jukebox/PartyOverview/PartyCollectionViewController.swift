@@ -111,6 +111,14 @@ class PartyCollectionViewController: UICollectionViewController {
             return (party: self.guestParties[indexPath.item], id: self.guestPartyIds[indexPath.item])
         }
     }
+    
+    func shapeImage(incImage: UIImage){
+        let customImgView = customPartyImage()
+        customImgView.image = incImage
+        customImgView.frame = CGRect(x: 0, y: 0, width: 250, height: 250)
+        
+        self.view.addSubview(customImgView)
+    }
 
 // setzt die PartyBilder, leider gerade willkürlich und gleiche bilder werden mehrmals gesetzt
 
