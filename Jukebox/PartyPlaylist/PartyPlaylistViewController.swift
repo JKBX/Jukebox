@@ -107,7 +107,7 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
 
 
     func onCurrentTrackChanged(_ snapshot: DataSnapshot) {
-        let needsCheck = currentTrack == nil
+        let needsCheck = currentTrack == nil && currentAdmin
         currentTrack = snapshot.exists() ? TrackModel(from: snapshot) : nil
         if needsCheck && currentTrack != nil { self.ref.child("/currentlyPlaying/isPlaying").setValue(false) }
         NotificationCenter.default.post(name: NSNotification.Name.Player.trackChanged, object: nil)
