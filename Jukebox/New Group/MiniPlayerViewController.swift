@@ -41,7 +41,14 @@ class MiniPlayerViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         playPause.adjustsImageWhenHighlighted = false
-  
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.broadcast, object: nil, queue: nil) { (_) in
+            if isBroadcasting {
+                self.broadcastingButton.setImage(UIImage(named: "baseline_volume_up_white_36pt"), for: .normal)
+            } else {
+                self.broadcastingButton.setImage(UIImage(named: "baseline_volume_off_white_36pt"), for: .normal)
+            }
+        }
     }
     
     @IBAction func Play(_ sender: Any) {
@@ -49,17 +56,17 @@ class MiniPlayerViewController: UIViewController{
     }
  
     @IBAction func broadcast(_ sender: Any) {
-        
-        if(!isBroadcasting){
+        NotificationCenter.default.post(name: NSNotification.Name.Spotify.broadcast, object: nil)
+       /* if(!isBroadcasting){
             NotificationCenter.default.post(name: NSNotification.Name.Spotify.startBroadcast, object: nil)
-            broadcastingButton.setImage(UIImage(named: "baseline_volume_off_white_36pt"), for: .normal)
+            //broadcastingButton.setImage(UIImage(named: "baseline_volume_off_white_36pt"), for: .normal)
         }else{
 //            Bild nur ändern wenn der playbackstatus sich auch geändert hat, also via observer & isPlaying & isBroadcasting
             NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
-            broadcastingButton.setImage(UIImage(named: "baseline_volume_up_white_36pt"), for: .normal)
+            //broadcastingButton.setImage(UIImage(named: "baseline_volume_up_white_36pt"), for: .normal)
             
-        }
-        isBroadcasting = !isBroadcasting
+        }*/
+        //isBroadcasting = !isBroadcasting
     }
     
 }
