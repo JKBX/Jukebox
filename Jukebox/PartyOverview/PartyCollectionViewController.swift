@@ -11,7 +11,6 @@ import Firebase
 
 private let reuseIdentifier = "Cell"
 
-
 class PartyCollectionViewController: UICollectionViewController {
 
     var ref: DatabaseReference!
@@ -144,6 +143,7 @@ class PartyCollectionViewController: UICollectionViewController {
                         })
 
             cell.Label.text = party.object(forKey: "Name") as! String
+            cell.PartyID = party.object(forKey: "ID") as! String
         }
         return cell
 
@@ -212,6 +212,7 @@ class PartyCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         (self.selectedPartyInfo, self.selectedParty) = getParty(for: indexPath)
         self.performSegue(withIdentifier: "showParty", sender: self)
@@ -238,16 +239,52 @@ class PartyCollectionViewController: UICollectionViewController {
 }
 
 extension PartyCollectionViewController{
-
-    func setupLongPressGestureRecognizer(){
-        let lpgr = UILongPressGestureRecognizer (target: self, action: #selector(handleLongPress))
+    
+    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        
+        let lpgr = UILongPressGestureRecognizer (target: collectionView, action: #selector(handleLongPress))
         lpgr.minimumPressDuration = 0.5
         lpgr.delaysTouchesBegan = true
         self.collectionView?.addGestureRecognizer(lpgr)
         self.collectionView?.isUserInteractionEnabled = true
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! PartyCollectionViewCell
+        let PMVC = PartyMenuViewController()
+        PMVC.partyID = cell.PartyID
     }
     
+    func setupLongPressGestureRecognizer(){
+        
+//        let lpgr = UILongPressGestureRecognizer (target: self, action: #selector(handleLongPress))
+//        lpgr.minimumPressDuration = 0.5
+//        lpgr.delaysTouchesBegan = true
+//        self.collectionView?.addGestureRecognizer(lpgr)
+//        self.collectionView?.isUserInteractionEnabled = true
+        
+//        print(selectedPartyInfo.value(forKey: "ID") as! String)
+//        let location = lpgr.location(in: collectionView)
+//        let movingIndexPath = collectionView?.indexPathForItem(at: location)
+//        (self.selectedPartyInfo, self.selectedParty) = getParty(for: movingIndexPath!)
+//        let cell = collectionView?.cellForItem(at: movingIndexPath!) as! PartyCollectionViewCell
+        
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//        if segue.identifier == "PartyMenu" {
+//            let next: PartyMenuViewController = segue.destination as! PartyMenuViewController
+//            let indexPath1 = collectionView?.indexPath(for: sender as! PartyCollectionViewCell)
+//            let cell = collectionView?.cellForItem(at: indexPath1!) as! PartyCollectionViewCell
+//            let PMVC = PartyMenuViewController()
+//            PMVC.partyID = cell.PartyID
+//        }
+//    }
+    
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
-       performSegue(withIdentifier: "PartyMenu", sender: self)
+//        let PMVC = PartyMenuViewController()
+//        PMVC.partyID = selectedPartyInfo.value(forKey: "ID") as! String
+//        let indexPath1 = collectionView?.indexPath(for: gesture)
+
+        performSegue(withIdentifier: "PartyMenu", sender: self)
     }
 }

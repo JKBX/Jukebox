@@ -12,6 +12,7 @@ import Firebase
 
 class PartyMenuViewController: UIViewController {
     
+    var partyID: String!
     var ref: DatabaseReference!
     var user = Auth.auth().currentUser
     var shareMessage: String = "This is your PartyID: \n \(currentParty)"
@@ -19,7 +20,7 @@ class PartyMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.ref = Database.database().reference()
-        
+        print(partyID)
         // Do any additional setup after loading the view.
     }
 
@@ -29,6 +30,14 @@ class PartyMenuViewController: UIViewController {
     }
     
     @IBAction func sharePartyIDPressed(_ sender: ButtonDesignable) {
+        ref.child("/parties/\(currentParty)").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let partyId = value?["ID"] as? String ?? ""
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         let activity = UIActivityViewController(activityItems: [shareMessage], applicationActivities: nil)
         activity.popoverPresentationController?.sourceView = self.view
         self.present(activity, animated: true, completion: nil)
