@@ -11,7 +11,7 @@ import FirebaseAuth
 
 protocol QueueDelegate{
     func childAdded(_ track: TrackModel)
-//    func childChanged(_ track: TrackModel)
+    func childChanged(_ track: TrackModel)
     func childRemoved(_ track: TrackModel)
 }
 
@@ -95,9 +95,9 @@ class PartyPlaylistViewController: UIViewController {
             currentQueue = sortedQueue
         }
         self.tableView.reloadData()
-//        if let queueDelegate = queueDelegate{
-//            queueDelegate.childChanged(changedTrack)
-//        }
+        if let queueDelegate = queueDelegate{
+            queueDelegate.childChanged(changedTrack)
+        }
     }
 
     func onChildRemoved(_ changedTrack: TrackModel) {

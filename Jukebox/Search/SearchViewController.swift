@@ -87,6 +87,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         if (indexPath.section == 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: "existing", for: indexPath) as! TrackCell
             cell.setup(from: existingTracks[indexPath.row])
+            cell.partyRef = Database.database().reference().child("parties/\(currentParty)")
             return cell
 
         } else {
@@ -162,21 +163,26 @@ extension SearchViewController: SearchCellDelegate{
 
 extension SearchViewController: QueueDelegate {
     func childAdded(_ track: TrackModel) {
-        if let existing = track.isIn(foundTracks){
-            ref.child("/parties/\(currentParty)/queue/\(track.trackId)").observeSingleEvent(of: .value, with: { (snapshot) in
-                existing.voteCount = snapshot.childSnapshot(forPath: "votes").childrenCount + 1
-                })
-            self.existingTracks.append(existing)
-            self.foundTracks = self.foundTracks.filter { $0.trackId != existing.trackId}
-            tableView.reloadData()
-        }
+        self.existingTracks.append(track)
+        self.foundTracks = self.foundTracks.filter { $0.trackId != track.trackId}
+        tableView.reloadData()
     }
     
-    func childRemoved(_ track: TrackModel) {
-        if let existing = track.isIn(existingTracks){
-            self.foundTracks.append(existing)
-//            self.existingTracks = self.existingTracks.filter { $0.trackId == existing.trackId}
-            tableView.reloadData()
+    func childRemoved(_ track: TrackModel) { }
+    
+    func childChanged(_ track: TrackModel) {
+        print("Change")
+        if let found = track.isIn(existingTracks){
+            
+            
+            print("Is in")
+            if let index = existingTracks.index(where: { (item) -> Bool in return item.trackId == found.trackId }){
+                print(index)
+                print(found.voteCount)
+                existingTracks[index] = found
+                self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+                //tableView.reloadData()
+            }
         }
     }
 }

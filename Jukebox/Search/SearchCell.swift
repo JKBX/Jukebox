@@ -26,7 +26,7 @@ class SearchCell: UITableViewCell {
         self.textLabel?.text = track.songName
         self.delegate = delegate
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"
-        self.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        //self.heightAnchor.constraint(equalToConstant: 100).isActive = true
         self.imageView?.kf.setImage(with: track.coverUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, URL) in
             self.setNeedsLayout()
         })

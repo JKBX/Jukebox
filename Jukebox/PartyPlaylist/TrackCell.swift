@@ -52,8 +52,10 @@ class TrackCell: UITableViewCell {
         let userId = Auth.auth().currentUser?.uid as! String
         let voteRef = self.partyRef?.child("/queue/\(track?.trackId as! String)/votes/\(userId as String)")
         if (track?.liked)!{
+            print("Unliking")
             voteRef?.removeValue()
         } else {
+            print("Liking")
             voteRef?.setValue(true)
         }
     }
