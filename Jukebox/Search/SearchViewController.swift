@@ -10,13 +10,6 @@ import FirebaseDatabase
 import Firebase
 import Spartan
 
-struct sPTFTrackModel {
-    var name: String
-    var artists: String
-    var id: String
-    var imageUrl: String
-}
-
 class SearchViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -43,6 +36,8 @@ class SearchViewController: UIViewController {
 
         searchBar.delegate = self
         searchBar.returnKeyType = UIReturnKeyType.done
+        searchBar.backgroundColor = UIColor(named: "SolidGrey800")
+        
         tableView.allowsSelection = false
         NotificationCenter.default.addObserver(forName: NSNotification.Name.isEditing, object: nil, queue: nil) { (note) in
            self.view.endEditing(true)
@@ -57,18 +52,28 @@ class SearchViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+//    func setupLikeTrackObserver(){
+//        ref.child("/Parties/\(currentParty)/queue/").observe(.childAdded, with: { (snapshot) in
+//            self.changeTrackSection(TrackModel(from: snapshot))
+//        })
+//    }
+//
+//    func changeTrackSection(_ track: TrackModel){
+//        if let existing = track.isIn(currentQueue){
+//            self.existingTracks.append(existing)
+//            self.foundTracks = self.foundTracks.filter { $0.trackId == existing.trackId}
+//        }
+//    }
 
     func searchTrackWithSpartanCall(track: String){
-        
         Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
         foundTracks = []
         existingTracks = []
-        //        TODO: Abort request on continue editing
         _ = Spartan.search(query: track, type: .track, success: { (pagingObject: PagingObject<Track>) in
             for track in pagingObject.items{
                 let searchResult = TrackModel.init(from: track)
                 if let existing = searchResult.isIn(currentQueue){
-                    print(existing.voteCount)
                     self.existingTracks.append(existing)
                 } else {
                     self.foundTracks.append(searchResult)
@@ -79,8 +84,6 @@ class SearchViewController: UIViewController {
             print(error)
         })
     }
-    
-    
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
@@ -121,10 +124,12 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
             return label
         }else{
             label.text = section == 0 ? "Keep searching Tracks!" : "(Cool Tracks!)"
-
             return label
         }
-        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(80)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -134,6 +139,18 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension SearchViewController: UISearchBarDelegate {
+    
+//    if let existing = searchResult.isIn(currentQueue){
+//        self.foundTracks = self.foundTracks.filter { $0.trackId == existing.trackId}
+//        self.existingTracks.append(existing)
+//    } else {
+//      self.existingTracks = self.existingTracks.filter { $0.trackId == searchResult.trackId}
+//      self.foundTracks.append(searchResult)
+//    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        tableView.reloadData()
+    }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text == "" {

@@ -45,7 +45,6 @@ class PartyCollectionViewController: UICollectionViewController {
         self.guestParties = []
         ref.child("users/\(userID!)/parties").observe(.value) { (snapshot) in
             let parties = snapshot.value as? NSDictionary
-            print("\(snapshot.value)")
             parties?.forEach({ (arg: (key: Any, value: Any)) in
                 let (key, value) = arg
                 self.ref.child("parties/\(key)").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -70,7 +69,6 @@ class PartyCollectionViewController: UICollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {

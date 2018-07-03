@@ -17,7 +17,8 @@ protocol TrackCellDelegate{
 
 class TrackCell: UITableViewCell {
 
-    var track:TrackModel?
+    var track: TrackModel?
+    var label: UILabel?
     var partyRef: DatabaseReference?
 
     @IBOutlet weak var voteCountLabel: UILabel!
@@ -25,22 +26,25 @@ class TrackCell: UITableViewCell {
     func setup(from track:TrackModel) {
         self.track = track
         self.textLabel?.text = track.songName
-        self.heightAnchor.constraint(equalToConstant: 100).isActive = true
+//        self.heightAnchor.constraint(equalToConstant: 100).isActive = true
         self.detailTextLabel?.text = "\(String(track.artist)) (\(String(track.album)))"
         self.imageView?.kf.setImage(with: track.coverUrl, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, URL) in
             self.setNeedsLayout()
         })
 
-        let label = UILabel(frame: CGRect(x: UIScreen.main.bounds.width - 48, y: 40, width: 32, height: 24))
-        label.text = String(track.voteCount)
-        label.textAlignment = .right
-        label.textColor = .white
-        label.font.withSize(8)
-        self.contentView.addSubview(label)
+        label = UILabel(frame: CGRect(x: UIScreen.main.bounds.width - 48, y: 40, width: 32, height: 24))
+        label!.text = String(track.voteCount)
+        label!.textAlignment = .right
+        label!.textColor = .white
+        label!.font.withSize(8)
+        label!.backgroundColor = UIColor(named: "SolidGrey800")
+        
+        self.contentView.addSubview(label!)
         
         let accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))
         accessoryButton.setImage(UIImage(named: track.liked ? "favorite" : "favoriteOutline"), for: .normal)
         accessoryButton.addTarget(self, action: #selector(toggleLike), for: .touchUpInside)
+
         self.accessoryView = accessoryButton
     }
 

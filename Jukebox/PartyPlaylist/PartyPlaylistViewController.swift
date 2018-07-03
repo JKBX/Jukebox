@@ -80,6 +80,8 @@ class PartyPlaylistViewController: UIViewController {
             self.tableView.moveRow(at: IndexPath(item: index, section: 0), to: IndexPath(item: newIndex, section: 0))
             currentQueue = sortedQueue
         }
+        self.tableView.reloadData()
+
     }
 
     func onChildRemoved(_ changedTrack: TrackModel) {
@@ -168,7 +170,7 @@ extension PartyPlaylistViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         return 64.0;
     }
-
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
         let track = currentQueue[indexPath.item]
         if !currentAdmin{

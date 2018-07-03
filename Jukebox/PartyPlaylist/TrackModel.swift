@@ -69,4 +69,10 @@ class TrackModel{
         }
         return nil
     }
+    
+//    func removeTrackFromTracklist(trackToRemove: TrackModel, trackList: [TrackModel]) -> [TrackModel]{
+//        trackList.getIndex
+//        let tracklist = trackList.filter { (value) -> Bool in trackList(_, "trackId") == trackToRemove.trackId }
+//        return tracklist
+//    }
 }
