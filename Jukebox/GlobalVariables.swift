@@ -21,6 +21,7 @@ var currentQueue: [TrackModel] = []
 var currentAdmin: Bool = false
 var broadcasting: BroadcastState = .inactive {didSet{NotificationCenter.default.post(name: NSNotification.Name.Player.broadcast, object: nil)}}
 var currentTrackPosition: TimeInterval = 0
+var triggerLastSong:Bool = true
 
 var currentParty:String = "" {
     willSet{
