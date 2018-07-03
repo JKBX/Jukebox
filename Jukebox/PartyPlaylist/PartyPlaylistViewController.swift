@@ -35,8 +35,8 @@ class PartyPlaylistViewController: UIViewController {
         navigationItem.rightBarButtonItem = button
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if self.isMovingToParentViewController {
             setupObservers()
         }
@@ -214,9 +214,9 @@ extension PartyPlaylistViewController: UITableViewDelegate{
         let voteAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             success(true)
             if track.liked{
-                self.ref.child("/parties/\(currentParty)/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
+                self.ref.child("/queue/\(track.trackId as String)/votes").child(self.userID!).removeValue()
             } else {
-                self.ref.child("/parties/\(currentParty)/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
+                self.ref.child("/queue/\(track.trackId as String)/votes").child(self.userID!).setValue(true)
             }
         })
         voteAction.image = UIImage(named: track.liked ? "favorite" : "favoriteOutline")
