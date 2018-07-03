@@ -151,6 +151,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES" textContentType="postal-code"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                        <color key="value" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="fill" text="Join the Party with your ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jzO-fA-qf8">
                                 <rect key="frame" x="40" y="291" width="334" height="21"/>
@@ -171,7 +176,11 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Jukebox" translatesAutoresizingMaskIntoConstraints="NO" id="Q2J-mD-z9y">
-                                <rect key="frame" x="111" y="133" width="192" height="150"/>
+                                <rect key="frame" x="111" y="91" width="192" height="192"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="192" id="jgy-v2-MLg"/>
+                                    <constraint firstAttribute="width" constant="192" id="kdJ-Hx-kte"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" name="SolidGrey800"/>
@@ -185,7 +194,6 @@
                             <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="jzO-fA-qf8" secondAttribute="trailing" constant="40" id="TM7-xf-iKS"/>
                             <constraint firstItem="jzO-fA-qf8" firstAttribute="top" secondItem="Q2J-mD-z9y" secondAttribute="bottom" constant="8" symbolic="YES" id="fLr-Uc-5h0"/>
                             <constraint firstItem="bCm-nt-qgI" firstAttribute="trailing" secondItem="wNf-tk-xda" secondAttribute="trailing" constant="40" id="fWJ-QZ-a2e"/>
-                            <constraint firstItem="Q2J-mD-z9y" firstAttribute="top" secondItem="bCm-nt-qgI" secondAttribute="top" constant="69" id="rxO-ve-dMg"/>
                             <constraint firstItem="YcH-sk-gla" firstAttribute="top" secondItem="wNf-tk-xda" secondAttribute="bottom" constant="15" id="xVQ-GD-CLH"/>
                             <constraint firstItem="wNf-tk-xda" firstAttribute="leading" secondItem="bCm-nt-qgI" secondAttribute="leading" constant="40" id="zOF-vc-Vs3"/>
                         </constraints>
@@ -225,6 +233,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                        <color key="value" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Fallback Playlist" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6IW-gf-0c1">
                                 <rect key="frame" x="59.666666666666657" y="380" width="295" height="30"/>
@@ -236,6 +249,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                        <color key="value" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tb5-CJ-Zrd">
                                 <rect key="frame" x="107" y="96" width="200" height="200"/>
@@ -276,7 +294,12 @@
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <textInputTraits key="textInputTraits" textContentType="name"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                        <color key="value" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjA-xS-TWK">
                                 <rect key="frame" x="59.666666666666657" y="426" width="295" height="30"/>
@@ -313,7 +336,7 @@
                         <viewLayoutGuide key="safeArea" id="Zuz-8w-p4i"/>
                     </view>
                     <navigationItem key="navigationItem" title="Create" id="mPL-wy-aeI">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="nuk-OG-Z2z">
+                        <barButtonItem key="rightBarButtonItem" title="Back" style="done" id="nuk-OG-Z2z">
                             <color key="tintColor" name="SolidBlue500"/>
                             <connections>
                                 <action selector="done:" destination="s8y-br-0Yb" id="9I3-zr-GYb"/>
