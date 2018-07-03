@@ -33,6 +33,8 @@
 		17DC0B8320CEDC37001C8DF1 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17DC0B8220CEDC37001C8DF1 /* Search.storyboard */; };
 		17DC0B8520CEDC42001C8DF1 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */; };
 		17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DDDEEA20C84D680097291F /* TrackModel.swift */; };
+		17F032D420EAAEA30048CCF9 /* Broadcasting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F032D320EAAEA30048CCF9 /* Broadcasting.swift */; };
+		17F032D620EAC8CA0048CCF9 /* Streaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F032D520EAC8CA0048CCF9 /* Streaming.swift */; };
 		429711964046E703E19BCAF1 /* Pods_Jukebox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60740AC9D31343F94383E55D /* Pods_Jukebox.framework */; };
 		7904FD1A20C6907400F101ED /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904FD1920C6907400F101ED /* RoundButton.swift */; };
 		790CCC7E20BDDD580081621B /* PartyPlaylist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */; };
@@ -83,6 +85,8 @@
 		17DC0B8220CEDC37001C8DF1 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		17DC0B8420CEDC42001C8DF1 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		17DDDEEA20C84D680097291F /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
+		17F032D320EAAEA30048CCF9 /* Broadcasting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Broadcasting.swift; sourceTree = "<group>"; };
+		17F032D520EAC8CA0048CCF9 /* Streaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Streaming.swift; sourceTree = "<group>"; };
 		60740AC9D31343F94383E55D /* Pods_Jukebox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jukebox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7904FD1920C6907400F101ED /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		790CCC7D20BDDD580081621B /* PartyPlaylist.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PartyPlaylist.storyboard; sourceTree = "<group>"; };
@@ -169,6 +173,15 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		17F032D220EAAE6F0048CCF9 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				17F032D320EAAEA30048CCF9 /* Broadcasting.swift */,
+				17F032D520EAC8CA0048CCF9 /* Streaming.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		7904FD1820C6905700F101ED /* Designables */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +258,7 @@
 		E0C4D34520BDB3C700B74C31 /* Jukebox */ = {
 			isa = PBXGroup;
 			children = (
+				17F032D220EAAE6F0048CCF9 /* Audio */,
 				E048D23120CEF4BA006AE916 /* UIPlayer */,
 				17DC0B8120CEDC0A001C8DF1 /* Search */,
 				7904FD1820C6905700F101ED /* Designables */,
@@ -425,6 +439,7 @@
 				79F97BF720E3BA3A00329524 /* DesignableView.swift in Sources */,
 				E0E7422420E370350076432D /* PartyModel.swift in Sources */,
 				17AE0E9720BDC657000EF085 /* PartyCollectionViewCell.swift in Sources */,
+				17F032D620EAC8CA0048CCF9 /* Streaming.swift in Sources */,
 				17AE0E9620BDC657000EF085 /* PartyPlaylistViewController.swift in Sources */,
 				17D2C92120E524C400FA94FA /* AuthViewController.swift in Sources */,
 				17D2C91D20DFCDE700FA94FA /* PlayerDelegate.swift in Sources */,
@@ -442,6 +457,7 @@
 				17DDDEEB20C84D680097291F /* TrackModel.swift in Sources */,
 				17AE0E9520BDC657000EF085 /* PartyCollectionViewController.swift in Sources */,
 				79F4459320E903900023AAA1 /* PartyMenuViewController.swift in Sources */,
+				17F032D420EAAEA30048CCF9 /* Broadcasting.swift in Sources */,
 				17AE0E9420BDC657000EF085 /* JoinPartyViewController.swift in Sources */,
 				17AE0E6920BDC146000EF085 /* NotificationConstants.swift in Sources */,
 				17AE0E6520BDC0BC000EF085 /* Constants.swift in Sources */,
