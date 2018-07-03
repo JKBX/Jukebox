@@ -9,11 +9,17 @@
 import Foundation
 import FirebaseDatabase
 
+
+enum BroadcastState {
+    case active
+    case inactive
+    case updating
+}
 //var currentParty: String?
 var currentTrack: TrackModel?
 var currentQueue: [TrackModel] = []
 var currentAdmin: Bool = false
-var isBroadcasting: Bool = false
+var broadcasting: BroadcastState = .inactive {didSet{NotificationCenter.default.post(name: NSNotification.Name.Player.broadcast, object: nil)}}
 var currentTrackPosition: TimeInterval = 0
 
 var currentParty:String = "" {
