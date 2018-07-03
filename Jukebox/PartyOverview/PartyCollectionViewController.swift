@@ -31,19 +31,20 @@ class PartyCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         self.ref = Database.database().reference()
 
-        getParties()
+        //getParties()
+        
+        Auth.auth().addStateDidChangeListener { (_, user) in
+            if let user = user {
+                self.getParties(for: user.uid)
+            }
+        }
         setupLongPressGestureRecognizer()
     }
 
-    func getParties() -> Void {
-
-        let userID = Auth.auth().currentUser?.uid
-        if userID == nil {
-            return
-        }
-        self.hostParties = []
-        self.guestParties = []
-        ref.child("users/\(userID!)/parties").observe(.value) { (snapshot) in
+    func getParties(for uid: String) -> Void {
+        ref.child("users/\(uid)/parties").observe(.value) { (snapshot) in
+            self.hostParties = []
+            self.guestParties = []
             let parties = snapshot.value as? NSDictionary
             parties?.forEach({ (arg: (key: Any, value: Any)) in
                 let (key, value) = arg
@@ -73,9 +74,9 @@ class PartyCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return self.hostParties.count
+            return self.hostParties.count + 1
         default:
-            return self.guestParties.count
+            return self.guestParties.count + 1
         }
     }
 
@@ -97,7 +98,22 @@ class PartyCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
+        switch indexPath.section {
+        case 0:
+            if indexPath.item == hostParties.count {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCell", for: indexPath)
+                return cell
+            }
+        case 1:
+            if indexPath.item == guestParties.count {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCell", for: indexPath)
+                return cell
+            }
+        default:
+            let doing = "nothing"
+        }
+        
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as! PartyCollectionViewCell
         let (party, _) = getParty(for: indexPath)
@@ -145,10 +161,10 @@ class PartyCollectionViewController: UICollectionViewController {
             switch indexPath.section{
             case 0:
                 sectionHeader.Label.text = "Parties you Host"
-                sectionHeader.Button.addTarget(self, action: #selector(self.createParty), for: .touchUpInside)
+                //sectionHeader.Button.addTarget(self, action: #selector(self.createParty), for: .touchUpInside)
             default:
                 sectionHeader.Label.text = "Parties you Attend"
-                sectionHeader.Button.addTarget(self, action: #selector(self.joinParty), for: .touchUpInside)
+                //sectionHeader.Button.addTarget(self, action: #selector(self.joinParty), for: .touchUpInside)
             }
             return sectionHeader
         }
@@ -171,6 +187,12 @@ class PartyCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0{
+            if indexPath.item == hostParties.count { self.performSegue(withIdentifier: "createParty", sender: self); return}
+        } else {
+            if indexPath.item == guestParties.count { self.performSegue(withIdentifier: "joinParty", sender: self); return} 
+        }
+        
         (self.selectedPartyInfo, self.selectedParty) = getParty(for: indexPath)
         self.performSegue(withIdentifier: "showParty", sender: self)
         currentAdmin = (self.selectedPartyInfo.value(forKey: "Host") as! String) == Auth.auth().currentUser?.uid

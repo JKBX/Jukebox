@@ -81,36 +81,69 @@
                                     <outlet property="PartyName" destination="ze5-wI-GJe" id="ccZ-vv-pCW"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" restorationIdentifier="Cell" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="addCell" id="c6u-an-rNU">
+                                <rect key="frame" x="16.666666666666668" y="188" width="381" height="64"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="64"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addPressed" translatesAutoresizingMaskIntoConstraints="NO" id="Bgb-Vd-m2X">
+                                            <rect key="frame" x="249" y="-18" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="QK3-kq-2d5"/>
+                                                <constraint firstAttribute="height" constant="100" id="wux-iG-vS8"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a new Party " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIM-O3-S8Y">
+                                            <rect key="frame" x="8" y="35" width="135" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="135" id="PTC-yO-qPA"/>
+                                                <constraint firstAttribute="height" constant="21" id="Y6H-42-aeq"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <color key="backgroundColor" name="SolidGrey700"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="fIM-O3-S8Y" secondAttribute="bottom" constant="8" id="EOr-l0-lUI"/>
+                                    <constraint firstItem="Bgb-Vd-m2X" firstAttribute="centerY" secondItem="c6u-an-rNU" secondAttribute="centerY" id="FCO-Iy-ZEz"/>
+                                    <constraint firstItem="fIM-O3-S8Y" firstAttribute="leading" secondItem="c6u-an-rNU" secondAttribute="leading" constant="8" id="TOb-hf-DXo"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Bgb-Vd-m2X" secondAttribute="trailing" constant="24" id="VqM-V6-Gpd"/>
+                                </constraints>
+                                <size key="customSize" width="381" height="64"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Header" id="Ci3-CX-VOR" customClass="SectionHeader" customModule="Jukebox" customModuleProvider="target">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Header" id="2vc-D7-wpr" customClass="SectionHeader" customModule="Jukebox" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Parties you Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVC-NJ-SL7">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Parties you Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sZw-Tm-G6C">
                                     <rect key="frame" x="18" y="10" width="300" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1A6-Qz-5lk">
-                                    <rect key="frame" x="16" y="29" width="302" height="2"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DB-YM-0Dx">
+                                    <rect key="frame" x="16" y="29" width="382" height="2"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGu-v6-Y1e">
-                                    <rect key="frame" x="317" y="-1" width="42" height="42"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" image="baseline_add_white_36pt"/>
-                                </button>
                             </subviews>
                             <connections>
-                                <outlet property="Button" destination="aGu-v6-Y1e" id="22w-co-nSE"/>
-                                <outlet property="Label" destination="lVC-NJ-SL7" id="JIZ-IU-lLT"/>
+                                <outlet property="Label" destination="sZw-Tm-G6C" id="fWp-St-5qS"/>
                             </connections>
                         </collectionReusableView>
                         <connections>
@@ -531,7 +564,7 @@
     <resources>
         <image name="Jukebox" width="192" height="192"/>
         <image name="UserIcon" width="24" height="24"/>
-        <image name="baseline_add_white_36pt" width="36" height="36"/>
+        <image name="addPressed" width="96" height="96"/>
         <image name="defaultPartyImageDark" width="625" height="625"/>
         <namedColor name="SolidBlue400">
             <color red="0.3059999942779541" green="0.48199999332427979" blue="0.67500001192092896" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -542,11 +575,11 @@
         <namedColor name="SolidGrey600">
             <color red="0.30599999430000002" green="0.32899999619999998" blue="0.31799998880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="SolidGrey600">
-            <color red="0.3059999942779541" green="0.32899999618530273" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="SolidGrey700">
             <color red="0.21600000560283661" green="0.23899999260902405" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SolidGrey700">
+            <color red="0.21600000559999999" green="0.23899999259999999" blue="0.22699999809999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SolidGrey800">
             <color red="0.13300000131130219" green="0.15299999713897705" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
