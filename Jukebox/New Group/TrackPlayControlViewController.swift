@@ -49,7 +49,7 @@ class TrackPlayControlViewController: UIViewController {
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
         nextButtonTrigger()
-
+        songDuration.isHidden = !currentAdmin
         setPlayPause()
    }
     
