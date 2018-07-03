@@ -72,7 +72,9 @@ class PartyPlaylistViewController: UIViewController{ //PlayerDelegate
         addObserver = ref.child("/queue").observe(.childAdded, with: { (snapshot) in self.onChildAdded(TrackModel(from: snapshot))})
         ref.child("/queue").observe(.childRemoved, with: { (snapshot) in self.onChildRemoved(TrackModel(from: snapshot))})
         ref.child("/currentlyPlaying").observe(.value, with: { (snapshot) in self.onCurrentTrackChanged(snapshot)})
-        //ref.child("/currentlyPlaying").child("isPlaying").observe(.value, with: { (snapshot) in NotificationCenter.default.post(name: NSNotification.Name.Player.isPlay, object: nil) })
+        
+        //For player timing
+        ref.child("/currentlyPlaying").child("isPlaying").observe(.value, with: { (snapshot) in NotificationCenter.default.post(name: NSNotification.Name.Player.isPlay, object: nil) })
 
     }
 

@@ -21,9 +21,13 @@ extension Notification.Name {
     struct Player {
         static let broadcast = Notification.Name("broadcast")
         static let trackChanged = Notification.Name("player")
-        //static let position = Notification.Name("songDuration")
         static let lastSong = Notification.Name("lastSong")
         static let searchNewTrack = Notification.Name("searchNewTrack")
+        
+        //For player timing
+        static let position = Notification.Name("songDuration")
+        static let isPlay = Notification.Name("isPlay")
+
 
 
 

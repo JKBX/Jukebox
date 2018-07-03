@@ -256,6 +256,7 @@ extension AudioStreamingDelegate: SPTAudioStreamingPlaybackDelegate{
 
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePosition position: TimeInterval) {
         currentTrackPosition = position
+        NotificationCenter.default.post(name: NSNotification.Name.Player.position, object: nil)
         if let currentTrack = currentTrack {
             if currentTrack.isPlaying{
                if let status = currentTrack.playbackStatus as? (position: TimeInterval, time: TimeInterval, delay: TimeInterval?) {

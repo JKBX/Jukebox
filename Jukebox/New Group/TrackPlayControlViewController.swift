@@ -25,27 +25,39 @@ class TrackPlayControlViewController: UIViewController {
     var triggerPlayNext:Bool = true
 
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         marqueeLabelTrackPlayer(MarqueeLabel: songTitle)
         marqueeLabelTrackPlayer(MarqueeLabel: artist)
         setFields()
         updateDuration()
+        setupPositionSlider()
+        /* Alternaitve positioning
         playPause()
-    
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
             self.setFields()
             if self.nextSwitch {self.playPause()}
-            self.updateDuration() // TODO skip back on paused 
+            self.updateDuration()
+        }*/
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.trackChanged, object: nil, queue: nil) { (note) in
+            self.setFields()
         }
-        setupPositionSlider()
- }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.position, object: nil, queue: nil) { (note) in
+            self.updateDuration()
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.isPlay, object: nil, queue: nil) { (note) in
+            self.playPause()
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         playPauseButton.isHidden = !currentAdmin
         previousButton.isHidden = !currentAdmin
         nextButton.isHidden = !currentAdmin
+        
+        //Streaming Positioning
+        setPlayPause()
    }
     
     @IBAction func playButton(_ sender: Any) {
@@ -58,6 +70,10 @@ class TrackPlayControlViewController: UIViewController {
         AudioServicesPlaySystemSound(1519)
         nextSwitch = false
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.prevSong, object: nil)
+        
+        //Streaming Positioning
+        elapsed.text = "00:00"
+        //TODO set duration & progress bar
     }
     
     @IBAction func nextButton(_ sender: Any) {
@@ -87,7 +103,84 @@ extension TrackPlayControlViewController{
         label.isUserInteractionEnabled = false
   }
 
+    // Start: positioning via streaming
     func playPause () {
+        if(currentTrack == nil){return}
+        if(nextSwitch)
+        {UIView.animate(withDuration: 0.3, animations: {
+            self.playPauseButton.alpha = 0.3
+        }, completion: {(finished) in
+            if(currentTrack?.isPlaying)!{
+                self.playPauseButton.setImage(UIImage(named: "pause"), for: .normal)
+                self.playPauseButton.setImage(UIImage(named: "pausePressed"), for: .highlighted)
+            }else{
+                self.playPauseButton.setImage(UIImage(named: "play"), for: .normal)
+                self.playPauseButton.setImage(UIImage(named: "playPressed"), for: .highlighted)
+            }
+            UIView.animate(withDuration: 0.2, animations:{
+                self.playPauseButton.alpha = 1.0
+            },completion:nil)
+        })}
+        
+    }
+    
+    func setPlayPause(){
+        if((currentTrack?.isPlaying)!){
+            self.playPauseButton.setImage(UIImage(named: "pause"), for: .normal)
+            self.playPauseButton.setImage(UIImage(named: "pausePressed"), for: .highlighted)
+        }else{
+            self.playPauseButton.setImage(UIImage(named: "play"), for: .normal)
+            self.playPauseButton.setImage(UIImage(named: "playPressed"), for: .highlighted)
+        }
+    }
+    
+    func updateDuration() {
+        if(currentAdmin){
+            
+            var durationTime: String{
+                let formatter = DateFormatter()
+                formatter.dateFormat = "mm:ss"
+                let date = Date(timeIntervalSince1970: currentTrackPosition)
+                return formatter.string(from: date)
+            }
+            
+            self.elapsed.text = durationTime
+            //TODO set duration & progress bar
+        }
+        else{
+            if(currentTrack == nil){return}
+            if (currentTrack?.isPlaying)!{
+                
+                resetTimer()
+                
+                var position: TimeInterval = (currentTrack?.playbackStatus?.position)!
+                
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                    
+                    var durationTime: String{
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "mm:ss"
+                        let date = Date(timeIntervalSince1970: position)
+                        return formatter.string(from: date)
+                    }
+                    
+                    self.elapsed.text = durationTime
+                    //TODO set duration & progress bar
+                    
+                })
+            } else {
+                resetTimer()}
+        } }
+    
+    func resetTimer() {
+        if timer != nil{
+            timer.invalidate()
+            timer = nil
+        }
+    }
+    
+    /* Alternative positioning with timers
+     func playPause () {
         if let currentTrack = currentTrack{
             if currentTrack.isPlaying{
                 self.playPauseButton.setImage(UIImage(named: "pause"), for: .normal)
@@ -143,7 +236,7 @@ extension TrackPlayControlViewController{
             timer.invalidate()
             timer = nil
         }
-    }
+    }*/
     
     
     func setupPositionSlider(){
