@@ -59,8 +59,10 @@ class SearchCell: UITableViewCell {
                 self.delegate?.showSuccess()
             }
         }
-
-        NotificationCenter.default.post(name: NSNotification.Name.Player.searchNewTrack, object: nil)
+        if(currentTrack != nil){
+            if !((currentTrack?.isPlaying)!)
+            {NotificationCenter.default.post(name: NSNotification.Name.Player.searchNewTrack, object: nil)}}
+        else{return}
     }
 
     override func awakeFromNib() {
