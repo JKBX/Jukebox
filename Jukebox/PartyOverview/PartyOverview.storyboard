@@ -436,20 +436,42 @@
                                         <action selector="deletePartyPressed:" destination="L5Y-fd-bda" eventType="touchUpInside" id="FQJ-UG-SfO"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DzR-bG-TLn" customClass="ButtonDesignable" customModule="Jukebox" customModuleProvider="target">
+                                    <rect key="frame" x="8" y="471" width="398" height="50"/>
+                                    <color key="backgroundColor" name="SolidGrey600"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="9gD-qE-GK7"/>
+                                        <constraint firstAttribute="height" constant="50" id="Jd8-j7-9RB"/>
+                                    </constraints>
+                                    <state key="normal" title="Save Party as Spotify Playlist">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="writePlaylistToSpotify:" destination="L5Y-fd-bda" eventType="touchUpInside" id="7HA-b2-f8K"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="2RI-la-fqE" firstAttribute="leading" secondItem="v5B-hi-MiQ" secondAttribute="leading" id="2PN-8y-cWG"/>
                                 <constraint firstItem="yaU-hC-G22" firstAttribute="width" secondItem="vbW-F0-JBB" secondAttribute="width" id="BzD-CW-q8H"/>
+                                <constraint firstItem="DzR-bG-TLn" firstAttribute="leading" secondItem="v5B-hi-MiQ" secondAttribute="leading" constant="8" id="FVV-lu-yPg"/>
                                 <constraint firstItem="yaU-hC-G22" firstAttribute="bottom" secondItem="v5B-hi-MiQ" secondAttribute="bottomMargin" id="HIL-uw-56v"/>
                                 <constraint firstItem="giF-Yh-Aij" firstAttribute="width" secondItem="vbW-F0-JBB" secondAttribute="width" id="Kic-dw-OX3"/>
                                 <constraint firstItem="vbW-F0-JBB" firstAttribute="leading" secondItem="v5B-hi-MiQ" secondAttribute="leadingMargin" id="Ldk-S0-e28"/>
                                 <constraint firstItem="2RI-la-fqE" firstAttribute="top" secondItem="v5B-hi-MiQ" secondAttribute="topMargin" id="Lgh-qe-vfd"/>
                                 <constraint firstItem="giF-Yh-Aij" firstAttribute="height" secondItem="vbW-F0-JBB" secondAttribute="height" id="MXH-yQ-hVs"/>
                                 <constraint firstItem="giF-Yh-Aij" firstAttribute="leading" secondItem="yaU-hC-G22" secondAttribute="leading" id="OUX-4K-RMv"/>
+                                <constraint firstAttribute="trailing" secondItem="DzR-bG-TLn" secondAttribute="trailing" constant="8" id="QaV-Un-F4v"/>
                                 <constraint firstAttribute="trailing" secondItem="2RI-la-fqE" secondAttribute="trailing" id="VRp-bR-8Y5"/>
                                 <constraint firstItem="giF-Yh-Aij" firstAttribute="top" secondItem="vbW-F0-JBB" secondAttribute="bottom" constant="8" symbolic="YES" id="Vrj-zh-U8v"/>
                                 <constraint firstItem="yaU-hC-G22" firstAttribute="height" secondItem="vbW-F0-JBB" secondAttribute="height" id="e0U-m4-TXH"/>
                                 <constraint firstItem="vbW-F0-JBB" firstAttribute="leading" secondItem="giF-Yh-Aij" secondAttribute="leading" id="m0Z-Ps-9B2"/>
+                                <constraint firstItem="vbW-F0-JBB" firstAttribute="top" secondItem="DzR-bG-TLn" secondAttribute="bottom" constant="8" id="ojg-Yp-bVY"/>
                                 <constraint firstAttribute="bottom" secondItem="2RI-la-fqE" secondAttribute="bottom" id="qrl-fI-cMf"/>
                                 <constraint firstItem="2RI-la-fqE" firstAttribute="centerX" secondItem="giF-Yh-Aij" secondAttribute="centerX" id="rhv-5H-RZN"/>
                                 <constraint firstItem="yaU-hC-G22" firstAttribute="top" secondItem="giF-Yh-Aij" secondAttribute="bottom" constant="41" id="uAj-2Z-D2l"/>
@@ -457,6 +479,9 @@
                         </view>
                         <blurEffect style="light"/>
                     </visualEffectView>
+                    <connections>
+                        <outlet property="playlistButton" destination="DzR-bG-TLn" id="gz3-2B-oTZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vrp-Hq-WiF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -513,6 +538,9 @@
         </namedColor>
         <namedColor name="SolidBlue500">
             <color red="0.19599999487400055" green="0.38400000333786011" blue="0.5690000057220459" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SolidGrey600">
+            <color red="0.30599999430000002" green="0.32899999619999998" blue="0.31799998880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SolidGrey600">
             <color red="0.3059999942779541" green="0.32899999618530273" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
