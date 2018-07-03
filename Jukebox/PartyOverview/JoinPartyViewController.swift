@@ -54,6 +54,10 @@ class JoinPartyViewController: UIViewController, UITextFieldDelegate {
         self.dismiss(animated: true, completion: nil)
     }
  
+   @IBAction func dismiss(_ sender: Any?){
+     self.dismiss(animated: true, completion: nil)
+   }
+ 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
