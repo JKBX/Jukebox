@@ -52,19 +52,6 @@ class SearchViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-//    func setupLikeTrackObserver(){
-//        ref.child("/Parties/\(currentParty)/queue/").observe(.childAdded, with: { (snapshot) in
-//            self.changeTrackSection(TrackModel(from: snapshot))
-//        })
-//    }
-//
-//    func changeTrackSection(_ track: TrackModel){
-//        if let existing = track.isIn(currentQueue){
-//            self.existingTracks.append(existing)
-//            self.foundTracks = self.foundTracks.filter { $0.trackId == existing.trackId}
-//        }
-//    }
 
     func searchTrackWithSpartanCall(track: String){
         Spartan.authorizationToken = SPTAuth.defaultInstance().session.accessToken
@@ -170,5 +157,26 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: SearchCellDelegate{
     func showSuccess() {
         performSegue(withIdentifier: "404", sender: self)
+    }
+}
+
+extension SearchViewController: QueueDelegate {
+    func childAdded(_ track: TrackModel) {
+        if let existing = track.isIn(foundTracks){
+            ref.child("/parties/\(currentParty)/queue/\(track.trackId)").observeSingleEvent(of: .value, with: { (snapshot) in
+                existing.voteCount = snapshot.childSnapshot(forPath: "votes").childrenCount + 1
+                })
+            self.existingTracks.append(existing)
+            self.foundTracks = self.foundTracks.filter { $0.trackId != existing.trackId}
+            tableView.reloadData()
+        }
+    }
+    
+    func childRemoved(_ track: TrackModel) {
+        if let existing = track.isIn(existingTracks){
+            self.foundTracks.append(existing)
+//            self.existingTracks = self.existingTracks.filter { $0.trackId == existing.trackId}
+            tableView.reloadData()
+        }
     }
 }

@@ -9,12 +9,19 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
+protocol QueueDelegate{
+    func childAdded(_ track: TrackModel)
+//    func childChanged(_ track: TrackModel)
+    func childRemoved(_ track: TrackModel)
+}
+
 class PartyPlaylistViewController: UIViewController {
 
     //MARK: Lifecycle
 
     @IBOutlet weak var tableView: UITableView!
     var ref: DatabaseReference! = Database.database().reference()
+    var queueDelegate: QueueDelegate?
     var miniPlayer: MiniPlayerViewController?
     let userID = Auth.auth().currentUser?.uid
 
@@ -39,6 +46,9 @@ class PartyPlaylistViewController: UIViewController {
         if let destination = segue.destination as? MiniPlayerViewController {
             miniPlayer = destination
             miniPlayer?.delegate = self
+        }
+        if let destination = segue.destination as? SearchViewController {
+            queueDelegate = destination as QueueDelegate
         }
     }
 
@@ -68,6 +78,9 @@ class PartyPlaylistViewController: UIViewController {
         let index = getIndex(of: changedTrack)
         self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
         self.tableView.reloadData()
+        if let queueDelegate = queueDelegate{
+            queueDelegate.childAdded(changedTrack)
+        }
     }
 
     func onChildChanged(_ changedTrack: TrackModel) {
@@ -81,7 +94,9 @@ class PartyPlaylistViewController: UIViewController {
             currentQueue = sortedQueue
         }
         self.tableView.reloadData()
-
+//        if let queueDelegate = queueDelegate{
+//            queueDelegate.childChanged(changedTrack)
+//        }
     }
 
     func onChildRemoved(_ changedTrack: TrackModel) {
@@ -89,6 +104,9 @@ class PartyPlaylistViewController: UIViewController {
         currentQueue.remove(at: index)
         self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: UITableViewRowAnimation.left)
         self.tableView.reloadData()
+        if let queueDelegate = queueDelegate{
+            queueDelegate.childRemoved(changedTrack)
+        }
     }
 
     func onCurrentTrackChanged(_ snapshot: DataSnapshot) {
