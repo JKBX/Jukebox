@@ -34,7 +34,6 @@ class SearchCell: UITableViewCell {
         accessoryButton.addTarget(self, action: #selector(prepareAndAddToFirebase), for: .touchUpInside)
         
         self.accessoryView = accessoryButton
-        
     }
     
     @objc func prepareAndAddToFirebase(){
@@ -60,8 +59,8 @@ class SearchCell: UITableViewCell {
                 self.delegate?.showSuccess()
             }
         }
-        NotificationCenter.default.post(name: NSNotification.Name.Player.searchNewTrack, object: nil)
 
+        NotificationCenter.default.post(name: NSNotification.Name.Player.searchNewTrack, object: nil)
     }
 
     override func awakeFromNib() {

@@ -17,9 +17,8 @@ protocol TrackCellDelegate{
 
 class TrackCell: UITableViewCell {
 
-    //var delegate: TrackCellDelegate?
-    //var trackID: String = ""
-    var track:TrackModel?
+    var track: TrackModel?
+    var label: UILabel?
     var partyRef: DatabaseReference?
 
     @IBOutlet weak var voteCountLabel: UILabel!
@@ -33,36 +32,34 @@ class TrackCell: UITableViewCell {
             self.setNeedsLayout()
         })
 
-        let label = UILabel(frame: CGRect(x: UIScreen.main.bounds.width - 48, y: 40, width: 32, height: 24))
-        label.text =  String(track.voteCount)//"I'am a test label"
-        label.textAlignment = .right
-        label.textColor = .white
-        label.font.withSize(8)
-        self.contentView.addSubview(label)
-        
+        label = UILabel(frame: CGRect(x: UIScreen.main.bounds.width - 48, y: 40, width: 32, height: 24))
+        label!.text = String(track.voteCount)
+        label!.textAlignment = .right
+        label!.textColor = .white
+        label!.font.withSize(8)
+        label!.backgroundColor = UIColor(named: "SolidGrey800")
+
+        self.contentView.addSubview(label!)
+
         let accessoryButton: UIButton = UIButton(frame: CGRect(x: 24, y: 24, width: 24, height: 24))
         accessoryButton.setImage(UIImage(named: track.liked ? "favorite" : "favoriteOutline"), for: .normal)
         accessoryButton.addTarget(self, action: #selector(toggleLike), for: .touchUpInside)
+
         self.accessoryView = accessoryButton
     }
 
     @objc func toggleLike(){
-
         let userId = Auth.auth().currentUser?.uid as! String
         let voteRef = self.partyRef?.child("/queue/\(track?.trackId as! String)/votes/\(userId as String)")
         if (track?.liked)!{
-            //Unlike
             voteRef?.removeValue()
         } else {
-            //Like
             voteRef?.setValue(true)
         }
-        //delegate?.likedTrack(trackID: trackID)
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.imageView?.image = UIImage(named: "coverImagePlaceholder")
-        // Initialization code
     }
 }

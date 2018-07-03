@@ -56,15 +56,11 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
         }
     }
     
-    //PartyPicStorage
     func uploadPartyPicture(for partyId: String, completion: @escaping (_ path: String)->Void) -> Void {
-        // Get a reference to the storage service using the default Firebase App
         let storage = Storage.storage()
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-        let picture:Data = UIImageJPEGRepresentation(partyImage.image!, 0.2)! as Data
-
-        // Create a storage reference from our storage service
+        let picture: Data = UIImageJPEGRepresentation(partyImage.image!, 0.2)! as Data
         let pictureRef = storage.reference().child("/partyImages/\(partyId).jpg")
         _ = pictureRef.putData(picture, metadata: metadata) { (metadata, error) in
             guard let metadata = metadata else { completion(""); return }
@@ -115,19 +111,7 @@ class CreatePartyViewController: UIViewController, UITextFieldDelegate, UINaviga
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension UIToolbar {
@@ -212,7 +196,6 @@ extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelega
     
     func setupPlaylistPicker() {
         picker.backgroundColor = UIColor.darkGray
-        //self.setValue(UIColor.white, forKey: "text")
         picker.dataSource = self
         picker.delegate = self
         self.loadPlaylists(nil)
@@ -222,7 +205,6 @@ extension CreatePartyViewController:  UIPickerViewDataSource, UIPickerViewDelega
     }
     
     func loadPlaylists(_ page: SPTListPage?) -> Void {
-        // Load Playlist Data
         let user = SPTAuth.defaultInstance().session.canonicalUsername
         let accessToken = SPTAuth.defaultInstance().session.accessToken
         let callback:SPTRequestCallback = {(error, data) in

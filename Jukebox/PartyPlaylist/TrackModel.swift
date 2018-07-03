@@ -29,7 +29,11 @@ class TrackModel{
         self.songName = snapshot.childSnapshot(forPath: "songTitle").value as! String
         self.artist = snapshot.childSnapshot(forPath: "artist").value as! String
         self.album = snapshot.childSnapshot(forPath: "albumTitle").value as! String
-        self.coverUrl = URL(string: snapshot.childSnapshot(forPath: "coverURL").value as! String)!
+        if(snapshot.childSnapshot(forPath: "coverURL").value as! String != nil){
+            self.coverUrl = URL(string: snapshot.childSnapshot(forPath: "coverURL").value as! String)!
+        } else {
+            self.coverUrl = URL(string: "https://roadiecrew.com.br/wp-content/plugins/apmap/source/data/default_artwork/music_ph.png")
+        }
         self.liked = snapshot.childSnapshot(forPath: "votes/\(userId)").exists()
         self.voteCount = snapshot.childSnapshot(forPath: "votes").childrenCount
         self.isPlaying = snapshot.hasChild("isPlaying") ? snapshot.childSnapshot(forPath: "isPlaying").value as! Bool : false
@@ -55,7 +59,11 @@ class TrackModel{
         }
         self.artist.removeLast(2)
         self.album = track.album.name as! String
-        self.coverUrl = URL(string: (track.album.images.first?.url)!)
+        if(track.album.images.first?.url != nil){
+            self.coverUrl = URL(string: (track.album.images.first?.url)!)
+        } else {
+            self.coverUrl = URL(string: "https://roadiecrew.com.br/wp-content/plugins/apmap/source/data/default_artwork/music_ph.png")
+        }
         self.liked = false
         self.voteCount = nil
         self.duration = track.durationMs
@@ -69,4 +77,10 @@ class TrackModel{
         }
         return nil
     }
+    
+//    func removeTrackFromTracklist(trackToRemove: TrackModel, trackList: [TrackModel]) -> [TrackModel]{
+//        trackList.getIndex
+//        let tracklist = trackList.filter { (value) -> Bool in trackList(_, "trackId") == trackToRemove.trackId }
+//        return tracklist
+//    }
 }
