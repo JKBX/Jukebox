@@ -35,19 +35,31 @@ class MiniPlayerViewController: UIViewController{
         marqueeLabelMiniPlayer(MarqueeLabel: songTitle)
         userTriggeredButton(isAdmin: currentAdmin)
         timer = Timer.init()
-        playPauseButton()
         lastSongPlayed()
         newTrackViaSearch()
+        setBroadcastingUpdateImage()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         playPause.adjustsImageWhenHighlighted = false
 
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.broadcast, object: nil, queue: nil) { (_) in
-            if isBroadcasting {
-                self.broadcastingButton.setImage(UIImage(named: "baseline_volume_up_white_36pt"), for: .normal)
-            } else {
-                self.broadcastingButton.setImage(UIImage(named: "baseline_volume_off_white_36pt"), for: .normal)
+            print(broadcasting)
+            switch broadcasting {
+            case .active:
+                print("active")
+                self.broadcastingButton.isEnabled = true
+                self.broadcastingButton.setImage(UIImage(named: "broadcastingActive"), for: .normal)
+                self.broadcastingButton.setImage(UIImage(named: "broadcastingActivePressed"), for: .highlighted)
+                
+            case .updating:
+                self.broadcastingButton.isEnabled = false
+                
+            case .inactive:
+                print("inactive")
+                self.broadcastingButton.isEnabled = true
+                self.broadcastingButton.setImage(UIImage(named: "broadcastingInactive"), for: .normal)
+                self.broadcastingButton.setImage(UIImage(named: "broadcastingInactivePressed"), for: .highlighted)
             }
         }
     }
@@ -68,15 +80,6 @@ class MiniPlayerViewController: UIViewController{
 
     @IBAction func broadcast(_ sender: Any) {
         NotificationCenter.default.post(name: NSNotification.Name.Spotify.broadcast, object: nil)
-       /* if(!isBroadcasting){
-            NotificationCenter.default.post(name: NSNotification.Name.Spotify.startBroadcast, object: nil)
-            //broadcastingButton.setImage(UIImage(named: "baseline_volume_off_white_36pt"), for: .normal)
-        }else{
-            NotificationCenter.default.post(name: NSNotification.Name.Spotify.stopBroadcast, object: nil)
-            //broadcastingButton.setImage(UIImage(named: "baseline_volume_up_white_36pt"), for: .normal)
-
-        }*/
-        //isBroadcasting = !isBroadcasting
     }
 
 }
@@ -93,6 +96,7 @@ extension MiniPlayerViewController{
     func update() {
         if(currentTrack != nil){
             updateProgressBar()
+            updatePlayButton()
             setting()
             triggerSpotifyLogin = true
             }
@@ -113,6 +117,10 @@ extension MiniPlayerViewController{
             })
         } else {
             resetTimer()
+            let duration:Float = Float((currentTrack?.duration)!)
+            let delay = NSDate.timeIntervalSinceReferenceDate - (currentTrack?.playbackStatus?.time)!
+            let elapsed: Float =  Float(((currentTrack?.playbackStatus?.position)! + delay) * 1000)
+            self.progressView.setProgress(elapsed/duration, animated: true)
         }
     }
 
@@ -143,7 +151,7 @@ extension MiniPlayerViewController{
 extension MiniPlayerViewController{
 
     @IBAction func tapGesturee(_ sender: Any) {
-        if ((currentTrack != nil) && (currentAdmin || isBroadcasting) && triggerSpotifyLogin) {
+        if ((currentTrack != nil) && (currentAdmin || broadcasting == .active) && triggerSpotifyLogin) {
             delegate?.expandSong()
         }
     }
@@ -155,32 +163,10 @@ extension MiniPlayerViewController{
     }
 
     @objc func swipeGesture(){
-        if ((currentTrack != nil) && (currentAdmin || isBroadcasting) && triggerSpotifyLogin) {
+        if ((currentTrack != nil) && (currentAdmin || broadcasting == .active) && triggerSpotifyLogin) {
             delegate?.expandSong()
         }
     }
-    //        FOR BROADCASTING:
-
-//    func streamCurrentPosition(){
-//        self.resetTimer()
-//        if(currentTrack == nil){
-//            self.resetTimer()
-//            return}
-//        if(currentAdmin){
-//            timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (timer) in
-//                self.currentPositionForFirebase()
-//            })
-//        } else {
-//            resetTimer()
-//
-//        }
-//    }
-//    func currentPositionForFirebase(){
-//        if(currentAdmin){let ref = Database.database().reference().child("/parties/\(currentParty)")
-//            ref.child("/currentlyPlaying").child("isPosition").setValue(currentTrackPosition)}
-//        else{return}
-//    }
-
 }
 
 extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
@@ -213,27 +199,22 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
             }}
     }
 
-    func playPauseButton(){
-
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.isPlay, object: nil, queue: nil) { (note) in
-            self.triggerSpotifyLogin = true
-            if(currentTrack == nil){self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-                return
+    func updatePlayButton(){
+        self.triggerSpotifyLogin = true
+        if let currentTrack = currentTrack{
+            if currentTrack.isPlaying{
+                self.playPause.setImage(UIImage(named: "pause"), for: .normal)
+                self.playPause.setImage(UIImage(named: "pausePressed"), for: .highlighted)
+            }else{
+                self.playPause.setImage(UIImage(named: "play"), for: .normal)
+                self.playPause.setImage(UIImage(named: "playPressed"), for: .highlighted)
             }
-            UIView.animate(withDuration: 0.3, animations: {
-                self.playPause.alpha = 0.3
-            }, completion: {(finished) in
-                if(currentTrack?.isPlaying)!{
-                    self.playPause.setImage(UIImage(named: "baseline_pause_circle_outline_white_36pt"), for: .normal)
-                }else{
-                    self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
-                }
-                UIView.animate(withDuration: 0.2, animations:{
-                    self.playPause.alpha = 1.0
-                },completion:nil)
-            })
+        } else{
+            self.playPause.setImage(UIImage(named: "play"), for: .normal)
+            self.playPause.setImage(UIImage(named: "playPressed"), for: .highlighted)
         }
     }
+    
     func lastSongPlayed(){
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.lastSong, object: nil, queue: nil) { (note) in
             self.songTitle.text = "Last Song! Add Songs!"
@@ -249,12 +230,15 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     func newTrackViaSearch (){
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.searchNewTrack, object: nil, queue: nil) { (note) in
             self.playPause.isEnabled = true
-            self.playPause.setImage(UIImage(named: "baseline_play_circle_outline_white_36pt"), for: .normal)
+            self.playPause.setImage(UIImage(named: "play"), for: .normal)
 
         }
 
     }
-
-
-
+    
+    func setBroadcastingUpdateImage() {
+        let images: [UIImage] = [UIImage(named: "broadcastingUpdate1")!,UIImage(named: "broadcastingUpdate2")!,UIImage(named: "broadcastingUpdate3")!]
+        self.broadcastingButton.setImage(UIImage.animatedImage(with: images, duration: 1.0), for: UIControlState.disabled)
+    }
+    
 }
