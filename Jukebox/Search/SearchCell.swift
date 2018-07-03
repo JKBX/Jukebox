@@ -59,9 +59,9 @@ class SearchCell: UITableViewCell {
                 self.delegate?.showSuccess()
             }
         }
-        if(currentTrack != nil){
-            if !((currentTrack?.isPlaying)!)
-            {NotificationCenter.default.post(name: NSNotification.Name.Player.searchNewTrack, object: nil)}}
+        if(!triggerLastSong){
+            
+            NotificationCenter.default.post(name: NSNotification.Name.Player.searchNewTrack, object: nil)}
         else{return}
     }
 

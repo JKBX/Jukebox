@@ -222,6 +222,7 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
             self.triggerSpotifyLogin = false
             self.thumbImage.image = UIImage(named: "SpotifyLogoWhite")
             self.progressView.isHidden = true
+            triggerLastSong = false
             self.playPause.isEnabled = false
             currentTrack?.isPlaying = false
             currentTrack = nil
@@ -230,6 +231,7 @@ extension MiniPlayerViewController: ExpandedTrackSourceProtocol{
     func newTrackViaSearch (){
         NotificationCenter.default.addObserver(forName: NSNotification.Name.Player.searchNewTrack, object: nil, queue: nil) { (note) in
             self.playPause.isEnabled = true
+            triggerLastSong = true
             self.playPause.setImage(UIImage(named: "play"), for: .normal)
 
         }
