@@ -35,9 +35,10 @@ extension MainViewController{
         var customStyle = VolumeBarStyle.likeInstagram
         customStyle.trackTintColor = .black
         customStyle.progressTintColor = .white
-        customStyle.backgroundColor = UIColor(named: "SolidGrey800")!
+        customStyle.backgroundColor = UIColor(named: "SolidGrey700")!
         volumeBar.style = customStyle
         volumeBar.start()
+        UIApplication.shared.statusBarStyle = .lightContent
     }
 }
 
