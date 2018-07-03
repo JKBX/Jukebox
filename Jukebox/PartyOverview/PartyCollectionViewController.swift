@@ -130,6 +130,14 @@ class PartyCollectionViewController: UICollectionViewController {
         }
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PartyCollectionViewCell
+        cell.backgroundColor = UIColor(named: "SolidGrey700")
+        cell.Image.image = UIImage(named: "addPressed")
+        cell.Label.text = "Party Name"
+        cell.PartyID = "Automatically generated PartyId"
+    }
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
