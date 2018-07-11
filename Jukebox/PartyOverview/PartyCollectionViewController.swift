@@ -44,7 +44,10 @@ class PartyCollectionViewController: UICollectionViewController {
     func getParties(for uid: String) -> Void {
         ref.child("users/\(uid)/parties").observe(.value) { (snapshot) in
             self.hostParties = []
+            self.hostPartyIds = []
             self.guestParties = []
+            self.guestPartyIds = []
+            
             let parties = snapshot.value as? NSDictionary
             parties?.forEach({ (arg: (key: Any, value: Any)) in
                 let (key, value) = arg
